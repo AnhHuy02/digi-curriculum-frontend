@@ -7,11 +7,8 @@ import Link from "src/components/_Shared/Link";
 
 const Header = () => {
   return (
-    <AppBar
-      position="fixed"
-      sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
-    >
-      <Toolbar>
+    <AppBar position="static" elevation={0} sx={{ zIndex: 200 }}>
+      <Toolbar variant="dense">
         <Typography variant="h6" noWrap component="div" flexGrow={1}>
           <Link href="/" underline="none" color="white">
             Digi Curriculum
