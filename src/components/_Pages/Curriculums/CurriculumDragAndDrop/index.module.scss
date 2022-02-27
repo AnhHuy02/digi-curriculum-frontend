@@ -1,0 +1,22 @@
+.split-pane__container {
+  .split {
+    display: flex;
+    flex-direction: row;
+
+    :global .gutter {
+      background-color: #eee;
+      background-repeat: no-repeat;
+      background-position: 50%;
+      height: 100vh;
+
+      &:hover {
+        background-color: rgb(180, 180, 180);
+      }
+    }
+
+    :global .gutter.gutter-horizontal {
+      background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==");
+      cursor: col-resize;
+    }
+  }
+}

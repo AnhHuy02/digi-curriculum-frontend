@@ -12,7 +12,7 @@ import MailIcon from "@mui/icons-material/Mail";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import LocalLibraryIcon from "@mui/icons-material/LocalLibrary";
 import WorkOutlinedIcon from "@mui/icons-material/WorkOutlined";
-import DashboardIcon from '@mui/icons-material/Dashboard';
+import DashboardIcon from "@mui/icons-material/Dashboard";
 
 import Link from "src/components/_Shared/Link";
 
@@ -61,12 +61,12 @@ const Sidebar = () => {
               <ListItemText primary={"Faculty"} />
             </ListItem>
           </Link>
-          <Link href="/syllabus" underline="none">
-            <ListItem button key={"syllabus"}>
+          <Link href="/curriculums" underline="none">
+            <ListItem button key={"curriculums"}>
               <ListItemIcon>
                 <InboxIcon />
               </ListItemIcon>
-              <ListItemText primary={"Syllabus"} />
+              <ListItemText primary={"Curriculums"} />
             </ListItem>
           </Link>
         </List>
@@ -80,14 +80,6 @@ const Sidebar = () => {
               <ListItemText primary={"Statistics"} />
             </ListItem>
           </Link>
-          {/* {["All mail", "Trash", "Spam"].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))} */}
         </List>
       </Box>
     </Drawer>

@@ -6,10 +6,12 @@ import { AppProps } from "next/app";
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { CacheProvider, EmotionCache } from "@emotion/react";
+import { Provider as StoreProvider } from "react-redux";
 
 import DashboardLayout from "src/components/_Layout/DashboardLayout";
 import theme from "../src/constants/theme";
 import createEmotionCache from "../src/helper/createEmotionCache";
+import { store } from "../src/redux/_store";
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
@@ -38,18 +40,20 @@ const MyApp = (props: MyAppProps) => {
     ((page) => <DashboardLayout>{page}</DashboardLayout>);
 
   return getLayout(
-    <CacheProvider value={emotionCache}>
-      <Head>
-        <title>{pageTitle ?? "Digi Curriculum"}</title>
-        <link rel="shortcut icon" href="/favicon.ico" />
-        <meta name="viewport" content="initial-scale=1, width=device-width" />
-      </Head>
-      <ThemeProvider theme={theme}>
-        {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-        <CssBaseline />
-        <Component {...pageProps} />
-      </ThemeProvider>
-    </CacheProvider>
+    <StoreProvider store={store}>
+      <CacheProvider value={emotionCache}>
+        <Head>
+          <title>{pageTitle ?? "Digi Curriculum"}</title>
+          <link rel="shortcut icon" href="/favicon.ico" />
+          <meta name="viewport" content="initial-scale=1, width=device-width" />
+        </Head>
+        <ThemeProvider theme={theme}>
+          {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+          <CssBaseline />
+          <Component {...pageProps} />
+        </ThemeProvider>
+      </CacheProvider>
+    </StoreProvider>
   );
 };
 
