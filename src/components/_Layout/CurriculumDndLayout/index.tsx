@@ -13,9 +13,9 @@ interface ICurriculumDndLayout {
 
 const CurriculumDndLayout: FC<ICurriculumDndLayout> = (props) => {
   return (
-    <Box>
+    <Box display={"flex"} flexDirection={"column"}>
       <Header />
-      <Box component="main">
+      <Box component="main" sx={{ height: "fit-content" }}>
         <Particles
           id="tsparticles"
           // init={particlesInit}

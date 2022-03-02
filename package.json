@@ -19,6 +19,7 @@
     "@mui/material": "^5.4.3",
     "@mui/x-data-grid": "^5.5.1",
     "@reduxjs/toolkit": "^1.7.2",
+    "@tisoap/react-flow-smart-edge": "^0.4.3",
     "axios": "^0.26.0",
     "d3": "^7.3.0",
     "faker": "^6.6.6",
@@ -34,7 +35,8 @@
     "react-spaces": "^0.3.2",
     "react-split": "^2.0.14",
     "react-tsparticles": "^1.41.5",
-    "sass": "^1.49.9"
+    "sass": "^1.49.9",
+    "ts-graphviz": "^0.16.0"
   },
   "devDependencies": {
     "@types/node": "^17.0.21",
