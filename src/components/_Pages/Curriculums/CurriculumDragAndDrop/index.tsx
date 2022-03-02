@@ -18,19 +18,17 @@ interface DiagramPaneProps {
 const DiagramPane = (props: DiagramPaneProps) => {
   const { viewMode } = props;
 
-  return (
-    <Box>
+  return viewMode === DiagramType.NONE ? null : (
+    <Box sx={{ width: "inherit" }}>
       {viewMode === DiagramType.DEFAULT && <DiagramBeautiful />}
       {viewMode === DiagramType.DOT && <DiagramDot />}
-      {viewMode === DiagramType.NONE && (
-        <></>
-      )}
     </Box>
   );
 };
 
 const CurriculumDragAndDrop = () => {
   const { diagramViewMode } = useAppSelector((store) => store.curriculums);
+  
   return (
     <Box>
       <DndToolbar />
@@ -38,10 +36,14 @@ const CurriculumDragAndDrop = () => {
         sx={{ height: "75vh", width: "100%" }}
         className={style["split-pane__container"]}
       >
-        <Split minSize={250} className={style["split"]}>
+        {diagramViewMode !== DiagramType.NONE ? (
+          <Split minSize={250} className={style["split"]}>
+            <DndPane />
+            <DiagramPane viewMode={diagramViewMode} />
+          </Split>
+        ) : (
           <DndPane />
-          <DiagramPane viewMode={diagramViewMode} />
-        </Split>
+        )}
       </Box>
     </Box>
   );
