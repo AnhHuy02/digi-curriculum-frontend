@@ -2,8 +2,11 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Divider from "@mui/material/Divider";
 
-import ViewDiagramButton from "./ViewDiagramButton";
+import ViewButton from "./ViewButton";
 import ExportButton from "./ExportButton";
+import SaveButton from "./SaveButton";
+import RandomButton from "./RandomButton";
+import ResetButton from "./ResetButton";
 
 const DndToolbar = () => {
   return (
@@ -16,12 +19,24 @@ const DndToolbar = () => {
         },
       }}
     >
-      <Box>
-        <ViewDiagramButton />
+      <Box className="toolbar--left" flexGrow={0}></Box>
+      <Box mr={0.5}>
+        <RandomButton />
       </Box>
-      <Divider orientation="vertical" variant="middle" flexItem />
+      <Box>
+        <ViewButton />
+      </Box>
+
+      <Box className="toolbar--right" flexGrow={1}></Box>
       <Box>
         <ExportButton />
+      </Box>
+      <Divider orientation="vertical" variant="middle" flexItem />
+      <Box mr={0.5}>
+        <ResetButton />
+      </Box>
+      <Box>
+        <SaveButton />
       </Box>
     </Toolbar>
   );

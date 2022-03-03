@@ -1,49 +1,15 @@
-import type { Moment } from "moment";
+import type { PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "./_store";
+import type {
+  ICurriculumItemSimple,
+  ICurriculumItemDetail,
+} from "src/types/curriculum.type";
 
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 import { CurriculumDiagramType } from "src/constants/curriculumDiagramType";
 
-// import {
-//   getBuildingsByProject,
-//   getBuildingsByAddress,
-//   getBuildingsByPolygon,
-// } from "src/api/reisq.API";
-
 //#region STATE
-interface ICurriculumItemSimple {
-  id: string;
-  year: number;
-  programType?: string;
-  major: string;
-  subMajor?: string | null;
-  englishLevel?: string | null;
-}
-
-interface ICurriculumItemYear {
-  id: string;
-  semesters: {
-    [semId: string]: ICurriculumItemSemester;
-  };
-  semestersOrder: string[];
-}
-
-interface ICurriculumItemSemester {
-  id: string;
-  courseIds: string[];
-}
-
-interface ICurriculumItemDetail extends ICurriculumItemSimple {
-  semCountPerYear: number;
-  years: {
-    [yearId: string]: ICurriculumItemYear;
-  };
-  yearsOrder: number[];
-}
-
-// export type DiagramViewMode = "none" | "default" | "dot";
-
 interface ICurriculumState {
   curriculums: ICurriculumItemSimple[];
   curriculumDetail: ICurriculumItemDetail | null;
@@ -53,7 +19,7 @@ interface ICurriculumState {
 const initialState: ICurriculumState = {
   curriculums: [],
   curriculumDetail: null,
-  diagramViewMode: CurriculumDiagramType.DOT,
+  diagramViewMode: CurriculumDiagramType.NONE,
 };
 //#endregion
 
@@ -164,26 +130,26 @@ const initialState: ICurriculumState = {
 //#endregion
 
 //#region SLICE
-export const transactionSearchQuerySlice = createSlice({
+export const curriculumSlice = createSlice({
   name: "curriculums",
   initialState: initialState,
   reducers: {
-    // setLoading: (state, action) => {
-    //   state.loading = action.payload;
-    // },
-    // setError: (state, action) => {
-    //   state.error = action.payload;
-    // },
-    // setBuildingColumns: (state, action) => {
-    //   state.buildingColumns = action.payload;
-    // },
-    // setBuildings: (state, action) => {
-    //   state.buildings = action.payload;
-    // },
-    setDiagramViewMode: (state, action) => {
+    setCurriculums: (state, action: PayloadAction<ICurriculumItemSimple[]>) => {
+      state.curriculums = action.payload;
+    },
+    setCurriculumDetail: (
+      state,
+      action: PayloadAction<ICurriculumItemDetail>
+    ) => {
+      state.curriculumDetail = action.payload;
+    },
+    setDiagramViewMode: (
+      state,
+      action: PayloadAction<CurriculumDiagramType>
+    ) => {
       state.diagramViewMode = action.payload;
     },
-    resetState: (state, action) => {
+    resetState: (state) => {
       state = initialState;
     },
   },
@@ -216,11 +182,10 @@ export const transactionSearchQuerySlice = createSlice({
 });
 //#endregion
 
-export const { setDiagramViewMode, resetState } =
-  transactionSearchQuerySlice.actions;
+export const { setDiagramViewMode, resetState } = curriculumSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type
 export const diagramViewMode = (state: RootState) =>
   state.curriculums.diagramViewMode;
 
-export default transactionSearchQuerySlice.reducer;
+export default curriculumSlice.reducer;
