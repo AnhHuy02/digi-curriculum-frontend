@@ -5,16 +5,18 @@ import { styled, alpha } from "@mui/material/styles";
 import { blueGrey, blue, grey } from "@mui/material/colors";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
+import ListSubheader from "@mui/material/ListSubheader";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuList from "@mui/material/MenuList";
 import MenuItem from "@mui/material/MenuItem";
 import Divider from "@mui/material/Divider";
+import Typography from "@mui/material/Typography";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import CheckIcon from "@mui/icons-material/Check";
 
 import { useAppDispatch, useAppSelector } from "src/hooks/useStore";
-import { setDiagramViewMode } from "src/redux/curriculums";
+import { setDiagramViewMode } from "src/redux/curriculums.slice";
 import { CurriculumDiagramType } from "src/constants/curriculumDiagramType";
 
 const StyledMenu = styled((props: MenuProps) => (
@@ -65,24 +67,6 @@ interface IViewDiagramMenuItem {
   title: string;
 }
 
-const menuItems = [
-  {
-    id: CurriculumDiagramType.NONE,
-    title: "None",
-    divider: true,
-  },
-  {
-    id: CurriculumDiagramType.DEFAULT,
-    title: "Default",
-    divider: false,
-  },
-  {
-    id: CurriculumDiagramType.DOT,
-    title: "Dot",
-    divider: false,
-  },
-];
-
 const ExportButton = () => {
   const dispatch = useAppDispatch();
   const { diagramViewMode } = useAppSelector((store) => store.curriculums);
@@ -98,7 +82,7 @@ const ExportButton = () => {
     event: React.MouseEvent<HTMLLIElement, MouseEvent>
   ) => {
     const id = event.currentTarget.id;
-    dispatch(setDiagramViewMode(id));
+    dispatch(setDiagramViewMode(id as CurriculumDiagramType));
     closeMenu();
   };
 
@@ -113,7 +97,7 @@ const ExportButton = () => {
           <ListItemIcon>
             <CheckIcon />
           </ListItemIcon>
-          {title}
+          <Typography sx={{ fontWeight: 600 }}>{title}</Typography>
         </MenuItem>
       );
     } else {
@@ -146,7 +130,7 @@ const ExportButton = () => {
         onClick={openMenu}
         endIcon={<KeyboardArrowDownIcon />}
       >
-        View Diagram
+        View
       </Button>
       <StyledMenu
         id="view-diagram-menu"
@@ -158,12 +142,23 @@ const ExportButton = () => {
         onClose={closeMenu}
       >
         <MenuList dense>
+          <ListSubheader>Curriculum</ListSubheader>
+          <MenuItem disabled>
+            <ListItemIcon>
+              <CheckIcon />
+            </ListItemIcon>
+            By Year
+          </MenuItem>
+          <MenuItem disabled>
+            <ListItemText inset primary="By Semester" />
+          </MenuItem>
+          <Divider />
+          <ListSubheader>Diagram</ListSubheader>
           <MenuItemWithCondition
             key={CurriculumDiagramType.NONE}
             id={CurriculumDiagramType.NONE}
             title="None"
           />
-          <Divider />
           <MenuItemWithCondition
             key={CurriculumDiagramType.DEFAULT}
             id={CurriculumDiagramType.DEFAULT}

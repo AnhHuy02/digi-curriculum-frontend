@@ -13,8 +13,12 @@ import ReactFlow, {
   Edge,
   Connection,
 } from "react-flow-renderer";
+import { SmartEdge, SmartEdgeProvider } from "@tisoap/react-flow-smart-edge";
 
-import { initialElements } from "src/helper/mockDataGenerator/reactFlowData";
+import {
+  initialElements,
+  initialElements2,
+} from "src/helper/mockDataGenerator/reactFlowData";
 
 const onLoad: OnLoadFunc = (reactFlowInstance) => {
   console.log("flow loaded:", reactFlowInstance);
@@ -22,7 +26,7 @@ const onLoad: OnLoadFunc = (reactFlowInstance) => {
 };
 
 const DiagramBeautiful = () => {
-  const [elements, setElements] = useState<Elements>(initialElements);
+  const [elements, setElements] = useState<Elements>(initialElements2);
 
   const onElementsRemove = (elementsToRemove: Elements<any>) =>
     setElements((els) => removeElements(elementsToRemove, els));
@@ -39,27 +43,38 @@ const DiagramBeautiful = () => {
   // };
 
   return (
-    <Box sx={{ overflow: "hidden", width: "inherit", height: 1000, p: 3 }}>
-      asdasd
-      <ReactFlow
-        elements={elements}
-        onElementsRemove={onElementsRemove}
-        onConnect={onConnect}
-        onLoad={onLoad}
-        snapToGrid={true}
-        snapGrid={[15, 15]}
-      
+    <Box sx={{ overflow: "hidden", width: 1000, height: 1000, p: 3 }}>
+      <SmartEdgeProvider
+        options={{
+          debounceTime: 50,
+          nodePadding: 10,
+          gridRatio: 10,
+          lineType: "curve",
+          lessCorners: false,
+        }}
       >
-        <MiniMap
-          nodeStrokeColor={"#191b19"}
-          nodeColor={(n) => {
-            return "#ff0015";
+        <ReactFlow
+          elements={elements}
+          onElementsRemove={onElementsRemove}
+          onConnect={onConnect}
+          onLoad={onLoad}
+          snapToGrid={true}
+          snapGrid={[15, 15]}
+          edgeTypes={{
+            smart: SmartEdge,
           }}
-          nodeBorderRadius={2}
-        />
-        <Controls />
-        <Background color="#aaa" gap={16} />
-      </ReactFlow>
+        >
+          <MiniMap
+            nodeStrokeColor={"#191b19"}
+            nodeColor={(n) => {
+              return "#ff0015";
+            }}
+            nodeBorderRadius={2}
+          />
+          <Controls />
+          <Background color="#aaa" gap={16} />
+        </ReactFlow>
+      </SmartEdgeProvider>
     </Box>
   );
 };
