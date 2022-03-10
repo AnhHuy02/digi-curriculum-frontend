@@ -7,7 +7,7 @@ import Link from "src/components/_Shared/Link";
 
 const Header = () => {
   return (
-    <AppBar position="static" elevation={0}>
+    <AppBar position="static" elevation={0} className={"page-layout__header"}>
       <Toolbar variant="dense">
         <Typography variant="h6" noWrap component="div" flexGrow={1}>
           <Link href="/" underline="none" color="white">

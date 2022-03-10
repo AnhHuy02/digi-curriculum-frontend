@@ -4,25 +4,20 @@ import { useEffect } from "react";
 
 import CurriculumDndLayout from "src/components/_Layout/CurriculumDndLayout";
 import CurriculumDragAndDrop from "src/components/_Pages/Curriculums/CurriculumDragAndDrop";
-// import { store } from "src/redux/_store";
-import { loadAllRandomMajors, loadAllRandomCourses } from "src/redux/courses.slice";
+import { initRandomCurriculumDetailPageData } from "src/redux/_thunks/coursesCurriculums.thunk";
 import { useAppDispatch } from "src/hooks/useStore";
 
 export const CurriculumCreatePage = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    // dispatch(loadAllRandomMajors({ min: 1, max: 15 }));
     initialize();
   }, []);
 
-  const initialize = async() => {
-    const response = await dispatch(loadAllRandomMajors({ min: 1, max: 15 }));
-    // const { allMajors, allMajorIds } = response.payload as any;
-    // console.log(re.payload)
-    dispatch(loadAllRandomCourses(response.payload as any))
-  }
-  
+  const initialize = async () => {
+    await dispatch(initRandomCurriculumDetailPageData());
+  };
+
   return <CurriculumDragAndDrop />;
 };
 

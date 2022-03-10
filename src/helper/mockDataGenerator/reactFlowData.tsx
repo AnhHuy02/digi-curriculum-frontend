@@ -99,6 +99,13 @@ export const initialElements: Elements = [
     label: "smooth step edge",
   },
   {
+    id: "6-e5",
+    source: "6",
+    target: "6",
+    type: "smoothstep",
+    label: "YEEEEEET",
+  },
+  {
     id: "e5-7",
     source: "5",
     target: "7",
@@ -243,6 +250,34 @@ export const initialElements2: Elements = [
     source: "2a",
     target: "2a",
     type: "smart",
+    arrowHeadType: ArrowHeadType.Arrow,
+  },
+];
+
+export const initialElements3: Elements = [
+  { id: "node1", data: { label: "Target" }, position: { x: 0, y: 0 } },
+  { id: "node2", data: { label: "Source" }, position: { x: 0, y: 200 } },
+  { id: "node3", data: { label: "Source" }, position: { x: 200, y: 200 } },
+  { id: "node4", data: { label: "Source" }, position: { x: 200, y: 0 } },
+  {
+    id: `edge-1`,
+    target: "node1",
+    source: `node2`,
+    type: "floating",
+    arrowHeadType: ArrowHeadType.Arrow,
+  },
+  {
+    id: `edge-2`,
+    target: "node1",
+    source: `node3`,
+    type: "floating",
+    arrowHeadType: ArrowHeadType.Arrow,
+  },
+  {
+    id: `edge-3`,
+    target: "node1",
+    source: `node4`,
+    type: "floating",
     arrowHeadType: ArrowHeadType.Arrow,
   },
 ];

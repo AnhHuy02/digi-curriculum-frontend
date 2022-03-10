@@ -1,10 +1,13 @@
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 
+import DndByYear from "./DndByYear";
+
 const DndPane = () => {
   return (
     <Box px={3}>
-      <Typography paragraph>
+      <DndByYear />
+      {/* <Typography paragraph>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
         tempor incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus
         non enim praesent elementum facilisis leo vel. Risus at ultrices mi
@@ -31,7 +34,7 @@ const DndPane = () => {
         Ornare aenean euismod elementum nisi quis eleifend. Commodo viverra
         maecenas accumsan lacus vel facilisis. Nulla posuere sollicitudin
         aliquam ultrices sagittis orci a.
-      </Typography>
+      </Typography> */}
     </Box>
   );
 };

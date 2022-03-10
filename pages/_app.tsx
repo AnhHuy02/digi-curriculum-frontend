@@ -9,7 +9,7 @@ import { CacheProvider, EmotionCache } from "@emotion/react";
 import { Provider as StoreProvider } from "react-redux";
 
 import DashboardLayout from "src/components/_Layout/DashboardLayout";
-import theme from "../src/constants/theme";
+import theme from "../src/constants/theme.const";
 import createEmotionCache from "../src/helper/createEmotionCache";
 import { store } from "../src/redux/_store";
 

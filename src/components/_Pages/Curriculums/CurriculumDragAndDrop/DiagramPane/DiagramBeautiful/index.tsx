@@ -1,5 +1,5 @@
 import Box from "@mui/material/Box";
-import React, { useState } from "react";
+import { useState, useEffect, useMemo, memo } from "react";
 
 import ReactFlow, {
   removeElements,
@@ -9,24 +9,51 @@ import ReactFlow, {
   Background,
   Elements,
   OnLoadFunc,
+  ConnectionMode,
   Node,
   Edge,
+  EdgeTypesType,
   Connection,
+  BackgroundVariant,
 } from "react-flow-renderer";
 import { SmartEdge, SmartEdgeProvider } from "@tisoap/react-flow-smart-edge";
 
-import {
-  initialElements,
-  initialElements2,
-} from "src/helper/mockDataGenerator/reactFlowData";
+import FloatingEdge from "src/components/_Shared/FloatingEdge";
+// import DiagramBeautifulContent from "./DiagramBeautifulContent";
+// import {
+//   initialElements,
+//   initialElements2,
+//   initialElements3,
+// } from "src/helper/mockDataGenerator/reactFlowData";
+import { useAppSelector } from "src/hooks/useStore";
+import { getReactFlowElements } from "src/helper/diagramGenerator/reactFlowDiagram";
 
-const onLoad: OnLoadFunc = (reactFlowInstance) => {
-  console.log("flow loaded:", reactFlowInstance);
-  reactFlowInstance.fitView();
+const edgeTypes: EdgeTypesType = {
+  floating: FloatingEdge,
 };
 
 const DiagramBeautiful = () => {
-  const [elements, setElements] = useState<Elements>(initialElements2);
+  const curriculumDetail = useAppSelector(
+    (store) => store.curriculums.curriculumDetail
+  );
+  const { courses } = useAppSelector((store) => store.courses);
+  const [elements, setElements] = useState<Elements>([]);
+
+  useEffect(() => {
+    const { allYears, allYearsOrder } = curriculumDetail;
+    const elements = getReactFlowElements({
+      allCourses: courses,
+      allYears,
+      allYearIdsOrder: allYearsOrder,
+    });
+    setElements(elements);
+    // setElements(initialElements3);
+  }, [curriculumDetail]);
+
+  const onLoad: OnLoadFunc = (reactFlowInstance) => {
+    console.log("flow loaded:", reactFlowInstance);
+    reactFlowInstance.fitView();
+  };
 
   const onElementsRemove = (elementsToRemove: Elements<any>) =>
     setElements((els) => removeElements(elementsToRemove, els));
@@ -34,20 +61,12 @@ const DiagramBeautiful = () => {
   const onConnect = (connection: Edge<any> | Connection) =>
     setElements((els) => addEdge(connection, els));
 
-  // const getNodeStrokeColor = (node?: Node<any>): string | undefined => {
-  //   if (node?.style?.background) return node?.style.background.toString();
-  //   if (node?.type === "input") return "#0041d0";
-  //   if (node?.type === "output") return "#ff0072";
-  //   if (node?.type === "default") return "#1a192b";
-  //   return "#eee";
-  // };
-
   return (
-    <Box sx={{ overflow: "hidden", width: 1000, height: 1000, p: 3 }}>
+    <Box sx={{ width: "100%", height: "100%" }}>
       <SmartEdgeProvider
         options={{
-          debounceTime: 50,
-          nodePadding: 10,
+          debounceTime: 200,
+          nodePadding: 20,
           gridRatio: 10,
           lineType: "curve",
           lessCorners: false,
@@ -58,9 +77,11 @@ const DiagramBeautiful = () => {
           onElementsRemove={onElementsRemove}
           onConnect={onConnect}
           onLoad={onLoad}
+          connectionMode={ConnectionMode.Loose}
           snapToGrid={true}
           snapGrid={[15, 15]}
           edgeTypes={{
+            floating: FloatingEdge,
             smart: SmartEdge,
           }}
         >
@@ -72,7 +93,12 @@ const DiagramBeautiful = () => {
             nodeBorderRadius={2}
           />
           <Controls />
-          <Background color="#aaa" gap={16} />
+          <Background
+            color="#aaa"
+            gap={15}
+            variant={BackgroundVariant.Dots}
+            size={1}
+          />
         </ReactFlow>
       </SmartEdgeProvider>
     </Box>

@@ -1,4 +1,6 @@
-import { IRandomRange } from "./others.type";
+import type { IRange } from "./others.type";
+
+import { CourseType } from "src/constants/course.const";
 
 export interface ICourseRelationship {
   preRequisites: string[];
@@ -15,11 +17,12 @@ export interface ICourseItemSimple {
     practice: number;
   };
   majorId: string;
+  type: CourseType | string;
   disabled: boolean;
   selected: boolean;
   // tempSelected: boolean;
   highlighted?: boolean;
-  relationship?: ICourseRelationship;
+  relationship: ICourseRelationship;
 }
 
 export interface ICourseItemDetail {
@@ -31,16 +34,27 @@ export interface ICourseItemDetail {
 
 export interface IRandomCoursesParam {
   allMajorIds: string[];
-  randomCourseCount?: IRandomRange;
-  nameLength?: IRandomRange;
+  randomCourseCount?: IRange;
+  nameLength?: IRange;
   creditCount?: {
-    theory?: IRandomRange;
-    practice?: IRandomRange;
+    theory?: IRange;
+    practice?: IRange;
   };
   courseRelationship?: {
-    preRequisite?: IRandomRange;
-    previous?: IRandomRange;
-    coRequisite?: IRandomRange;
-    placeholder?: IRandomRange;
+    preRequisite?: IRange;
+    previous?: IRange;
+    coRequisite?: IRange;
+    placeholder?: IRange;
   };
+  courseTypeDistribution?: ICourseTypeDistribution[];
+}
+
+export interface IRandomCoursesReturn {
+  allCourses: Record<string, ICourseItemSimple>;
+  allCourseIds: string[];
+}
+
+export interface ICourseTypeDistribution {
+  id: string;
+  frequency: number;
 }

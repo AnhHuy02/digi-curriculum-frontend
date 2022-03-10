@@ -17,7 +17,7 @@ import CheckIcon from "@mui/icons-material/Check";
 
 import { useAppDispatch, useAppSelector } from "src/hooks/useStore";
 import { setDiagramViewMode } from "src/redux/curriculums.slice";
-import { CurriculumDiagramType } from "src/constants/curriculumDiagramType";
+import { CurriculumDiagramType } from "src/constants/curriculum.const";
 
 const StyledMenu = styled((props: MenuProps) => (
   <Menu

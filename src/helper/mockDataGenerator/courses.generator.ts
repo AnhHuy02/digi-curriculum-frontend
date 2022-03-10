@@ -1,30 +1,32 @@
-import type { IMajorSimple } from "src/types/department.type";
+import type {
+  IMajorSimple,
+  IRandomMajorsReturn,
+} from "src/types/department.type";
 import type {
   ICourseItemSimple,
+  ICourseTypeDistribution,
   IRandomCoursesParam,
+  IRandomCoursesReturn,
 } from "src/types/course.type";
-import type { IRandomRange } from "src/types/others.type";
+import type { IRange } from "src/types/others.type";
 
 import faker from "@faker-js/faker";
 import _sample from "lodash/sample";
 import _sampleSize from "lodash/sampleSize";
+import _pull from "lodash/pull";
 import _pullAll from "lodash/pullAll";
 import _includes from "lodash/includes";
 
-interface IRandomMajorsReturn {
-  allMajors: Record<string, IMajorSimple>;
-  allMajorIds: string[];
-}
+import {
+  getCumulativeFrequencies,
+  pickRandomDistribution,
+} from "src/helper/math";
+import { CourseType } from "src/constants/course.const";
 
-interface IRandomCoursesReturn {
-  allCourses: Record<string, ICourseItemSimple>;
-  allCourseIds: string[];
-}
-
-export function generateRandomMajors({
+export const generateRandomMajors = ({
   min,
   max,
-}: IRandomRange): IRandomMajorsReturn {
+}: IRange): IRandomMajorsReturn => {
   const majorCount = faker.datatype.number({ min, max });
 
   let allMajors: Record<string, IMajorSimple> = {};
@@ -43,9 +45,13 @@ export function generateRandomMajors({
     allMajors,
     allMajorIds,
   };
-}
+};
 
-////////////////////////////////////////////////////////////////////////
+/**
+ *
+ * @param param0
+ * @returns
+ */
 export const generateRandomCourses = ({
   allMajorIds,
   randomCourseCount = { min: 0, max: 150 },
@@ -60,14 +66,41 @@ export const generateRandomCourses = ({
     coRequisite: { min: 0, max: 4 },
     placeholder: { min: 0, max: 4 },
   },
+  courseTypeDistribution = [
+    {
+      id: CourseType.GENERAL,
+      frequency: 30,
+    },
+    {
+      id: CourseType.SPECIALIZATION_REQUIRED,
+      frequency: 30,
+    },
+    {
+      id: CourseType.SPECIALIZATION_ELECTIVE,
+      frequency: 20,
+    },
+    {
+      id: CourseType.FUNDAMENTAL,
+      frequency: 15,
+    },
+    {
+      id: CourseType.PROJECT_INTERN_THESIS,
+      frequency: 5,
+    },
+    {
+      id: CourseType.OTHERS,
+      frequency: 10,
+    },
+  ],
 }: IRandomCoursesParam): IRandomCoursesReturn => {
-  const courseCount = faker.datatype.number({
-    min: randomCourseCount.min,
-    max: randomCourseCount.max,
-  });
+  const courseCount = faker.datatype.number(randomCourseCount);
 
   // Step 1: Initialize random courses
   let allCourses: Record<string, ICourseItemSimple> = {};
+  const courseTypesByCumulativeFrequencies = getCumulativeFrequencies(
+    courseTypeDistribution
+  );
+
   let allCourseIds = Array.from({ length: courseCount }, (item, i) => {
     const courseId = "course" + i.toString() + "-" + faker.datatype.uuid();
     const randomNameLength = faker.datatype.number(nameLength);
@@ -81,8 +114,18 @@ export const generateRandomCourses = ({
         practice: faker.datatype.number(creditCount.practice),
       },
       majorId: randomMajorId,
+      type:
+        // Step 1.1: Select a random course type
+        pickRandomDistribution(courseTypesByCumulativeFrequencies)?.id ||
+        CourseType.GENERAL,
       disabled: false,
       selected: false,
+      relationship: {
+        preRequisites: [],
+        coRequisites: [],
+        previous: [],
+        placeholders: [],
+      },
       // highlighted: false,
     };
 
@@ -98,10 +141,12 @@ export const generateRandomCourses = ({
     const randomPreRequisiteCount = faker.datatype.number(
       courseRelationship.preRequisite
     );
+
     const randomPreRequisiteIds = _sampleSize(
       tempAllCourseIds,
       randomPreRequisiteCount
     );
+
     _pullAll(tempAllCourseIds, randomPreRequisiteIds);
     //#endregion
 
@@ -145,13 +190,83 @@ export const generateRandomCourses = ({
     };
   });
 
+  // Step 2.5: Remove duplicated relationship
+  allCourseIds.forEach((courseId) => {
+    // Prevent duplicate relationship when selecting a course randomly
+    const { preRequisites, coRequisites, previous, placeholders } =
+      allCourses[courseId].relationship;
+
+    //#region Remove duplicated PreRequisite relationship
+    preRequisites.forEach((preRequisiteId) => {
+      const oppositeRelationships = allCourses[preRequisiteId].relationship;
+
+      if (
+        oppositeRelationships.preRequisites.some(
+          (oppositePreRequisiteId) => oppositePreRequisiteId === preRequisiteId
+        )
+      ) {
+        _pull(preRequisites, preRequisiteId);
+      }
+    });
+    //#endregion
+
+    //#region Remove duplicated CoRequisite relationship
+    coRequisites.forEach((coRequisiteId) => {
+      const oppositeRelationships = allCourses[coRequisiteId].relationship;
+
+      if (
+        oppositeRelationships.coRequisites.some(
+          (oppositeCoRequisiteId) => oppositeCoRequisiteId === coRequisiteId
+        )
+      ) {
+        _pull(coRequisites, coRequisiteId);
+      }
+    });
+    //#endregion
+
+    //#region Remove duplicated Previous relationship
+    previous.forEach((previousId) => {
+      const oppositeRelationships = allCourses[previousId].relationship;
+
+      if (
+        oppositeRelationships.previous.some(
+          (oppositePreviousId) => oppositePreviousId === previousId
+        )
+      ) {
+        _pull(previous, previousId);
+      }
+    });
+    //#endregion
+
+    //#region Remove duplicated Placeholder relationship
+    placeholders.forEach((placeholderId) => {
+      const oppositeRelationships = allCourses[placeholderId].relationship;
+
+      if (
+        oppositeRelationships.previous.some(
+          (oppositePlaceholderId) => oppositePlaceholderId === placeholderId
+        )
+      ) {
+        _pull(placeholders, placeholderId);
+      }
+    });
+    //#endregion
+
+    allCourses[courseId].relationship = {
+      preRequisites: preRequisites,
+      coRequisites: coRequisites,
+      previous: previous,
+      placeholders: placeholders,
+    };
+  });
+
   return {
     allCourses,
     allCourseIds,
   };
 };
 
-export const getRandomMajors = (config: IRandomRange) => {
+export const getRandomMajors = (config: IRange) => {
   let promise = new Promise<IRandomMajorsReturn>(function (resolve, reject) {
     setTimeout(function () {
       resolve(generateRandomMajors(config));
