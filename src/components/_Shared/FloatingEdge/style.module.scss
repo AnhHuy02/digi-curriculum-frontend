@@ -1,0 +1,13 @@
+.floatingedges {
+  flex-direction: column;
+  display: flex;
+  height: 100%;
+
+  & > .react-flow__handle {
+    opacity: 0;
+  }
+}
+
+// .floatingedges .react-flow__handle {
+//   opacity: 0;
+// }

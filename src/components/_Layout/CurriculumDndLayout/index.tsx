@@ -2,7 +2,7 @@ import type { FC } from "react";
 
 import Particles from "react-tsparticles";
 import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
+import "react-reflex/styles.css";
 
 import Header from "./Header";
 import { animatedBackgroundSet1 } from "src/constants/config/animatedBackground";
@@ -13,9 +13,9 @@ interface ICurriculumDndLayout {
 
 const CurriculumDndLayout: FC<ICurriculumDndLayout> = (props) => {
   return (
-    <Box display={"flex"} flexDirection={"column"}>
+    <Box display={"flex"} flexDirection={"column"} height={"100vh"}>
       <Header />
-      <Box component="main" sx={{ height: "fit-content" }}>
+      <Box component="main" className={"page-layout__content"} flexGrow={1}>
         <Particles
           id="tsparticles"
           // init={particlesInit}

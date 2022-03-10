@@ -3,5 +3,3 @@ export enum CurriculumDiagramType {
   DOT = "dot",
   NONE = "none",
 }
-
-export default CurriculumDiagramType;

@@ -5,16 +5,29 @@ import Box from "@mui/material/Box";
 const Graphviz = dynamic(() => import("graphviz-react"), { ssr: false });
 
 import { dummyDotString } from "src/helper/mockDataGenerator/dotString";
+import { getDotDiagramString } from "src/helper/diagramGenerator/dotDiagram";
+import { useAppSelector } from "src/hooks/useStore";
 
 const DiagramDot = () => {
+  const curriculumDetail = useAppSelector(
+    (store) => store.curriculums.curriculumDetail
+  );
+  const { courses } = useAppSelector((store) => store.courses);
   const [dot, setDot] = useState<string | undefined>(undefined);
 
   useEffect(() => {
     loadData();
-  }, []);
+  }, [curriculumDetail]);
 
   const loadData = async () => {
-    setDot(dummyDotString);
+    const { allYears, allYearsOrder } = curriculumDetail;
+    const dotString = getDotDiagramString({
+      allCourses: courses,
+      allYears,
+      allYearIdsOrder: allYearsOrder,
+    });
+    setDot(dotString);
+    // setDot(dummyDotString);
   };
 
   return (

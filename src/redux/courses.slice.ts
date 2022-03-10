@@ -13,7 +13,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import {
   getRandomMajors,
   getRandomCourses,
-} from "src/helper/mockDataGenerator/courses";
+} from "src/helper/mockDataGenerator/courses.generator";
 
 //#region STATE
 interface ICoursesState {
@@ -142,6 +142,7 @@ export const coursesSlice = createSlice({
       state.majors = allMajors;
     });
     builder.addCase(loadAllRandomCourses.fulfilled, (state, action) => {
+      console.log("fullfiled")
       const { allCourses, allCourseIds } = action.payload;
       state.courses = allCourses;
       state.courseIds = allCourseIds;

@@ -1,13 +1,16 @@
 import { grey } from "@mui/material/colors";
 import Button from "@mui/material/Button";
-import SaveIcon from "@mui/icons-material/Save";
 import ShuffleIcon from "@mui/icons-material/Shuffle";
 
-import { generateRandomCourses } from "src/helper/mockDataGenerator/courses";
+import { useAppDispatch } from "src/hooks/useStore";
+
+import { initRandomCurriculumDetailPageData } from "src/redux/_thunks/coursesCurriculums.thunk";
 
 const RandomButton = () => {
+  const dispatch = useAppDispatch();
+
   const handleClick = () => {
-    // console.log(generateRandomCourses());
+    dispatch(initRandomCurriculumDetailPageData());
   };
 
   return (
