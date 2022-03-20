@@ -1,4 +1,5 @@
 import type { PayloadAction } from "@reduxjs/toolkit";
+import type { DropResult, ResponderProvided } from "react-beautiful-dnd";
 import type { RootState } from "./_store";
 import type {
   ICurriculumItemSimple,
@@ -7,6 +8,7 @@ import type {
 } from "src/types/curriculum.type";
 
 import moment from "moment";
+import _pull from "lodash/pull";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 import { Mode } from "src/constants/mode.const";
@@ -26,6 +28,7 @@ const initialState: ICurriculumState = {
   curriculumDetail: {
     id: "curriculum-new-id",
     mode: Mode.CREATE,
+    loading: false,
     semCountPerYear: 3,
     year: moment().year(),
     allYears: {},
@@ -53,76 +56,6 @@ export const loadRandomCurriculumDetail = createAsyncThunk(
     }
   }
 );
-
-// export const requestGetBuildingsByAddress = createAsyncThunk(
-//   "transactionSearchQuery/requestGetBuildingsByAddress",
-//   async (
-//     payload: {
-//       searchValue: string;
-//       advancedSearchMode?: boolean;
-//       dateFrom?: Moment | string | null | undefined;
-//       dateTo?: Moment | string | null | undefined;
-//     },
-//     thunkAPI
-//   ) => {
-//     const { searchValue, advancedSearchMode, dateFrom, dateTo } = payload;
-//     const { dispatch } = thunkAPI;
-//     dispatch(setLoading(true));
-//     try {
-//       if (advancedSearchMode) {
-//         const res = await getBuildingsByAddress({
-//           searchValue,
-//           dateFrom,
-//           dateTo,
-//         });
-//         return thunkAPI.fulfillWithValue(res.data);
-//       } else {
-//         const res = await getBuildingsByAddress({ searchValue });
-//         return thunkAPI.fulfillWithValue(res.data);
-//       }
-//     } catch (err) {
-//       return thunkAPI.rejectWithValue(err);
-//     } finally {
-//       dispatch(setLoading(false));
-//     }
-//   }
-// );
-
-// export const requestGetBuildingsByPolygon = createAsyncThunk(
-//   "transactionSearchQuery/requestGetBuildingsByPolygon",
-//   async (
-//     payload: {
-//       polygon: GeoJSON.FeatureCollection<any>;
-//       advancedSearchMode?: boolean;
-//       dateFrom?: Moment | string | null | undefined;
-//       dateTo?: Moment | string | null | undefined;
-//     },
-//     thunkAPI
-//   ) => {
-//     const { polygon, advancedSearchMode, dateFrom, dateTo } = payload;
-//     const { dispatch } = thunkAPI;
-//     dispatch(setLoading(true));
-//     try {
-//       if (advancedSearchMode) {
-//         const res = await getBuildingsByPolygon({
-//           geojson: polygon,
-//           dateFrom,
-//           dateTo,
-//         });
-//         return thunkAPI.fulfillWithValue(res.data);
-//       } else {
-//         const res = await getBuildingsByPolygon({
-//           geojson: polygon,
-//         });
-//         return thunkAPI.fulfillWithValue(res.data);
-//       }
-//     } catch (err) {
-//       return thunkAPI.rejectWithValue(err);
-//     } finally {
-//       dispatch(setLoading(false));
-//     }
-//   }
-// );
 //#endregion
 
 //#region SLICE
@@ -148,6 +81,75 @@ export const curriculumSlice = createSlice({
     setPageLoading: (state, action: PayloadAction<boolean>) => {
       state.pageLoading = action.payload;
     },
+    setCurriculumDetailLoading: (state, action: PayloadAction<boolean>) => {
+      state.curriculumDetail.loading = action.payload;
+    },
+    addCurriculumDetailYear: (state) => {
+      const { semCountPerYear, allYearsOrder, allYears } =
+        state.curriculumDetail;
+      const newYearId = `year-${allYearsOrder.length + 1}`;
+
+      allYearsOrder.push(newYearId);
+      allYears[newYearId] = {
+        id: newYearId,
+        semesters: {},
+        semestersOrder: [],
+      };
+
+      const newYear = allYears[newYearId];
+
+      Array.from({ length: semCountPerYear }).forEach((_, index) => {
+        const newSemId = `${newYearId}-sem-${index + 1}`;
+        newYear.semestersOrder.push(newSemId);
+        newYear.semesters[newSemId] = {
+          id: newSemId,
+          courseIds: [],
+          creditCount: 0,
+          creditLimit: 24,
+        };
+      });
+    },
+    moveCurriculumDetailYearsOrder: (
+      state,
+      action: PayloadAction<DropResult>
+    ) => {
+      const { allYearsOrder } = state.curriculumDetail;
+      const { source, destination, draggableId } = action.payload;
+
+      if (destination !== undefined) {
+        allYearsOrder.splice(source.index, 1);
+        allYearsOrder.splice(destination.index, 0, draggableId);
+      }
+    },
+    moveCurriculumDetailCourse: (state, action: PayloadAction<DropResult>) => {
+      const { allYears } = state.curriculumDetail;
+      const { source, destination, draggableId } = action.payload;
+
+      if (destination !== undefined) {
+        const [startYearId, startSemId] = source.droppableId.split(" ");
+        const [endYearId, endSemId] = destination.droppableId.split(" ");
+
+        // Step 1.1: Pop out course from old semester when dragged out
+        allYears[startYearId].semesters[startSemId].courseIds.splice(
+          source.index,
+          1
+        );
+
+        // Step 1.2: Insert the dragged course to new semester
+        allYears[endYearId].semesters[endSemId].courseIds.splice(
+          destination.index,
+          0,
+          draggableId
+        );
+      }
+    },
+    removeCurriculumDetailYear: (state, action: PayloadAction<string>) => {
+      const { allYears, allYearsOrder } = state.curriculumDetail;
+      const yearId = action.payload;
+
+      delete allYears[yearId];
+      _pull(allYearsOrder, yearId);
+    },
     resetState: (state) => {
       state = initialState;
     },
@@ -158,6 +160,7 @@ export const curriculumSlice = createSlice({
       state.curriculumDetail.allYears = allYears;
       state.curriculumDetail.allYearsOrder = allYearIdsOrder;
     });
+
     // builder.addCase(requestGetBuildingsByProject.rejected, (state, action) => {
     //   console.log(action.payload);
     // });
@@ -185,6 +188,11 @@ export const {
   setDiagramViewMode,
   setCurriculumDetail,
   setPageLoading,
+  setCurriculumDetailLoading,
+  addCurriculumDetailYear,
+  moveCurriculumDetailYearsOrder,
+  moveCurriculumDetailCourse,
+  removeCurriculumDetailYear,
   resetState,
 } = curriculumSlice.actions;
 

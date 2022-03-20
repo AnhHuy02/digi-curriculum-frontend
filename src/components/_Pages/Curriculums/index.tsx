@@ -1,4 +1,5 @@
 import AddIcon from "@mui/icons-material/Add";
+import EditIcon from "@mui/icons-material/Edit";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Toolbar from "@mui/material/Toolbar";
@@ -18,6 +19,16 @@ const Curriculums = () => {
             size="large"
           >
             New
+          </Button>
+        </Link>
+        <Link href="curriculums/:id/edit" type="button">
+          <Button
+            variant="contained"
+            endIcon={<EditIcon />}
+            color="info"
+            size="large"
+          >
+            Edit
           </Button>
         </Link>
       </Toolbar>

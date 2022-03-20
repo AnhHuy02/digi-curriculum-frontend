@@ -19,8 +19,8 @@ export const initRandomCurriculumDetailPageData = createAsyncThunk(
   async (_payload, thunkAPI) => {
     const { dispatch } = thunkAPI;
 
-    dispatch(resetCoursesState());
     dispatch(resetCurriculumsState());
+    dispatch(resetCoursesState());
 
     try {
       const majorsResponse = await dispatch(
@@ -32,7 +32,7 @@ export const initRandomCurriculumDetailPageData = createAsyncThunk(
         loadAllRandomCourses({
           allMajorIds: majorsPayload.allMajorIds,
           randomCourseCount: { min: 15, max: 150 },
-          nameLength: { min: 1, max: 7 },
+          nameLength: { min: 1, max: 6 },
           creditCount: {
             theory: { min: 0, max: 5 },
             practice: { min: 0, max: 5 },

@@ -32,6 +32,7 @@ export interface IElectiveGroupItem {
 
 export interface ICurriculumItemDetail extends ICurriculumItemSimple {
   mode: Mode.CREATE | Mode.EDIT;
+  loading: boolean;
   semCountPerYear: number;
   allYears: Record<string, ICurriculumItemYear>;
   allYearsOrder: string[];

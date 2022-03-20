@@ -1,31 +1,10 @@
-import type { INode, ISubgraph } from "ts-graphviz";
+import type { INode } from "ts-graphviz";
 import type {
-  IRandomCoursesReturn,
   ICourseItemSimple,
 } from "src/types/course.type";
 import type { IRandomCurriculumDetailItemReturn } from "src/types/curriculum.type";
 
-import {
-  Digraph,
-  Node,
-  Edge,
-  EdgeTarget,
-  EdgeTargetTuple,
-  EdgeTargetLikeTuple,
-  Subgraph,
-  digraph,
-  toDot,
-  attribute,
-  IPort,
-} from "ts-graphviz";
-// import {
-//   Digraph,
-//   Node,
-//   Subgraph,
-//   Edge,
-//   DOT,
-//   renderToDot,
-// } from "@ts-graphviz/react";
+import { Digraph, Node, Subgraph, toDot, attribute } from "ts-graphviz";
 
 import {
   CourseType,
@@ -40,57 +19,10 @@ class CustomDigraph extends Digraph {
       labelloc: "t",
       fontsize: 80,
       rankdir: "LR",
+      bgcolor: "transparent",
     });
   }
 }
-
-interface ISemesterHeaderNodeCTor {
-  id: number;
-  label: string;
-}
-class SemesterHeaderNode extends Node {
-  constructor({ id, label }: ISemesterHeaderNodeCTor) {
-    super(`node${id}`, {
-      label: label,
-    });
-  }
-}
-
-class PreRequisiteEdge extends Edge {
-  constructor(targets: EdgeTargetTuple) {
-    super(targets, {
-      label: "prerequisites",
-    });
-  }
-}
-
-class CoRequisiteEdge extends Edge {
-  constructor(targets: EdgeTargetTuple) {
-    super(targets, {
-      label: "co-requisites",
-      constraint: false,
-      arrowhead: "none",
-    });
-  }
-}
-
-class PreviousEdge extends Edge {
-  constructor(targets: EdgeTargetTuple) {
-    super(targets, {
-      label: "previous",
-      style: "dashed",
-    });
-  }
-}
-
-// Placeholder courses will not be linked
-// class PlaceholderEdge extends Edge {
-//   constructor(targets: ReadonlyArray<EdgeTarget>) {
-//     super(targets, {
-//       [attribute.label]: "This is Custom Edge",
-//     });
-//   }
-// }
 
 interface IDotDiagramParams extends IRandomCurriculumDetailItemReturn {
   allCourses: Record<string, ICourseItemSimple>;
@@ -101,8 +33,6 @@ export const getDotDiagramString = ({
   allYears,
   allYearIdsOrder,
 }: IDotDiagramParams) => {
-  // const customDigraph = new CustomDigraph("Curriculum for IT");
-
   const g = new CustomDigraph("Curriculum for IT");
 
   // #region Step 1: Add header label
@@ -160,7 +90,6 @@ export const getDotDiagramString = ({
     }
   }
   // #endregion
-  console.log(semList);
 
   // #region Step 2: Add course node
   let courseOrders: string[] = [];
@@ -300,7 +229,7 @@ export const getDotDiagramString = ({
   }
   //#endregion
 
-  //#region Make footer
+  //#region Step 4: Make footer
   const subGraphLegend = new Subgraph("legend", {
     id: "legend",
     labeljust: "l",
@@ -328,52 +257,9 @@ export const getDotDiagramString = ({
       });
     }
   }
-  console.log(subGraphLegend);
   g.addSubgraph(subGraphLegend);
   //#endregion
 
-  console.log(toDot(g));
+  // console.log(toDot(g));
   return toDot(g);
 };
-
-// const DotDiagram = ({
-//   allCourses,
-//   allYears,
-//   allYearIdsOrder,
-// }: IDotDiagramParams) => {
-//   return (
-//     <Digraph
-//       rankdir="TB"
-//       edge={{
-//         color: "blue",
-//         fontcolor: "blue",
-//       }}
-//       node={{
-//         shape: "none",
-//       }}
-//     >
-//       <Node
-//         id="nodeA"
-//         shape="none"
-//         label={
-//           <DOT.TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
-//             <DOT.TR>
-//               <DOT.TD>left</DOT.TD>
-//               <DOT.TD PORT="m">middle</DOT.TD>
-//               <DOT.TD PORT="r">right</DOT.TD>
-//             </DOT.TR>
-//           </DOT.TABLE>
-//         }
-//       />
-
-//       <Subgraph id="cluster" label="Cluster" labeljust="l">
-//         <Node id="nodeB" label="This is label for nodeB." />
-//       </Subgraph>
-//       <Edge
-//         targets={["nodeB", "nodeA:m"]}
-//         comment="Edge from node A to B"
-//         label={<DOT.B>A to B</DOT.B>}
-//       />
-//     </Digraph>
-//   );
-// };
