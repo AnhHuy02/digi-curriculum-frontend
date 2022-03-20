@@ -1,35 +1,49 @@
+import type { DropResult, ResponderProvided } from "react-beautiful-dnd";
+
 import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
 import { DragDropContext } from "react-beautiful-dnd";
+
 import { useAppSelector, useAppDispatch } from "src/hooks/useStore";
 
 import YearHeaderList from "./YearHeaderList";
+import YearList from "./YearList";
+import {
+  moveCurriculumDetailYearsOrder,
+  moveCurriculumDetailCourse,
+} from "src/redux/curriculums.slice";
 
 const DndByYear = () => {
-  const { allYearsOrder } = useAppSelector((store) => store.curriculums.curriculumDetail);
-  const handleDragYear = (result: any, provided: any) => {
-    // const { source, destination } = result;
-    // const { dragYear, dragCourse } = this.props;
-    // if (!destination) return;
-    // if (
-    //   source.droppableId === destination.droppableId &&
-    //   source.index === destination.index
-    // )
-    //   return;
+  const dispatch = useAppDispatch();
+  const { allYearsOrder } = useAppSelector(
+    (store) => store.curriculums.curriculumDetail
+  );
 
-    // switch (result.type) {
-    //   case "all-years": {
-    //     dragYear(result, provided);
-    //     return;
-    //   }
-    //   case "all-courses": {
-    //     dragCourse(result, provided);
-    //     return;
-    //   }
-    //   default: {
-    //     return;
-    //   }
-    // }
+  const handleDragYear = (result: DropResult, provided: ResponderProvided) => {
+    const { source, destination } = result;
+    // const { dragYear, dragCourse } = this.props;
+    if (!destination) return;
+    if (
+      source.droppableId === destination.droppableId &&
+      source.index === destination.index
+    )
+      return;
+
+    console.log(result);
+    console.log(provided);
+
+    switch (result.type) {
+      case "move-years-order": {
+        dispatch(moveCurriculumDetailYearsOrder(result));
+        return;
+      }
+      case "move-semester-course": {
+        dispatch(moveCurriculumDetailCourse(result));
+        return;
+      }
+      default: {
+        return;
+      }
+    }
   };
 
   return (
@@ -37,11 +51,13 @@ const DndByYear = () => {
       sx={{
         overflowX: "auto",
         flexGrow: 1,
+        bgColor: "rgba(0, 0, 0, 0)",
+        height: "inherit",
       }}
     >
-      <YearHeaderList yearCount={4} />
+      <YearHeaderList />
       <DragDropContext onDragEnd={handleDragYear}>
-        {/* <YearList /> */}
+        <YearList />
       </DragDropContext>
     </Box>
   );

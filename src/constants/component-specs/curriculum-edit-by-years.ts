@@ -2,9 +2,8 @@ export const style = {
   year: {
     padding: 1,
     margin: 2,
-  },
-  semester: {
-    count: 3,
+    marginLeft: 3,
+    marginY: 2,
   },
   courseTile: {
     margin: 1,

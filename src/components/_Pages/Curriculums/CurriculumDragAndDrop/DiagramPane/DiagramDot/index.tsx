@@ -37,7 +37,7 @@ const DiagramDot = () => {
           options={{
             convertEqualSidedPolygons: true,
             height: 1500,
-            width: 1500,
+            width: 2500,
             zoom: true,
             // layout: {
             //   hierarchical: false,
