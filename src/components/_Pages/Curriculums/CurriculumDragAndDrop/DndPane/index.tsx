@@ -1,12 +1,19 @@
 import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
 
 import DndByYear from "./DndByYear";
+import DndByCourseRelationship from "./DndByCourseRelationship";
+import { CurriculumDndType } from "src/constants/curriculum.const";
+import { useAppSelector } from "src/hooks/useStore";
 
 const DndPane = () => {
+  const { dndViewMode } = useAppSelector((store) => store.curriculums);
+
   return (
     <Box height="inherit">
-      <DndByYear />
+      {dndViewMode === CurriculumDndType.DND_BY_YEAR && <DndByYear />}
+      {dndViewMode === CurriculumDndType.DND_BY_COURSE_RELATIONSHIP && (
+        <DndByCourseRelationship />
+      )}
     </Box>
   );
 };

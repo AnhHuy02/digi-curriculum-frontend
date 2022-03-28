@@ -29,7 +29,7 @@ const DiagramPane = (props: DiagramPaneProps) => {
         overflowY: "auto",
       }}
     >
-      {viewMode === DiagramType.DEFAULT && <DiagramBeautiful />}
+      {/* {viewMode === DiagramType.DEFAULT && <DiagramBeautiful />} */}
       {viewMode === DiagramType.DOT && <DiagramDot />}
     </Box>
   );

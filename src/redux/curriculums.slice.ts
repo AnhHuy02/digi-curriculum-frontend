@@ -12,13 +12,17 @@ import _pull from "lodash/pull";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 import { Mode } from "src/constants/mode.const";
-import { CurriculumDiagramType } from "src/constants/curriculum.const";
+import {
+  CurriculumDiagramType,
+  CurriculumDndType,
+} from "src/constants/curriculum.const";
 import { getRandomCurriculumItemDetail } from "src/helper/mockDataGenerator/curriculums.generator";
 
 //#region STATE
 interface ICurriculumState {
   curriculums: ICurriculumItemSimple[];
   curriculumDetail: ICurriculumItemDetail;
+  dndViewMode: CurriculumDndType;
   diagramViewMode: CurriculumDiagramType;
   pageLoading: boolean;
 }
@@ -34,6 +38,7 @@ const initialState: ICurriculumState = {
     allYears: {},
     allYearsOrder: [],
   },
+  dndViewMode: CurriculumDndType.DND_BY_COURSE_RELATIONSHIP,
   diagramViewMode: CurriculumDiagramType.NONE,
   pageLoading: false,
 };
@@ -71,6 +76,12 @@ export const curriculumSlice = createSlice({
       action: PayloadAction<ICurriculumItemDetail>
     ) => {
       state.curriculumDetail = action.payload;
+    },
+    setDragAndDropViewMode: (
+      state,
+      action: PayloadAction<CurriculumDndType>
+    ) => {
+      state.dndViewMode = action.payload;
     },
     setDiagramViewMode: (
       state,
@@ -185,6 +196,7 @@ export const curriculumSlice = createSlice({
 //#endregion
 
 export const {
+  setDragAndDropViewMode,
   setDiagramViewMode,
   setCurriculumDetail,
   setPageLoading,
