@@ -16,8 +16,14 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import CheckIcon from "@mui/icons-material/Check";
 
 import { useAppDispatch, useAppSelector } from "src/hooks/useStore";
-import { setDiagramViewMode } from "src/redux/curriculums.slice";
-import { CurriculumDiagramType } from "src/constants/curriculum.const";
+import {
+  setDiagramViewMode,
+  setDragAndDropViewMode,
+} from "src/redux/curriculums.slice";
+import {
+  CurriculumDiagramType,
+  CurriculumDndType,
+} from "src/constants/curriculum.const";
 
 const StyledMenu = styled((props: MenuProps) => (
   <Menu
@@ -63,13 +69,16 @@ const StyledMenu = styled((props: MenuProps) => (
 }));
 
 interface IViewDiagramMenuItem {
-  id: CurriculumDiagramType;
+  id: CurriculumDiagramType | CurriculumDndType;
+  type: "curriculum-dnd" | "diagram";
   title: string;
 }
 
 const ExportButton = () => {
   const dispatch = useAppDispatch();
-  const { diagramViewMode } = useAppSelector((store) => store.curriculums);
+  const { diagramViewMode, dndViewMode } = useAppSelector(
+    (store) => store.curriculums
+  );
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -79,10 +88,20 @@ const ExportButton = () => {
   };
 
   const handleItemClick = (
-    event: React.MouseEvent<HTMLLIElement, MouseEvent>
+    event: React.MouseEvent<HTMLLIElement, MouseEvent>,
+    viewType: "curriculum-dnd" | "diagram"
   ) => {
     const id = event.currentTarget.id;
-    dispatch(setDiagramViewMode(id as CurriculumDiagramType));
+    switch (viewType) {
+      case "curriculum-dnd": {
+        dispatch(setDragAndDropViewMode(id as CurriculumDndType));
+        break;
+      }
+      case "diagram": {
+        dispatch(setDiagramViewMode(id as CurriculumDiagramType));
+        break;
+      }
+    }
     closeMenu();
   };
 
@@ -90,10 +109,10 @@ const ExportButton = () => {
     setAnchorEl(null);
   };
 
-  const MenuItemWithCondition = ({ id, title }: IViewDiagramMenuItem) => {
-    if (id === diagramViewMode) {
+  const MenuItemWithCondition = ({ id, type, title }: IViewDiagramMenuItem) => {
+    if (id === diagramViewMode || id === dndViewMode) {
       return (
-        <MenuItem id={id} onClick={handleItemClick}>
+        <MenuItem id={id} onClick={(event) => handleItemClick(event, type)}>
           <ListItemIcon>
             <CheckIcon />
           </ListItemIcon>
@@ -102,7 +121,7 @@ const ExportButton = () => {
       );
     } else {
       return (
-        <MenuItem id={id} onClick={handleItemClick}>
+        <MenuItem id={id} onClick={(event) => handleItemClick(event, type)}>
           <ListItemText inset primary={title} />
         </MenuItem>
       );
@@ -143,28 +162,34 @@ const ExportButton = () => {
       >
         <MenuList dense>
           <ListSubheader>Curriculum</ListSubheader>
-          <MenuItem disabled>
-            <ListItemIcon>
-              <CheckIcon />
-            </ListItemIcon>
-            By Year
-          </MenuItem>
-          <MenuItem disabled>
-            <ListItemText inset primary="By Semester" />
-          </MenuItem>
+          <MenuItemWithCondition
+            type="curriculum-dnd"
+            key={CurriculumDndType.DND_BY_YEAR}
+            id={CurriculumDndType.DND_BY_YEAR}
+            title="By Year"
+          />
+          <MenuItemWithCondition
+            type="curriculum-dnd"
+            key={CurriculumDndType.DND_BY_COURSE_RELATIONSHIP}
+            id={CurriculumDndType.DND_BY_COURSE_RELATIONSHIP}
+            title="By Course Relationship"
+          />
           <Divider />
           <ListSubheader>Diagram</ListSubheader>
           <MenuItemWithCondition
+            type="diagram"
             key={CurriculumDiagramType.NONE}
             id={CurriculumDiagramType.NONE}
             title="None"
           />
-          <MenuItemWithCondition
+          {/* <MenuItemWithCondition
+            type="diagram"
             key={CurriculumDiagramType.DEFAULT}
             id={CurriculumDiagramType.DEFAULT}
             title="Default"
-          />
+          /> */}
           <MenuItemWithCondition
+            type="diagram"
             key={CurriculumDiagramType.DOT}
             id={CurriculumDiagramType.DOT}
             title="Dot"
