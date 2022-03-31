@@ -44,10 +44,10 @@ interface ISemesterProps {
   index: number;
 }
 const Semester: FC<ISemesterProps> = ({ yearId, semId, index }) => {
-  const { allYears } = useAppSelector(
-    (state) => state.curriculums.curriculumDetail
+  const allYears = useAppSelector(
+    (state) => state.curriculums.curriculumDetail.allYears
   );
-  const { courses } = useAppSelector((state) => state.courses);
+  const courses = useAppSelector((state) => state.courses.courses);
 
   const { courseIds, creditLimit } = allYears[yearId].semesters[semId];
 

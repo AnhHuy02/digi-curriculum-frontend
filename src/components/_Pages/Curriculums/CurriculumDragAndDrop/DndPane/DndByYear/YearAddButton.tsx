@@ -41,8 +41,8 @@ const StyledButton = styled((props: ButtonProps & { semCount: number }) => (
 
 const YearAddButton = () => {
   const dispatch = useAppDispatch();
-  const { semCountPerYear } = useAppSelector(
-    (store) => store.curriculums.curriculumDetail
+  const semCountPerYear = useAppSelector(
+    (store) => store.curriculums.curriculumDetail.semCountPerYear
   );
 
   const handleClickAddYear = () => {

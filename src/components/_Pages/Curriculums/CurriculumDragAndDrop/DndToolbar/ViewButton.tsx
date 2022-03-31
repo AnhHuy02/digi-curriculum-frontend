@@ -76,9 +76,10 @@ interface IViewDiagramMenuItem {
 
 const ExportButton = () => {
   const dispatch = useAppDispatch();
-  const { diagramViewMode, dndViewMode } = useAppSelector(
-    (store) => store.curriculums
+  const diagramViewMode = useAppSelector(
+    (store) => store.curriculums.diagramViewMode
   );
+  const dndViewMode = useAppSelector((store) => store.curriculums.dndViewMode);
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -162,12 +163,12 @@ const ExportButton = () => {
       >
         <MenuList dense>
           <ListSubheader>Curriculum</ListSubheader>
-          <MenuItemWithCondition
+          {/* <MenuItemWithCondition
             type="curriculum-dnd"
             key={CurriculumDndType.DND_BY_YEAR}
             id={CurriculumDndType.DND_BY_YEAR}
             title="By Year"
-          />
+          /> */}
           <MenuItemWithCondition
             type="curriculum-dnd"
             key={CurriculumDndType.DND_BY_COURSE_RELATIONSHIP}

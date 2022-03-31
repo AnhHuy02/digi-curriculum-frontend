@@ -36,7 +36,7 @@ const DiagramBeautiful = () => {
   const curriculumDetail = useAppSelector(
     (store) => store.curriculums.curriculumDetail
   );
-  const { courses } = useAppSelector((store) => store.courses);
+  const courses = useAppSelector((store) => store.courses.courses);
   const [elements, setElements] = useState<Elements>([]);
 
   useEffect(() => {

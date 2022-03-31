@@ -119,6 +119,7 @@ export const getDotDiagramString = ({
             case CourseType.GENERAL:
             case CourseType.OTHERS: {
               courseNodeTemp = new Node(courseId, {
+                id: courseId,
                 label:
                   course.name + "\n" + `(${credit.theory}, ${credit.practice})`,
                 shape: "rectangle",
@@ -137,6 +138,7 @@ export const getDotDiagramString = ({
             case CourseType.SPECIALIZATION_REQUIRED:
             case CourseType.SPECIALIZATION_ELECTIVE: {
               courseNodeTemp = new Node(courseId, {
+                id: courseId,
                 label:
                   course.name + "\n" + `(${credit.theory}, ${credit.practice})`,
                 shape: "rectangle",
@@ -260,6 +262,6 @@ export const getDotDiagramString = ({
   g.addSubgraph(subGraphLegend);
   //#endregion
 
-  // console.log(toDot(g));
+  console.log(toDot(g));
   return toDot(g);
 };

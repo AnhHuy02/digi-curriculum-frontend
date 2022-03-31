@@ -14,6 +14,10 @@ import ReactFlow, {
 
 import { getDndNodesAndEdges } from "./helper";
 import { useAppSelector } from "src/hooks/useStore";
+import AddCourseNode from "./CustomNodes/AddCourseNode";
+import CourseNode from "./CustomNodes/CourseNode";
+
+const nodeTypes = { addCourseNode: AddCourseNode, courseNode: CourseNode };
 
 const DndByCourseRelationship = () => {
   const allYears = useAppSelector(
@@ -54,6 +58,7 @@ const DndByCourseRelationship = () => {
       }}
     >
       <ReactFlow
+        className="react-flow-subflows-example"
         nodes={nodes}
         edges={edges}
         onNodeMouseEnter={(
@@ -65,8 +70,8 @@ const DndByCourseRelationship = () => {
         // onNodeDragStop
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
+        nodeTypes={nodeTypes}
         // onConnect={onConnect}
-        className="react-flow-subflows-example"
         fitView
       >
         <MiniMap />
