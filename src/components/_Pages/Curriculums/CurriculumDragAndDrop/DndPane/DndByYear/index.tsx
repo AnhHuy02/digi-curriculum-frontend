@@ -14,8 +14,8 @@ import {
 
 const DndByYear = () => {
   const dispatch = useAppDispatch();
-  const { allYearsOrder } = useAppSelector(
-    (store) => store.curriculums.curriculumDetail
+  const allYearsOrder = useAppSelector(
+    (store) => store.curriculums.curriculumDetail.allYearsOrder
   );
 
   const handleDragYear = (result: DropResult, provided: ResponderProvided) => {

@@ -134,19 +134,19 @@ export const generateRandomCurriculumDetail = ({
   // Step 3: Add elective group (optional)
 
   // Test duplicate courseIds
-  let asd: any[] = [];
-  allYearIdsOrder.forEach((yearId, yearIndex) => {
-    const { semesters, semestersOrder } = allYears[yearId];
-    semestersOrder.forEach((semesterId, semesterIndex) => {
-      const { courseIds } = semesters[semesterId];
+  // let asd: any[] = [];
+  // allYearIdsOrder.forEach((yearId, yearIndex) => {
+  //   const { semesters, semestersOrder } = allYears[yearId];
+  //   semestersOrder.forEach((semesterId, semesterIndex) => {
+  //     const { courseIds } = semesters[semesterId];
 
-      courseIds.forEach((courseId, courseIndex) => {
-        asd.push(courseId);
-      });
-    });
-  });
+  //     courseIds.forEach((courseId, courseIndex) => {
+  //       asd.push(courseId);
+  //     });
+  //   });
+  // });
 
-  console.log(asd);
+  // console.log(asd);
   return {
     allYears,
     allYearIdsOrder,

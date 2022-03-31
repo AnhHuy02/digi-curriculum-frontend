@@ -7,8 +7,8 @@ import YearAddButton from "./YearAddButton";
 import { useAppSelector } from "src/hooks/useStore";
 
 const YearList = () => {
-  const { allYearsOrder } = useAppSelector(
-    (state) => state.curriculums.curriculumDetail
+  const allYearsOrder = useAppSelector(
+    (state) => state.curriculums.curriculumDetail.allYearsOrder
   );
 
   return (

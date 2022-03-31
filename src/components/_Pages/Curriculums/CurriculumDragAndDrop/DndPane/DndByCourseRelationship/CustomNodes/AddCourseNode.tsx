@@ -1,4 +1,5 @@
-import React from "react";
+import React, { memo, useCallback } from "react";
+import { Handle, Position } from "react-flow-renderer";
 import Button from "@mui/material/Button";
 import AddIcon from "@mui/icons-material/Add";
 // import { makeStyles } from "@material-ui/core/styles";
@@ -7,19 +8,21 @@ import { style } from "src/constants/component-specs/curriculum-edit-by-years";
 
 const configCourseTile = style.courseTile;
 
-// const useStyles = makeStyles((theme) => ({
-//   root: {
-//     margin: theme.spacing(configCourseTile.margin),
-//     width: theme.spacing(configCourseTile.width),
-//     padding: theme.spacing(configCourseTile.padding),
-//   },
-// }));
+interface IAddCourseNode {
+  data: {
+    // asdasd: string;
+  };
+}
 
-const CourseTileAdd = (props) => {
+const AddCourseNode = ({ data }: IAddCourseNode) => {
   // const classes = useStyles();
 
+  // const onChange = useCallback((evt) => {
+  //   console.log(evt.target.value);
+  // }, []);
+
   const handleClick = () => {
-    return props.onClick();
+    // return props.onClick();
   };
 
   return (
@@ -34,8 +37,9 @@ const CourseTileAdd = (props) => {
       })}
     >
       <AddIcon />
+      {/* {data.asdasd} */}
     </Button>
   );
 };
 
-export default React.memo(CourseTileAdd);
+export default memo(AddCourseNode);

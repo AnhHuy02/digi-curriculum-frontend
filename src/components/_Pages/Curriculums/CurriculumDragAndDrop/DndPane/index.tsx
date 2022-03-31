@@ -6,7 +6,7 @@ import { CurriculumDndType } from "src/constants/curriculum.const";
 import { useAppSelector } from "src/hooks/useStore";
 
 const DndPane = () => {
-  const { dndViewMode } = useAppSelector((store) => store.curriculums);
+  const dndViewMode = useAppSelector((store) => store.curriculums.dndViewMode);
 
   return (
     <Box height="inherit">

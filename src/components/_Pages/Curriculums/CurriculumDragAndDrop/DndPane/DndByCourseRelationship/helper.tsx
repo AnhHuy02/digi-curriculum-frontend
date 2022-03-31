@@ -53,18 +53,18 @@ export const getDndNodesAndEdges = (): { nodes: Node[]; edges: Edge[] } => {
   // #region Step 1: Render semester and course nodes
   allYearIdsOrder.forEach((yearId, yearIndex) => {
     const { semesters, semestersOrder } = allYears[yearId];
+    const customYearId = `year-${yearIndex + 1}`;
 
     semestersOrder.forEach((semesterId, semesterIndex) => {
+      console.log("generate", semesterId);
       // #region Step 1.1: Render semester nodes
       const courseCount = semesters[semesterId].courseIds.length;
-      let semId: string = "";
 
       if (semesterIndex !== semestersOrder.length - 1) {
         ++semCount;
-        semId = `sem${semCount}`;
 
         nodesTemp.push({
-          id: semId,
+          id: semesterId,
           // type: "group",
           data: {
             label: `Semester ${semCount}`,
@@ -87,10 +87,9 @@ export const getDndNodesAndEdges = (): { nodes: Node[]; edges: Edge[] } => {
         });
       } else {
         ++summerCount;
-        semId = `summer${summerCount}`;
 
         nodesTemp.push({
-          id: `summer${summerCount}`,
+          id: semesterId,
           // type: "group",
           data: {
             label: `Summer ${summerCount}`,
@@ -122,21 +121,12 @@ export const getDndNodesAndEdges = (): { nodes: Node[]; edges: Edge[] } => {
         courseOrders.push(courseId);
         nodesTemp.push({
           id: courseId,
+          type: "courseNode",
           data: {
-            label: (
-              <Box key={courseId}>
-                <Box>
-                  <Typography fontWeight={500}>{name}</Typography>
-                </Box>
-                <Box>
-                  <Typography>{`(${credit.theory}-${credit.practice})`}</Typography>
-                </Box>
-              </Box>
-            ),
-          },
-          style: {
-            width: courseNodeStyle.width,
-            height: courseNodeStyle.height,
+            yearId,
+            semId: semesterId,
+            courseId,
+            index: courseIndex,
           },
           position: {
             x: semesterStyle.paddingX,
@@ -146,26 +136,24 @@ export const getDndNodesAndEdges = (): { nodes: Node[]; edges: Edge[] } => {
           },
           sourcePosition: Position.Right,
           targetPosition: Position.Left,
-          parentNode: semId,
+          parentNode: semesterId,
           extent: "parent",
+          draggable: false,
         });
       });
       // #endregion
 
       // #region Step 1.3: Render add course button
       nodesTemp.push({
-        id: `add-course-btn-${semId}`,
+        id: `add-course-btn-${semesterId}`,
+        type: "addCourseNode",
         data: {
-          label: (
-            <Box key={`add-course-btn-${semId}`}>
-              <Typography>Add</Typography>
-            </Box>
-          ),
+          // asdasd: "test",
         },
-        style: {
-          width: addCourseBtnStyle.width,
-          height: addCourseBtnStyle.height,
-        },
+        // style: {
+        //   width: addCourseBtnStyle.width,
+        //   height: addCourseBtnStyle.height,
+        // },
         position: {
           x: semesterStyle.paddingX,
           y:
@@ -174,8 +162,9 @@ export const getDndNodesAndEdges = (): { nodes: Node[]; edges: Edge[] } => {
         },
         sourcePosition: Position.Right,
         targetPosition: Position.Left,
-        parentNode: semId,
+        parentNode: semesterId,
         extent: "parent",
+        draggable: false,
       });
       // #endregion
     });

@@ -127,6 +127,8 @@ export const curriculumSlice = createSlice({
       const { allYearsOrder } = state.curriculumDetail;
       const { source, destination, draggableId } = action.payload;
 
+      console.log(action.payload)
+
       if (destination !== undefined) {
         allYearsOrder.splice(source.index, 1);
         allYearsOrder.splice(destination.index, 0, draggableId);
@@ -153,6 +155,16 @@ export const curriculumSlice = createSlice({
           draggableId
         );
       }
+    },
+    removeCurriculumDetailCourse: (
+      state,
+      action: PayloadAction<{ yearId: string; semId: string; courseId: string }>
+    ) => {
+      const { yearId, semId, courseId } = action.payload;
+      _pull(
+        state.curriculumDetail.allYears[yearId].semesters[semId].courseIds,
+        courseId
+      );
     },
     removeCurriculumDetailYear: (state, action: PayloadAction<string>) => {
       const { allYears, allYearsOrder } = state.curriculumDetail;
@@ -205,6 +217,7 @@ export const {
   moveCurriculumDetailYearsOrder,
   moveCurriculumDetailCourse,
   removeCurriculumDetailYear,
+  removeCurriculumDetailCourse,
   resetState,
 } = curriculumSlice.actions;
 

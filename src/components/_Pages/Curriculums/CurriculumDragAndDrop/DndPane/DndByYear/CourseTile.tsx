@@ -12,7 +12,8 @@ import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { Draggable } from "react-beautiful-dnd";
 
 import { style } from "src/constants/component-specs/curriculum-edit-by-years";
-import { useAppSelector } from "src/hooks/useStore";
+import { useAppSelector, useAppDispatch } from "src/hooks/useStore";
+import { removeCurriculumDetailCourse } from "src/redux/curriculums.slice";
 
 const configCourseTile = style.courseTile;
 
@@ -29,10 +30,13 @@ const CourseTile: FC<ICourseTileProps> = ({
   courseId,
   index,
 }) => {
-  const [anchorEl, setAnchorEl] = useState(null);
-  const { id, name, credit } = useAppSelector(
+  const dispatch = useAppDispatch();
+  const courseDetail = useAppSelector(
     (store) => store.courses.courses[courseId]
   );
+
+  const { id, name, credit } = courseDetail;
+  const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClick = (event: any) => {
     setAnchorEl(event.currentTarget);
@@ -47,14 +51,7 @@ const CourseTile: FC<ICourseTileProps> = ({
   };
 
   const handleRemoveCourse = () => {
-    // const { yearId, semId, courseId } = this.props;
-    // const { removeCourseFromCurriculum, removeSelectedCourseFromCourseList } =
-    //   this.props;
-
-    const filteredSemId = semId;
-    // const filteredSemId = semId.split(' ')[1];
-    // removeCourseFromCurriculum({ yearId, semId: filteredSemId, courseId });
-    // removeSelectedCourseFromCourseList(courseId);
+    dispatch(removeCurriculumDetailCourse({ yearId, semId, courseId }));
   };
 
   // const { classes } = this.props;

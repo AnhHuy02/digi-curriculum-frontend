@@ -36,7 +36,9 @@ const DiagramPane = (props: DiagramPaneProps) => {
 };
 
 const CurriculumDragAndDrop = () => {
-  const { diagramViewMode } = useAppSelector((store) => store.curriculums);
+  const diagramViewMode = useAppSelector(
+    (store) => store.curriculums.diagramViewMode
+  );
 
   return (
     <Box display="flex" flexDirection={"column"} height={"100%"}>

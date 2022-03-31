@@ -22,8 +22,8 @@ interface YearProps {
 }
 const Year: FC<YearProps> = ({ index, yearId }) => {
   const dispatch = useAppDispatch();
-  const { allYears } = useAppSelector(
-    (state) => state.curriculums.curriculumDetail
+  const allYears = useAppSelector(
+    (state) => state.curriculums.curriculumDetail.allYears
   );
   const { semestersOrder } = allYears[yearId];
 
