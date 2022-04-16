@@ -1,5 +1,6 @@
 import type { IRandomMajorsReturn } from "src/types/department.type";
 import type { IRandomCoursesReturn } from "src/types/course.type";
+import type { RootState } from "src/redux/_store";
 
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
@@ -11,18 +12,23 @@ import {
 import {
   loadAllRandomMajors,
   loadAllRandomCourses,
+  selectCourses,
+  addCourses,
   resetState as resetCoursesState,
 } from "src/redux/courses.slice";
 
 export const initRandomCurriculumDetailPageData = createAsyncThunk(
   "coursesCurriculums/initRandomCurriculumDetailPageData",
   async (_payload, thunkAPI) => {
-    const { dispatch } = thunkAPI;
+    const { dispatch, getState } = thunkAPI;
 
-    dispatch(resetCurriculumsState());
-    dispatch(resetCoursesState());
+    // #region Step 1: clear all data to make sure if random data is clicked
+    await dispatch(resetCurriculumsState());
+    await dispatch(resetCoursesState());
+    // #endregion
 
     try {
+      // #region Step 2: random courses and curriculums
       const majorsResponse = await dispatch(
         loadAllRandomMajors({ min: 1, max: 15 })
       );
@@ -86,8 +92,28 @@ export const initRandomCurriculumDetailPageData = createAsyncThunk(
           electiveGroupIds: [],
         })
       );
+      // #endregion
 
-      return curriculumItemDetailResponse;
+      // #region Step 3: For Add Course feature, handle checkbox based on
+      // courses from curriculum
+      const { allYears, allYearsOrder } = (getState() as RootState).curriculums
+        .curriculumDetail;
+      let courseIdsPlaceholder: string[] = [];
+
+      allYearsOrder.forEach((yearId) => {
+        const year = allYears[yearId];
+        const { semesters, semestersOrder } = year;
+
+        semestersOrder.forEach((semId) => {
+          const semester = semesters[semId];
+          courseIdsPlaceholder.push(...semester.courseIds);
+        });
+      });
+      dispatch(selectCourses(courseIdsPlaceholder));
+      dispatch(addCourses());
+
+      thunkAPI.fulfillWithValue("success");
+      // #endregion
     } catch (err) {
       return thunkAPI.rejectWithValue(err);
     }

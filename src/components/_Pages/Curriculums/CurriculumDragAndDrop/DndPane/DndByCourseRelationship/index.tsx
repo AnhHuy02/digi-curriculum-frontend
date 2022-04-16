@@ -1,6 +1,7 @@
 import type { MouseEvent } from "react";
 
 import { useCallback, useMemo } from "react";
+import dynamic from "next/dynamic";
 import Box from "@mui/material/Box";
 import ReactFlow, {
   addEdge,
@@ -12,12 +13,33 @@ import ReactFlow, {
   Node,
 } from "react-flow-renderer";
 
+const SmartEdgeProvider = dynamic(
+  async () => {
+    const { SmartEdgeProvider } = await import("@tisoap/react-flow-smart-edge");
+    return SmartEdgeProvider;
+  },
+  { ssr: false }
+);
+const SmartEdge = dynamic(
+  async () => {
+    const { SmartEdge } = await import("@tisoap/react-flow-smart-edge");
+    return SmartEdge;
+  },
+  { ssr: false }
+);
+
 import { getDndNodesAndEdges } from "./helper";
 import { useAppSelector } from "src/hooks/useStore";
 import AddCourseNode from "./CustomNodes/AddCourseNode";
 import CourseNode from "./CustomNodes/CourseNode";
 
-const nodeTypes = { addCourseNode: AddCourseNode, courseNode: CourseNode };
+const nodeTypes = {
+  addCourseNode: AddCourseNode,
+  courseNode: CourseNode,
+};
+const edgeTypes = {
+  // smart: SmartEdge,
+};
 
 const DndByCourseRelationship = () => {
   const allYears = useAppSelector(
@@ -57,27 +79,30 @@ const DndByCourseRelationship = () => {
         height: "inherit",
       }}
     >
-      <ReactFlow
-        className="react-flow-subflows-example"
-        nodes={nodes}
-        edges={edges}
-        onNodeMouseEnter={(
-          event: MouseEvent<Element, globalThis.MouseEvent>,
-          node: Node<any>
-        ) => {
-          handleNodeMouseEnter(event, node);
-        }}
-        // onNodeDragStop
-        onNodesChange={onNodesChange}
-        onEdgesChange={onEdgesChange}
-        nodeTypes={nodeTypes}
-        // onConnect={onConnect}
-        fitView
-      >
-        <MiniMap />
-        <Controls />
-        <Background />
-      </ReactFlow>
+      {/* <SmartEdgeProvider options={{ debounceTime: 300 }}> */}
+        <ReactFlow
+          className="react-flow-subflows-example"
+          nodes={nodes}
+          edges={edges}
+          onNodeMouseEnter={(
+            event: MouseEvent<Element, globalThis.MouseEvent>,
+            node: Node<any>
+          ) => {
+            handleNodeMouseEnter(event, node);
+          }}
+          // onNodeDragStop
+          onNodesChange={onNodesChange}
+          onEdgesChange={onEdgesChange}
+          nodeTypes={nodeTypes}
+          edgeTypes={edgeTypes}
+          // onConnect={onConnect}
+          fitView
+        >
+          <MiniMap />
+          <Controls />
+          <Background />
+        </ReactFlow>
+      {/* </SmartEdgeProvider> */}
     </Box>
   );
 };

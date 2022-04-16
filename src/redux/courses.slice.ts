@@ -9,6 +9,8 @@ import type {
 // import type { RootState } from '../store';
 
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import _pick from "lodash/pick";
+import _pull from "lodash/pull";
 
 import {
   getRandomMajors,
@@ -28,6 +30,7 @@ interface ICoursesState {
   courseIds: string[];
   courseDetail: ICourseItemDetail | null;
   pageLoading: boolean;
+  selectedCourseIdsPlaceholder: string[];
 }
 
 const initialState: ICoursesState = {
@@ -37,7 +40,98 @@ const initialState: ICoursesState = {
   courseIds: [],
   courseDetail: null,
   pageLoading: false,
+  selectedCourseIdsPlaceholder: [],
 };
+//#endregion
+
+//#region SLICE
+export const coursesSlice = createSlice({
+  name: "curriculums",
+  initialState: initialState,
+  reducers: {
+    setCourses: (
+      state,
+      action: PayloadAction<Record<string, ICourseItemSimple>>
+    ) => {
+      state.courses = action.payload;
+    },
+    setPageLoading: (state, action: PayloadAction<boolean>) => {
+      state.pageLoading = action.payload;
+    },
+    addCourses: (state) => {
+      const { selectedCourseIdsPlaceholder } = state;
+
+      state.selectedCourseIdsPlaceholder = [];
+
+      selectedCourseIdsPlaceholder.forEach((courseId) => {
+        state.courses[courseId].selected = true;
+        state.courses[courseId].selectedTemp = false;
+      });
+    },
+    selectCourse: (state, action: PayloadAction<string>) => {
+      const { selectedCourseIdsPlaceholder } = state;
+      const courseId = action.payload;
+
+      const courseIndex = selectedCourseIdsPlaceholder.findIndex(
+        (element) => element === courseId
+      );
+
+      if (courseIndex === -1) {
+        state.selectedCourseIdsPlaceholder.push(courseId);
+        state.courses[courseId].selectedTemp = true;
+      } else {
+        state.selectedCourseIdsPlaceholder.splice(courseIndex, 1);
+        state.courses[courseId].selectedTemp = false;
+      }
+    },
+    selectCourses: (state, action: PayloadAction<string[]>) => {
+      const courseIds = action.payload;
+
+      state.selectedCourseIdsPlaceholder.push(...courseIds);
+
+      courseIds.forEach((courseId) => {
+        state.courses[courseId].selectedTemp = true;
+      });
+    },
+    removeSelectedCourse: (state, action: PayloadAction<string>) => {
+      const courseId = action.payload;
+
+      state.courses[courseId].selected = false;
+      state.courses[courseId].selectedTemp = false;
+    },
+    removeSelectedCourses: (state, action: PayloadAction<string[]>) => {
+      const { courses } = state;
+      const courseIds = action.payload;
+      const filteredCourses = _pick(courses, courseIds);
+
+      courseIds.forEach((courseId, courseIndex) => {
+        filteredCourses[courseId].selected = false;
+        filteredCourses[courseId].selectedTemp = false;
+      });
+
+      state.courses = {
+        ...courses,
+        ...filteredCourses,
+      };
+    },
+    resetState: (state) => {
+      state = initialState;
+    },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(loadAllRandomMajors.fulfilled, (state, action) => {
+      const { allMajors, allMajorIds } = action.payload;
+      state.majorIds = allMajorIds;
+      state.majors = allMajors;
+    });
+    builder.addCase(loadAllRandomCourses.fulfilled, (state, action) => {
+      console.log("fullfiled");
+      const { allCourses, allCourseIds } = action.payload;
+      state.courses = allCourses;
+      state.courseIds = allCourseIds;
+    });
+  },
+});
 //#endregion
 
 //#region ASYNC_THUNK
@@ -81,6 +175,7 @@ export const loadAllRandomCourses = createAsyncThunk(
     }
   }
 );
+
 // export const requestGetBuildingsByProject = createAsyncThunk(
 //   "transactionSearchQuery/requestGetBuildingsByProject",
 //   async (
@@ -117,41 +212,16 @@ export const loadAllRandomCourses = createAsyncThunk(
 
 //#endregion
 
-//#region SLICE
-export const coursesSlice = createSlice({
-  name: "curriculums",
-  initialState: initialState,
-  reducers: {
-    setCourses: (
-      state,
-      action: PayloadAction<Record<string, ICourseItemSimple>>
-    ) => {
-      state.courses = action.payload;
-    },
-    setPageLoading: (state, action: PayloadAction<boolean>) => {
-      state.pageLoading = action.payload;
-    },
-    resetState: (state) => {
-      state = initialState;
-    },
-  },
-  extraReducers: (builder) => {
-    builder.addCase(loadAllRandomMajors.fulfilled, (state, action) => {
-      const { allMajors, allMajorIds } = action.payload;
-      state.majorIds = allMajorIds;
-      state.majors = allMajors;
-    });
-    builder.addCase(loadAllRandomCourses.fulfilled, (state, action) => {
-      console.log("fullfiled")
-      const { allCourses, allCourseIds } = action.payload;
-      state.courses = allCourses;
-      state.courseIds = allCourseIds;
-    });
-  },
-});
-//#endregion
-
-export const { setPageLoading, setCourses, resetState } = coursesSlice.actions;
+export const {
+  setPageLoading,
+  setCourses,
+  addCourses,
+  selectCourse,
+  selectCourses,
+  removeSelectedCourse,
+  removeSelectedCourses,
+  resetState,
+} = coursesSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type
 // export const selectCount = (state: RootState) => state.counter.value;

@@ -4,7 +4,8 @@ import { ReflexContainer, ReflexSplitter, ReflexElement } from "react-reflex";
 import DndToolbar from "./DndToolbar";
 import DndPane from "./DndPane";
 import DiagramDot from "./DiagramPane/DiagramDot";
-import DiagramBeautiful from "./DiagramPane/DiagramBeautiful";
+// import DiagramBeautiful from "./DiagramPane/DiagramBeautiful";
+import ModalAddCourse from "./CustomModals/ModalAddCourse";
 import { useAppSelector } from "src/hooks/useStore";
 import { CurriculumDiagramType as DiagramType } from "src/constants/curriculum.const";
 
@@ -48,6 +49,7 @@ const CurriculumDragAndDrop = () => {
       <ReflexContainer orientation="vertical">
         <ReflexElement className="left-pane" minSize={300}>
           <DndPane />
+          <ModalAddCourse />
         </ReflexElement>
 
         {diagramViewMode !== DiagramType.NONE && (

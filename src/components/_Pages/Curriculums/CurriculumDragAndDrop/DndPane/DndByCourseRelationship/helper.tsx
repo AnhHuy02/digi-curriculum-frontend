@@ -2,11 +2,11 @@ import type { Node, Edge } from "react-flow-renderer";
 import type { IRandomCurriculumDetailItemReturn } from "src/types/curriculum.type";
 import type { ICourseItemSimple } from "src/types/course.type";
 
-import { Position } from "react-flow-renderer";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
+import { Position, MarkerType } from "react-flow-renderer";
+// import Box from "@mui/material/Box";
+// import Typography from "@mui/material/Typography";
 
-import { useAppSelector } from "src/hooks/useStore";
+// import { useAppSelector } from "src/hooks/useStore";
 import { store } from "src/redux/_store";
 
 const courseNodeStyle = {
@@ -26,9 +26,9 @@ const semesterStyle = {
   offsetX: 75,
 };
 
-interface IGetDndNodesAndEdges extends IRandomCurriculumDetailItemReturn {
-  allCourses: Record<string, ICourseItemSimple>;
-}
+// interface IGetDndNodesAndEdges extends IRandomCurriculumDetailItemReturn {
+//   allCourses: Record<string, ICourseItemSimple>;
+// }
 
 export const getDndNodesAndEdges = (): { nodes: Node[]; edges: Edge[] } => {
   let nodesTemp: Node[] = [];
@@ -148,7 +148,8 @@ export const getDndNodesAndEdges = (): { nodes: Node[]; edges: Edge[] } => {
         id: `add-course-btn-${semesterId}`,
         type: "addCourseNode",
         data: {
-          // asdasd: "test",
+          yearId,
+          semId: semesterId,
         },
         // style: {
         //   width: addCourseBtnStyle.width,
@@ -203,7 +204,7 @@ export const getDndNodesAndEdges = (): { nodes: Node[]; edges: Edge[] } => {
                 target: targetId,
                 // sourcePosition: Position.Right,
                 // targetPosition: Position.Left,
-                // arrowHeadType: ArrowHeadType.ArrowClosed,
+                markerEnd: { type: MarkerType.ArrowClosed, color: "#000000" },
                 labelBgStyle: {
                   backgroundColor: "none",
                 },
@@ -256,7 +257,7 @@ export const getDndNodesAndEdges = (): { nodes: Node[]; edges: Edge[] } => {
               target: targetId,
               // sourcePosition: Position.Right,
               // targetPosition: Position.Left,
-              // arrowHeadType: ArrowHeadType.ArrowClosed,
+              markerEnd: { type: MarkerType.ArrowClosed, color: "#000000" },
               animated: true,
               labelBgStyle: {
                 backgroundColor: "none",
