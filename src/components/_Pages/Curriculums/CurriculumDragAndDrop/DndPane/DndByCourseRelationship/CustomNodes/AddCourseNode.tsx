@@ -1,35 +1,46 @@
-import React, { memo, useCallback } from "react";
-import { Handle, Position } from "react-flow-renderer";
+import type { FC } from "react";
+
+import { memo, useCallback } from "react";
 import Button from "@mui/material/Button";
 import AddIcon from "@mui/icons-material/Add";
-// import { makeStyles } from "@material-ui/core/styles";
 
 import { style } from "src/constants/component-specs/curriculum-edit-by-years";
+import { useAppDispatch } from "src/hooks/useStore";
+import { setModalAddCourse } from "src/redux/curriculums.slice";
 
 const configCourseTile = style.courseTile;
 
-interface IAddCourseNode {
+interface IAddCourseNodeProps {
   data: {
-    // asdasd: string;
+    yearId: string;
+    semId: string;
   };
 }
 
-const AddCourseNode = ({ data }: IAddCourseNode) => {
-  // const classes = useStyles();
+const AddCourseNode: FC<IAddCourseNodeProps> = ({
+  data: { yearId, semId },
+}) => {
+  const dispatch = useAppDispatch();
 
   // const onChange = useCallback((evt) => {
   //   console.log(evt.target.value);
   // }, []);
 
-  const handleClick = () => {
-    // return props.onClick();
+  const openModalAddCourse = () => {
+    dispatch(
+      setModalAddCourse({
+        isOpen: true,
+        yearId,
+        semId,
+      })
+    );
   };
 
   return (
     <Button
-      variant={`contained`}
+      variant="contained"
       color="inherit"
-      onClick={() => handleClick()}
+      onClick={openModalAddCourse}
       sx={(theme) => ({
         margin: theme.spacing(configCourseTile.margin),
         width: theme.spacing(configCourseTile.width),
@@ -37,7 +48,6 @@ const AddCourseNode = ({ data }: IAddCourseNode) => {
       })}
     >
       <AddIcon />
-      {/* {data.asdasd} */}
     </Button>
   );
 };

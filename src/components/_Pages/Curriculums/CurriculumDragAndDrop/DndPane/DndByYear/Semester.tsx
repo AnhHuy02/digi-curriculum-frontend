@@ -1,13 +1,14 @@
 import type { FC } from "react";
 
-import { forwardRef } from "react";
+import { memo, forwardRef } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { Droppable } from "react-beautiful-dnd";
 
 import CourseTile from "./CourseTile";
 import CourseTileAdd from "./CourseTileAdd";
-import { useAppSelector } from "src/hooks/useStore";
+import { useAppSelector, useAppDispatch } from "src/hooks/useStore";
+import { setModalAddCourse } from "src/redux/curriculums.slice";
 
 interface ICourseListContainerProps {
   isdraggingover: boolean;
@@ -44,6 +45,7 @@ interface ISemesterProps {
   index: number;
 }
 const Semester: FC<ISemesterProps> = ({ yearId, semId, index }) => {
+  const dispatch = useAppDispatch();
   const allYears = useAppSelector(
     (state) => state.curriculums.curriculumDetail.allYears
   );
@@ -60,18 +62,15 @@ const Semester: FC<ISemesterProps> = ({ yearId, semId, index }) => {
     return creditCount;
   };
 
-  const showDialog = ({ yearId, semId }: any) => {
-    // const { openDialog } = this.props;
-    // openDialog({ yearId, semId });
+  const openModalAddCourse = () => {
+    dispatch(
+      setModalAddCourse({
+        isOpen: true,
+        yearId,
+        semId,
+      })
+    );
   };
-
-  // const handleRemoveCourse = ({ yearId, semId, courseId }) => {
-  //   const { removeCourseFromCurriculum, removeSelectedCourseFromCourseList } =
-  //     this.props;
-  //   const filteredSemId = semId.split(" ")[1];
-  //   removeCourseFromCurriculum({ yearId, semId: filteredSemId, courseId });
-  //   removeSelectedCourseFromCourseList(courseId);
-  // };
 
   return (
     <Box>
@@ -103,7 +102,7 @@ const Semester: FC<ISemesterProps> = ({ yearId, semId, index }) => {
                 );
               })}
               {provided.placeholder}
-              <CourseTileAdd onClick={() => showDialog({ yearId, semId })} />
+              <CourseTileAdd onClick={openModalAddCourse} />
             </CourseListContainer>
           );
         }}
@@ -125,4 +124,4 @@ const Semester: FC<ISemesterProps> = ({ yearId, semId, index }) => {
   );
 };
 
-export default Semester;
+export default memo(Semester);

@@ -7,6 +7,7 @@ import { useAppSelector, useAppDispatch } from "src/hooks/useStore";
 
 import YearHeaderList from "./YearHeaderList";
 import YearList from "./YearList";
+import ModalAddCourse from "../../CustomModals/ModalAddCourse";
 import {
   moveCurriculumDetailYearsOrder,
   moveCurriculumDetailCourse,
@@ -14,22 +15,18 @@ import {
 
 const DndByYear = () => {
   const dispatch = useAppDispatch();
-  const allYearsOrder = useAppSelector(
-    (store) => store.curriculums.curriculumDetail.allYearsOrder
-  );
 
   const handleDragYear = (result: DropResult, provided: ResponderProvided) => {
     const { source, destination } = result;
-    // const { dragYear, dragCourse } = this.props;
-    if (!destination) return;
+    if (!destination) {
+      return;
+    }
     if (
       source.droppableId === destination.droppableId &&
       source.index === destination.index
-    )
+    ) {
       return;
-
-    console.log(result);
-    console.log(provided);
+    }
 
     switch (result.type) {
       case "move-years-order": {

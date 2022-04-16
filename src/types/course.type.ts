@@ -20,7 +20,7 @@ export interface ICourseItemSimple {
   type: CourseType | string;
   disabled: boolean;
   selected: boolean;
-  // tempSelected: boolean;
+  selectedTemp: boolean;
   highlighted?: boolean;
   relationship: ICourseRelationship;
 }

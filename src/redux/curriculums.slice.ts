@@ -1,5 +1,5 @@
 import type { PayloadAction } from "@reduxjs/toolkit";
-import type { DropResult, ResponderProvided } from "react-beautiful-dnd";
+import type { DropResult } from "react-beautiful-dnd";
 import type { RootState } from "./_store";
 import type {
   ICurriculumItemSimple,
@@ -25,6 +25,11 @@ interface ICurriculumState {
   dndViewMode: CurriculumDndType;
   diagramViewMode: CurriculumDiagramType;
   pageLoading: boolean;
+  modalAddCourse: {
+    isOpen: boolean;
+    yearId: string | null;
+    semId: string | null;
+  };
 }
 
 const initialState: ICurriculumState = {
@@ -41,26 +46,12 @@ const initialState: ICurriculumState = {
   dndViewMode: CurriculumDndType.DND_BY_COURSE_RELATIONSHIP,
   diagramViewMode: CurriculumDiagramType.NONE,
   pageLoading: false,
+  modalAddCourse: {
+    isOpen: false,
+    yearId: null,
+    semId: null,
+  },
 };
-//#endregion
-
-//#region ASYNC_THUNK
-export const loadRandomCurriculumDetail = createAsyncThunk(
-  "curriculums/loadRandomCurriculumDetail",
-  async (payload: IRandomCurriculumDetailParam, thunkAPI) => {
-    const { dispatch } = thunkAPI;
-    dispatch(setPageLoading(true));
-    try {
-      const res = await getRandomCurriculumItemDetail(payload);
-      return res;
-      // return thunkAPI.fulfillWithValue(res);
-    } catch (err) {
-      return thunkAPI.rejectWithValue(err);
-    } finally {
-      dispatch(setPageLoading(false));
-    }
-  }
-);
 //#endregion
 
 //#region SLICE
@@ -95,6 +86,16 @@ export const curriculumSlice = createSlice({
     setCurriculumDetailLoading: (state, action: PayloadAction<boolean>) => {
       state.curriculumDetail.loading = action.payload;
     },
+    setModalAddCourse: (
+      state,
+      action: PayloadAction<{
+        isOpen?: boolean;
+        yearId?: string | null;
+        semId?: string | null;
+      }>
+    ) => {
+      state.modalAddCourse = { ...state.modalAddCourse, ...action.payload };
+    },
     addCurriculumDetailYear: (state) => {
       const { semCountPerYear, allYearsOrder, allYears } =
         state.curriculumDetail;
@@ -127,7 +128,7 @@ export const curriculumSlice = createSlice({
       const { allYearsOrder } = state.curriculumDetail;
       const { source, destination, draggableId } = action.payload;
 
-      console.log(action.payload)
+      console.log(action.payload);
 
       if (destination !== undefined) {
         allYearsOrder.splice(source.index, 1);
@@ -153,6 +154,21 @@ export const curriculumSlice = createSlice({
           destination.index,
           0,
           draggableId
+        );
+      }
+    },
+    addCurriculumDetailCourses: (
+      state,
+      action: PayloadAction<{
+        yearId: string;
+        semId: string;
+        courseIds: string[];
+      }>
+    ) => {
+      const { yearId, semId, courseIds } = action.payload;
+      if (courseIds.length > 0) {
+        state.curriculumDetail.allYears[yearId].semesters[semId].courseIds.push(
+          ...courseIds
         );
       }
     },
@@ -207,13 +223,34 @@ export const curriculumSlice = createSlice({
 });
 //#endregion
 
+//#region ASYNC_THUNK
+export const loadRandomCurriculumDetail = createAsyncThunk(
+  "curriculums/loadRandomCurriculumDetail",
+  async (payload: IRandomCurriculumDetailParam, thunkAPI) => {
+    const { dispatch } = thunkAPI;
+    dispatch(setPageLoading(true));
+    try {
+      const res = await getRandomCurriculumItemDetail(payload);
+      return res;
+      // return thunkAPI.fulfillWithValue(res);
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err);
+    } finally {
+      dispatch(setPageLoading(false));
+    }
+  }
+);
+//#endregion
+
 export const {
   setDragAndDropViewMode,
   setDiagramViewMode,
   setCurriculumDetail,
   setPageLoading,
   setCurriculumDetailLoading,
+  setModalAddCourse,
   addCurriculumDetailYear,
+  addCurriculumDetailCourses,
   moveCurriculumDetailYearsOrder,
   moveCurriculumDetailCourse,
   removeCurriculumDetailYear,

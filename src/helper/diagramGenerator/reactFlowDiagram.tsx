@@ -1,11 +1,11 @@
-import type { Elements } from "react-flow-renderer";
+import type { Node, Edge } from "react-flow-renderer";
 import type {
   IRandomCoursesReturn,
   ICourseItemSimple,
 } from "src/types/course.type";
 import type { IRandomCurriculumDetailItemReturn } from "src/types/curriculum.type";
 
-import { Position, ArrowHeadType } from "react-flow-renderer";
+import { Position, MarkerType } from "react-flow-renderer";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 
@@ -19,11 +19,16 @@ export const getReactFlowElements = ({
   allCourses,
   allYears,
   allYearIdsOrder,
-}: IGetReactFlowElements): Elements => {
-  let reactFlowElements: Elements = [];
+}: IGetReactFlowElements): { nodes: Node[]; edges: Edge[] } => {
+  // let reactFlowElements: Elements = [];
+  let nodesTemp: Node[] = [];
+  let edgesTemp: Edge[] = [];
 
   if (allYearIdsOrder.length === 0) {
-    return [];
+    return {
+      nodes: nodesTemp,
+      edges: edgesTemp,
+    };
   }
 
   console.log("getReactFlowElements");
@@ -43,7 +48,7 @@ export const getReactFlowElements = ({
         courseOrders.push(courseId);
         console.log(courseOrders.length);
 
-        reactFlowElements.push({
+        nodesTemp.push({
           // id: courseId,
           id: (courseOrders.length - 1).toString(),
           // id: (yearIndex * semestersOrder.length + semesterIndex).toString(),
@@ -96,7 +101,7 @@ export const getReactFlowElements = ({
                 // console.log(courseId, preRequisiteId);
                 // console.log(`${sourceId} ${targetId}`);
 
-                reactFlowElements.push({
+                edgesTemp.push({
                   id: `${sourceId}-prerequisite-${targetId}}`,
                   label: <>Prerequisite</>,
                   type: "smart",
@@ -105,7 +110,7 @@ export const getReactFlowElements = ({
                   target: targetId.toString(),
                   // sourcePosition: Position.Right,
                   // targetPosition: Position.Left,
-                  arrowHeadType: ArrowHeadType.ArrowClosed,
+                  markerEnd: { type: MarkerType.ArrowClosed, color: "#000000" },
                   labelBgStyle: {
                     backgroundColor: "none",
                   },
@@ -120,7 +125,7 @@ export const getReactFlowElements = ({
               const targetId = courseOrders.indexOf(coRequisiteCourseId);
 
               if (sourceId > -1 && targetId > -1) {
-                reactFlowElements.push({
+                edgesTemp.push({
                   id: `${sourceId}-corequisite-${targetId}`,
                   label: <>Corequisite</>,
                   type: "smart",
@@ -140,7 +145,7 @@ export const getReactFlowElements = ({
               const sourceId = courseOrders.indexOf(previousCourseId);
               const targetId = courseOrders.indexOf(courseId);
 
-              reactFlowElements.push({
+              edgesTemp.push({
                 id: `${sourceId}-previous-${targetId}`,
                 label: <>Previous</>,
                 type: "smart",
@@ -148,7 +153,7 @@ export const getReactFlowElements = ({
                 target: targetId.toString(),
                 // sourcePosition: Position.Right,
                 // targetPosition: Position.Left,
-                arrowHeadType: ArrowHeadType.ArrowClosed,
+                markerEnd: { type: MarkerType.ArrowClosed, color: "#000000" },
                 animated: true,
                 labelBgStyle: {
                   backgroundColor: "none",
@@ -157,81 +162,14 @@ export const getReactFlowElements = ({
             });
           }
 
-          // if (relationship.preRequisites.length > 0) {
-          //   relationship.preRequisites.forEach((preRequisiteCourseId) => {
-          //     console.log(courseId, preRequisiteCourseId);
-
-          //     const sourceId = null;
-
-          //     reactFlowElements.push({
-          //       id: `e${courseId}-${preRequisiteCourseId}`,
-          //       // label: <>Prerequisite</>,
-          //       type: "smart",
-          //       source: preRequisiteCourseId,
-          //       target: courseId,
-          //       // sourcePosition: Position.Right,
-          //       // targetPosition: Position.Left,
-          //       // arrowHeadType: ArrowHeadType.ArrowClosed,
-          //       // labelBgStyle: {
-          //       //   backgroundColor: "none",
-          //       // },
-          //     });
-          //   });
-          // }
-
-          // if (relationship.coRequisites.length > 0) {
-          //   relationship.coRequisites.forEach((coRequisiteCourseId) => {
-          //     reactFlowElements.push({
-          //       id: `${courseId}-corequisite-${coRequisiteCourseId}`,
-          //       label: <>Corequisite</>,
-          //       type: "smart",
-          //       source: courseId,
-          //       // sourcePosition: Position.Top,
-          //       target: coRequisiteCourseId,
-          //       labelBgStyle: {
-          //         backgroundColor: "none",
-          //       },
-          //     });
-          //   });
-          // }
-
-          // if (relationship.previous.length > 0) {
-          //   relationship.previous.forEach((previousCourseId) => {
-          //     reactFlowElements.push({
-          //       id: `${courseId}-previous-${previousCourseId}`,
-          //       label: <>Previous</>,
-          //       type: "smart",
-          //       source: previousCourseId,
-          //       target: courseId,
-          //       // sourcePosition: Position.Right,
-          //       // targetPosition: Position.Left,
-          //       arrowHeadType: ArrowHeadType.ArrowClosed,
-          //       animated: true,
-          //       labelBgStyle: {
-          //         backgroundColor: "none",
-          //       },
-          //     });
-          //   });
-          // }
-
           // Placeholder (Elective) courses does not have any edges
-          // if(relationship.placeholders.length > 0) {
-          //   relationship.placeholders.forEach((placeholderCourseId) => {
-          //     reactFlowElements.push({
-          //       id: `${courseId}-placeholder-${placeholderCourseId}`,
-          //       label: <>Placeholder</>,
-          //       type: "smart",
-          //       source: courseId,
-          //       target: placeholderCourseId,
-          //     });
-          //   });
-          // }
         });
       }
     });
   });
 
-  console.log(reactFlowElements);
-
-  return reactFlowElements;
+  return {
+    nodes: nodesTemp,
+    edges: edgesTemp,
+  };
 };

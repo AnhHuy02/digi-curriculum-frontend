@@ -120,6 +120,7 @@ export const generateRandomCourses = ({
         CourseType.GENERAL,
       disabled: false,
       selected: false,
+      selectedTemp: false,
       relationship: {
         preRequisites: [],
         coRequisites: [],
