@@ -8,7 +8,7 @@ import type {
 // import type { IRandomRange } from "src/types/others.type";
 // import type { RootState } from '../store';
 
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, current } from "@reduxjs/toolkit";
 import _pick from "lodash/pick";
 import _pull from "lodash/pull";
 
@@ -113,6 +113,139 @@ export const coursesSlice = createSlice({
         ...courses,
         ...filteredCourses,
       };
+    },
+    removeCourseRelationship: (
+      state,
+      action: PayloadAction<{ courseSourceId: string; courseTargetId: string }>
+    ) => {
+      const { courses } = current(state);
+      const { courseSourceId, courseTargetId } = action.payload;
+
+      const sourceRelationship = courses[courseSourceId].relationship;
+      const targetRelationship = courses[courseTargetId].relationship;
+
+      // Delete an element from array by using filter
+      let courseIndex = -1;
+
+      courseIndex = sourceRelationship.preRequisites.findIndex(
+        (courseId) => courseId === courseTargetId
+      );
+      if (courseIndex > -1) {
+        state.courses[courseSourceId].relationship.preRequisites.splice(
+          courseIndex,
+          1
+        );
+      }
+
+      courseIndex = sourceRelationship.coRequisites.findIndex(
+        (courseId) => courseId === courseTargetId
+      );
+      if (courseIndex > -1) {
+        state.courses[courseSourceId].relationship.coRequisites.splice(
+          courseIndex,
+          1
+        );
+      }
+
+      courseIndex = sourceRelationship.previous.findIndex(
+        (courseId) => courseId === courseTargetId
+      );
+      if (courseIndex > -1) {
+        state.courses[courseSourceId].relationship.previous.splice(
+          courseIndex,
+          1
+        );
+      }
+
+      courseIndex = sourceRelationship.placeholders.findIndex(
+        (courseId) => courseId === courseTargetId
+      );
+      if (courseIndex > -1) {
+        state.courses[courseSourceId].relationship.placeholders.splice(
+          courseIndex,
+          1
+        );
+      }
+
+      courseIndex = targetRelationship.preRequisites.findIndex(
+        (courseId) => courseId === courseSourceId
+      );
+      if (courseIndex > -1) {
+        state.courses[courseTargetId].relationship.preRequisites.splice(
+          courseIndex,
+          1
+        );
+      }
+
+      courseIndex = targetRelationship.coRequisites.findIndex(
+        (courseId) => courseId === courseSourceId
+      );
+      if (courseIndex > -1) {
+        state.courses[courseTargetId].relationship.coRequisites.splice(
+          courseIndex,
+          1
+        );
+      }
+
+      courseIndex = targetRelationship.previous.findIndex(
+        (courseId) => courseId === courseSourceId
+      );
+      if (courseIndex > -1) {
+        state.courses[courseTargetId].relationship.previous.splice(
+          courseIndex,
+          1
+        );
+      }
+
+      courseIndex = targetRelationship.placeholders.findIndex(
+        (courseId) => courseId === courseSourceId
+      );
+      if (courseIndex > -1) {
+        state.courses[courseTargetId].relationship.placeholders.splice(
+          courseIndex,
+          1
+        );
+      }
+
+      // state.courses[courseSourceId].relationship.preRequisites =
+      //   sourceRelationship.preRequisites.filter(
+      //     (courseId) => courseId !== courseTargetId
+      //   );
+
+      // state.courses[courseSourceId].relationship.coRequisites =
+      //   sourceRelationship.coRequisites.filter(
+      //     (courseId) => courseId !== courseTargetId
+      //   );
+
+      // state.courses[courseSourceId].relationship.previous =
+      //   sourceRelationship.previous.filter(
+      //     (courseId) => courseId !== courseTargetId
+      //   );
+
+      // state.courses[courseSourceId].relationship.placeholders =
+      //   sourceRelationship.placeholders.filter(
+      //     (courseId) => courseId !== courseTargetId
+      //   );
+
+      // state.courses[courseTargetId].relationship.preRequisites =
+      //   targetRelationship.preRequisites.filter(
+      //     (courseId) => courseId !== courseSourceId
+      //   );
+
+      // state.courses[courseTargetId].relationship.coRequisites =
+      //   targetRelationship.coRequisites.filter(
+      //     (courseId) => courseId !== courseSourceId
+      //   );
+
+      // state.courses[courseTargetId].relationship.previous =
+      //   targetRelationship.previous.filter(
+      //     (courseId) => courseId !== courseSourceId
+      //   );
+
+      // state.courses[courseTargetId].relationship.placeholders =
+      //   targetRelationship.placeholders.filter(
+      //     (courseId) => courseId !== courseSourceId
+      //   );
     },
     resetState: (state) => {
       state = initialState;
@@ -220,6 +353,7 @@ export const {
   selectCourses,
   removeSelectedCourse,
   removeSelectedCourses,
+  removeCourseRelationship,
   resetState,
 } = coursesSlice.actions;
 

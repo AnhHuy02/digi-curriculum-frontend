@@ -32,6 +32,7 @@ import { getDndNodesAndEdges } from "./helper";
 import { useAppSelector } from "src/hooks/useStore";
 import AddCourseNode from "./CustomNodes/AddCourseNode";
 import CourseNode from "./CustomNodes/CourseNode";
+import RemoveRelationshipEdge from "./CustomEdges/RemoveRelationshipEdge";
 
 const nodeTypes = {
   addCourseNode: AddCourseNode,
@@ -39,6 +40,7 @@ const nodeTypes = {
 };
 const edgeTypes = {
   // smart: SmartEdge,
+  removeRelationshipEdge: RemoveRelationshipEdge,
 };
 
 const DndByCourseRelationship = () => {
@@ -67,7 +69,7 @@ const DndByCourseRelationship = () => {
     event: MouseEvent<Element, globalThis.MouseEvent>,
     node: Node<any>
   ) => {
-    console.log("mouseenter", node);
+    // console.log("mouseenter", node);
   };
 
   return (
@@ -80,28 +82,28 @@ const DndByCourseRelationship = () => {
       }}
     >
       {/* <SmartEdgeProvider options={{ debounceTime: 300 }}> */}
-        <ReactFlow
-          className="react-flow-subflows-example"
-          nodes={nodes}
-          edges={edges}
-          onNodeMouseEnter={(
-            event: MouseEvent<Element, globalThis.MouseEvent>,
-            node: Node<any>
-          ) => {
-            handleNodeMouseEnter(event, node);
-          }}
-          // onNodeDragStop
-          onNodesChange={onNodesChange}
-          onEdgesChange={onEdgesChange}
-          nodeTypes={nodeTypes}
-          edgeTypes={edgeTypes}
-          // onConnect={onConnect}
-          fitView
-        >
-          <MiniMap />
-          <Controls />
-          <Background />
-        </ReactFlow>
+      <ReactFlow
+        className="react-flow-subflows-example"
+        nodes={nodes}
+        edges={edges}
+        onNodeMouseEnter={(
+          event: MouseEvent<Element, globalThis.MouseEvent>,
+          node: Node<any>
+        ) => {
+          handleNodeMouseEnter(event, node);
+        }}
+        // onNodeDragStop
+        onNodesChange={onNodesChange}
+        onEdgesChange={onEdgesChange}
+        nodeTypes={nodeTypes}
+        edgeTypes={edgeTypes}
+        // onConnect={onConnect}
+        fitView
+      >
+        <MiniMap />
+        <Controls />
+        <Background />
+      </ReactFlow>
       {/* </SmartEdgeProvider> */}
     </Box>
   );

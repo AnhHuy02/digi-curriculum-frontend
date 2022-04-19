@@ -56,7 +56,7 @@ export const getDndNodesAndEdges = (): { nodes: Node[]; edges: Edge[] } => {
     const customYearId = `year-${yearIndex + 1}`;
 
     semestersOrder.forEach((semesterId, semesterIndex) => {
-      console.log("generate", semesterId);
+      // console.log("generate", semesterId);
       // #region Step 1.1: Render semester nodes
       const courseCount = semesters[semesterId].courseIds.length;
 
@@ -198,8 +198,9 @@ export const getDndNodesAndEdges = (): { nodes: Node[]; edges: Edge[] } => {
               edgesTemp.push({
                 id: `edge-${sourceIndex}-prerequisite-${targetIndex}}`,
                 label: <>Prerequisite</>,
-                type: "smart",
+                type: "removeRelationshipEdge",
                 // type: "floating",
+                data: {},
                 source: sourceId,
                 target: targetId,
                 // sourcePosition: Position.Right,
@@ -227,8 +228,9 @@ export const getDndNodesAndEdges = (): { nodes: Node[]; edges: Edge[] } => {
               edgesTemp.push({
                 id: `${sourceIndex}-corequisite-${targetIndex}`,
                 label: <>Corequisite</>,
-                type: "smart",
+                type: "removeRelationshipEdge",
                 // type: "floating",
+                data: {},
                 source: sourceId,
                 target: targetId,
                 labelBgStyle: {
@@ -252,7 +254,8 @@ export const getDndNodesAndEdges = (): { nodes: Node[]; edges: Edge[] } => {
             edgesTemp.push({
               id: `${sourceIndex}-previous-${targetIndex}`,
               label: <>Previous</>,
-              type: "smart",
+              type: "removeRelationshipEdge",
+              data: {},
               source: sourceId,
               target: targetId,
               // sourcePosition: Position.Right,

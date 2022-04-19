@@ -12,6 +12,7 @@ import { Draggable } from "react-beautiful-dnd";
 import SemesterList from "./SemesterList";
 import { style } from "src/constants/component-specs/curriculum-edit-by-years";
 import { useAppSelector, useAppDispatch } from "src/hooks/useStore";
+import { removeSelectedCourses } from "src/redux/courses.slice";
 import { removeCurriculumDetailYear } from "src/redux/curriculums.slice";
 
 const configYear = style.year;
@@ -37,7 +38,14 @@ const Year: FC<YearProps> = ({ index, yearId }) => {
     setAnchorEl(null);
   };
 
-  const handleRemove = () => {
+  const handleRemoveYear = () => {
+    let courseIds: string[] = [];
+    const { semesters, semestersOrder } = allYears[yearId];
+    semestersOrder.forEach((semId) => {
+      courseIds.push(...semesters[semId].courseIds);
+    });
+
+    dispatch(removeSelectedCourses(courseIds));
     dispatch(removeCurriculumDetailYear(yearId));
     handleCloseMenu();
   };
@@ -73,7 +81,7 @@ const Year: FC<YearProps> = ({ index, yearId }) => {
                 open={Boolean(anchorEl)}
                 onClose={() => handleCloseMenu()}
               >
-                <MenuItem onClick={() => handleRemove()}>Remove</MenuItem>
+                <MenuItem onClick={() => handleRemoveYear()}>Remove</MenuItem>
               </Menu>
             </Box>
             <SemesterList semListId={yearId} allSemIdsOrder={semestersOrder} />
