@@ -1,3 +1,4 @@
+import type { FC } from "react";
 import type { DropResult } from "react-beautiful-dnd";
 
 import { memo, useState, useCallback } from "react";
@@ -29,9 +30,13 @@ interface CourseNodeProps {
     courseId: string;
     index: number;
   };
+  onClickEditCourseRelationship?(courseId: string): void;
 }
 
-const CourseNode = ({ data }: CourseNodeProps) => {
+const CourseNode: FC<CourseNodeProps> = ({
+  data,
+  onClickEditCourseRelationship,
+}) => {
   const { yearId, semId, courseId, index } = data;
 
   const dispatch = useAppDispatch();
@@ -106,6 +111,12 @@ const CourseNode = ({ data }: CourseNodeProps) => {
     dispatch(removeCurriculumDetailCourse({ yearId, semId, courseId }));
   };
 
+  const handleEditCourseRelationship = () => {
+    if (onClickEditCourseRelationship) {
+      onClickEditCourseRelationship(courseId);
+    }
+  };
+
   return (
     <Box>
       <Handle type="source" position={Position.Left} id="a" />
@@ -143,17 +154,20 @@ const CourseNode = ({ data }: CourseNodeProps) => {
             <MenuItem disabled onClick={handleClose}>
               Detail
             </MenuItem>
-            <MenuItem
-              onClick={() => handleMoveUpCourse()}
-              disabled={index === 0}
-            >
+            <MenuItem onClick={handleMoveUpCourse} disabled={index === 0}>
               Move Up
             </MenuItem>
             <MenuItem
-              onClick={() => handleMoveDownCourse()}
+              onClick={handleMoveDownCourse}
               disabled={index === coursesPerSemesterLength - 1}
             >
               Move Down
+            </MenuItem>
+            <MenuItem
+              onClick={handleEditCourseRelationship}
+              disabled={true}
+            >
+              Edit Course Relationship
             </MenuItem>
             <Divider />
             <MenuItem onClick={() => handleRemoveCourse()}>Remove</MenuItem>

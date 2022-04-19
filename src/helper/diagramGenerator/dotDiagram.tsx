@@ -262,6 +262,6 @@ export const getDotDiagramString = ({
   g.addSubgraph(subGraphLegend);
   //#endregion
 
-  console.log(toDot(g));
+  // console.log(toDot(g));
   return toDot(g);
 };

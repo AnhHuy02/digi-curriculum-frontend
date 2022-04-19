@@ -31,7 +31,7 @@ const DiagramDot = () => {
 
   useEffect(() => {
     loadData();
-  }, [curriculumDetail]);
+  }, [curriculumDetail, courses]);
 
   // useEffect(() => {
   //   // If dot data is fetched, initialize with d3
