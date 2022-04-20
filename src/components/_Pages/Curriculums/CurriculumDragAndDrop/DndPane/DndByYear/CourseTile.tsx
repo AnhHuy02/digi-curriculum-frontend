@@ -136,7 +136,9 @@ const CourseTile: FC<ICourseTileProps> = ({
                 overflow: "hidden",
                 lineHeight: "0.75rem",
               })}
-            >{`${credit.practice + credit.theory} CR`}</Typography>
+            >
+              {`${credit.practice + credit.theory} CR`}
+            </Typography>
           </Box>
         </Paper>
       )}

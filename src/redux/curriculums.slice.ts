@@ -177,17 +177,17 @@ export const curriculumSlice = createSlice({
       action: PayloadAction<{ yearId: string; semId: string; courseId: string }>
     ) => {
       const { yearId, semId, courseId } = action.payload;
-      _pull(
-        state.curriculumDetail.allYears[yearId].semesters[semId].courseIds,
-        courseId
-      );
+      const semester = state.curriculumDetail.allYears[yearId].semesters[semId];
+
+      state.curriculumDetail.allYears[yearId].semesters[semId].courseIds =
+        _pull(semester.courseIds, courseId);
     },
     removeCurriculumDetailYear: (state, action: PayloadAction<string>) => {
       const { allYears, allYearsOrder } = state.curriculumDetail;
       const yearId = action.payload;
 
       delete allYears[yearId];
-      _pull(allYearsOrder, yearId);
+      state.curriculumDetail.allYearsOrder = _pull(allYearsOrder, yearId);
     },
     resetState: (state) => {
       state = initialState;

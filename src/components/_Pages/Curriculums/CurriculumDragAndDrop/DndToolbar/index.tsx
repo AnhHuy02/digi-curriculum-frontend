@@ -7,8 +7,13 @@ import ExportButton from "./ExportButton";
 import SaveButton from "./SaveButton";
 import RandomButton from "./RandomButton";
 import ResetButton from "./ResetButton";
+import AddYearButton from "./AddYearButton";
+import { useAppSelector } from "src/hooks/useStore";
+import { CurriculumDndType } from "src/constants/curriculum.const";
 
 const DndToolbar = () => {
+  const dndViewMode = useAppSelector((store) => store.curriculums.dndViewMode);
+
   return (
     <Toolbar
       variant="dense"
@@ -26,6 +31,14 @@ const DndToolbar = () => {
       <Box>
         <ViewButton />
       </Box>
+      {dndViewMode === CurriculumDndType.DND_BY_COURSE_RELATIONSHIP && (
+        <>
+          <Divider orientation="vertical" variant="middle" flexItem />
+          <Box>
+            <AddYearButton />
+          </Box>
+        </>
+      )}
 
       <Box className="toolbar--right" flexGrow={1}></Box>
       <Box>

@@ -1,7 +1,7 @@
 import type { MouseEvent } from "react";
 
 import { useCallback, useMemo } from "react";
-import dynamic from "next/dynamic";
+// import dynamic from "next/dynamic";
 import Box from "@mui/material/Box";
 import ReactFlow, {
   addEdge,
@@ -13,28 +13,32 @@ import ReactFlow, {
   Node,
 } from "react-flow-renderer";
 
-const SmartEdgeProvider = dynamic(
-  async () => {
-    const { SmartEdgeProvider } = await import("@tisoap/react-flow-smart-edge");
-    return SmartEdgeProvider;
-  },
-  { ssr: false }
-);
-const SmartEdge = dynamic(
-  async () => {
-    const { SmartEdge } = await import("@tisoap/react-flow-smart-edge");
-    return SmartEdge;
-  },
-  { ssr: false }
-);
+// const SmartEdgeProvider = dynamic(
+//   async () => {
+//     const { SmartEdgeProvider } = await import("@tisoap/react-flow-smart-edge");
+//     return SmartEdgeProvider;
+//   },
+//   { ssr: false }
+// );
+// const SmartEdge = dynamic(
+//   async () => {
+//     const { SmartEdge } = await import("@tisoap/react-flow-smart-edge");
+//     return SmartEdge;
+//   },
+//   { ssr: false }
+// );
 
 import { getDndNodesAndEdges } from "./helper";
 import { useAppSelector } from "src/hooks/useStore";
+import TextNode from "./CustomNodes/TextNode";
+import SemesterNode from "./CustomNodes/SemesterNode";
 import AddCourseNode from "./CustomNodes/AddCourseNode";
 import CourseNode from "./CustomNodes/CourseNode";
 import RemoveRelationshipEdge from "./CustomEdges/RemoveRelationshipEdge";
 
 const nodeTypes = {
+  textNode: TextNode,
+  semesterNode: SemesterNode,
   addCourseNode: AddCourseNode,
   courseNode: CourseNode,
 };

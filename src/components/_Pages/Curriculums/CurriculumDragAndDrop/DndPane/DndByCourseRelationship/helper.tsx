@@ -22,7 +22,7 @@ const addCourseBtnStyle = {
 
 const semesterStyle = {
   width: courseNodeStyle.width + 20,
-  paddingX: 10,
+  paddingX: 13,
   offsetX: 75,
 };
 
@@ -59,55 +59,112 @@ export const getDndNodesAndEdges = (): { nodes: Node[]; edges: Edge[] } => {
       // console.log("generate", semesterId);
       // #region Step 1.1: Render semester nodes
       const courseCount = semesters[semesterId].courseIds.length;
+      const creditPerSemesterCount = semesters[semesterId].courseIds.reduce(
+        (sum, currentId) => {
+          return (
+            sum +
+            allCourses[currentId].credit.theory +
+            allCourses[currentId].credit.practice
+          );
+        },
+        0 as number
+      );
+      const creditLimit = semesters[semesterId].creditLimit;
 
       if (semesterIndex !== semestersOrder.length - 1) {
         ++semCount;
 
+        // Semester Label
         nodesTemp.push({
-          id: semesterId,
-          // type: "group",
+          id: `${semesterId}-label`,
+          type: "textNode",
           data: {
             label: `Semester ${semCount}`,
+            width: semesterStyle.width,
+            height: "40px",
+            textStyle: {
+              fontSize: 20,
+              fontWeight: 500,
+            },
           },
+          draggable: false,
           position: {
             x:
               (semCount + summerCount) *
               (semesterStyle.width + semesterStyle.offsetX),
-            y: 0,
+            y: -40,
           },
-          style: {
-            backgroundColor: "rgba(255, 0, 0, 0.2)",
+        });
+
+        // Semester Course Container
+        nodesTemp.push({
+          id: semesterId,
+          type: "semesterNode",
+          data: {
+            // label: `Semester ${semCount}`,
             width: semesterStyle.width,
             height:
               courseCount * (courseNodeStyle.height + courseNodeStyle.offsetY) +
               addCourseBtnStyle.height +
               40 +
-              20,
+              10,
+            creditCount: creditPerSemesterCount,
+            creditLimit: creditLimit,
+          },
+          draggable: false,
+          position: {
+            x:
+              (semCount + summerCount) *
+              (semesterStyle.width + semesterStyle.offsetX),
+            y: 0,
           },
         });
       } else {
         ++summerCount;
 
+        // Semester Label
         nodesTemp.push({
-          id: semesterId,
-          // type: "group",
+          id: `${semesterId}-label`,
+          type: "textNode",
           data: {
             label: `Summer ${summerCount}`,
+            width: semesterStyle.width,
+            height: "40px",
+            textStyle: {
+              fontSize: 20,
+              fontWeight: 500,
+            },
           },
+          draggable: false,
           position: {
             x:
               (semCount + summerCount) *
               (semesterStyle.width + semesterStyle.offsetX),
-            y: 0,
+            y: -40,
           },
-          style: {
-            backgroundColor: "rgba(255, 0, 0, 0.2)",
+        });
+
+        // Semester Course Container
+        nodesTemp.push({
+          id: semesterId,
+          type: "semesterNode",
+          data: {
+            // label: `Summer ${summerCount}`,
             width: semesterStyle.width,
             height:
               courseCount * (courseNodeStyle.height + courseNodeStyle.offsetY) +
               addCourseBtnStyle.height +
               40 +
-              20,
+              10,
+            creditCount: creditPerSemesterCount,
+            creditLimit: creditLimit,
+          },
+          draggable: false,
+          position: {
+            x:
+              (semCount + summerCount) *
+              (semesterStyle.width + semesterStyle.offsetX),
+            y: 0,
           },
         });
       }
@@ -131,7 +188,7 @@ export const getDndNodesAndEdges = (): { nodes: Node[]; edges: Edge[] } => {
           position: {
             x: semesterStyle.paddingX,
             y:
-              40 +
+              16 +
               courseIndex * (courseNodeStyle.height + courseNodeStyle.offsetY),
           },
           sourcePosition: Position.Right,
@@ -158,7 +215,7 @@ export const getDndNodesAndEdges = (): { nodes: Node[]; edges: Edge[] } => {
         position: {
           x: semesterStyle.paddingX,
           y:
-            40 +
+            16 +
             courseCount * (courseNodeStyle.height + courseNodeStyle.offsetY),
         },
         sourcePosition: Position.Right,
