@@ -2,7 +2,8 @@ import type { FC } from "react";
 
 import { memo, useCallback } from "react";
 import Button from "@mui/material/Button";
-import AddIcon from "@mui/icons-material/Add";
+// import AddIcon from "@mui/icons-material/Add";
+import EditIcon from "@mui/icons-material/Edit";
 
 import { style } from "src/constants/component-specs/curriculum-edit-by-years";
 import { useAppDispatch } from "src/hooks/useStore";
@@ -42,12 +43,11 @@ const AddCourseNode: FC<IAddCourseNodeProps> = ({
       color="inherit"
       onClick={openModalAddCourse}
       sx={(theme) => ({
-        margin: theme.spacing(configCourseTile.margin),
         width: theme.spacing(configCourseTile.width),
-        padding: theme.spacing(configCourseTile.padding),
+        // backgroundColor: "rgb(25, 118, 210)",
       })}
     >
-      <AddIcon />
+      <EditIcon />
     </Button>
   );
 };

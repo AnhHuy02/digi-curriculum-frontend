@@ -16,6 +16,7 @@ import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { style } from "src/constants/component-specs/curriculum-edit-by-years";
 import styles from "./AddCourseNode.module.scss";
 import { useAppSelector, useAppDispatch } from "src/hooks/useStore";
+import { removeSelectedCourse } from "src/redux/courses.slice";
 import {
   removeCurriculumDetailCourse,
   moveCurriculumDetailCourse,
@@ -107,8 +108,8 @@ const CourseNode: FC<CourseNodeProps> = ({
   };
 
   const handleRemoveCourse = () => {
-    console.log("aasdasdasd", yearId, semId, courseId);
     dispatch(removeCurriculumDetailCourse({ yearId, semId, courseId }));
+    dispatch(removeSelectedCourse(courseId));
   };
 
   const handleEditCourseRelationship = () => {
@@ -124,7 +125,7 @@ const CourseNode: FC<CourseNodeProps> = ({
         sx={(theme) => ({
           width: theme.spacing(configCourseTile.width),
           padding: theme.spacing(configCourseTile.padding),
-          marginY: theme.spacing(1),
+          // marginY: theme.spacing(1),
           backgroundColor: "white",
         })}
       >
@@ -163,10 +164,7 @@ const CourseNode: FC<CourseNodeProps> = ({
             >
               Move Down
             </MenuItem>
-            <MenuItem
-              onClick={handleEditCourseRelationship}
-              disabled={true}
-            >
+            <MenuItem onClick={handleEditCourseRelationship} disabled={true}>
               Edit Course Relationship
             </MenuItem>
             <Divider />
