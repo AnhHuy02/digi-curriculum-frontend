@@ -26,7 +26,7 @@ const SemesterNode: FC<SemesterNodeProps> = ({ data }) => {
       sx={(theme) => ({
         width,
         height,
-        backgroundColor: "rgba(193, 219, 251, 0.6)",
+        backgroundColor: "rgba(230, 230, 230, 0.6)",
         display: "flex",
         alignItems: "flex-end",
         justifyContent: "center",

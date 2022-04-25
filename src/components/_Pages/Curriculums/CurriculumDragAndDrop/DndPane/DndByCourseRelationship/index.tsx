@@ -57,7 +57,7 @@ const DndByCourseRelationship = () => {
   const allCourses = useAppSelector((store) => store.courses.courses);
 
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
-  const [edges, setEdges, onEdgesChange] = useEdgesState([]);
+  const [edges, setEdges, onEdgeChange] = useEdgesState([]);
 
   useMemo(() => {
     const { nodes: initialNodes, edges: initialEdges } = getDndNodesAndEdges();
@@ -98,7 +98,7 @@ const DndByCourseRelationship = () => {
         }}
         // onNodeDragStop
         onNodesChange={onNodesChange}
-        onEdgesChange={onEdgesChange}
+        onEdgesChange={onEdgeChange}
         nodeTypes={nodeTypes}
         edgeTypes={edgeTypes}
         // onConnect={onConnect}

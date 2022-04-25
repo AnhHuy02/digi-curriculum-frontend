@@ -230,6 +230,7 @@ export const getDndNodesAndEdges = (): { nodes: Node[]; edges: Edge[] } => {
   // #endregion
 
   // #region Step 2: Render course relationship edges
+  let edgeIndex = 0;
   allYearIdsOrder.forEach((yearId, yearIndex) => {
     const { semesters, semestersOrder } = allYears[yearId];
 
@@ -253,11 +254,14 @@ export const getDndNodesAndEdges = (): { nodes: Node[]; edges: Edge[] } => {
               // console.log(`${sourceId} ${targetId}`);
 
               edgesTemp.push({
-                id: `edge-${sourceIndex}-prerequisite-${targetIndex}}`,
+                id: `edge${edgeIndex}-${sourceId}-prerequisite-${targetId}`,
+                // id: `edge-${sourceIndex}-prerequisite-${targetIndex}`,
                 label: <>Prerequisite</>,
                 type: "removeRelationshipEdge",
-                // type: "floating",
-                data: {},
+                data: {
+                  label: "prerequisite",
+                  highlighted: false,
+                },
                 source: sourceId,
                 target: targetId,
                 // sourcePosition: Position.Right,
@@ -283,11 +287,14 @@ export const getDndNodesAndEdges = (): { nodes: Node[]; edges: Edge[] } => {
 
             if (sourceIndex > -1 && targetIndex > -1) {
               edgesTemp.push({
-                id: `${sourceIndex}-corequisite-${targetIndex}`,
+                id: `edge${edgeIndex}-${sourceId}-prerequisite-${targetId}`,
+                // id: `edge-${sourceIndex}-prerequisite-${targetIndex}`,
                 label: <>Corequisite</>,
                 type: "removeRelationshipEdge",
-                // type: "floating",
-                data: {},
+                data: {
+                  label: "corequisite",
+                  highlighted: false,
+                },
                 source: sourceId,
                 target: targetId,
                 labelBgStyle: {
@@ -307,25 +314,32 @@ export const getDndNodesAndEdges = (): { nodes: Node[]; edges: Edge[] } => {
 
             const sourceIndex = courseOrders.indexOf(previousCourseId);
             const targetIndex = courseOrders.indexOf(courseId);
-
-            edgesTemp.push({
-              id: `${sourceIndex}-previous-${targetIndex}`,
-              label: <>Previous</>,
-              type: "removeRelationshipEdge",
-              data: {},
-              source: sourceId,
-              target: targetId,
-              // sourcePosition: Position.Right,
-              // targetPosition: Position.Left,
-              markerEnd: { type: MarkerType.ArrowClosed, color: "#000000" },
-              animated: true,
-              labelBgStyle: {
-                backgroundColor: "none",
-              },
-            });
+            
+            if (sourceIndex > -1 && targetIndex > -1) {
+              edgesTemp.push({
+                id: `edge${edgeIndex}-${sourceId}-prerequisite-${targetId}`,
+                // id: `edge-${sourceIndex}-prerequisite-${targetIndex}`,
+                label: <>Previous</>,
+                type: "removeRelationshipEdge",
+                data: {
+                  label: "previous",
+                  highlighted: false,
+                },
+                source: sourceId,
+                target: targetId,
+                // sourcePosition: Position.Right,
+                // targetPosition: Position.Left,
+                markerEnd: { type: MarkerType.ArrowClosed, color: "#000000" },
+                animated: true,
+                labelBgStyle: {
+                  backgroundColor: "none",
+                },
+              });
+            }
           });
         }
         //
+        ++edgeIndex;
       });
     });
   });

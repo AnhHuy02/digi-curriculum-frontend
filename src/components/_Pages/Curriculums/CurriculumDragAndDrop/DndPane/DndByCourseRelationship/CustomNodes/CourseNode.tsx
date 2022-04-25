@@ -1,5 +1,6 @@
 import type { FC } from "react";
 import type { DropResult } from "react-beautiful-dnd";
+import type { Edge } from "react-flow-renderer";
 
 import { memo, useState, useCallback } from "react";
 import { Handle, Position } from "react-flow-renderer";
@@ -12,9 +13,17 @@ import MenuItem from "@mui/material/MenuItem";
 import IconButton from "@mui/material/IconButton";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 // import { makeStyles } from "@material-ui/core/styles";
+import {
+  useReactFlow,
+  useEdges,
+  useStore,
+  // useStoreApi,
+  // updateEdge,
+} from "react-flow-renderer";
+import _cloneDeep from "lodash/cloneDeep";
+// import update from "immutability-helper";
 
 import { style } from "src/constants/component-specs/curriculum-edit-by-years";
-import styles from "./AddCourseNode.module.scss";
 import { useAppSelector, useAppDispatch } from "src/hooks/useStore";
 import { removeSelectedCourse } from "src/redux/courses.slice";
 import {
@@ -39,6 +48,11 @@ const CourseNode: FC<CourseNodeProps> = ({
   onClickEditCourseRelationship,
 }) => {
   const { yearId, semId, courseId, index } = data;
+
+  const { setEdges } = useStore();
+  const reactFlowInstance = useReactFlow();
+  const edges: Edge[] = useEdges();
+  // const storeAPI = useStoreApi();
 
   const dispatch = useAppDispatch();
   const courseDetail = useAppSelector(
@@ -113,9 +127,44 @@ const CourseNode: FC<CourseNodeProps> = ({
   };
 
   const handleEditCourseRelationship = () => {
+    highlightCourseRelationship();
+    handleClose();
+
     if (onClickEditCourseRelationship) {
       onClickEditCourseRelationship(courseId);
     }
+  };
+
+  const highlightCourseRelationship = () => {
+    const fuck = edges.map((edge) => {
+      const edgeId = edge.id;
+
+      const [courseSourceId, relationshipType, courseTargetId] = edgeId
+        .replace(/edge[0-9]+-/, "") // it will be like "IT069->IT013"
+        .split(/-(prerequisite|corequisite|previous)-/); // Some relations are -> or --,
+
+      if ([courseSourceId, courseTargetId].includes(courseId)) {
+        // Highlight all nearby edges
+        return {
+          ...edge,
+          data: {
+            ...edge.data,
+            highlighted: true,
+          },
+        };
+      } else {
+        // Unhighlight all unrelated edges
+        return {
+          ...edge,
+          data: {
+            ...edge.data,
+            highlighted: false,
+          },
+        };
+      }
+    });
+
+    reactFlowInstance.setEdges(fuck);
   };
 
   return (
@@ -164,7 +213,7 @@ const CourseNode: FC<CourseNodeProps> = ({
             >
               Move Down
             </MenuItem>
-            <MenuItem onClick={handleEditCourseRelationship} disabled={true}>
+            <MenuItem onClick={handleEditCourseRelationship}>
               Edit Course Relationship
             </MenuItem>
             <Divider />
