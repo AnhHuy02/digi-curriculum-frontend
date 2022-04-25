@@ -2,8 +2,8 @@ import type { FC } from "react";
 
 import { memo, useCallback } from "react";
 import Button from "@mui/material/Button";
-// import AddIcon from "@mui/icons-material/Add";
-import EditIcon from "@mui/icons-material/Edit";
+import AddIcon from "@mui/icons-material/Add";
+// import EditIcon from "@mui/icons-material/Edit";
 
 import { style } from "src/constants/component-specs/curriculum-edit-by-years";
 import { useAppDispatch } from "src/hooks/useStore";
@@ -47,7 +47,7 @@ const AddCourseNode: FC<IAddCourseNodeProps> = ({
         // backgroundColor: "rgb(25, 118, 210)",
       })}
     >
-      <EditIcon />
+      <AddIcon  />
     </Button>
   );
 };
