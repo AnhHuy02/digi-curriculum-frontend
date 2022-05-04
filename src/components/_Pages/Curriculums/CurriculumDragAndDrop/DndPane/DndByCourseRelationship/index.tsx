@@ -4,13 +4,14 @@ import { useCallback, useMemo } from "react";
 // import dynamic from "next/dynamic";
 import Box from "@mui/material/Box";
 import ReactFlow, {
-  addEdge,
+  // addEdge,
   Background,
   useNodesState,
   useEdgesState,
   MiniMap,
   Controls,
   Node,
+  OnConnect,
 } from "react-flow-renderer";
 
 // const SmartEdgeProvider = dynamic(
@@ -29,12 +30,14 @@ import ReactFlow, {
 // );
 
 import { getDndNodesAndEdges } from "./helper";
-import { useAppSelector } from "src/hooks/useStore";
+import { useAppSelector, useAppDispatch } from "src/hooks/useStore";
+import { setModalAddCourseRelationship } from "src/redux/courses.slice";
 import TextNode from "./CustomNodes/TextNode";
 import SemesterNode from "./CustomNodes/SemesterNode";
 import AddCourseNode from "./CustomNodes/AddCourseNode";
 import CourseNode from "./CustomNodes/CourseNode";
 import RemoveRelationshipEdge from "./CustomEdges/RemoveRelationshipEdge";
+import ModalAddCourseRelationship from "../../CustomModals/ModalAddCourseRelationship";
 
 const nodeTypes = {
   textNode: TextNode,
@@ -48,6 +51,7 @@ const edgeTypes = {
 };
 
 const DndByCourseRelationship = () => {
+  const dispatch = useAppDispatch();
   const allYears = useAppSelector(
     (store) => store.curriculums.curriculumDetail.allYears
   );
@@ -65,8 +69,18 @@ const DndByCourseRelationship = () => {
     setEdges(initialEdges);
   }, [allYears, allYearIdsOrder, allCourses]);
 
-  const onConnect = useCallback((connection) => {
-    setEdges((eds) => addEdge(connection, eds));
+  const onConnect: OnConnect = useCallback((connection) => {
+    const { source, target } = connection;
+    if (source !== null && target !== null) {
+      dispatch(
+        setModalAddCourseRelationship({
+          isOpen: true,
+          courseSourceId: source,
+          courseTargetId: target,
+        })
+      );
+    }
+    // setEdges((eds) => addEdge(connection, eds));
   }, []);
 
   const handleNodeMouseEnter = (
@@ -101,7 +115,7 @@ const DndByCourseRelationship = () => {
         onEdgesChange={onEdgeChange}
         nodeTypes={nodeTypes}
         edgeTypes={edgeTypes}
-        // onConnect={onConnect}
+        onConnect={onConnect}
         fitView
       >
         <MiniMap />
@@ -109,6 +123,7 @@ const DndByCourseRelationship = () => {
         <Background />
       </ReactFlow>
       {/* </SmartEdgeProvider> */}
+      <ModalAddCourseRelationship />
     </Box>
   );
 };

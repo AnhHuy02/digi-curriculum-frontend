@@ -89,6 +89,7 @@ const RemoveRelationshipEdge: FC<RemoveRelationshipEdgeProps> = ({
           ...(highlighted
             ? { stroke: "rgba(224, 67, 67, 1)", strokeWidth: 3, zIndex: 1000 }
             : { stroke: "black", strokeWidth: 1, zIndex: -69 }),
+          // zIndex: 9000
           // stroke: highlighted ? "rgba(224, 67, 67, 1)" : "black",
           // strokeWidth: highlighted ? 2 : 1,
         }}

@@ -11,21 +11,17 @@ import Paper from "@mui/material/Paper";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import IconButton from "@mui/material/IconButton";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-// import { makeStyles } from "@material-ui/core/styles";
-import {
-  useReactFlow,
-  useEdges,
-  useStore,
-  // useStoreApi,
-  // updateEdge,
-} from "react-flow-renderer";
+import { useReactFlow, useEdges } from "react-flow-renderer";
 import _cloneDeep from "lodash/cloneDeep";
-// import update from "immutability-helper";
 
 import { style } from "src/constants/component-specs/curriculum-edit-by-years";
 import { useAppSelector, useAppDispatch } from "src/hooks/useStore";
-import { removeSelectedCourse } from "src/redux/courses.slice";
+import {
+  removeSelectedCourse,
+  setModeEditCourseRelationship,
+} from "src/redux/courses.slice";
 import {
   removeCurriculumDetailCourse,
   moveCurriculumDetailCourse,
@@ -49,10 +45,8 @@ const CourseNode: FC<CourseNodeProps> = ({
 }) => {
   const { yearId, semId, courseId, index } = data;
 
-  const { setEdges } = useStore();
   const reactFlowInstance = useReactFlow();
   const edges: Edge[] = useEdges();
-  // const storeAPI = useStoreApi();
 
   const dispatch = useAppDispatch();
   const courseDetail = useAppSelector(
@@ -63,13 +57,12 @@ const CourseNode: FC<CourseNodeProps> = ({
       store.curriculums.curriculumDetail.allYears[yearId].semesters[semId]
         .courseIds.length
   );
-  const { id, name, credit } = courseDetail;
-
+  const modeEditCourseRelationship = useAppSelector(
+    (store) => store.courses.mode.editCourseRelationship
+  );
   const [anchorEl, setAnchorEl] = useState(null);
 
-  // const onChange = useCallback((evt) => {
-  //   console.log(evt.target.value);
-  // }, []);
+  const { id, name, credit } = courseDetail;
 
   const handleClick = (event: any) => {
     setAnchorEl(event.currentTarget);
@@ -127,6 +120,9 @@ const CourseNode: FC<CourseNodeProps> = ({
   };
 
   const handleEditCourseRelationship = () => {
+    dispatch(
+      setModeEditCourseRelationship({ enabled: true, courseId: courseId })
+    );
     highlightCourseRelationship();
     handleClose();
 
@@ -136,7 +132,7 @@ const CourseNode: FC<CourseNodeProps> = ({
   };
 
   const highlightCourseRelationship = () => {
-    const fuck = edges.map((edge) => {
+    const newEdges = edges.map((edge) => {
       const edgeId = edge.id;
 
       const [courseSourceId, relationshipType, courseTargetId] = edgeId
@@ -164,12 +160,42 @@ const CourseNode: FC<CourseNodeProps> = ({
       }
     });
 
-    reactFlowInstance.setEdges(fuck);
+    reactFlowInstance.setEdges(newEdges);
   };
 
   return (
     <Box>
-      <Handle type="source" position={Position.Left} id="a" />
+      <Handle
+        id="relationshipSend"
+        type="source"
+        position={Position.Right}
+        style={{
+          // ...(modeEditCourseRelationship.enabled &&
+          // modeEditCourseRelationship.courseId === courseId
+          //   ? { visibility: "visible", width: "16px", height: "16px" }
+          //   : { visibility: "hidden", width: "1px", height: "1px" }),
+          visibility:
+            modeEditCourseRelationship.enabled &&
+            modeEditCourseRelationship.courseId === courseId
+              ? "visible"
+              : "hidden",
+          width: "16px",
+          height: "16px",
+          left: "102px",
+          // right: "0px",
+          zIndex: 1000,
+          border: "2px solid rgba(224, 67, 67, 1)",
+          backgroundColor: "white",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <ChevronRightIcon
+          style={{ pointerEvents: "none" }}
+          fontSize="inherit"
+        />
+      </Handle>
       <Paper
         sx={(theme) => ({
           width: theme.spacing(configCourseTile.width),
@@ -260,7 +286,32 @@ const CourseNode: FC<CourseNodeProps> = ({
           >{`${credit.practice + credit.theory} CR`}</Typography>
         </Box>
       </Paper>
-      <Handle type="target" position={Position.Right} id="b" />
+
+      <Handle
+        type="target"
+        position={Position.Left}
+        id="relationshipReceive"
+        style={{
+          // ...(modeEditCourseRelationship.enabled &&
+          // modeEditCourseRelationship.courseId !== courseId
+          //   ? { visibility: "visible", width: "16px", height: "16px" }
+          //   : { visibility: "hidden", width: "1px", height: "1px" }),
+          visibility:
+            modeEditCourseRelationship.enabled &&
+            modeEditCourseRelationship.courseId !== courseId
+              ? "visible"
+              : "hidden",
+          width: "16px",
+          height: "16px",
+          left: "-10px",
+          zIndex: 1000,
+          border: "2px solid rgba(224, 67, 67, 1)",
+          backgroundColor: "white",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      />
     </Box>
   );
 };
