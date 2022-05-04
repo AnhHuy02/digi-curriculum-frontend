@@ -16,6 +16,7 @@ import {
   getRandomMajors,
   getRandomCourses,
 } from "src/helper/mockDataGenerator/courses.generator";
+import { CourseRelationship } from "src/constants/course.const";
 
 //#region STATE
 interface ICoursesState {
@@ -31,6 +32,17 @@ interface ICoursesState {
   courseDetail: ICourseItemDetail | null;
   pageLoading: boolean;
   selectedCourseIdsPlaceholder: string[];
+  modalAddCourseRelationship: {
+    isOpen: boolean;
+    courseSourceId: string | null;
+    courseTargetId: string | null;
+  };
+  mode: {
+    editCourseRelationship: {
+      enabled: boolean;
+      courseId: string | null;
+    };
+  };
 }
 
 const initialState: ICoursesState = {
@@ -41,6 +53,17 @@ const initialState: ICoursesState = {
   courseDetail: null,
   pageLoading: false,
   selectedCourseIdsPlaceholder: [],
+  modalAddCourseRelationship: {
+    isOpen: false,
+    courseSourceId: null,
+    courseTargetId: null,
+  },
+  mode: {
+    editCourseRelationship: {
+      enabled: false,
+      courseId: null,
+    },
+  },
 };
 //#endregion
 
@@ -57,6 +80,31 @@ export const coursesSlice = createSlice({
     },
     setPageLoading: (state, action: PayloadAction<boolean>) => {
       state.pageLoading = action.payload;
+    },
+    setModalAddCourseRelationship: (
+      state,
+      action: PayloadAction<{
+        isOpen?: boolean;
+        courseSourceId?: string | null;
+        courseTargetId?: string | null;
+      }>
+    ) => {
+      state.modalAddCourseRelationship = {
+        ...state.modalAddCourseRelationship,
+        ...action.payload,
+      };
+    },
+    setModeEditCourseRelationship: (
+      state,
+      action: PayloadAction<{ enabled?: boolean; courseId?: string | null }>
+    ) => {
+      const { enabled, courseId } = action.payload;
+      const editCourseRelationship = state.mode.editCourseRelationship;
+      state.mode.editCourseRelationship = {
+        ...editCourseRelationship,
+        ...(enabled !== undefined ? { enabled } : undefined),
+        ...(courseId !== undefined ? { courseId } : undefined),
+      };
     },
     addCourses: (state) => {
       const { selectedCourseIdsPlaceholder } = state;
@@ -84,6 +132,12 @@ export const coursesSlice = createSlice({
         state.courses[courseId].selectedTemp = false;
       }
     },
+    removeSelectedCourse: (state, action: PayloadAction<string>) => {
+      const courseId = action.payload;
+
+      state.courses[courseId].selected = false;
+      state.courses[courseId].selectedTemp = false;
+    },
     selectCourses: (state, action: PayloadAction<string[]>) => {
       const courseIds = action.payload;
 
@@ -92,12 +146,6 @@ export const coursesSlice = createSlice({
       courseIds.forEach((courseId) => {
         state.courses[courseId].selectedTemp = true;
       });
-    },
-    removeSelectedCourse: (state, action: PayloadAction<string>) => {
-      const courseId = action.payload;
-
-      state.courses[courseId].selected = false;
-      state.courses[courseId].selectedTemp = false;
     },
     removeSelectedCourses: (state, action: PayloadAction<string[]>) => {
       const { courses } = state;
@@ -113,6 +161,44 @@ export const coursesSlice = createSlice({
         ...courses,
         ...filteredCourses,
       };
+    },
+    addCourseRelationship: (
+      state,
+      action: PayloadAction<{
+        courseSourceId: string;
+        courseTargetId: string;
+        relationship: CourseRelationship;
+      }>
+    ) => {
+      const { courseSourceId, courseTargetId, relationship } = action.payload;
+      switch (relationship) {
+        case CourseRelationship.PREREQUISITE: {
+          state.courses[courseTargetId].relationship.preRequisites.push(
+            courseSourceId
+          );
+          break;
+        }
+        case CourseRelationship.COREQUISITE: {
+          state.courses[courseSourceId].relationship.coRequisites.push(
+            courseTargetId
+          );
+          break;
+        }
+        case CourseRelationship.PREVIOUS: {
+          state.courses[courseTargetId].relationship.previous.push(
+            courseSourceId
+          );
+          break;
+        }
+        case CourseRelationship.PLACEHOLDER: {
+          state.courses[courseSourceId].relationship.placeholders.push(
+            courseTargetId
+          );
+          break;
+        }
+        default:
+          break;
+      }
     },
     removeCourseRelationship: (
       state,
@@ -348,11 +434,14 @@ export const loadAllRandomCourses = createAsyncThunk(
 export const {
   setPageLoading,
   setCourses,
+  setModalAddCourseRelationship,
+  setModeEditCourseRelationship,
   addCourses,
   selectCourse,
-  selectCourses,
   removeSelectedCourse,
+  selectCourses,
   removeSelectedCourses,
+  addCourseRelationship,
   removeCourseRelationship,
   resetState,
 } = coursesSlice.actions;

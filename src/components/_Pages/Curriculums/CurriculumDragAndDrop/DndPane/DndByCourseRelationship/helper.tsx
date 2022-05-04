@@ -23,7 +23,7 @@ const addCourseBtnStyle = {
 const semesterStyle = {
   width: courseNodeStyle.width + 20,
   paddingX: 13,
-  offsetX: 75,
+  offsetX: 125,
 };
 
 // interface IGetDndNodesAndEdges extends IRandomCurriculumDetailItemReturn {
@@ -270,6 +270,7 @@ export const getDndNodesAndEdges = (): { nodes: Node[]; edges: Edge[] } => {
                 labelBgStyle: {
                   backgroundColor: "none",
                 },
+                // zIndex: 9000,
               });
             }
           });
@@ -300,6 +301,7 @@ export const getDndNodesAndEdges = (): { nodes: Node[]; edges: Edge[] } => {
                 labelBgStyle: {
                   backgroundColor: "none",
                 },
+                // zIndex: 9000,
               });
             }
           });
@@ -334,6 +336,7 @@ export const getDndNodesAndEdges = (): { nodes: Node[]; edges: Edge[] } => {
                 labelBgStyle: {
                   backgroundColor: "none",
                 },
+                // zIndex: 9000,
               });
             }
           });
@@ -345,7 +348,7 @@ export const getDndNodesAndEdges = (): { nodes: Node[]; edges: Edge[] } => {
   });
   // #endregion
 
-  console.log(edgesTemp);
+  // console.log(edgesTemp);
   return {
     nodes: nodesTemp,
     edges: edgesTemp,
