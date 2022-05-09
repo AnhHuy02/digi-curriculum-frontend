@@ -257,7 +257,7 @@ export const getDndNodesAndEdges = (): { nodes: Node[]; edges: Edge[] } => {
                 id: `edge${edgeIndex}-${sourceId}-prerequisite-${targetId}`,
                 // id: `edge-${sourceIndex}-prerequisite-${targetIndex}`,
                 label: <>Prerequisite</>,
-                type: "removeRelationshipEdge",
+                type: "courseRelationshipEdge",
                 data: {
                   label: "prerequisite",
                   highlighted: false,
@@ -291,7 +291,7 @@ export const getDndNodesAndEdges = (): { nodes: Node[]; edges: Edge[] } => {
                 id: `edge${edgeIndex}-${sourceId}-prerequisite-${targetId}`,
                 // id: `edge-${sourceIndex}-prerequisite-${targetIndex}`,
                 label: <>Corequisite</>,
-                type: "removeRelationshipEdge",
+                type: "courseRelationshipEdge",
                 data: {
                   label: "corequisite",
                   highlighted: false,
@@ -322,7 +322,7 @@ export const getDndNodesAndEdges = (): { nodes: Node[]; edges: Edge[] } => {
                 id: `edge${edgeIndex}-${sourceId}-prerequisite-${targetId}`,
                 // id: `edge-${sourceIndex}-prerequisite-${targetIndex}`,
                 label: <>Previous</>,
-                type: "removeRelationshipEdge",
+                type: "courseRelationshipEdge",
                 data: {
                   label: "previous",
                   highlighted: false,

@@ -1,6 +1,6 @@
 import type { MenuProps } from "@mui/material/Menu";
 
-import { useState, Fragment } from "react";
+import { useState, } from "react";
 import { styled, alpha } from "@mui/material/styles";
 import { blueGrey, blue, grey } from "@mui/material/colors";
 import ListItemIcon from "@mui/material/ListItemIcon";
@@ -10,7 +10,7 @@ import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuList from "@mui/material/MenuList";
 import MenuItem from "@mui/material/MenuItem";
-import Divider from "@mui/material/Divider";
+// import Divider from "@mui/material/Divider";
 import Typography from "@mui/material/Typography";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import CheckIcon from "@mui/icons-material/Check";
@@ -163,19 +163,19 @@ const ExportButton = () => {
       >
         <MenuList dense>
           <ListSubheader>Curriculum</ListSubheader>
-          {/* <MenuItemWithCondition
+          <MenuItemWithCondition
             type="curriculum-dnd"
             key={CurriculumDndType.DND_BY_YEAR}
             id={CurriculumDndType.DND_BY_YEAR}
             title="By Year"
-          /> */}
+          />
           <MenuItemWithCondition
             type="curriculum-dnd"
             key={CurriculumDndType.DND_BY_COURSE_RELATIONSHIP}
             id={CurriculumDndType.DND_BY_COURSE_RELATIONSHIP}
             title="By Course Relationship"
           />
-          <Divider />
+          {/* <Divider />
           <ListSubheader>Diagram</ListSubheader>
           <MenuItemWithCondition
             type="diagram"
@@ -183,18 +183,18 @@ const ExportButton = () => {
             id={CurriculumDiagramType.NONE}
             title="None"
           />
-          {/* <MenuItemWithCondition
+          <MenuItemWithCondition
             type="diagram"
             key={CurriculumDiagramType.DEFAULT}
             id={CurriculumDiagramType.DEFAULT}
             title="Default"
-          /> */}
+          />
           <MenuItemWithCondition
             type="diagram"
             key={CurriculumDiagramType.DOT}
             id={CurriculumDiagramType.DOT}
             title="Dot"
-          />
+          /> */}
         </MenuList>
       </StyledMenu>
     </>

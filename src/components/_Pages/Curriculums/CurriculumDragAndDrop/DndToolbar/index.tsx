@@ -8,6 +8,8 @@ import SaveButton from "./SaveButton";
 import RandomButton from "./RandomButton";
 import ResetButton from "./ResetButton";
 import AddYearButton from "./AddYearButton";
+// import PreviewButton from "./PreviewButton";
+import SwitchShowCourseRelationship from "./SwitchShowCourseRelationship";
 import { useAppSelector } from "src/hooks/useStore";
 import { CurriculumDndType } from "src/constants/curriculum.const";
 
@@ -36,6 +38,9 @@ const DndToolbar = () => {
           <Divider orientation="vertical" variant="middle" flexItem />
           <Box>
             <AddYearButton />
+          </Box>
+          <Box>
+            <SwitchShowCourseRelationship />
           </Box>
         </>
       )}
