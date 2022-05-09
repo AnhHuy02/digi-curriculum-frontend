@@ -28,6 +28,7 @@ const RandomButton = () => {
             // color: "white",
           },
         })}
+        disabled
         aria-haspopup="true"
         startIcon={<ShuffleIcon />}
         onClick={handleClick}

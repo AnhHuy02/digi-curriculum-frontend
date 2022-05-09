@@ -4,13 +4,13 @@ import type { Position } from "react-flow-renderer";
 import {
   getBezierPath,
   getEdgeCenter,
-  getMarkerEnd,
-  useEdgesState,
+  // getMarkerEnd,
+  // useEdgesState,
 } from "react-flow-renderer";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 
-import styles from "./RemoveRelationshipEdge.module.scss";
+import styles from "./CourseRelationshipEdge.module.scss";
 import { useAppDispatch } from "src/hooks/useStore";
 import { removeCourseRelationship } from "src/redux/courses.slice";
 
@@ -49,7 +49,7 @@ const RemoveRelationshipEdge: FC<RemoveRelationshipEdgeProps> = ({
   targetY,
   sourcePosition,
   targetPosition,
-  style,
+  // style,
   markerEnd,
   data,
 }) => {

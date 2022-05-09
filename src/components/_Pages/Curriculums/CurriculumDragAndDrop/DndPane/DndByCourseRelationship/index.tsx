@@ -1,6 +1,6 @@
-import type { MouseEvent } from "react";
+import { MouseEvent } from "react";
 
-import { useCallback, useMemo } from "react";
+import { useState, useCallback, useMemo } from "react";
 // import dynamic from "next/dynamic";
 import Box from "@mui/material/Box";
 import ReactFlow, {
@@ -31,12 +31,15 @@ import ReactFlow, {
 
 import { getDndNodesAndEdges } from "./helper";
 import { useAppSelector, useAppDispatch } from "src/hooks/useStore";
-import { setModalAddCourseRelationship } from "src/redux/courses.slice";
+import {
+  setModalAddCourseRelationship,
+  setModeEditCourseRelationship,
+} from "src/redux/courses.slice";
 import TextNode from "./CustomNodes/TextNode";
 import SemesterNode from "./CustomNodes/SemesterNode";
 import AddCourseNode from "./CustomNodes/AddCourseNode";
 import CourseNode from "./CustomNodes/CourseNode";
-import RemoveRelationshipEdge from "./CustomEdges/RemoveRelationshipEdge";
+import CourseRelationshipEdge from "./CustomEdges/CourseRelationshipEdge";
 import ModalAddCourseRelationship from "../../CustomModals/ModalAddCourseRelationship";
 
 const nodeTypes = {
@@ -47,7 +50,7 @@ const nodeTypes = {
 };
 const edgeTypes = {
   // smart: SmartEdge,
-  removeRelationshipEdge: RemoveRelationshipEdge,
+  courseRelationshipEdge: CourseRelationshipEdge,
 };
 
 const DndByCourseRelationship = () => {
@@ -59,15 +62,44 @@ const DndByCourseRelationship = () => {
     (store) => store.curriculums.curriculumDetail.allYearsOrder
   );
   const allCourses = useAppSelector((store) => store.courses.courses);
+  const showCourseRelationship = useAppSelector(
+    (store) => store.curriculums.showCourseRelationship
+  );
+  const modeEditCourseRelationship = useAppSelector(
+    (store) => store.courses.mode.editCourseRelationship
+  );
 
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
   const [edges, setEdges, onEdgeChange] = useEdgesState([]);
+  const [edgesTemp, setEdgesTemp] = useState(edges);
 
   useMemo(() => {
     const { nodes: initialNodes, edges: initialEdges } = getDndNodesAndEdges();
     setNodes(initialNodes);
-    setEdges(initialEdges);
+    setEdgesTemp(initialEdges);
+    setEdges(showCourseRelationship ? initialEdges : []);
   }, [allYears, allYearIdsOrder, allCourses]);
+
+  useMemo(() => {
+    setEdges(showCourseRelationship ? edgesTemp : []);
+  }, [showCourseRelationship]);
+
+  const handlePaneClick = () => {
+    if (
+      modeEditCourseRelationship.enabled &&
+      modeEditCourseRelationship.courseId
+    ) {
+      setEdges(
+        edges.map((edge) => ({
+          ...edge,
+          data: { ...edge.data, highlighted: false },
+        }))
+      );
+      dispatch(
+        setModeEditCourseRelationship({ enabled: false, courseId: null })
+      );
+    }
+  };
 
   const onConnect: OnConnect = useCallback((connection) => {
     const { source, target } = connection;
@@ -110,16 +142,16 @@ const DndByCourseRelationship = () => {
         ) => {
           handleNodeMouseEnter(event, node);
         }}
-        // onNodeDragStop
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgeChange}
         nodeTypes={nodeTypes}
         edgeTypes={edgeTypes}
         onConnect={onConnect}
+        onPaneClick={handlePaneClick}
         fitView
       >
         <MiniMap />
-        <Controls />
+        <Controls showInteractive={false} />
         <Background />
       </ReactFlow>
       {/* </SmartEdgeProvider> */}

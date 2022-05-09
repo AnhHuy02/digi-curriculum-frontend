@@ -30,6 +30,10 @@ interface ICurriculumState {
     yearId: string | null;
     semId: string | null;
   };
+  modalPreviewCurriculumDetail: {
+    isOpen: boolean;
+  };
+  showCourseRelationship: boolean;
 }
 
 const initialState: ICurriculumState = {
@@ -51,6 +55,10 @@ const initialState: ICurriculumState = {
     yearId: null,
     semId: null,
   },
+  modalPreviewCurriculumDetail: {
+    isOpen: false,
+  },
+  showCourseRelationship: false,
 };
 //#endregion
 
@@ -95,6 +103,20 @@ export const curriculumSlice = createSlice({
       }>
     ) => {
       state.modalAddCourse = { ...state.modalAddCourse, ...action.payload };
+    },
+    setModalPreviewCurriculumDetail: (
+      state,
+      action: PayloadAction<{
+        isOpen?: boolean;
+      }>
+    ) => {
+      state.modalPreviewCurriculumDetail = {
+        ...state.modalPreviewCurriculumDetail,
+        ...action.payload,
+      };
+    },
+    setShowCourseRelationship: (state, action: PayloadAction<boolean>) => {
+      state.showCourseRelationship = action.payload;
     },
     addCurriculumDetailYear: (state) => {
       const { semCountPerYear, allYearsOrder, allYears } =
@@ -249,6 +271,8 @@ export const {
   setPageLoading,
   setCurriculumDetailLoading,
   setModalAddCourse,
+  setModalPreviewCurriculumDetail,
+  setShowCourseRelationship,
   addCurriculumDetailYear,
   addCurriculumDetailCourses,
   moveCurriculumDetailYearsOrder,

@@ -1,9 +1,10 @@
-import type { FC } from "react";
+import { FC } from "react";
 import type { DropResult } from "react-beautiful-dnd";
 import type { Edge } from "react-flow-renderer";
 
-import { memo, useState, useCallback } from "react";
+import { memo, useState, useRef } from "react";
 import { Handle, Position } from "react-flow-renderer";
+import ClickAwayListener from "@mui/base/ClickAwayListener";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
 import Typography from "@mui/material/Typography";
@@ -25,6 +26,7 @@ import {
 import {
   removeCurriculumDetailCourse,
   moveCurriculumDetailCourse,
+  setShowCourseRelationship,
 } from "src/redux/curriculums.slice";
 
 const configCourseTile = style.courseTile;
@@ -45,6 +47,7 @@ const CourseNode: FC<CourseNodeProps> = ({
 }) => {
   const { yearId, semId, courseId, index } = data;
 
+  const ref = useRef(null);
   const reactFlowInstance = useReactFlow();
   const edges: Edge[] = useEdges();
 
@@ -65,6 +68,7 @@ const CourseNode: FC<CourseNodeProps> = ({
   const { id, name, credit } = courseDetail;
 
   const handleClick = (event: any) => {
+    console.log(event);
     setAnchorEl(event.currentTarget);
   };
 
@@ -72,9 +76,9 @@ const CourseNode: FC<CourseNodeProps> = ({
     setAnchorEl(null);
   };
 
-  const handleSelect = () => {
-    // this.props.onSelect();
-  };
+  // const handleSelect = () => {
+  //   // this.props.onSelect();
+  // };
 
   const handleMoveUpCourse = () => {
     const payload: DropResult = {
@@ -120,6 +124,7 @@ const CourseNode: FC<CourseNodeProps> = ({
   };
 
   const handleEditCourseRelationship = () => {
+    dispatch(setShowCourseRelationship(true));
     dispatch(
       setModeEditCourseRelationship({ enabled: true, courseId: courseId })
     );
@@ -163,156 +168,194 @@ const CourseNode: FC<CourseNodeProps> = ({
     reactFlowInstance.setEdges(newEdges);
   };
 
+  const handleClickAwayCourse = () => {
+    if (
+      modeEditCourseRelationship.courseId === courseId &&
+      modeEditCourseRelationship.enabled
+    ) {
+      reactFlowInstance.setEdges(
+        edges.map((edge) => ({
+          ...edge,
+          data: { ...edge.data, highlighted: false },
+        }))
+      );
+      dispatch(
+        setModeEditCourseRelationship({ enabled: false, courseId: null })
+      );
+    }
+  };
+
   return (
-    <Box>
-      <Handle
-        id="relationshipSend"
-        type="source"
-        position={Position.Right}
-        style={{
-          // ...(modeEditCourseRelationship.enabled &&
-          // modeEditCourseRelationship.courseId === courseId
-          //   ? { visibility: "visible", width: "16px", height: "16px" }
-          //   : { visibility: "hidden", width: "1px", height: "1px" }),
-          visibility:
-            modeEditCourseRelationship.enabled &&
-            modeEditCourseRelationship.courseId === courseId
-              ? "visible"
-              : "hidden",
-          width: "16px",
-          height: "16px",
-          left: "102px",
-          // right: "0px",
-          zIndex: 1000,
-          border: "2px solid rgba(224, 67, 67, 1)",
-          backgroundColor: "white",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
+    <ClickAwayListener
+      mouseEvent="onClick"
+      touchEvent="onTouchEnd"
+      onClickAway={handleClickAwayCourse}
+    >
+      <Box
+      // id={`${yearId}-${semId}-${courseId}`}
+      // key={`${yearId}-${semId}-${courseId}`}
+      // ref={ref}
       >
-        <ChevronRightIcon
-          style={{ pointerEvents: "none" }}
-          fontSize="inherit"
-        />
-      </Handle>
-      <Paper
-        sx={(theme) => ({
-          width: theme.spacing(configCourseTile.width),
-          padding: theme.spacing(configCourseTile.padding),
-          // marginY: theme.spacing(1),
-          backgroundColor: "white",
-        })}
-      >
-        <Box
-          display={`flex`}
-          justifyContent={`flex-end`}
-          alignItems={`flex-start`}
+        <Handle
+          id="relationshipSend"
+          type="source"
+          position={Position.Right}
+          style={{
+            // ...(modeEditCourseRelationship.enabled &&
+            // modeEditCourseRelationship.courseId === courseId
+            //   ? { visibility: "visible", width: "16px", height: "16px" }
+            //   : { visibility: "hidden", width: "1px", height: "1px" }),
+            visibility:
+              modeEditCourseRelationship.enabled &&
+              modeEditCourseRelationship.courseId === courseId
+                ? "visible"
+                : "hidden",
+            width: "16px",
+            height: "16px",
+            left: "102px",
+            // right: "0px",
+            zIndex: 1000,
+            border: "2px solid rgba(224, 67, 67, 1)",
+            backgroundColor: "white",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
         >
-          <IconButton
-            size={`small`}
-            onClick={handleClick}
-            sx={(theme) => ({
-              margin: theme.spacing(0),
-              padding: theme.spacing(0),
-              height: theme.spacing(2),
-            })}
-          >
-            <MoreHorizIcon />
-          </IconButton>
-          <Menu
-            id="simple-menu"
-            anchorEl={anchorEl}
-            keepMounted
-            open={Boolean(anchorEl)}
-            onClose={handleClose}
-          >
-            <MenuItem disabled onClick={handleClose}>
-              Detail
-            </MenuItem>
-            <MenuItem onClick={handleMoveUpCourse} disabled={index === 0}>
-              Move Up
-            </MenuItem>
-            <MenuItem
-              onClick={handleMoveDownCourse}
-              disabled={index === coursesPerSemesterLength - 1}
-            >
-              Move Down
-            </MenuItem>
-            <MenuItem onClick={handleEditCourseRelationship}>
-              Edit Course Relationship
-            </MenuItem>
-            <Divider />
-            <MenuItem onClick={() => handleRemoveCourse()}>Remove</MenuItem>
-          </Menu>
-        </Box>
-        <Box
-          display={`flex`}
-          justifyContent={`center`}
-          alignItems={`center`}
+          <ChevronRightIcon
+            style={{ pointerEvents: "none" }}
+            fontSize="inherit"
+          />
+        </Handle>
+        <Paper
           sx={(theme) => ({
-            height: theme.spacing(6),
+            width: theme.spacing(configCourseTile.width),
+            padding: theme.spacing(configCourseTile.padding),
+            // marginY: theme.spacing(1),
+            backgroundColor:
+              modeEditCourseRelationship.courseId === courseId
+                ? "rgba(25, 118, 210, 1)"
+                : "white",
           })}
         >
-          <Typography
-            variant={`body2`}
+          <Box
+            display={`flex`}
+            justifyContent={`flex-end`}
+            alignItems={`flex-start`}
+          >
+            <IconButton
+              size={`small`}
+              onClick={handleClick}
+              sx={(theme) => ({
+                margin: theme.spacing(0),
+                padding: theme.spacing(0),
+                height: theme.spacing(2),
+              })}
+            >
+              <MoreHorizIcon />
+            </IconButton>
+            <Menu
+              id="simple-menu"
+              anchorEl={anchorEl}
+              keepMounted
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
+            >
+              <MenuItem disabled onClick={handleClose}>
+                Detail
+              </MenuItem>
+              <MenuItem onClick={handleMoveUpCourse} disabled={index === 0}>
+                Move Up
+              </MenuItem>
+              <MenuItem
+                onClick={handleMoveDownCourse}
+                disabled={index === coursesPerSemesterLength - 1}
+              >
+                Move Down
+              </MenuItem>
+              <MenuItem onClick={handleEditCourseRelationship}>
+                Edit Course Relationship
+              </MenuItem>
+              <Divider />
+              <MenuItem onClick={() => handleRemoveCourse()}>Remove</MenuItem>
+            </Menu>
+          </Box>
+          <Box
+            display={`flex`}
+            justifyContent={`center`}
+            alignItems={`center`}
             sx={(theme) => ({
-              fontSize: "0.75rem",
-              fontWeight: theme.typography.fontWeightBold,
-              textOverflow: "ellipsis",
-              display: "-webkit-box",
-              WebkitBoxOrient: "vertical",
-              WebkitLineClamp: 3,
-              overflow: "hidden",
-              lineHeight: "0.75rem",
+              height: theme.spacing(6),
             })}
           >
-            {name}
-          </Typography>
-        </Box>
-        <Box sx={(theme) => ({ padding: theme.spacing(0.25) })}>
-          <Typography
-            variant={`body2`}
-            sx={(theme) => ({
-              fontSize: "0.75rem",
-              fontWeight: theme.typography.fontWeightBold,
-              textOverflow: "ellipsis",
-              display: "-webkit-box",
-              WebkitBoxOrient: "vertical",
-              WebkitLineClamp: 3,
-              overflow: "hidden",
-              lineHeight: "0.75rem",
-            })}
-          >{`${credit.practice + credit.theory} CR`}</Typography>
-        </Box>
-      </Paper>
+            <Typography
+              variant={`body2`}
+              sx={(theme) => ({
+                fontSize: "0.75rem",
+                fontWeight: theme.typography.fontWeightBold,
+                textOverflow: "ellipsis",
+                display: "-webkit-box",
+                WebkitBoxOrient: "vertical",
+                WebkitLineClamp: 3,
+                overflow: "hidden",
+                lineHeight: "0.75rem",
+                color:
+                  modeEditCourseRelationship.courseId === courseId
+                    ? "white"
+                    : "initial",
+              })}
+            >
+              {name}
+            </Typography>
+          </Box>
+          <Box sx={(theme) => ({ padding: theme.spacing(0.25) })}>
+            <Typography
+              variant={`body2`}
+              sx={(theme) => ({
+                fontSize: "0.75rem",
+                fontWeight: theme.typography.fontWeightBold,
+                textOverflow: "ellipsis",
+                display: "-webkit-box",
+                WebkitBoxOrient: "vertical",
+                WebkitLineClamp: 3,
+                overflow: "hidden",
+                lineHeight: "0.75rem",
+                color:
+                  modeEditCourseRelationship.courseId === courseId
+                    ? "white"
+                    : "initial",
+              })}
+            >{`${credit.practice + credit.theory} CR`}</Typography>
+          </Box>
+        </Paper>
 
-      <Handle
-        type="target"
-        position={Position.Left}
-        id="relationshipReceive"
-        style={{
-          // ...(modeEditCourseRelationship.enabled &&
-          // modeEditCourseRelationship.courseId !== courseId
-          //   ? { visibility: "visible", width: "16px", height: "16px" }
-          //   : { visibility: "hidden", width: "1px", height: "1px" }),
-          visibility:
-            modeEditCourseRelationship.enabled &&
-            modeEditCourseRelationship.courseId !== courseId
-              ? "visible"
-              : "hidden",
-          width: "16px",
-          height: "16px",
-          left: "-10px",
-          zIndex: 1000,
-          border: "2px solid rgba(224, 67, 67, 1)",
-          backgroundColor: "white",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      />
-    </Box>
+        <Handle
+          type="target"
+          position={Position.Left}
+          id="relationshipReceive"
+          style={{
+            // ...(modeEditCourseRelationship.enabled &&
+            // modeEditCourseRelationship.courseId !== courseId
+            //   ? { visibility: "visible", width: "16px", height: "16px" }
+            //   : { visibility: "hidden", width: "1px", height: "1px" }),
+            visibility:
+              modeEditCourseRelationship.enabled &&
+              modeEditCourseRelationship.courseId !== courseId
+                ? "visible"
+                : "hidden",
+            width: "16px",
+            height: "16px",
+            left: "-10px",
+            zIndex: 1000,
+            border: "2px solid rgba(224, 67, 67, 1)",
+            backgroundColor: "white",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        />
+      </Box>
+    </ClickAwayListener>
   );
 };
 

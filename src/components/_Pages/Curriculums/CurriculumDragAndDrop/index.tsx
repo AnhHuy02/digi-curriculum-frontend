@@ -52,7 +52,7 @@ const CurriculumDragAndDrop = () => {
           <ModalAddCourse />
         </ReflexElement>
 
-        {diagramViewMode !== DiagramType.NONE && (
+        {/* {diagramViewMode !== DiagramType.NONE && (
           <ReflexSplitter style={{ width: "5px", height: "100%" }} />
         )}
 
@@ -60,7 +60,7 @@ const CurriculumDragAndDrop = () => {
           <ReflexElement className="right-pane" minSize={300}>
             <DiagramPane viewMode={diagramViewMode} />
           </ReflexElement>
-        )}
+        )} */}
       </ReflexContainer>
     </Box>
   );

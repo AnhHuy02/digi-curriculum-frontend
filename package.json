@@ -36,7 +36,8 @@
     "react-reflex": "^4.0.6",
     "react-tsparticles": "^1.41.5",
     "sass": "^1.49.9",
-    "ts-graphviz": "^0.16.0"
+    "ts-graphviz": "^0.16.0",
+    "usehooks-ts": "^2.5.2"
   },
   "devDependencies": {
     "@types/d3": "^7.1.0",
