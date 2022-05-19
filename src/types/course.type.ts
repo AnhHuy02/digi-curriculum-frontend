@@ -23,6 +23,8 @@ export interface ICourseItemSimple {
   selectedTemp: boolean;
   highlighted?: boolean;
   relationship: ICourseRelationship;
+  difficulty: number;
+  rating: number;
 }
 
 export interface ICourseItemDetail {

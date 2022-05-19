@@ -27,6 +27,7 @@ import {
   removeCurriculumDetailCourse,
   moveCurriculumDetailCourse,
   setShowCourseRelationship,
+  setModalCourseDetail,
 } from "src/redux/curriculums.slice";
 
 const configCourseTile = style.courseTile;
@@ -68,7 +69,7 @@ const CourseNode: FC<CourseNodeProps> = ({
   const { id, name, credit } = courseDetail;
 
   const handleClick = (event: any) => {
-    console.log(event);
+    // console.log(event);
     setAnchorEl(event.currentTarget);
   };
 
@@ -134,6 +135,16 @@ const CourseNode: FC<CourseNodeProps> = ({
     if (onClickEditCourseRelationship) {
       onClickEditCourseRelationship(courseId);
     }
+  };
+
+  const handleViewCourseDetail = () => {
+    dispatch(
+      setModalCourseDetail({
+        isOpen: true,
+        courseId: courseId,
+      })
+    );
+    handleClose();
   };
 
   const highlightCourseRelationship = () => {
@@ -261,9 +272,7 @@ const CourseNode: FC<CourseNodeProps> = ({
               open={Boolean(anchorEl)}
               onClose={handleClose}
             >
-              <MenuItem disabled onClick={handleClose}>
-                Detail
-              </MenuItem>
+              <MenuItem onClick={handleViewCourseDetail}>Detail</MenuItem>
               <MenuItem onClick={handleMoveUpCourse} disabled={index === 0}>
                 Move Up
               </MenuItem>

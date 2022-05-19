@@ -127,6 +127,8 @@ export const generateRandomCourses = ({
         previous: [],
         placeholders: [],
       },
+      difficulty: faker.datatype.number({ min: 1, max: 5, precision: 1 }),
+      rating: faker.datatype.number({ min: 0, max: 5, precision: 0.1 }),
       // highlighted: false,
     };
 
