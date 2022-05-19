@@ -112,7 +112,7 @@ const ModalAddCourseRelationship = () => {
         <Button
           variant="contained"
           color="primary"
-          // disabled={true}
+          disabled={true}
           onClick={exportToImage}
         >
           Export To Image
