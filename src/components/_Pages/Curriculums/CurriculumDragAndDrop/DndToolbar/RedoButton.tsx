@@ -1,13 +1,20 @@
-// import { grey } from "@mui/material/colors";
 import Button from "@mui/material/Button";
-// import ShuffleIcon from "@mui/icons-material/Shuffle";
 
-import { useAppDispatch } from "src/hooks/useStore";
+import { useAppDispatch, useAppSelector } from "src/hooks/useStore";
 
 import { redoChange } from "src/redux/_thunks/curriculumDetailChangeHistory.thunk";
 
 const RedoButton = () => {
   const dispatch = useAppDispatch();
+
+  const commandLogsLength = useAppSelector(
+    (store) =>
+      store.curriculums.curriculumDetail.changeHistory.commandLogs.length
+  );
+
+  const currentIndex = useAppSelector(
+    (store) => store.curriculums.curriculumDetail.changeHistory.currentIndex
+  );
 
   const handleClick = () => {
     dispatch(redoChange());
@@ -20,6 +27,7 @@ const RedoButton = () => {
         color="info"
         aria-haspopup="true"
         onClick={handleClick}
+        disabled={currentIndex >= commandLogsLength - 1}
       >
         Redo
       </Button>

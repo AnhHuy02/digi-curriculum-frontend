@@ -1,13 +1,15 @@
-// import { grey } from "@mui/material/colors";
 import Button from "@mui/material/Button";
-// import ShuffleIcon from "@mui/icons-material/Shuffle";
 
-import { useAppDispatch } from "src/hooks/useStore";
+import { useAppDispatch, useAppSelector } from "src/hooks/useStore";
 
 import { undoChange } from "src/redux/_thunks/curriculumDetailChangeHistory.thunk";
 
 const UndoButton = () => {
   const dispatch = useAppDispatch();
+
+  const currentIndex = useAppSelector(
+    (store) => store.curriculums.curriculumDetail.changeHistory.currentIndex
+  );
 
   const handleClick = () => {
     dispatch(undoChange());
@@ -20,6 +22,7 @@ const UndoButton = () => {
         color="info"
         aria-haspopup="true"
         onClick={handleClick}
+        disabled={currentIndex < 0}
       >
         Undo
       </Button>
