@@ -344,7 +344,6 @@ export const coursesSlice = createSlice({
       state.majors = allMajors;
     });
     builder.addCase(loadAllRandomCourses.fulfilled, (state, action) => {
-      console.log("fullfiled");
       const { allCourses, allCourseIds } = action.payload;
       state.courses = allCourses;
       state.courseIds = allCourseIds;

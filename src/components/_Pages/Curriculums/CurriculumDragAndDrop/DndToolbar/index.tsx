@@ -8,10 +8,12 @@ import SaveButton from "./SaveButton";
 import RandomButton from "./RandomButton";
 import ResetButton from "./ResetButton";
 import AddYearButton from "./AddYearButton";
-// import PreviewButton from "./PreviewButton";
+import PreviewButton from "./PreviewButton";
 import SwitchShowCourseRelationship from "./SwitchShowCourseRelationship";
 import { useAppSelector } from "src/hooks/useStore";
 import { CurriculumDndType } from "src/constants/curriculum.const";
+import UndoButton from "./UndoButton";
+import RedoButton from "./RedoButton";
 
 const DndToolbar = () => {
   const dndViewMode = useAppSelector((store) => store.curriculums.dndViewMode);
@@ -47,7 +49,15 @@ const DndToolbar = () => {
 
       <Box className="toolbar--right" flexGrow={1}></Box>
       <Box>
-        <ExportButton />
+        <UndoButton />
+      </Box>
+      <Box>
+        <RedoButton />
+      </Box>
+      <Divider orientation="vertical" variant="middle" flexItem />
+      <Box>
+        {/* <ExportButton /> */}
+        <PreviewButton />
       </Box>
       <Divider orientation="vertical" variant="middle" flexItem />
       <Box mr={0.5}>

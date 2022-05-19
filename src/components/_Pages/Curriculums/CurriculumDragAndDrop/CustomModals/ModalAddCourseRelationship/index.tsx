@@ -6,9 +6,10 @@ import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 
 import { useAppDispatch, useAppSelector } from "src/hooks/useStore";
-import { addCourseRelationship } from "src/redux/courses.slice";
 import { setModalAddCourseRelationship } from "src/redux/courses.slice";
+import { addCurriculumChangeToHistory } from "src/redux/_thunks/curriculumDetailChangeHistory.thunk";
 import { CourseRelationship } from "src/constants/course.const";
+import { UndoCommandType } from "src/constants/curriculum.const";
 
 const ModalAddCourseRelationship = () => {
   const dispatch = useAppDispatch();
@@ -29,10 +30,13 @@ const ModalAddCourseRelationship = () => {
   const handleAddCourseRelationship = (relationship: CourseRelationship) => {
     if (courseSourceId !== null && courseTargetId !== null) {
       dispatch(
-        addCourseRelationship({
-          courseSourceId,
-          courseTargetId,
-          relationship,
+        addCurriculumChangeToHistory({
+          type: UndoCommandType.ADD_COURSE_RELATIONSHIP,
+          patch: {
+            courseSourceId,
+            courseTargetId,
+            relationship,
+          },
         })
       );
     }

@@ -51,7 +51,7 @@ const DiagramBeautiful = () => {
   }, [curriculumDetail]);
 
   const onLoad: OnLoadFunc = (reactFlowInstance) => {
-    console.log("flow loaded:", reactFlowInstance);
+    // console.log("flow loaded:", reactFlowInstance);
     reactFlowInstance.fitView();
   };
 

@@ -6,6 +6,8 @@ import DndPane from "./DndPane";
 import DiagramDot from "./DiagramPane/DiagramDot";
 // import DiagramBeautiful from "./DiagramPane/DiagramBeautiful";
 import ModalAddCourse from "./CustomModals/ModalAddCourse";
+import ModalCourseDetail from "./CustomModals/ModalCourseDetail";
+import ModalPreviewCurriculumDetail from "./CustomModals/ModalPreviewCurriculumDetail";
 import { useAppSelector } from "src/hooks/useStore";
 import { CurriculumDiagramType as DiagramType } from "src/constants/curriculum.const";
 
@@ -50,6 +52,8 @@ const CurriculumDragAndDrop = () => {
         <ReflexElement className="left-pane" minSize={300}>
           <DndPane />
           <ModalAddCourse />
+          <ModalCourseDetail />
+          <ModalPreviewCurriculumDetail />
         </ReflexElement>
 
         {/* {diagramViewMode !== DiagramType.NONE && (
