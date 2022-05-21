@@ -9,7 +9,7 @@ import { useAppDispatch, useAppSelector } from "src/hooks/useStore";
 import { setModalAddCourseRelationship } from "src/redux/courses.slice";
 import { addCurriculumChangeToHistory } from "src/redux/_thunks/curriculumDetailChangeHistory.thunk";
 import { CourseRelationship } from "src/constants/course.const";
-import { UndoCommandType } from "src/constants/curriculum.const";
+import { CurriculumCommandType } from "src/constants/curriculum.const";
 
 const ModalAddCourseRelationship = () => {
   const dispatch = useAppDispatch();
@@ -31,7 +31,7 @@ const ModalAddCourseRelationship = () => {
     if (courseSourceId !== null && courseTargetId !== null) {
       dispatch(
         addCurriculumChangeToHistory({
-          type: UndoCommandType.ADD_COURSE_RELATIONSHIP,
+          type: CurriculumCommandType.ADD_COURSE_RELATIONSHIP,
           patch: {
             courseSourceId,
             courseTargetId,

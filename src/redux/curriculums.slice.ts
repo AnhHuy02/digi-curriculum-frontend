@@ -1,11 +1,11 @@
 import type { PayloadAction } from "@reduxjs/toolkit";
-import type { DropResult } from "react-beautiful-dnd";
 import type { RootState } from "./_store";
 import type {
   ICurriculumItemSimple,
   ICurriculumItemDetail,
   IRandomCurriculumDetailParam,
   CurriculumDetailHistoryAction,
+  ICurriculumItemYear,
 } from "src/types/curriculum.type";
 
 import moment from "moment";
@@ -16,14 +16,9 @@ import { Mode } from "src/constants/mode.const";
 import {
   CurriculumDiagramType,
   CurriculumDndType,
-  UndoCommandType,
 } from "src/constants/curriculum.const";
 import { getRandomCurriculumItemDetail } from "src/helper/mockDataGenerator/curriculums.generator";
-import { CourseRelationship } from "src/constants/course.const";
-import {
-  addCourseRelationship,
-  removeCourseRelationship,
-} from "./courses.slice";
+
 
 //#region STATE
 interface ICurriculumState {
@@ -149,64 +144,131 @@ export const curriculumSlice = createSlice({
     setShowCourseRelationship: (state, action: PayloadAction<boolean>) => {
       state.showCourseRelationship = action.payload;
     },
-    addCurriculumDetailYear: (state) => {
+    addCurriculumDetailYear: (
+      state,
+      action: PayloadAction<
+        | {
+            yearDetail?: ICurriculumItemYear;
+            yearIndex?: number | undefined;
+          }
+        | undefined
+      >
+    ) => {
       const { semCountPerYear, allYearsOrder, allYears } =
         state.curriculumDetail;
-      const newYearId = `year-${allYearsOrder.length + 1}`;
 
-      allYearsOrder.push(newYearId);
-      allYears[newYearId] = {
-        id: newYearId,
-        semesters: {},
-        semestersOrder: [],
-      };
+      if (action.payload && action.payload.yearDetail) {
+        const { id, semesters, semestersOrder } = action.payload.yearDetail;
+        const yearIndex = action.payload.yearIndex;
+        const newYearId = id;
 
-      const newYear = allYears[newYearId];
+        if (yearIndex !== undefined) {
+          allYearsOrder.splice(yearIndex, 0, newYearId);
+        } else {
+          allYearsOrder.push(newYearId);
+        }
 
-      Array.from({ length: semCountPerYear }).forEach((_, index) => {
-        const newSemId = `${newYearId}-sem-${index + 1}`;
-        newYear.semestersOrder.push(newSemId);
-        newYear.semesters[newSemId] = {
-          id: newSemId,
-          courseIds: [],
-          creditCount: 0,
-          creditLimit: 24,
+        allYears[newYearId] = {
+          id: newYearId,
+          semesters,
+          semestersOrder,
         };
-      });
+
+        return;
+      } else {
+        const yearIndex = action.payload?.yearIndex;
+        const newYearId = `year-${allYearsOrder.length + 1}`;
+
+        if (yearIndex !== undefined) {
+          allYearsOrder.splice(yearIndex, 0, newYearId);
+        } else {
+          allYearsOrder.push(newYearId);
+        }
+
+        allYears[newYearId] = {
+          id: newYearId,
+          semesters: {},
+          semestersOrder: [],
+        };
+
+        const newYear = allYears[newYearId];
+
+        Array.from({ length: semCountPerYear }).forEach((_, index) => {
+          const newSemId = `${newYearId}-sem-${index + 1}`;
+          newYear.semestersOrder.push(newSemId);
+          newYear.semesters[newSemId] = {
+            id: newSemId,
+            courseIds: [],
+            creditCount: 0,
+            creditLimit: 24,
+          };
+        });
+        return;
+      }
     },
     moveCurriculumDetailYearsOrder: (
       state,
-      action: PayloadAction<DropResult>
+      action: PayloadAction<{
+        yearId: string;
+        sourceTakeoutIndex: number;
+        targetInsertIndex: number;
+      }>
     ) => {
       const { allYearsOrder } = state.curriculumDetail;
-      const { source, destination, draggableId } = action.payload;
+      const { yearId, sourceTakeoutIndex, targetInsertIndex } = action.payload;
 
-      if (destination !== undefined) {
-        allYearsOrder.splice(source.index, 1);
-        allYearsOrder.splice(destination.index, 0, draggableId);
-      }
+      allYearsOrder.splice(sourceTakeoutIndex, 1);
+      allYearsOrder.splice(targetInsertIndex, 0, yearId);
     },
-    moveCurriculumDetailCourse: (state, action: PayloadAction<DropResult>) => {
+    moveCurriculumDetailCourse: (
+      state,
+      action: PayloadAction<{
+        courseId: string;
+        sourceYearId: string;
+        sourceSemId: string;
+        sourceTakeoutIndex: number;
+        targetYearId: string;
+        targetSemId: string;
+        targetInsertIndex: number;
+      }>
+    ) => {
+      const {
+        courseId,
+        sourceYearId,
+        sourceSemId,
+        sourceTakeoutIndex,
+        targetYearId,
+        targetSemId,
+        targetInsertIndex,
+      } = action.payload;
+
       const { allYears } = state.curriculumDetail;
-      const { source, destination, draggableId } = action.payload;
 
-      if (destination !== undefined) {
-        const [startYearId, startSemId] = source.droppableId.split(" ");
-        const [endYearId, endSemId] = destination.droppableId.split(" ");
+      // Step 1.1: Pop out course from old semester when dragged out
+      allYears[sourceYearId].semesters[sourceSemId].courseIds.splice(
+        sourceTakeoutIndex,
+        1
+      );
 
-        // Step 1.1: Pop out course from old semester when dragged out
-        allYears[startYearId].semesters[startSemId].courseIds.splice(
-          source.index,
-          1
-        );
-
-        // Step 1.2: Insert the dragged course to new semester
-        allYears[endYearId].semesters[endSemId].courseIds.splice(
-          destination.index,
-          0,
-          draggableId
-        );
-      }
+      // Step 1.2: Insert the dragged course to new semester
+      allYears[targetYearId].semesters[targetSemId].courseIds.splice(
+        targetInsertIndex,
+        0,
+        courseId
+      );
+    },
+    addCurriculumDetailCourse: (
+      state,
+      action: PayloadAction<{
+        yearId: string;
+        semId: string;
+        courseId: string;
+      }>
+    ) => {
+      const { yearId, semId, courseId } = action.payload;
+      state.curriculumDetail.allYears[yearId].semesters[semId].courseIds.push(
+        courseId
+      );
     },
     addCurriculumDetailCourses: (
       state,
@@ -232,6 +294,20 @@ export const curriculumSlice = createSlice({
 
       state.curriculumDetail.allYears[yearId].semesters[semId].courseIds =
         _pull(semester.courseIds, courseId);
+    },
+    removeCurriculumDetailCourses: (
+      state,
+      action: PayloadAction<{
+        yearId: string;
+        semId: string;
+        courseIds: string[];
+      }>
+    ) => {
+      const { yearId, semId, courseIds } = action.payload;
+      const semester = state.curriculumDetail.allYears[yearId].semesters[semId];
+
+      state.curriculumDetail.allYears[yearId].semesters[semId].courseIds =
+        _pull(semester.courseIds, ...courseIds);
     },
     removeCurriculumDetailYear: (state, action: PayloadAction<string>) => {
       const { allYears, allYearsOrder } = state.curriculumDetail;
@@ -331,11 +407,13 @@ export const {
   setModalPreviewCurriculumDetail,
   setShowCourseRelationship,
   addCurriculumDetailYear,
+  addCurriculumDetailCourse,
   addCurriculumDetailCourses,
   moveCurriculumDetailYearsOrder,
   moveCurriculumDetailCourse,
   removeCurriculumDetailYear,
   removeCurriculumDetailCourse,
+  removeCurriculumDetailCourses,
   addChangeToHistory,
   undo,
   redo,

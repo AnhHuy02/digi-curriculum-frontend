@@ -37,7 +37,7 @@ export const initRandomCurriculumDetailPageData = createAsyncThunk(
       const coursesResponse = await dispatch(
         loadAllRandomCourses({
           allMajorIds: majorsPayload.allMajorIds,
-          randomCourseCount: { min: 15, max: 150 },
+          randomCourseCount: { min: 15, max: 100},
           nameLength: { min: 1, max: 6 },
           creditCount: {
             theory: { min: 0, max: 5 },
@@ -84,9 +84,9 @@ export const initRandomCurriculumDetailPageData = createAsyncThunk(
         loadRandomCurriculumDetail({
           allCourses: coursesPayload.allCourses,
           allCourseIds: coursesPayload.allCourseIds,
-          randomYearCount: { min: 1, max: 4 },
+          randomYearCount: { min: 1, max: 3 },
           semesterPerYearCount: 3,
-          courseCountPerSemester: { min: 0, max: 10 },
+          courseCountPerSemester: { min: 0, max: 6 },
           randomCreditCountPerSemester: undefined,
           electiveGroups: {},
           electiveGroupIds: [],

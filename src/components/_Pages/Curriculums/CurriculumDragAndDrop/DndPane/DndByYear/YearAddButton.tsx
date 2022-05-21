@@ -7,7 +7,8 @@ import { grey } from "@mui/material/colors";
 
 import { style } from "src/constants/component-specs/curriculum-edit-by-years";
 import { useAppDispatch, useAppSelector } from "src/hooks/useStore";
-import { addCurriculumDetailYear } from "src/redux/curriculums.slice";
+import { CurriculumCommandType } from "src/constants/curriculum.const";
+import { addCurriculumChangeToHistory } from "src/redux/_thunks/curriculumDetailChangeHistory.thunk";
 
 const configYear = style.year;
 const configCourseTile = style.courseTile;
@@ -46,7 +47,12 @@ const YearAddButton = () => {
   );
 
   const handleClickAddYear = () => {
-    dispatch(addCurriculumDetailYear());
+    dispatch(
+      addCurriculumChangeToHistory({
+        type: CurriculumCommandType.ADD_YEAR,
+        patch: {},
+      })
+    );
   };
 
   return (

@@ -12,8 +12,8 @@ import { Draggable } from "react-beautiful-dnd";
 import SemesterList from "./SemesterList";
 import { style } from "src/constants/component-specs/curriculum-edit-by-years";
 import { useAppSelector, useAppDispatch } from "src/hooks/useStore";
-import { removeSelectedCourses } from "src/redux/courses.slice";
-import { removeCurriculumDetailYear } from "src/redux/curriculums.slice";
+import { CurriculumCommandType } from "src/constants/curriculum.const";
+import { addCurriculumChangeToHistory } from "src/redux/_thunks/curriculumDetailChangeHistory.thunk";
 
 const configYear = style.year;
 
@@ -39,14 +39,17 @@ const Year: FC<YearProps> = ({ index, yearId }) => {
   };
 
   const handleRemoveYear = () => {
-    let courseIds: string[] = [];
-    const { semesters, semestersOrder } = allYears[yearId];
-    semestersOrder.forEach((semId) => {
-      courseIds.push(...semesters[semId].courseIds);
-    });
-
-    dispatch(removeSelectedCourses(courseIds));
-    dispatch(removeCurriculumDetailYear(yearId));
+    dispatch(
+      addCurriculumChangeToHistory({
+        type: CurriculumCommandType.REMOVE_YEAR,
+        patch: {
+          yearId,
+          yearIndex: index,
+          yearDetail: allYears[yearId],
+        },
+      })
+    );
+    
     handleCloseMenu();
   };
 

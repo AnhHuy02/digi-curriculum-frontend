@@ -39,7 +39,7 @@ interface RemoveRelationshipEdgeProps {
   };
 }
 
-const RemoveRelationshipEdge: FC<RemoveRelationshipEdgeProps> = ({
+const RemoveRelationshipEdge = ({
   id,
   source,
   sourceX,
@@ -52,7 +52,7 @@ const RemoveRelationshipEdge: FC<RemoveRelationshipEdgeProps> = ({
   // style,
   markerEnd,
   data,
-}) => {
+}: RemoveRelationshipEdgeProps) => {
   const { label, highlighted } = data || {};
 
   const dispatch = useAppDispatch();
