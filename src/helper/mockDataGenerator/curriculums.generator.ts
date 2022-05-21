@@ -33,14 +33,14 @@ export const generateRandomCurriculumDetail = ({
   electiveGroups = {},
   electiveGroupIds = [],
 }: IRandomCurriculumDetailParam): IRandomCurriculumDetailItemReturn => {
-  console.log("input");
-  console.log({
-    allCourses,
-    allCourseIds,
-    randomYearCount,
-    semesterPerYearCount,
-    randomCreditCountPerSemester,
-  });
+  // console.log("input");
+  // console.log({
+  //   allCourses,
+  //   allCourseIds,
+  //   randomYearCount,
+  //   semesterPerYearCount,
+  //   randomCreditCountPerSemester,
+  // });
   const yearCount = faker.datatype.number(randomYearCount);
   let courseIdsCopy = [...allCourseIds];
 

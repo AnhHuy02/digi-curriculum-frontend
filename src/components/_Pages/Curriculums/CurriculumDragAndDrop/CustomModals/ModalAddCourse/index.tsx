@@ -5,14 +5,11 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import Button from "@mui/material/Button";
 
-// import SearchForm from "./SearchForm";
 import CourseList from "./CourseList";
 import { useAppDispatch, useAppSelector } from "src/hooks/useStore";
-import { addCourses } from "src/redux/courses.slice";
-import {
-  setModalAddCourse,
-  addCurriculumDetailCourses,
-} from "src/redux/curriculums.slice";
+import { setModalAddCourse } from "src/redux/curriculums.slice";
+import { addCurriculumChangeToHistory } from "src/redux/_thunks/curriculumDetailChangeHistory.thunk";
+import { CurriculumCommandType } from "src/constants/curriculum.const";
 
 const ModalAddCourse = () => {
   const dispatch = useAppDispatch();
@@ -39,9 +36,15 @@ const ModalAddCourse = () => {
       );
       closeModal();
       dispatch(
-        addCurriculumDetailCourses({ yearId, semId, courseIds: courseIdsTemp })
+        addCurriculumChangeToHistory({
+          type: CurriculumCommandType.ADD_COURSES_TO_SEMESTER,
+          patch: {
+            yearId,
+            semId,
+            courseIds: courseIdsTemp,
+          },
+        })
       );
-      dispatch(addCourses());
     }
   };
 

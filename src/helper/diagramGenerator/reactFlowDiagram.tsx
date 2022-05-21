@@ -46,7 +46,7 @@ export const getReactFlowElements = ({
         const { id, credit, name, relationship, type } = allCourses[courseId];
 
         courseOrders.push(courseId);
-        console.log(courseOrders.length);
+        // console.log(courseOrders.length);
 
         nodesTemp.push({
           // id: courseId,
@@ -79,7 +79,7 @@ export const getReactFlowElements = ({
     });
   });
 
-  console.log(courseOrders);
+  // console.log(courseOrders);
 
   // Step 2: Render edge for course relationship
   allYearIdsOrder.forEach((yearId, yearIndex) => {

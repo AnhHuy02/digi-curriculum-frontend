@@ -12,6 +12,7 @@ import ReactFlow, {
   Controls,
   Node,
   OnConnect,
+  ReactFlowProvider,
 } from "react-flow-renderer";
 
 // const SmartEdgeProvider = dynamic(
@@ -132,28 +133,30 @@ const DndByCourseRelationship = () => {
       }}
     >
       {/* <SmartEdgeProvider options={{ debounceTime: 300 }}> */}
-      <ReactFlow
-        className="react-flow-subflows-example"
-        nodes={nodes}
-        edges={edges}
-        onNodeMouseEnter={(
-          event: MouseEvent<Element, globalThis.MouseEvent>,
-          node: Node<any>
-        ) => {
-          handleNodeMouseEnter(event, node);
-        }}
-        onNodesChange={onNodesChange}
-        onEdgesChange={onEdgeChange}
-        nodeTypes={nodeTypes}
-        edgeTypes={edgeTypes}
-        onConnect={onConnect}
-        onPaneClick={handlePaneClick}
-        fitView
-      >
-        <MiniMap />
-        <Controls showInteractive={false} />
-        <Background />
-      </ReactFlow>
+      <ReactFlowProvider>
+        <ReactFlow
+          className="flow-dnd-by-course-relationship"
+          nodes={nodes}
+          edges={edges}
+          onNodeMouseEnter={(
+            event: MouseEvent<Element, globalThis.MouseEvent>,
+            node: Node<any>
+          ) => {
+            handleNodeMouseEnter(event, node);
+          }}
+          onNodesChange={onNodesChange}
+          onEdgesChange={onEdgeChange}
+          nodeTypes={nodeTypes}
+          edgeTypes={edgeTypes}
+          onConnect={onConnect}
+          onPaneClick={handlePaneClick}
+          fitView
+        >
+          <MiniMap />
+          <Controls showInteractive={false} />
+          <Background />
+        </ReactFlow>
+      </ReactFlowProvider>
       {/* </SmartEdgeProvider> */}
       <ModalAddCourseRelationship />
     </Box>

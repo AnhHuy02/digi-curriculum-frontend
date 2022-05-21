@@ -4,7 +4,7 @@ import type { ICourseItemSimple } from "./course.type";
 
 import { Mode } from "src/constants/mode.const";
 import { CourseRelationship } from "src/constants/course.const";
-import { UndoCommandType } from "src/constants/curriculum.const";
+import { CurriculumCommandType } from "src/constants/curriculum.const";
 
 export interface ICurriculumItemSimple {
   id: string;
@@ -35,7 +35,7 @@ export interface IElectiveGroupItem {
 
 export type CurriculumDetailHistoryAction =
   | PayloadHistoryAction<
-      UndoCommandType.ADD_COURSE_RELATIONSHIP,
+      CurriculumCommandType.ADD_COURSE_RELATIONSHIP,
       {
         courseSourceId: string;
         courseTargetId: string;
@@ -43,7 +43,7 @@ export type CurriculumDetailHistoryAction =
       }
     >
   | PayloadHistoryAction<
-      UndoCommandType.REMOVE_COURSE_RELATIONSHIP,
+      CurriculumCommandType.REMOVE_COURSE_RELATIONSHIP,
       {
         courseSourceId: string;
         courseTargetId: string;
@@ -51,7 +51,7 @@ export type CurriculumDetailHistoryAction =
       }
     >
   | PayloadHistoryAction<
-      UndoCommandType.CHANGE_COURSE_RELATIONSHIP,
+      CurriculumCommandType.CHANGE_COURSE_RELATIONSHIP,
       {
         courseSourceId: string;
         courseTargetId: string;
@@ -60,7 +60,7 @@ export type CurriculumDetailHistoryAction =
       }
     >
   | PayloadHistoryAction<
-      UndoCommandType.ADD_COURSES_TO_SEMESTER,
+      CurriculumCommandType.ADD_COURSES_TO_SEMESTER,
       {
         yearId: string;
         semId: string;
@@ -68,11 +68,43 @@ export type CurriculumDetailHistoryAction =
       }
     >
   | PayloadHistoryAction<
-      UndoCommandType.REMOVE_COURSE_FROM_SEMESTER,
+      CurriculumCommandType.REMOVE_COURSE_FROM_SEMESTER,
       {
         yearId: string;
         semId: string;
         courseId: string;
+      }
+    >
+  | PayloadHistoryAction<
+      CurriculumCommandType.CHANGE_COURSE_BETWEEN_TWO_SEMESTER,
+      {
+        courseId: string;
+        sourceYearId: string;
+        sourceSemId: string;
+        sourceTakeoutIndex: number;
+        targetYearId: string;
+        targetSemId: string;
+        targetInsertIndex: number;
+      }
+    >
+  | PayloadHistoryAction<
+      CurriculumCommandType.CHANGE_YEAR_ORDER,
+      {
+        yearId: string;
+        sourceTakeoutIndex: number;
+        targetInsertIndex: number;
+      }
+    >
+  | PayloadHistoryAction<CurriculumCommandType.ADD_YEAR, {}>
+  | PayloadHistoryAction<
+      CurriculumCommandType.REMOVE_YEAR,
+      {
+        yearId: string;
+        yearIndex: number;
+        yearDetail: {
+          semesters: Record<string, ICurriculumItemSemester>;
+          semestersOrder: string[];
+        };
       }
     >;
 

@@ -1,6 +1,4 @@
-import { useRef, forwardRef } from "react";
-import { ReflexContainer, ReflexElement } from "react-reflex";
-import { useElementSize } from "usehooks-ts";
+import { SyntheticEvent, useState } from "react";
 // import { Canvg } from "canvg";
 import FileSaver from "file-saver";
 import Box from "@mui/material/Box";
@@ -9,36 +7,43 @@ import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
 import Button from "@mui/material/Button";
-import IconButton from "@mui/material/IconButton";
-import CloseIcon from "@mui/icons-material/Close";
-import Typography from "@mui/material/Typography";
-// import List from "@mui/material/List";
-// import ListItem from "@mui/material/ListItem";
-// import ListItemText from "@mui/material/ListItemText";
+// import IconButton from "@mui/material/IconButton";
+// import CloseIcon from "@mui/icons-material/Close";
+// import Typography from "@mui/material/Typography";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
 
 import { useAppDispatch, useAppSelector } from "src/hooks/useStore";
-// import { addCourseRelationship } from "src/redux/courses.slice";
+
 import { setModalPreviewCurriculumDetail } from "src/redux/curriculums.slice";
 import { getDotDiagramString } from "src/helper/diagramGenerator/dotDiagram";
-import CurriculumAfter from "./CurriculumAfter";
+// import CurriculumAfter from "./CurriculumAfter";
+import CurriculumPreviewChange from "./CurriculumPreviewChange";
 import DiagramDot from "../../DiagramPane/DiagramDot";
-// import { CourseRelationship } from "src/constants/course.const";
+import TabPanel from "src/components/_Shared/TabPanel";
 
 const ModalAddCourseRelationship = () => {
+  const dispatch = useAppDispatch();
   const curriculumDetail = useAppSelector(
     (store) => store.curriculums.curriculumDetail
   );
   const courses = useAppSelector((store) => store.courses.courses);
   const { allYears, allYearsOrder } = curriculumDetail;
 
-  const [squareRef, { width, height }] = useElementSize();
-  const dispatch = useAppDispatch();
   const isOpen = useAppSelector(
     (store) => store.curriculums.modalPreviewCurriculumDetail.isOpen
   );
+  const [tabIndex, setTabIndex] = useState<number>(0);
 
   const closeModal = () => {
     dispatch(setModalPreviewCurriculumDetail({ isOpen: false }));
+  };
+
+  const changeTab = (
+    event: SyntheticEvent<Element, Event>,
+    value: string | number
+  ) => {
+    setTabIndex(Number(value));
   };
 
   const exportToDot = async () => {
@@ -75,38 +80,33 @@ const ModalAddCourseRelationship = () => {
   };
 
   return (
-    <Dialog
-      open={isOpen}
-      onClose={closeModal}
-      keepMounted={true}
-      fullScreen
-
-      // fullWidth
-    >
+    <Dialog open={isOpen} onClose={closeModal} keepMounted={true} fullScreen>
       <DialogTitle>
-        <IconButton onClick={closeModal}>
+        {/* <IconButton onClick={closeModal}>
           <CloseIcon />
-        </IconButton>
-        Preview
+        </IconButton> */}
+        <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+          <Tabs
+            value={tabIndex}
+            onChange={changeTab}
+            variant="fullWidth"
+            scrollButtons="auto"
+          >
+            <Tab label="Dot Preview" />
+            <Tab label="Change Differences" />
+          </Tabs>
+        </Box>
       </DialogTitle>
-      <DialogContent ref={squareRef}>
-        {/* <ReflexContainer orientation="vertical">
-          <ReflexElement className="left-pane" minSize={300}>
-            <CurriculumAfter  />
-          </ReflexElement>
-          <ReflexElement className="right-pane" minSize={300}>
-            <CurriculumAfter />
-          </ReflexElement>
-        </ReflexContainer> */}
-        <DiagramDot />
+      <DialogContent>
+        <TabPanel value={tabIndex} index={0}>
+          <DiagramDot />
+        </TabPanel>
+        <TabPanel value={tabIndex} index={1}>
+          <CurriculumPreviewChange />
+        </TabPanel>
       </DialogContent>
       <DialogActions>
-        <Button
-          variant="contained"
-          color="primary"
-          // disabled={true}
-          onClick={exportToDot}
-        >
+        <Button variant="contained" color="primary" onClick={exportToDot}>
           Export To DOT
         </Button>
         <Button

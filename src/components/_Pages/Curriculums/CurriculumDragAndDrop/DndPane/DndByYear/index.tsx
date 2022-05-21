@@ -3,15 +3,12 @@ import type { DropResult, ResponderProvided } from "react-beautiful-dnd";
 import Box from "@mui/material/Box";
 import { DragDropContext } from "react-beautiful-dnd";
 
-import { useAppSelector, useAppDispatch } from "src/hooks/useStore";
+import { useAppDispatch } from "src/hooks/useStore";
 
 import YearHeaderList from "./YearHeaderList";
 import YearList from "./YearList";
-import ModalAddCourse from "../../CustomModals/ModalAddCourse";
-import {
-  moveCurriculumDetailYearsOrder,
-  moveCurriculumDetailCourse,
-} from "src/redux/curriculums.slice";
+import { CurriculumCommandType } from "src/constants/curriculum.const";
+import { addCurriculumChangeToHistory } from "src/redux/_thunks/curriculumDetailChangeHistory.thunk";
 
 const DndByYear = () => {
   const dispatch = useAppDispatch();
@@ -30,11 +27,48 @@ const DndByYear = () => {
 
     switch (result.type) {
       case "move-years-order": {
-        dispatch(moveCurriculumDetailYearsOrder(result));
+        if (result.destination !== undefined) {
+          const yearId = result.draggableId;
+          const sourceTakeoutIndex = result.source.index;
+          const targetInsertIndex = result.destination.index;
+
+          dispatch(
+            addCurriculumChangeToHistory({
+              type: CurriculumCommandType.CHANGE_YEAR_ORDER,
+              patch: {
+                yearId,
+                sourceTakeoutIndex,
+                targetInsertIndex,
+              },
+            })
+          );
+        }
         return;
       }
       case "move-semester-course": {
-        dispatch(moveCurriculumDetailCourse(result));
+        if (result.destination !== undefined) {
+          const [sourceYearId, sourceSemId] =
+            result.source.droppableId.split(" ");
+          const sourceTakeoutIndex = result.source.index;
+          const [targetYearId, targetSemId] =
+            result.destination.droppableId.split(" ");
+          const targetInsertIndex = result.destination.index;
+
+          dispatch(
+            addCurriculumChangeToHistory({
+              type: CurriculumCommandType.CHANGE_COURSE_BETWEEN_TWO_SEMESTER,
+              patch: {
+                courseId: result.draggableId,
+                sourceYearId,
+                sourceSemId,
+                sourceTakeoutIndex,
+                targetYearId,
+                targetSemId,
+                targetInsertIndex,
+              },
+            })
+          );
+        }
         return;
       }
       default: {
