@@ -1,8 +1,8 @@
 import type { INode } from "ts-graphviz";
 import type {
   ICourseItemSimple,
-} from "src/types/course.type";
-import type { IRandomCurriculumDetailItemReturn } from "src/types/curriculum.type";
+} from "src/types/Course.type";
+import type { IRandomCurriculumDetailItemReturn } from "src/types/Curriculum.type";
 
 import { Digraph, Node, Subgraph, toDot, attribute } from "ts-graphviz";
 

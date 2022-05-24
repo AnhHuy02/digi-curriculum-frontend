@@ -8,7 +8,7 @@ import { useAppDispatch } from "src/hooks/useStore";
 import YearHeaderList from "./YearHeaderList";
 import YearList from "./YearList";
 import { CurriculumCommandType } from "src/constants/curriculum.const";
-import { addCurriculumChangeToHistory } from "src/redux/_thunks/curriculumDetailChangeHistory.thunk";
+import { commitChangeToHistory } from "src/redux/curriculumChangeHistory.slice";
 
 const DndByYear = () => {
   const dispatch = useAppDispatch();
@@ -33,7 +33,7 @@ const DndByYear = () => {
           const targetInsertIndex = result.destination.index;
 
           dispatch(
-            addCurriculumChangeToHistory({
+            commitChangeToHistory({
               type: CurriculumCommandType.CHANGE_YEAR_ORDER,
               patch: {
                 yearId,
@@ -55,7 +55,7 @@ const DndByYear = () => {
           const targetInsertIndex = result.destination.index;
 
           dispatch(
-            addCurriculumChangeToHistory({
+            commitChangeToHistory({
               type: CurriculumCommandType.CHANGE_COURSE_BETWEEN_TWO_SEMESTER,
               patch: {
                 courseId: result.draggableId,

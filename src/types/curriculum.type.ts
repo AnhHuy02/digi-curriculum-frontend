@@ -1,6 +1,6 @@
-import type { IRange } from "./others.type";
-import type { ChangeHistory, PayloadHistoryAction } from "./changeHistory.type";
-import type { ICourseItemSimple } from "./course.type";
+import type { IRange } from "./Others.type";
+import type { PayloadHistoryAction } from "./ChangeHistory.type";
+import type { ICourseItemSimple } from "./Course.type";
 
 import { Mode } from "src/constants/mode.const";
 import { CourseRelationship } from "src/constants/course.const";
@@ -116,7 +116,6 @@ export interface ICurriculumItemDetail extends ICurriculumItemSimple {
   allYearsOrder: string[];
   allElectiveGroups?: Record<string, IElectiveGroupItem>;
   allElectiveGroupIds?: string[];
-  changeHistory: ChangeHistory<CurriculumDetailHistoryAction>;
 }
 
 interface IElectiveGroup {

@@ -1,10 +1,10 @@
 import type { PayloadAction } from "@reduxjs/toolkit";
-import type { IMajorSimple } from "src/types/department.type";
+import type { IMajorSimple } from "src/types/Department.type";
 import type {
   IRandomCoursesParam,
   ICourseItemSimple,
   ICourseItemDetail,
-} from "src/types/course.type";
+} from "src/types/Course.type";
 // import type { IRandomRange } from "src/types/others.type";
 // import type { RootState } from '../store';
 

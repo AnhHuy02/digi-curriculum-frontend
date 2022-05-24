@@ -13,7 +13,7 @@ import SemesterList from "./SemesterList";
 import { style } from "src/constants/component-specs/curriculum-edit-by-years";
 import { useAppSelector, useAppDispatch } from "src/hooks/useStore";
 import { CurriculumCommandType } from "src/constants/curriculum.const";
-import { addCurriculumChangeToHistory } from "src/redux/_thunks/curriculumDetailChangeHistory.thunk";
+import { commitChangeToHistory } from "src/redux/curriculumChangeHistory.slice";
 
 const configYear = style.year;
 
@@ -40,7 +40,7 @@ const Year: FC<YearProps> = ({ index, yearId }) => {
 
   const handleRemoveYear = () => {
     dispatch(
-      addCurriculumChangeToHistory({
+      commitChangeToHistory({
         type: CurriculumCommandType.REMOVE_YEAR,
         patch: {
           yearId,

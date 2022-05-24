@@ -1,4 +1,4 @@
-import { OtherType } from "src/types/others.type";
+import { OtherType } from "src/types/Others.type";
 
 import * as d3 from "d3";
 import faker from "@faker-js/faker";

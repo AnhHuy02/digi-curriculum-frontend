@@ -1,8 +1,10 @@
-import type { RootState } from "../_store";
-import type { CurriculumDetailHistoryAction } from "src/types/curriculum.type";
+import type { PayloadAction } from "@reduxjs/toolkit";
+import type { RootState } from "./_store";
+import type { CurriculumDetailHistoryAction } from "src/types/Curriculum.type";
+import type { ChangeHistory } from "src/types/ChangeHistory.type";
 
 import _pull from "lodash/pull";
-import { createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 import { CurriculumCommandType } from "src/constants/curriculum.const";
 import {
@@ -13,11 +15,11 @@ import {
   addCourses,
   removeSelectedCourse,
   selectCourse,
-} from "../courses.slice";
+} from "./courses.slice";
 import {
-  undo,
-  redo,
-  addChangeToHistory,
+  // undo,
+  // redo,
+  // addChangeToHistory,
   addCurriculumDetailCourses,
   addCurriculumDetailYear,
   removeCurriculumDetailCourse,
@@ -26,9 +28,97 @@ import {
   moveCurriculumDetailCourse,
   moveCurriculumDetailYearsOrder,
   removeCurriculumDetailYear,
-} from "../curriculums.slice";
+} from "./curriculums.slice";
 
-export const addCurriculumChangeToHistory = createAsyncThunk(
+//#region STATE
+interface ICourseState {
+  byId: Record<
+    string,
+    {
+      relationships: {
+        prerequisites: string[];
+        corequisites: [];
+        previous: [];
+        placeholders: [];
+      };
+    }
+  >;
+  allIds: string[];
+}
+
+interface ICurriculumState {
+  allYears: Record<
+    string,
+    {
+      allSems: Record<string, { courseIds: string[] }>;
+      allSemOrder: string[];
+    }
+  >;
+  allYearsOrder: string[];
+}
+
+interface ICurriculumChangeTracker {
+  courseBefore: ICourseState;
+  curriculumBefore: ICurriculumState;
+  changeHistory: ChangeHistory<CurriculumDetailHistoryAction>;
+}
+
+const initialState: ICurriculumChangeTracker = {
+  courseBefore: {
+    byId: {},
+    allIds: [],
+  },
+  curriculumBefore: {
+    allYears: {},
+    allYearsOrder: [],
+  },
+  changeHistory: {
+    commandLogs: [],
+    currentIndex: -1,
+  },
+};
+//#endregion
+
+//#region SLICE
+export const curriculumChangeHistorySlice = createSlice({
+  name: "curriculums",
+  initialState: initialState,
+  reducers: {
+    setCourseBefore: (state) => {},
+    addChangeToHistory: (
+      state,
+      action: PayloadAction<CurriculumDetailHistoryAction>
+    ) => {
+      const { commandLogs, currentIndex } = state.changeHistory;
+
+      // Step 1: Remove all redo changes based on current index
+      state.changeHistory.commandLogs.splice(
+        currentIndex + 1,
+        commandLogs.length - currentIndex + 1
+      );
+
+      // Step 2: Add change to history
+      state.changeHistory.commandLogs.push({
+        ...action.payload,
+      });
+      state.changeHistory.currentIndex = commandLogs.length - 1;
+    },
+    undo: (state) => {
+      --state.changeHistory.currentIndex;
+    },
+    redo: (state) => {
+      ++state.changeHistory.currentIndex;
+    },
+    resetState: (state) => {
+      state = initialState;
+    },
+  },
+  extraReducers: {},
+});
+//#endregion
+
+//#region ASYNC_THUNK
+export const commitChangeToHistory = createAsyncThunk(
   "curriculums/addChangeToHistory",
   (payload: CurriculumDetailHistoryAction, thunkAPI) => {
     const { dispatch, getState } = thunkAPI;
@@ -90,6 +180,7 @@ export const addCurriculumChangeToHistory = createAsyncThunk(
 
         dispatch(removeSelectedCourses(courseIds));
         dispatch(removeCurriculumDetailYear(yearId));
+        break;
       }
       default: {
         break;
@@ -103,8 +194,8 @@ export const undoChange = createAsyncThunk(
   "curriculumsChangeHistory/undoChange",
   (_payload: undefined, thunkAPI) => {
     const { dispatch, getState } = thunkAPI;
-    const { currentIndex, commandLogs } = (getState() as RootState).curriculums
-      .curriculumDetail.changeHistory;
+    const { currentIndex, commandLogs } = (getState() as RootState)
+      .curriculumChangeHistory.changeHistory;
 
     if (currentIndex > -1) {
       const undoCommand = commandLogs[currentIndex];
@@ -215,6 +306,7 @@ export const undoChange = createAsyncThunk(
               },
             })
           );
+          break;
         }
         default: {
           break;
@@ -230,8 +322,8 @@ export const redoChange = createAsyncThunk(
   "curriculumsChangeHistory/redoChange",
   (_payload: undefined, thunkAPI) => {
     const { dispatch, getState } = thunkAPI;
-    const { currentIndex, commandLogs } = (getState() as RootState).curriculums
-      .curriculumDetail.changeHistory;
+    const { currentIndex, commandLogs } = (getState() as RootState)
+      .curriculumChangeHistory.changeHistory;
 
     if (commandLogs.length > 0) {
       const redoCommand = commandLogs[currentIndex + 1];
@@ -293,12 +385,13 @@ export const redoChange = createAsyncThunk(
           const { semesters, semestersOrder } = yearDetail;
           let courseIds: string[] = [];
 
-          semestersOrder.forEach((semId) => {
+          semestersOrder.forEach((semId: string) => {
             courseIds.push(...semesters[semId].courseIds);
           });
 
           dispatch(removeSelectedCourses(courseIds));
           dispatch(removeCurriculumDetailYear(yearId));
+          break;
         }
         default: {
           break;
@@ -309,3 +402,9 @@ export const redoChange = createAsyncThunk(
     }
   }
 );
+//#endregion
+
+export const { addChangeToHistory, undo, redo, setCourseBefore, resetState } =
+  curriculumChangeHistorySlice.actions;
+
+export default curriculumChangeHistorySlice.reducer;

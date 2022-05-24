@@ -2,13 +2,13 @@ import Button from "@mui/material/Button";
 
 import { useAppDispatch, useAppSelector } from "src/hooks/useStore";
 
-import { undoChange } from "src/redux/_thunks/curriculumDetailChangeHistory.thunk";
+import { undoChange } from "src/redux/curriculumChangeHistory.slice";
 
 const UndoButton = () => {
   const dispatch = useAppDispatch();
 
   const currentIndex = useAppSelector(
-    (store) => store.curriculums.curriculumDetail.changeHistory.currentIndex
+    (store) => store.curriculumChangeHistory.changeHistory.currentIndex
   );
 
   const handleClick = () => {

@@ -1,8 +1,7 @@
 import { FC } from "react";
-import type { DropResult } from "react-beautiful-dnd";
 import type { Edge } from "react-flow-renderer";
 
-import { memo, useState, useRef } from "react";
+import { memo, useState } from "react";
 import { Handle, Position } from "react-flow-renderer";
 import ClickAwayListener from "@mui/base/ClickAwayListener";
 import Box from "@mui/material/Box";
@@ -19,17 +18,12 @@ import _cloneDeep from "lodash/cloneDeep";
 
 import { style } from "src/constants/component-specs/curriculum-edit-by-years";
 import { useAppSelector, useAppDispatch } from "src/hooks/useStore";
+import { setModeEditCourseRelationship } from "src/redux/courses.slice";
 import {
-  removeSelectedCourse,
-  setModeEditCourseRelationship,
-} from "src/redux/courses.slice";
-import {
-  removeCurriculumDetailCourse,
-  moveCurriculumDetailCourse,
   setShowCourseRelationship,
   setModalCourseDetail,
 } from "src/redux/curriculums.slice";
-import { addCurriculumChangeToHistory } from "src/redux/_thunks/curriculumDetailChangeHistory.thunk";
+import { commitChangeToHistory } from "src/redux/curriculumChangeHistory.slice";
 import { CurriculumCommandType } from "src/constants/curriculum.const";
 
 const configCourseTile = style.courseTile;
@@ -50,7 +44,6 @@ const CourseNode: FC<CourseNodeProps> = ({
 }) => {
   const { yearId, semId, courseId, index } = data;
 
-  // const ref = useRef(null);
   const reactFlowInstance = useReactFlow();
   const edges: Edge[] = useEdges();
 
@@ -71,7 +64,6 @@ const CourseNode: FC<CourseNodeProps> = ({
   const { id, name, credit } = courseDetail;
 
   const handleClick = (event: any) => {
-    // console.log(event);
     setAnchorEl(event.currentTarget);
   };
 
@@ -79,14 +71,10 @@ const CourseNode: FC<CourseNodeProps> = ({
     setAnchorEl(null);
   };
 
-  // const handleSelect = () => {
-  //   // this.props.onSelect();
-  // };
-
   const handleMoveUpCourse = () => {
     handleClose();
     dispatch(
-      addCurriculumChangeToHistory({
+      commitChangeToHistory({
         type: CurriculumCommandType.CHANGE_COURSE_BETWEEN_TWO_SEMESTER,
         patch: {
           courseId: courseId,
@@ -104,7 +92,7 @@ const CourseNode: FC<CourseNodeProps> = ({
   const handleMoveDownCourse = () => {
     handleClose();
     dispatch(
-      addCurriculumChangeToHistory({
+      commitChangeToHistory({
         type: CurriculumCommandType.CHANGE_COURSE_BETWEEN_TWO_SEMESTER,
         patch: {
           courseId: courseId,
@@ -121,7 +109,7 @@ const CourseNode: FC<CourseNodeProps> = ({
 
   const handleRemoveCourse = () => {
     dispatch(
-      addCurriculumChangeToHistory({
+      commitChangeToHistory({
         type: CurriculumCommandType.REMOVE_COURSE_FROM_SEMESTER,
         patch: {
           yearId,

@@ -1,6 +1,6 @@
 import type { Node, Edge } from "react-flow-renderer";
-import type { IRandomCurriculumDetailItemReturn } from "src/types/curriculum.type";
-import type { ICourseItemSimple } from "src/types/course.type";
+import type { IRandomCurriculumDetailItemReturn } from "src/types/Curriculum.type";
+import type { ICourseItemSimple } from "src/types/Course.type";
 
 import { Position, MarkerType } from "react-flow-renderer";
 // import Box from "@mui/material/Box";
@@ -18,15 +18,16 @@ import {
   selectCourse,
 } from "src/redux/courses.slice";
 import {
-  undo,
-  redo,
-  addChangeToHistory,
+  // undo,
+  // redo,
+  // addChangeToHistory,
   addCurriculumDetailCourses,
   addCurriculumDetailYear,
   removeCurriculumDetailCourse,
   removeCurriculumDetailCourses,
   addCurriculumDetailCourse,
 } from "src/redux/curriculums.slice";
+import { addChangeToHistory } from "src/redux/curriculumChangeHistory.slice";
 
 const courseNodeStyle = {
   width: 120,
@@ -80,9 +81,7 @@ export const getDndNodesAndEdges = (): { nodes: Node[]; edges: Edge[] } => {
   };
 
   // #region Step 1.1: get current
-  allYearIdsOrder.forEach((yearId, yearIndex) => {
-    
-  });
+  allYearIdsOrder.forEach((yearId, yearIndex) => {});
   // #endregion
 
   return {

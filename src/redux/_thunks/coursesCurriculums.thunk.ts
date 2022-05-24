@@ -1,5 +1,5 @@
-import type { IRandomMajorsReturn } from "src/types/department.type";
-import type { IRandomCoursesReturn } from "src/types/course.type";
+import type { IRandomMajorsReturn } from "src/types/Department.type";
+import type { IRandomCoursesReturn } from "src/types/Course.type";
 import type { RootState } from "src/redux/_store";
 
 import { createAsyncThunk } from "@reduxjs/toolkit";
