@@ -1,10 +1,10 @@
+import type { FC } from "react";
+
+import { useEffect } from "react";
+import ReactFlow, { ReactFlowProvider, Background } from "react-flow-renderer";
 import Box from "@mui/material/Box";
-import ReactFlow, {
-  ReactFlowProvider,
-  MiniMap,
-  Controls,
-  Background,
-} from "react-flow-renderer";
+
+import { getDndNodesAndEdges } from "src/helper/diagramGenerator/diffDiagramComplex";
 
 const initialNodes = [
   {
@@ -33,15 +33,27 @@ const initialEdges = [
   { id: "e2-3", source: "2", target: "3", animated: true },
 ];
 
-const CurriculumPreviewChange = () => {
+interface CurriculumSideBySideDiffProps {
+  width?: number;
+  height?: number;
+}
+
+const CurriculumPreviewChange: FC<CurriculumSideBySideDiffProps> = ({
+  width,
+  height,
+}) => {
+  useEffect(() => {
+    // getDndNodesAndEdges();
+  }, []);
+
   return (
     <Box
       sx={{
         overflowX: "auto",
         flexGrow: 1,
         bgColor: "rgba(0, 0, 0, 0)",
-        width: "100%",
-        height: 700,
+        width: width || "100%",
+        height: height || 700,
       }}
     >
       <ReactFlowProvider>

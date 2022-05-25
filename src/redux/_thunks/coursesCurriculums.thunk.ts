@@ -16,6 +16,11 @@ import {
   addCourses,
   resetState as resetCoursesState,
 } from "src/redux/courses.slice";
+import {
+  setupDefaultCourses,
+  setupDefaultCurriculum,
+  resetState as resetCurriculumChangeHistoryState,
+} from "src/redux/curriculumChangeHistory.slice";
 
 export const initRandomCurriculumDetailPageData = createAsyncThunk(
   "coursesCurriculums/initRandomCurriculumDetailPageData",
@@ -23,6 +28,7 @@ export const initRandomCurriculumDetailPageData = createAsyncThunk(
     const { dispatch, getState } = thunkAPI;
 
     // #region Step 1: clear all data to make sure if random data is clicked
+    await dispatch(resetCurriculumChangeHistoryState());
     await dispatch(resetCurriculumsState());
     await dispatch(resetCoursesState());
     // #endregion
@@ -37,7 +43,7 @@ export const initRandomCurriculumDetailPageData = createAsyncThunk(
       const coursesResponse = await dispatch(
         loadAllRandomCourses({
           allMajorIds: majorsPayload.allMajorIds,
-          randomCourseCount: { min: 15, max: 100},
+          randomCourseCount: { min: 15, max: 100 },
           nameLength: { min: 1, max: 6 },
           creditCount: {
             theory: { min: 0, max: 5 },
@@ -109,11 +115,17 @@ export const initRandomCurriculumDetailPageData = createAsyncThunk(
           courseIdsPlaceholder.push(...semester.courseIds);
         });
       });
-      dispatch(selectCourses(courseIdsPlaceholder));
-      dispatch(addCourses());
+      await dispatch(selectCourses(courseIdsPlaceholder));
+      await dispatch(addCourses());
+
+      // #endregion
+
+      // #region Step 4: Start detecting curriculums and courses changes
+      dispatch(setupDefaultCurriculum());
+      dispatch(setupDefaultCourses());
+      // #endregion
 
       thunkAPI.fulfillWithValue("success");
-      // #endregion
     } catch (err) {
       return thunkAPI.rejectWithValue(err);
     }

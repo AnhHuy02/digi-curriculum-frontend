@@ -7,18 +7,15 @@ import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
 import Button from "@mui/material/Button";
-// import IconButton from "@mui/material/IconButton";
-// import CloseIcon from "@mui/icons-material/Close";
-// import Typography from "@mui/material/Typography";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
+import { useElementSize } from "usehooks-ts";
 
 import { useAppDispatch, useAppSelector } from "src/hooks/useStore";
-
 import { setModalPreviewCurriculumDetail } from "src/redux/curriculums.slice";
 import { getDotDiagramString } from "src/helper/diagramGenerator/dotDiagram";
-// import CurriculumAfter from "./CurriculumAfter";
-import CurriculumPreviewChange from "./CurriculumPreviewChange";
+import CurriculumSimpleDiff from "./CurriculumSimpleDiff";
+import CurriculumSideBySideDiff from "./CurriculumSideBySideDiff";
 import DiagramDot from "../../DiagramPane/DiagramDot";
 import TabPanel from "src/components/_Shared/TabPanel";
 
@@ -34,6 +31,7 @@ const ModalAddCourseRelationship = () => {
     (store) => store.curriculums.modalPreviewCurriculumDetail.isOpen
   );
   const [tabIndex, setTabIndex] = useState<number>(0);
+  const [squareRef, { width, height }] = useElementSize();
 
   const closeModal = () => {
     dispatch(setModalPreviewCurriculumDetail({ isOpen: false }));
@@ -59,32 +57,11 @@ const ModalAddCourseRelationship = () => {
     FileSaver.saveAs(blob, "curriculum.dot");
   };
 
-  const exportToImage = () => {
-    // if (
-    //   document &&
-    //   document.getElementById("curriculum-detail-preview") !== null
-    // ) {
-    //   console.log(
-    //     document
-    //       .getElementById("curriculum-detail-preview")
-    //       .getElementsByTagName("svg")[0]
-    //   );
-    //   // saveSvgAsPng(
-    //   //   document
-    //   //     .getElementById("curriculum-detail-preview")
-    //   //     .getElementsByTagName("svg")[0],
-    //   //   "diagram.png",
-    //   //   { scale: 1.0 }
-    //   // );
-    // }
-  };
+  const exportToImage = () => {};
 
   return (
     <Dialog open={isOpen} onClose={closeModal} keepMounted={true} fullScreen>
       <DialogTitle>
-        {/* <IconButton onClick={closeModal}>
-          <CloseIcon />
-        </IconButton> */}
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
           <Tabs
             value={tabIndex}
@@ -92,17 +69,25 @@ const ModalAddCourseRelationship = () => {
             variant="fullWidth"
             scrollButtons="auto"
           >
-            <Tab label="Dot Preview" />
-            <Tab label="Change Differences" />
+            <Tab label="Preview Dot Diagram" />
+            <Tab label="Simple Diffs" />
+            <Tab label="Side-by-Side Diffs" />
+            <Tab label="Preview Change Logs" />
           </Tabs>
         </Box>
       </DialogTitle>
-      <DialogContent>
+      <DialogContent ref={squareRef} sx={{ py: 0 }}>
         <TabPanel value={tabIndex} index={0}>
-          <DiagramDot />
+          <DiagramDot width={width - 24 * 2} height={height} />
         </TabPanel>
         <TabPanel value={tabIndex} index={1}>
-          <CurriculumPreviewChange />
+          <CurriculumSimpleDiff width={width - 24 * 2} height={height} />
+        </TabPanel>
+        <TabPanel value={tabIndex} index={2}>
+          <CurriculumSideBySideDiff width={width - 24 * 2} height={height} />
+        </TabPanel>
+        <TabPanel value={tabIndex} index={3}>
+          Change Logs
         </TabPanel>
       </DialogContent>
       <DialogActions>

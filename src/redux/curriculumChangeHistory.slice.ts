@@ -31,15 +31,16 @@ import {
 } from "./curriculums.slice";
 
 //#region STATE
-interface ICourseState {
+interface ICoursesState {
   byId: Record<
     string,
     {
+      name: string;
       relationships: {
-        prerequisites: string[];
-        corequisites: [];
-        previous: [];
-        placeholders: [];
+        preRequisites: string[];
+        coRequisites: string[];
+        previous: string[];
+        placeholders: string[];
       };
     }
   >;
@@ -50,21 +51,21 @@ interface ICurriculumState {
   allYears: Record<
     string,
     {
-      allSems: Record<string, { courseIds: string[] }>;
-      allSemOrder: string[];
+      semesters: Record<string, { courseIds: string[] }>;
+      semestersOrder: string[];
     }
   >;
   allYearsOrder: string[];
 }
 
 interface ICurriculumChangeTracker {
-  courseBefore: ICourseState;
+  coursesBefore: ICoursesState;
   curriculumBefore: ICurriculumState;
   changeHistory: ChangeHistory<CurriculumDetailHistoryAction>;
 }
 
 const initialState: ICurriculumChangeTracker = {
-  courseBefore: {
+  coursesBefore: {
     byId: {},
     allIds: [],
   },
@@ -81,10 +82,15 @@ const initialState: ICurriculumChangeTracker = {
 
 //#region SLICE
 export const curriculumChangeHistorySlice = createSlice({
-  name: "curriculums",
+  name: "curriculumChangeHistory",
   initialState: initialState,
   reducers: {
-    setCourseBefore: (state) => {},
+    setCoursesBefore: (state, action: PayloadAction<ICoursesState>) => {
+      state.coursesBefore = action.payload;
+    },
+    setCurriculumBefore: (state, action: PayloadAction<ICurriculumState>) => {
+      state.curriculumBefore = action.payload;
+    },
     addChangeToHistory: (
       state,
       action: PayloadAction<CurriculumDetailHistoryAction>
@@ -118,8 +124,8 @@ export const curriculumChangeHistorySlice = createSlice({
 //#endregion
 
 //#region ASYNC_THUNK
-export const commitChangeToHistory = createAsyncThunk(
-  "curriculums/addChangeToHistory",
+const executeCommand = createAsyncThunk(
+  "curriculumChangeHistory/executeCommand",
   (payload: CurriculumDetailHistoryAction, thunkAPI) => {
     const { dispatch, getState } = thunkAPI;
 
@@ -129,7 +135,8 @@ export const commitChangeToHistory = createAsyncThunk(
         break;
       }
       case CurriculumCommandType.REMOVE_COURSE_RELATIONSHIP: {
-        dispatch(removeCourseRelationship({ ...payload.patch }));
+        const { courseSourceId, courseTargetId } = payload.patch;
+        dispatch(removeCourseRelationship({ courseSourceId, courseTargetId }));
         break;
       }
       case CurriculumCommandType.CHANGE_COURSE_RELATIONSHIP: {
@@ -146,6 +153,9 @@ export const commitChangeToHistory = createAsyncThunk(
         break;
       }
       case CurriculumCommandType.ADD_COURSES_TO_SEMESTER: {
+        const { courseIds } = payload.patch;
+
+        dispatch(selectCourses(courseIds));
         dispatch(addCourses());
         dispatch(addCurriculumDetailCourses({ ...payload.patch }));
         break;
@@ -186,12 +196,22 @@ export const commitChangeToHistory = createAsyncThunk(
         break;
       }
     }
-    dispatch(addChangeToHistory(payload));
+  }
+);
+
+export const commitChangeToHistory = createAsyncThunk(
+  "curriculumChangeHistory/addChangeToHistory",
+  (payload: CurriculumDetailHistoryAction, thunkAPI) => {
+    const { dispatch, getState } = thunkAPI;
+    const newCommand = payload;
+
+    dispatch(executeCommand(newCommand));
+    dispatch(addChangeToHistory(newCommand));
   }
 );
 
 export const undoChange = createAsyncThunk(
-  "curriculumsChangeHistory/undoChange",
+  "curriculumChangeHistory/undoChange",
   (_payload: undefined, thunkAPI) => {
     const { dispatch, getState } = thunkAPI;
     const { currentIndex, commandLogs } = (getState() as RootState)
@@ -296,6 +316,7 @@ export const undoChange = createAsyncThunk(
           });
 
           dispatch(selectCourses(courseIds));
+          dispatch(addCourses());
           dispatch(
             addCurriculumDetailYear({
               yearIndex,
@@ -319,7 +340,7 @@ export const undoChange = createAsyncThunk(
 );
 
 export const redoChange = createAsyncThunk(
-  "curriculumsChangeHistory/redoChange",
+  "curriculumChangeHistory/redoChange",
   (_payload: undefined, thunkAPI) => {
     const { dispatch, getState } = thunkAPI;
     const { currentIndex, commandLogs } = (getState() as RootState)
@@ -328,83 +349,90 @@ export const redoChange = createAsyncThunk(
     if (commandLogs.length > 0) {
       const redoCommand = commandLogs[currentIndex + 1];
 
-      switch (redoCommand.type) {
-        case CurriculumCommandType.ADD_COURSE_RELATIONSHIP: {
-          const { courseSourceId, courseTargetId, relationship } =
-            redoCommand.patch;
-
-          dispatch(
-            addCourseRelationship({
-              courseSourceId,
-              courseTargetId,
-              relationship,
-            })
-          );
-          break;
-        }
-        case CurriculumCommandType.REMOVE_COURSE_RELATIONSHIP: {
-          const { courseSourceId, courseTargetId } = redoCommand.patch;
-
-          dispatch(
-            removeCourseRelationship({
-              courseSourceId,
-              courseTargetId,
-            })
-          );
-          break;
-        }
-        case CurriculumCommandType.ADD_COURSES_TO_SEMESTER: {
-          const { courseIds } = redoCommand.patch;
-
-          dispatch(selectCourses(courseIds));
-          dispatch(addCurriculumDetailCourses({ ...redoCommand.patch }));
-          dispatch(addCourses());
-          break;
-        }
-        case CurriculumCommandType.REMOVE_COURSE_FROM_SEMESTER: {
-          const { yearId, semId, courseId } = redoCommand.patch;
-
-          dispatch(removeSelectedCourse(courseId));
-          dispatch(removeCurriculumDetailCourse({ yearId, semId, courseId }));
-          break;
-        }
-        case CurriculumCommandType.CHANGE_COURSE_BETWEEN_TWO_SEMESTER: {
-          dispatch(moveCurriculumDetailCourse({ ...redoCommand.patch }));
-          break;
-        }
-        case CurriculumCommandType.CHANGE_YEAR_ORDER: {
-          dispatch(moveCurriculumDetailYearsOrder({ ...redoCommand.patch }));
-          break;
-        }
-        case CurriculumCommandType.ADD_YEAR: {
-          dispatch(addCurriculumDetailYear());
-          break;
-        }
-        case CurriculumCommandType.REMOVE_YEAR: {
-          const { yearId, yearDetail } = redoCommand.patch;
-          const { semesters, semestersOrder } = yearDetail;
-          let courseIds: string[] = [];
-
-          semestersOrder.forEach((semId: string) => {
-            courseIds.push(...semesters[semId].courseIds);
-          });
-
-          dispatch(removeSelectedCourses(courseIds));
-          dispatch(removeCurriculumDetailYear(yearId));
-          break;
-        }
-        default: {
-          break;
-        }
-      }
-
+      dispatch(executeCommand(redoCommand));
       dispatch(redo());
     }
   }
 );
+
+export const setupDefaultCourses = createAsyncThunk(
+  "curriculumChangeHistory/setupDefaultCurriculum",
+  (_payload: undefined, thunkAPI) => {
+    const { dispatch, getState } = thunkAPI;
+
+    const { courses, courseIds } = (getState() as RootState).courses;
+    const { allYears, allYearsOrder } = (getState() as RootState).curriculums
+      .curriculumDetail;
+
+    // Get all course ids from curriculum to reduce memory size
+    const filteredCourseIds = allYearsOrder
+      .map((yearId) => {
+        const { semestersOrder, semesters } = allYears[yearId];
+        return semestersOrder
+          .map((semId) => semesters[semId].courseIds.flat())
+          .flat();
+      })
+      .flat();
+
+    const coursesByIdTemp = Object.fromEntries(
+      filteredCourseIds.map((courseId) => [
+        courseId,
+        {
+          name: courses[courseId].name,
+          relationships: {
+            preRequisites: courses[courseId].relationship.preRequisites,
+            coRequisites: courses[courseId].relationship.coRequisites,
+            previous: courses[courseId].relationship.previous,
+            placeholders: courses[courseId].relationship.placeholders,
+          },
+        },
+      ])
+    );
+
+    dispatch(
+      setCoursesBefore({
+        byId: coursesByIdTemp,
+        allIds: courseIds,
+      })
+    );
+  }
+);
+
+export const setupDefaultCurriculum = createAsyncThunk(
+  "curriculumChangeHistory/setupDefaultCurriculum",
+  (_payload: undefined, thunkAPI) => {
+    const { dispatch, getState } = thunkAPI;
+
+    const { allYears, allYearsOrder } = (getState() as RootState).curriculums
+      .curriculumDetail;
+
+    const allYearsTemp = Object.fromEntries(
+      allYearsOrder.map((yearId) => [
+        yearId,
+        {
+          semesters: allYears[yearId].semesters,
+          semestersOrder: allYears[yearId].semestersOrder,
+        },
+      ])
+    );
+
+    dispatch(
+      setCurriculumBefore({
+        allYears: allYearsTemp,
+        allYearsOrder,
+      })
+    );
+  }
+);
 //#endregion
 
-export const { addChangeToHistory, undo, redo, setCourseBefore, resetState } =
-  curriculumChangeHistorySlice.actions;
+export const {
+  addChangeToHistory,
+  undo,
+  redo,
+  setCoursesBefore,
+  setCurriculumBefore,
+  resetState,
+} = curriculumChangeHistorySlice.actions;
 
 export default curriculumChangeHistorySlice.reducer;
