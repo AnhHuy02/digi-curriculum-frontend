@@ -1,12 +1,7 @@
 import type { Node, Edge } from "react-flow-renderer";
-import type { IRandomCurriculumDetailItemReturn } from "src/types/curriculum.type";
-import type { ICourseItemSimple } from "src/types/course.type";
 
 import { Position, MarkerType } from "react-flow-renderer";
-// import Box from "@mui/material/Box";
-// import Typography from "@mui/material/Typography";
 
-// import { useAppSelector } from "src/hooks/useStore";
 import { store } from "src/redux/_store";
 
 const courseNodeStyle = {
@@ -25,10 +20,6 @@ const semesterStyle = {
   paddingX: 13,
   offsetX: 125,
 };
-
-// interface IGetDndNodesAndEdges extends IRandomCurriculumDetailItemReturn {
-//   allCourses: Record<string, ICourseItemSimple>;
-// }
 
 export const getDndNodesAndEdges = (): { nodes: Node[]; edges: Edge[] } => {
   let nodesTemp: Node[] = [];

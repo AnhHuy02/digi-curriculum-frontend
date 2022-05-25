@@ -4,9 +4,8 @@ import type {
   ICurriculumItemSimple,
   ICurriculumItemDetail,
   IRandomCurriculumDetailParam,
-  CurriculumDetailHistoryAction,
   ICurriculumItemYear,
-} from "src/types/curriculum.type";
+} from "src/types/Curriculum.type";
 
 import moment from "moment";
 import _pull from "lodash/pull";
@@ -18,7 +17,6 @@ import {
   CurriculumDndType,
 } from "src/constants/curriculum.const";
 import { getRandomCurriculumItemDetail } from "src/helper/mockDataGenerator/curriculums.generator";
-
 
 //#region STATE
 interface ICurriculumState {
@@ -52,10 +50,6 @@ const initialState: ICurriculumState = {
     year: moment().year(),
     allYears: {},
     allYearsOrder: [],
-    changeHistory: {
-      commandLogs: [],
-      currentIndex: -1,
-    },
   },
   dndViewMode: CurriculumDndType.DND_BY_COURSE_RELATIONSHIP,
   diagramViewMode: CurriculumDiagramType.NONE,
@@ -316,32 +310,6 @@ export const curriculumSlice = createSlice({
       delete allYears[yearId];
       state.curriculumDetail.allYearsOrder = _pull(allYearsOrder, yearId);
     },
-    addChangeToHistory: (
-      state,
-      action: PayloadAction<CurriculumDetailHistoryAction>
-    ) => {
-      const { commandLogs, currentIndex } =
-        state.curriculumDetail.changeHistory;
-
-      // Step 1: Remove all redo changes based on current index
-      state.curriculumDetail.changeHistory.commandLogs.splice(
-        currentIndex + 1,
-        commandLogs.length - currentIndex + 1
-      );
-
-      // Step 2: Add change to history
-      state.curriculumDetail.changeHistory.commandLogs.push({
-        ...action.payload,
-      });
-      state.curriculumDetail.changeHistory.currentIndex =
-        commandLogs.length - 1;
-    },
-    undo: (state) => {
-      --state.curriculumDetail.changeHistory.currentIndex;
-    },
-    redo: (state) => {
-      ++state.curriculumDetail.changeHistory.currentIndex;
-    },
     resetState: (state) => {
       state = initialState;
     },
@@ -414,9 +382,6 @@ export const {
   removeCurriculumDetailYear,
   removeCurriculumDetailCourse,
   removeCurriculumDetailCourses,
-  addChangeToHistory,
-  undo,
-  redo,
   resetState,
 } = curriculumSlice.actions;
 

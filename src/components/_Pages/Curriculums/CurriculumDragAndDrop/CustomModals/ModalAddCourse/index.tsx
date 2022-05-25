@@ -8,7 +8,7 @@ import Button from "@mui/material/Button";
 import CourseList from "./CourseList";
 import { useAppDispatch, useAppSelector } from "src/hooks/useStore";
 import { setModalAddCourse } from "src/redux/curriculums.slice";
-import { addCurriculumChangeToHistory } from "src/redux/_thunks/curriculumDetailChangeHistory.thunk";
+import { commitChangeToHistory } from "src/redux/curriculumChangeHistory.slice";
 import { CurriculumCommandType } from "src/constants/curriculum.const";
 
 const ModalAddCourse = () => {
@@ -36,7 +36,7 @@ const ModalAddCourse = () => {
       );
       closeModal();
       dispatch(
-        addCurriculumChangeToHistory({
+        commitChangeToHistory({
           type: CurriculumCommandType.ADD_COURSES_TO_SEMESTER,
           patch: {
             yearId,

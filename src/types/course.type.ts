@@ -1,4 +1,4 @@
-import type { IRange } from "./others.type";
+import type { IRange } from "./Others.type";
 
 import { CourseType } from "src/constants/course.const";
 

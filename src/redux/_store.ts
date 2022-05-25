@@ -3,10 +3,12 @@ import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
 
 import curriculums from "./curriculums.slice";
 import courses from "./courses.slice";
+import curriculumChangeHistory from "./curriculumChangeHistory.slice";
 
 const rootReducer = combineReducers({
   courses,
   curriculums,
+  curriculumChangeHistory,
 });
 
 const createStore = () => {

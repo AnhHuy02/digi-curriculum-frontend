@@ -1,15 +1,10 @@
 import type { Node, Edge } from "react-flow-renderer";
-import type {
-  IRandomCoursesReturn,
-  ICourseItemSimple,
-} from "src/types/course.type";
-import type { IRandomCurriculumDetailItemReturn } from "src/types/curriculum.type";
+import type { ICourseItemSimple } from "src/types/Course.type";
+import type { IRandomCurriculumDetailItemReturn } from "src/types/Curriculum.type";
 
 import { Position, MarkerType } from "react-flow-renderer";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-
-import { CourseRelationship } from "src/constants/course.const";
 
 interface IGetReactFlowElements extends IRandomCurriculumDetailItemReturn {
   allCourses: Record<string, ICourseItemSimple>;

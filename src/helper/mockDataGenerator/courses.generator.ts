@@ -1,14 +1,14 @@
 import type {
   IMajorSimple,
   IRandomMajorsReturn,
-} from "src/types/department.type";
+} from "src/types/Department.type";
 import type {
   ICourseItemSimple,
   ICourseTypeDistribution,
   IRandomCoursesParam,
   IRandomCoursesReturn,
-} from "src/types/course.type";
-import type { IRange } from "src/types/others.type";
+} from "src/types/Course.type";
+import type { IRange } from "src/types/Others.type";
 
 import faker from "@faker-js/faker";
 import _sample from "lodash/sample";

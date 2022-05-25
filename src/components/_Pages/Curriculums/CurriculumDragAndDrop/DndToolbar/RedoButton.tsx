@@ -2,18 +2,17 @@ import Button from "@mui/material/Button";
 
 import { useAppDispatch, useAppSelector } from "src/hooks/useStore";
 
-import { redoChange } from "src/redux/_thunks/curriculumDetailChangeHistory.thunk";
+import { redoChange } from "src/redux/curriculumChangeHistory.slice";
 
 const RedoButton = () => {
   const dispatch = useAppDispatch();
 
   const commandLogsLength = useAppSelector(
-    (store) =>
-      store.curriculums.curriculumDetail.changeHistory.commandLogs.length
+    (store) => store.curriculumChangeHistory.changeHistory.commandLogs.length
   );
 
   const currentIndex = useAppSelector(
-    (store) => store.curriculums.curriculumDetail.changeHistory.currentIndex
+    (store) => store.curriculumChangeHistory.changeHistory.currentIndex
   );
 
   const handleClick = () => {

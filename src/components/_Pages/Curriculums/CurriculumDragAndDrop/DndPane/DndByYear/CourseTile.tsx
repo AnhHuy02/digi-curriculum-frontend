@@ -14,7 +14,7 @@ import { Draggable } from "react-beautiful-dnd";
 import { style } from "src/constants/component-specs/curriculum-edit-by-years";
 import { useAppSelector, useAppDispatch } from "src/hooks/useStore";
 import { CurriculumCommandType } from "src/constants/curriculum.const";
-import { addCurriculumChangeToHistory } from "src/redux/_thunks/curriculumDetailChangeHistory.thunk";
+import { commitChangeToHistory } from "src/redux/curriculumChangeHistory.slice";
 
 const configCourseTile = style.courseTile;
 
@@ -49,7 +49,7 @@ const CourseTile: FC<ICourseTileProps> = ({
 
   const handleRemoveCourse = () => {
     dispatch(
-      addCurriculumChangeToHistory({
+      commitChangeToHistory({
         type: CurriculumCommandType.REMOVE_COURSE_FROM_SEMESTER,
         patch: {
           yearId,
@@ -59,10 +59,6 @@ const CourseTile: FC<ICourseTileProps> = ({
       })
     );
   };
-
-  // const { classes } = this.props;
-  // const { courseId, index, name, credit } = this.props;
-  // const { anchorEl } = this.state;
 
   return (
     <Draggable draggableId={courseId} index={index} key={courseId}>
