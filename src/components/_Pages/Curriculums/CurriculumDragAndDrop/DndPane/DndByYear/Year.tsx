@@ -21,7 +21,7 @@ interface YearProps {
   index: number;
   yearId: string;
 }
-const Year: FC<YearProps> = ({ index, yearId }) => {
+const Year: FC<YearProps> = ({ index: yearIndex, yearId }) => {
   const dispatch = useAppDispatch();
   const allYears = useAppSelector(
     (state) => state.curriculums.curriculumDetail.allYears
@@ -44,17 +44,17 @@ const Year: FC<YearProps> = ({ index, yearId }) => {
         type: CurriculumCommandType.REMOVE_YEAR,
         patch: {
           yearId,
-          yearIndex: index,
+          yearIndex: yearIndex,
           yearDetail: allYears[yearId],
         },
       })
     );
-    
+
     handleCloseMenu();
   };
 
   return (
-    <Draggable draggableId={yearId} index={index}>
+    <Draggable draggableId={yearId} index={yearIndex}>
       {(provided) => {
         return (
           <Paper
@@ -87,7 +87,11 @@ const Year: FC<YearProps> = ({ index, yearId }) => {
                 <MenuItem onClick={() => handleRemoveYear()}>Remove</MenuItem>
               </Menu>
             </Box>
-            <SemesterList semListId={yearId} allSemIdsOrder={semestersOrder} />
+            <SemesterList
+              yearId={yearId}
+              yearIndex={yearIndex}
+              allSemIdsOrder={semestersOrder}
+            />
           </Paper>
         );
       }}

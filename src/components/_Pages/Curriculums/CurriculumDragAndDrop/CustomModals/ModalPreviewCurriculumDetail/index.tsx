@@ -1,5 +1,4 @@
 import { SyntheticEvent, useState } from "react";
-// import { Canvg } from "canvg";
 import FileSaver from "file-saver";
 import Box from "@mui/material/Box";
 import Dialog from "@mui/material/Dialog";
@@ -16,6 +15,7 @@ import { setModalPreviewCurriculumDetail } from "src/redux/curriculums.slice";
 import { getDotDiagramString } from "src/helper/diagramGenerator/dotDiagram";
 import CurriculumSimpleDiff from "./CurriculumSimpleDiff";
 import CurriculumSideBySideDiff from "./CurriculumSideBySideDiff";
+import CurriculumChangeLog from "./CurriculumChangeLog";
 import DiagramDot from "../../DiagramPane/DiagramDot";
 import TabPanel from "src/components/_Shared/TabPanel";
 
@@ -87,7 +87,7 @@ const ModalAddCourseRelationship = () => {
           <CurriculumSideBySideDiff width={width - 24 * 2} height={height} />
         </TabPanel>
         <TabPanel value={tabIndex} index={3}>
-          Change Logs
+          <CurriculumChangeLog />
         </TabPanel>
       </DialogContent>
       <DialogActions>

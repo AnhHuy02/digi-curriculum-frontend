@@ -1,18 +1,15 @@
-import type { FC, CSSProperties, MouseEvent } from "react";
+import type { CSSProperties, MouseEvent } from "react";
 import type { Position } from "react-flow-renderer";
 
-import {
-  getBezierPath,
-  getEdgeCenter,
-  // getMarkerEnd,
-  // useEdgesState,
-} from "react-flow-renderer";
+import { getBezierPath, getEdgeCenter } from "react-flow-renderer";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 
 import styles from "./CourseRelationshipEdge.module.scss";
 import { useAppDispatch } from "src/hooks/useStore";
-import { removeCourseRelationship } from "src/redux/courses.slice";
+import { commitChangeToHistory } from "src/redux/curriculumChangeHistory.slice";
+import { CurriculumCommandType } from "src/constants/curriculum.const";
+import { CourseRelationship } from "src/constants/course.const";
 
 const foreignObjectSize = {
   width: 120,
@@ -34,8 +31,9 @@ interface RemoveRelationshipEdgeProps {
   data?: {
     label?: string;
     highlighted?: boolean;
-    // courseSourceId?: string;
-    // courseTargetId?: string;
+    relationship?: CourseRelationship;
+    courseSourceId?: string;
+    courseTargetId?: string;
   };
 }
 
@@ -53,7 +51,8 @@ const RemoveRelationshipEdge = ({
   markerEnd,
   data,
 }: RemoveRelationshipEdgeProps) => {
-  const { label, highlighted } = data || {};
+  const { label, highlighted, relationship, courseSourceId, courseTargetId } =
+    data || {};
 
   const dispatch = useAppDispatch();
   const edgePath = getBezierPath({
@@ -73,12 +72,19 @@ const RemoveRelationshipEdge = ({
 
   const onEdgeClick = (evt: MouseEvent<HTMLButtonElement>, id?: string) => {
     evt.stopPropagation();
-    dispatch(
-      removeCourseRelationship({
-        courseSourceId: source,
-        courseTargetId: target,
-      })
-    );
+    
+    if (courseSourceId && courseTargetId && relationship) {
+      dispatch(
+        commitChangeToHistory({
+          type: CurriculumCommandType.REMOVE_COURSE_RELATIONSHIP,
+          patch: {
+            courseSourceId,
+            courseTargetId,
+            relationship,
+          },
+        })
+      );
+    }
   };
 
   return (

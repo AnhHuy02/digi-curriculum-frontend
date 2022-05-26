@@ -28,7 +28,9 @@ interface ICurriculumState {
   modalAddCourse: {
     isOpen: boolean;
     yearId: string | null;
+    yearIndex: number | null;
     semId: string | null;
+    semIndex: number | null;
   };
   modalCourseDetail: {
     isOpen: boolean;
@@ -57,7 +59,9 @@ const initialState: ICurriculumState = {
   modalAddCourse: {
     isOpen: false,
     yearId: null,
+    yearIndex: null,
     semId: null,
+    semIndex: null,
   },
   modalCourseDetail: {
     isOpen: false,
@@ -107,7 +111,9 @@ export const curriculumSlice = createSlice({
       action: PayloadAction<{
         isOpen?: boolean;
         yearId?: string | null;
+        yearIndex?: number | null;
         semId?: string | null;
+        semIndex?: number | null;
       }>
     ) => {
       state.modalAddCourse = { ...state.modalAddCourse, ...action.payload };

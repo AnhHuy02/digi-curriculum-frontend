@@ -5,12 +5,14 @@ import Box from "@mui/material/Box";
 import Semester from "./Semester";
 
 interface ISemesterListProps {
-  semListId: string;
+  yearId: string;
+  yearIndex: number;
   allSemIdsOrder: string[];
 }
 
 const SemesterList: FC<ISemesterListProps> = ({
-  semListId,
+  yearId,
+  yearIndex,
   allSemIdsOrder,
 }) => {
   return (
@@ -18,9 +20,10 @@ const SemesterList: FC<ISemesterListProps> = ({
       {allSemIdsOrder.map((semId, index) => {
         return (
           <Semester
-            key={`${semListId} ${semId}`}
+            key={`${yearId} ${semId}`}
             index={index}
-            yearId={semListId}
+            yearId={yearId}
+            yearIndex={yearIndex}
             semId={`${semId}`}
           />
         );

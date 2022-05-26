@@ -63,7 +63,9 @@ export type CurriculumDetailHistoryAction =
       CurriculumCommandType.ADD_COURSES_TO_SEMESTER,
       {
         yearId: string;
+        yearIndex: number;
         semId: string;
+        semIndex: number;
         courseIds: string[];
       }
     >
@@ -71,7 +73,9 @@ export type CurriculumDetailHistoryAction =
       CurriculumCommandType.REMOVE_COURSE_FROM_SEMESTER,
       {
         yearId: string;
+        yearIndex: number;
         semId: string;
+        semIndex: number;
         courseId: string;
       }
     >
@@ -80,10 +84,14 @@ export type CurriculumDetailHistoryAction =
       {
         courseId: string;
         sourceYearId: string;
+        sourceYearIndex: number;
         sourceSemId: string;
+        sourceSemIndex: number;
         sourceTakeoutIndex: number;
         targetYearId: string;
+        targetYearIndex: number;
         targetSemId: string;
+        targetSemIndex: number;
         targetInsertIndex: number;
       }
     >

@@ -31,7 +31,9 @@ const configCourseTile = style.courseTile;
 interface CourseNodeProps {
   data: {
     yearId: string;
+    yearIndex: number;
     semId: string;
+    semIndex: number;
     courseId: string;
     index: number;
   };
@@ -42,7 +44,7 @@ const CourseNode: FC<CourseNodeProps> = ({
   data,
   onClickEditCourseRelationship,
 }) => {
-  const { yearId, semId, courseId, index } = data;
+  const { yearId, yearIndex, semId, semIndex, courseId, index } = data;
 
   const reactFlowInstance = useReactFlow();
   const edges: Edge[] = useEdges();
@@ -79,10 +81,14 @@ const CourseNode: FC<CourseNodeProps> = ({
         patch: {
           courseId: courseId,
           sourceYearId: yearId,
+          sourceYearIndex: yearIndex,
           sourceSemId: semId,
+          sourceSemIndex: semIndex,
           sourceTakeoutIndex: index,
           targetYearId: yearId,
+          targetYearIndex: yearIndex,
           targetSemId: semId,
+          targetSemIndex: semIndex,
           targetInsertIndex: index - 1,
         },
       })
@@ -97,10 +103,14 @@ const CourseNode: FC<CourseNodeProps> = ({
         patch: {
           courseId: courseId,
           sourceYearId: yearId,
+          sourceYearIndex: yearIndex,
           sourceSemId: semId,
+          sourceSemIndex: semIndex,
           sourceTakeoutIndex: index,
           targetYearId: yearId,
+          targetYearIndex: yearIndex,
           targetSemId: semId,
+          targetSemIndex: semIndex,
           targetInsertIndex: index + 1,
         },
       })
@@ -113,7 +123,9 @@ const CourseNode: FC<CourseNodeProps> = ({
         type: CurriculumCommandType.REMOVE_COURSE_FROM_SEMESTER,
         patch: {
           yearId,
+          yearIndex,
           semId,
+          semIndex,
           courseId,
         },
       })

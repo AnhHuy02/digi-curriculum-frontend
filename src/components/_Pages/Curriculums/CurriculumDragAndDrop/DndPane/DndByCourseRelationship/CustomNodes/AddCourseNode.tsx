@@ -14,12 +14,14 @@ const configCourseTile = style.courseTile;
 interface IAddCourseNodeProps {
   data: {
     yearId: string;
+    yearIndex: number;
     semId: string;
+    semIndex: number;
   };
 }
 
 const AddCourseNode: FC<IAddCourseNodeProps> = ({
-  data: { yearId, semId },
+  data: { yearId, yearIndex, semId, semIndex },
 }) => {
   const dispatch = useAppDispatch();
 
@@ -32,7 +34,9 @@ const AddCourseNode: FC<IAddCourseNodeProps> = ({
       setModalAddCourse({
         isOpen: true,
         yearId,
+        yearIndex,
         semId,
+        semIndex,
       })
     );
   };
@@ -47,7 +51,7 @@ const AddCourseNode: FC<IAddCourseNodeProps> = ({
         // backgroundColor: "rgb(25, 118, 210)",
       })}
     >
-      <AddIcon  />
+      <AddIcon />
     </Button>
   );
 };

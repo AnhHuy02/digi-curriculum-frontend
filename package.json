@@ -17,6 +17,7 @@
     "@emotion/styled": "^11.8.1",
     "@faker-js/faker": "^6.0.0-alpha.7",
     "@mui/icons-material": "^5.4.2",
+    "@mui/lab": "^5.0.0-alpha.83",
     "@mui/material": "^5.7.0",
     "@mui/x-data-grid": "^5.5.1",
     "@reduxjs/toolkit": "^1.8.0",

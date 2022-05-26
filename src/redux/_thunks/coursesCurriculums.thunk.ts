@@ -44,7 +44,7 @@ export const initRandomCurriculumDetailPageData = createAsyncThunk(
         loadAllRandomCourses({
           allMajorIds: majorsPayload.allMajorIds,
           randomCourseCount: { min: 15, max: 100 },
-          nameLength: { min: 1, max: 6 },
+          nameLength: { min: 1, max: 3 },
           creditCount: {
             theory: { min: 0, max: 5 },
             practice: { min: 0, max: 5 },
