@@ -20,14 +20,18 @@ const configCourseTile = style.courseTile;
 
 interface ICourseTileProps {
   yearId: string;
+  yearIndex: number;
   semId: string;
+  semIndex: number;
   courseId: string;
   index: number;
 }
 
 const CourseTile: FC<ICourseTileProps> = ({
   yearId,
+  yearIndex,
   semId,
+  semIndex,
   courseId,
   index,
 }) => {
@@ -53,7 +57,9 @@ const CourseTile: FC<ICourseTileProps> = ({
         type: CurriculumCommandType.REMOVE_COURSE_FROM_SEMESTER,
         patch: {
           yearId,
+          yearIndex,
           semId,
+          semIndex,
           courseId,
         },
       })

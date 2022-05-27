@@ -4,6 +4,7 @@ import type { CurriculumDetailHistoryAction } from "src/types/Curriculum.type";
 import type { ChangeHistory } from "src/types/ChangeHistory.type";
 
 import _pull from "lodash/pull";
+import moment from "moment";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 import { CurriculumCommandType } from "src/constants/curriculum.const";
@@ -29,6 +30,10 @@ import {
   moveCurriculumDetailYearsOrder,
   removeCurriculumDetailYear,
 } from "./curriculums.slice";
+
+const getCurrentDateTime = () => {
+  return moment().toISOString();
+};
 
 //#region STATE
 interface ICoursesState {
@@ -91,6 +96,16 @@ export const curriculumChangeHistorySlice = createSlice({
     setCurriculumBefore: (state, action: PayloadAction<ICurriculumState>) => {
       state.curriculumBefore = action.payload;
     },
+    // setCommandDescription: (
+    //   state,
+    //   action: PayloadAction<{ index: number; description: string }>
+    // ) => {
+    //   const { index, description } = action.payload;
+
+    //   if (state.changeHistory.commandLogs.length > 0) {
+    //     state.changeHistory.commandLogs[index].description = description;
+    //   }
+    // },
     addChangeToHistory: (
       state,
       action: PayloadAction<CurriculumDetailHistoryAction>
@@ -106,6 +121,7 @@ export const curriculumChangeHistorySlice = createSlice({
       // Step 2: Add change to history
       state.changeHistory.commandLogs.push({
         ...action.payload,
+        createdAt: getCurrentDateTime(),
       });
       state.changeHistory.currentIndex = commandLogs.length - 1;
     },
@@ -426,7 +442,8 @@ export const setupDefaultCurriculum = createAsyncThunk(
 );
 //#endregion
 
-export const {
+// ALL REDUCER ACTIONS
+const {
   addChangeToHistory,
   undo,
   redo,
@@ -434,5 +451,15 @@ export const {
   setCurriculumBefore,
   resetState,
 } = curriculumChangeHistorySlice.actions;
+
+// PUBLIC ACTIONS
+export {
+  addChangeToHistory,
+  undo,
+  redo,
+  setCoursesBefore,
+  setCurriculumBefore,
+  resetState,
+};
 
 export default curriculumChangeHistorySlice.reducer;

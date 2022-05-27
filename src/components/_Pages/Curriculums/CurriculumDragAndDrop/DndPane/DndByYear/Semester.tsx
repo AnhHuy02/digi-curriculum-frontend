@@ -41,10 +41,16 @@ const CourseListContainer = forwardRef(
 
 interface ISemesterProps {
   yearId: string;
+  yearIndex: number;
   semId: string;
   index: number;
 }
-const Semester: FC<ISemesterProps> = ({ yearId, semId, index }) => {
+const Semester: FC<ISemesterProps> = ({
+  yearId,
+  yearIndex,
+  semId,
+  index: semIndex,
+}) => {
   const dispatch = useAppDispatch();
   const allYears = useAppSelector(
     (state) => state.curriculums.curriculumDetail.allYears
@@ -67,7 +73,9 @@ const Semester: FC<ISemesterProps> = ({ yearId, semId, index }) => {
       setModalAddCourse({
         isOpen: true,
         yearId,
+        yearIndex,
         semId,
+        semIndex: semIndex,
       })
     );
   };
@@ -75,7 +83,7 @@ const Semester: FC<ISemesterProps> = ({ yearId, semId, index }) => {
   return (
     <Box>
       <Typography variant="body1" align="center">
-        Sem {index + 1}
+        Sem {semIndex + 1}
       </Typography>
       <Droppable
         droppableId={`${yearId} ${semId}`}
@@ -97,7 +105,9 @@ const Semester: FC<ISemesterProps> = ({ yearId, semId, index }) => {
                     courseId={courseId}
                     index={index}
                     yearId={yearId}
+                    yearIndex={yearIndex}
                     semId={semId}
+                    semIndex={semIndex}
                   />
                 );
               })}

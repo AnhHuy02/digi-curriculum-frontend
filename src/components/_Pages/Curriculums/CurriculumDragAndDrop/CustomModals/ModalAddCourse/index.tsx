@@ -19,8 +19,14 @@ const ModalAddCourse = () => {
   const yearId = useAppSelector(
     (store) => store.curriculums.modalAddCourse.yearId
   );
+  const yearIndex = useAppSelector(
+    (store) => store.curriculums.modalAddCourse.yearIndex
+  );
   const semId = useAppSelector(
     (store) => store.curriculums.modalAddCourse.semId
+  );
+  const semIndex = useAppSelector(
+    (store) => store.curriculums.modalAddCourse.semIndex
   );
   const allCourses = useAppSelector((store) => store.courses.courses);
   const allCourseIds = useAppSelector((store) => store.courses.courseIds);
@@ -30,7 +36,7 @@ const ModalAddCourse = () => {
   };
 
   const handleConfirm = () => {
-    if (yearId && semId) {
+    if (yearId && yearIndex !== null && semId && semIndex !== null) {
       const courseIdsTemp = allCourseIds.filter(
         (courseId) => allCourses[courseId].selectedTemp === true
       );
@@ -40,7 +46,9 @@ const ModalAddCourse = () => {
           type: CurriculumCommandType.ADD_COURSES_TO_SEMESTER,
           patch: {
             yearId,
+            yearIndex,
             semId,
+            semIndex,
             courseIds: courseIdsTemp,
           },
         })

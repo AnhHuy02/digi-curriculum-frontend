@@ -1,6 +1,7 @@
 import type { Node, Edge } from "react-flow-renderer";
 
 import { Position, MarkerType } from "react-flow-renderer";
+import { CourseRelationship } from "src/constants/course.const";
 
 import { store } from "src/redux/_store";
 
@@ -46,11 +47,11 @@ export const getDndNodesAndEdges = (): { nodes: Node[]; edges: Edge[] } => {
     const { semesters, semestersOrder } = allYears[yearId];
     const customYearId = `year-${yearIndex + 1}`;
 
-    semestersOrder.forEach((semesterId, semesterIndex) => {
+    semestersOrder.forEach((semId, semIndex) => {
       // console.log("generate", semesterId);
       // #region Step 1.1: Render semester nodes
-      const courseCount = semesters[semesterId].courseIds.length;
-      const creditPerSemesterCount = semesters[semesterId].courseIds.reduce(
+      const courseCount = semesters[semId].courseIds.length;
+      const creditPerSemesterCount = semesters[semId].courseIds.reduce(
         (sum, currentId) => {
           return (
             sum +
@@ -60,14 +61,14 @@ export const getDndNodesAndEdges = (): { nodes: Node[]; edges: Edge[] } => {
         },
         0 as number
       );
-      const creditLimit = semesters[semesterId].creditLimit;
+      const creditLimit = semesters[semId].creditLimit;
 
-      if (semesterIndex !== semestersOrder.length - 1) {
+      if (semIndex !== semestersOrder.length - 1) {
         ++semCount;
 
         // Semester Label
         nodesTemp.push({
-          id: `${semesterId}-label`,
+          id: `${semId}-label`,
           type: "textNode",
           data: {
             label: `Semester ${semCount}`,
@@ -89,7 +90,7 @@ export const getDndNodesAndEdges = (): { nodes: Node[]; edges: Edge[] } => {
 
         // Semester Course Container
         nodesTemp.push({
-          id: semesterId,
+          id: semId,
           type: "semesterNode",
           data: {
             // label: `Semester ${semCount}`,
@@ -115,7 +116,7 @@ export const getDndNodesAndEdges = (): { nodes: Node[]; edges: Edge[] } => {
 
         // Semester Label
         nodesTemp.push({
-          id: `${semesterId}-label`,
+          id: `${semId}-label`,
           type: "textNode",
           data: {
             label: `Summer ${summerCount}`,
@@ -137,7 +138,7 @@ export const getDndNodesAndEdges = (): { nodes: Node[]; edges: Edge[] } => {
 
         // Semester Course Container
         nodesTemp.push({
-          id: semesterId,
+          id: semId,
           type: "semesterNode",
           data: {
             // label: `Summer ${summerCount}`,
@@ -162,7 +163,7 @@ export const getDndNodesAndEdges = (): { nodes: Node[]; edges: Edge[] } => {
       // #endregion
 
       // #region Step 1.2: Render course nodes inside a semester node
-      const { courseIds } = semesters[semesterId];
+      const { courseIds } = semesters[semId];
       courseIds.forEach((courseId, courseIndex) => {
         const { id, credit, name, relationship, type } = allCourses[courseId];
 
@@ -172,7 +173,9 @@ export const getDndNodesAndEdges = (): { nodes: Node[]; edges: Edge[] } => {
           type: "courseNode",
           data: {
             yearId,
-            semId: semesterId,
+            yearIndex,
+            semId,
+            semIndex,
             courseId,
             index: courseIndex,
           },
@@ -184,7 +187,7 @@ export const getDndNodesAndEdges = (): { nodes: Node[]; edges: Edge[] } => {
           },
           sourcePosition: Position.Right,
           targetPosition: Position.Left,
-          parentNode: semesterId,
+          parentNode: semId,
           extent: "parent",
           draggable: false,
         });
@@ -193,16 +196,14 @@ export const getDndNodesAndEdges = (): { nodes: Node[]; edges: Edge[] } => {
 
       // #region Step 1.3: Render add course button
       nodesTemp.push({
-        id: `add-course-btn-${semesterId}`,
+        id: `add-course-btn-${semId}`,
         type: "addCourseNode",
         data: {
           yearId,
-          semId: semesterId,
+          yearIndex,
+          semId,
+          semIndex,
         },
-        // style: {
-        //   width: addCourseBtnStyle.width,
-        //   height: addCourseBtnStyle.height,
-        // },
         position: {
           x: semesterStyle.paddingX,
           y:
@@ -211,7 +212,7 @@ export const getDndNodesAndEdges = (): { nodes: Node[]; edges: Edge[] } => {
         },
         sourcePosition: Position.Right,
         targetPosition: Position.Left,
-        parentNode: semesterId,
+        parentNode: semId,
         extent: "parent",
         draggable: false,
       });
@@ -252,6 +253,9 @@ export const getDndNodesAndEdges = (): { nodes: Node[]; edges: Edge[] } => {
                 data: {
                   label: "prerequisite",
                   highlighted: false,
+                  courseSourceId: sourceId,
+                  courseTargetId: targetId,
+                  relationship: CourseRelationship.PREREQUISITE,
                 },
                 source: sourceId,
                 target: targetId,
@@ -286,6 +290,9 @@ export const getDndNodesAndEdges = (): { nodes: Node[]; edges: Edge[] } => {
                 data: {
                   label: "corequisite",
                   highlighted: false,
+                  courseSourceId: sourceId,
+                  courseTargetId: targetId,
+                  relationship: CourseRelationship.COREQUISITE,
                 },
                 source: sourceId,
                 target: targetId,
@@ -307,7 +314,7 @@ export const getDndNodesAndEdges = (): { nodes: Node[]; edges: Edge[] } => {
 
             const sourceIndex = courseOrders.indexOf(previousCourseId);
             const targetIndex = courseOrders.indexOf(courseId);
-            
+
             if (sourceIndex > -1 && targetIndex > -1) {
               edgesTemp.push({
                 id: `edge${edgeIndex}-${sourceId}-prerequisite-${targetId}`,
@@ -317,6 +324,9 @@ export const getDndNodesAndEdges = (): { nodes: Node[]; edges: Edge[] } => {
                 data: {
                   label: "previous",
                   highlighted: false,
+                  courseSourceId: sourceId,
+                  courseTargetId: targetId,
+                  relationship: CourseRelationship.PREVIOUS,
                 },
                 source: sourceId,
                 target: targetId,
