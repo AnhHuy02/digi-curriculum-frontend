@@ -38,25 +38,49 @@ interface IMergedTwoCurriculums {
   allYearIds: number[];
 }
 
-export const getDndNodesAndEdges = (): { nodes: Node[]; edges: Edge[] } => {
+export const getDndNodesAndEdges = (
+  curriculumA: {
+    allYears: Record<
+      string,
+      {
+        semesters: Record<string, { courseIds: string[] }>;
+        semestersOrder: string[];
+      }
+    >;
+    allYearsOrder: string[];
+  },
+  curriculumB: {
+    allYears: Record<
+      string,
+      {
+        semesters: Record<string, { courseIds: string[] }>;
+        semestersOrder: string[];
+      }
+    >;
+    allYearsOrder: string[];
+  }
+): { nodes: Node[]; edges: Edge[] } => {
   let nodesTemp: Node[] = [];
   let edgesTemp: Edge[] = [];
-
-  const allYearIdsOrder =
-    store.getState().curriculums.curriculumDetail.allYearsOrder;
+  
   const allCourses = store.getState().courses.courses;
+  const curriculumBefore = curriculumA;
+  const curriculumAfter = curriculumB;
 
-  const { curriculumBefore } = (store.getState() as RootState)
-    .curriculumChangeHistory;
-  const { curriculumDetail: curriculumAfter } = (store.getState() as RootState)
-    .curriculums;
+  // const allYearIdsOrder =
+  //   store.getState().curriculums.curriculumDetail.allYearsOrder;
 
-  if (allYearIdsOrder.length === 0) {
-    return {
-      nodes: nodesTemp,
-      edges: edgesTemp,
-    };
-  }
+  // const { curriculumBefore } = (store.getState() as RootState)
+  //   .curriculumChangeHistory;
+  // const { curriculumDetail: curriculumAfter } = (store.getState() as RootState)
+  //   .curriculums;
+
+  // if (allYearIdsOrder.length === 0) {
+  //   return {
+  //     nodes: nodesTemp,
+  //     edges: edgesTemp,
+  //   };
+  // }
 
   let semCount = 0;
   let summerCount = 0;

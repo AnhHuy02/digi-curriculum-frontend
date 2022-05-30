@@ -174,7 +174,7 @@ const CurriculumChangeLog = () => {
     }
   };
 
-  console.log(commandLogs);
+  // console.log(commandLogs);
 
   return (
     <Box>

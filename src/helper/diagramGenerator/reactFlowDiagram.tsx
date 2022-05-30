@@ -26,7 +26,7 @@ export const getReactFlowElements = ({
     };
   }
 
-  console.log("getReactFlowElements");
+  // console.log("getReactFlowElements");
 
   // Step 1: Render course node
   let courseOrders: string[] = [];

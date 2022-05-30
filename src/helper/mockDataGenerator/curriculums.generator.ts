@@ -33,30 +33,22 @@ export const generateRandomCurriculumDetail = ({
   electiveGroups = {},
   electiveGroupIds = [],
 }: IRandomCurriculumDetailParam): IRandomCurriculumDetailItemReturn => {
-  // console.log("input");
-  // console.log({
-  //   allCourses,
-  //   allCourseIds,
-  //   randomYearCount,
-  //   semesterPerYearCount,
-  //   randomCreditCountPerSemester,
-  // });
   const yearCount = faker.datatype.number(randomYearCount);
   let courseIdsCopy = [...allCourseIds];
 
-  // Step 1: Initialize random years with empty semester
+  // #region Step 1: Initialize random years with empty semester
   let allYears: Record<string, ICurriculumItemYear> = {};
   let allYearIdsOrder: string[] = Array.from(
     { length: yearCount },
     (item, i) => {
-      // Step 2: Initiallize semesters
+      // #region Step 1.1: Initiallize semesters
       const yearId = `year-${i + 1}`;
 
       let allSemesters: Record<string, ICurriculumItemSemester> = {};
       let allSemestersOrder = Array.from(
         { length: semesterPerYearCount },
         (semItem, semIndex) => {
-          // Step 3: Pick random courses and check if credit count <= credit limit
+          // #region Step 1.2: Add credit limit for each semester (including summer semestger)
           const semId = `${yearId}-sem-${semIndex + 1}`;
           const creditLimit = Boolean(randomCreditCountPerSemester)
             ? faker.datatype.number(randomCreditCountPerSemester)
@@ -72,8 +64,10 @@ export const generateRandomCurriculumDetail = ({
           };
 
           return semId;
+          // #endregion
         }
       );
+      // #endregion
 
       allYears[yearId] = {
         id: yearId,
@@ -84,13 +78,9 @@ export const generateRandomCurriculumDetail = ({
       return yearId;
     }
   );
+  // #endregion
 
-  // console.log("step 1");
-  // console.log(allYearIdsOrder);
-  // console.log(allYears);
-
-  // Step 2: Add courses to each semester, also check if credit count <= credit limit
-  // const flattenedSem
+  // #region Step 2: Add courses to each semester, also check if credit count <= credit limit
   allYearIdsOrder.forEach((yearId) => {
     let { semesters, semestersOrder } = allYears[yearId];
     semestersOrder.forEach((semId, semIndex) => {
@@ -104,7 +94,8 @@ export const generateRandomCurriculumDetail = ({
 
       if (allCourseIds.length > 0) {
         while (creditCount <= creditLimit) {
-          // Step 2.1: Pick a random course id from the list
+          // #region Step 2.1: Fill semester with random course ids and check if credit count <= credit limit
+          // Pick a random course id from the list
           const randomCourseId = _sample(courseIdsCopy) as string;
 
           if (randomCourseId) {
@@ -123,13 +114,11 @@ export const generateRandomCurriculumDetail = ({
             break;
           }
         }
+        // #endregion
       }
     });
   });
-
-  // console.log("step 2");
-  // console.log(allYearIdsOrder);
-  // console.log(allYears);
+  // #endregion
 
   // Step 3: Add elective group (optional)
 
@@ -153,16 +142,43 @@ export const generateRandomCurriculumDetail = ({
   };
 };
 
-export const getRandomCurriculumItemDetail = (
+export const getRandomCurriculums = (
+  config: IRandomCurriculumDetailParam & {
+    randomCurriculumCount: { min: number; max: number };
+  }
+) => {
+  const promise = new Promise<IRandomCurriculumDetailItemReturn[]>(function (
+    resolve,
+    reject
+  ) {
+    const { randomCurriculumCount, ...curriculumConfig } = config;
+    const curriculumCount = faker.datatype.number({
+      min: randomCurriculumCount.min,
+      max: randomCurriculumCount.max,
+    });
+
+    setTimeout(function () {
+      const curriculums = Array.from({ length: curriculumCount }, () => {
+        return generateRandomCurriculumDetail(config);
+      });
+
+      resolve(curriculums);
+    }, 1);
+  });
+
+  return promise;
+};
+
+export const getRandomCurriculumItem = (
   config: IRandomCurriculumDetailParam
 ) => {
-  let promise = new Promise<IRandomCurriculumDetailItemReturn>(function (
+  const promise = new Promise<IRandomCurriculumDetailItemReturn>(function (
     resolve,
     reject
   ) {
     setTimeout(function () {
       resolve(generateRandomCurriculumDetail(config));
-    }, 2000);
+    }, 1);
   });
   return promise;
 };

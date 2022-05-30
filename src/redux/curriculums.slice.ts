@@ -16,7 +16,10 @@ import {
   CurriculumDiagramType,
   CurriculumDndType,
 } from "src/constants/curriculum.const";
-import { getRandomCurriculumItemDetail } from "src/helper/mockDataGenerator/curriculums.generator";
+import {
+  getRandomCurriculumItem,
+  getRandomCurriculums,
+} from "src/helper/mockDataGenerator/curriculums.generator";
 
 //#region STATE
 interface ICurriculumState {
@@ -327,6 +330,17 @@ export const curriculumSlice = createSlice({
       state.curriculumDetail.allYearsOrder = allYearIdsOrder;
     });
 
+    builder.addCase(loadRandomCurriculums.fulfilled, (state, action) => {
+      const curriculums = action.payload;
+      state.curriculums = curriculums.map((curriculum, index) => ({
+        id: `curriculum-${index}`,
+        year: 2022,
+        semCountPerYear: 3,
+        allYears: curriculum.allYears,
+        allYearsOrder: curriculum.allYearIdsOrder,
+      }));
+    });
+
     // builder.addCase(requestGetBuildingsByProject.rejected, (state, action) => {
     //   console.log(action.payload);
     // });
@@ -351,13 +365,36 @@ export const curriculumSlice = createSlice({
 //#endregion
 
 //#region ASYNC_THUNK
+export const loadRandomCurriculums = createAsyncThunk(
+  "curriculums/loadRandomCurriculums",
+  async (
+    payload: IRandomCurriculumDetailParam & {
+      randomCurriculumCount: { min: number; max: number };
+    },
+    thunkAPI
+  ) => {
+    const { dispatch } = thunkAPI;
+    dispatch(setPageLoading(true));
+
+    try {
+      const res = await getRandomCurriculums(payload);
+      return res;
+      // return thunkAPI.fulfillWithValue(res);
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err);
+    } finally {
+      dispatch(setPageLoading(false));
+    }
+  }
+);
+
 export const loadRandomCurriculumDetail = createAsyncThunk(
   "curriculums/loadRandomCurriculumDetail",
   async (payload: IRandomCurriculumDetailParam, thunkAPI) => {
     const { dispatch } = thunkAPI;
     dispatch(setPageLoading(true));
     try {
-      const res = await getRandomCurriculumItemDetail(payload);
+      const res = await getRandomCurriculumItem(payload);
       return res;
       // return thunkAPI.fulfillWithValue(res);
     } catch (err) {
@@ -371,9 +408,10 @@ export const loadRandomCurriculumDetail = createAsyncThunk(
 //#endregion
 
 export const {
+  setCurriculums,
+  setCurriculumDetail,
   setDragAndDropViewMode,
   setDiagramViewMode,
-  setCurriculumDetail,
   setPageLoading,
   setCurriculumDetailLoading,
   setModalAddCourse,

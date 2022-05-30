@@ -15,6 +15,7 @@ import { style } from "src/constants/component-specs/curriculum-edit-by-years";
 import { useAppSelector, useAppDispatch } from "src/hooks/useStore";
 import { CurriculumCommandType } from "src/constants/curriculum.const";
 import { commitChangeToHistory } from "src/redux/curriculumChangeHistory.slice";
+import { setModalCourseDetail } from "src/redux/curriculums.slice";
 
 const configCourseTile = style.courseTile;
 
@@ -65,6 +66,16 @@ const CourseTile: FC<ICourseTileProps> = ({
       })
     );
   };
+  
+  const handleViewCourseDetail = () => {
+    dispatch(
+      setModalCourseDetail({
+        isOpen: true,
+        courseId: courseId,
+      })
+    );
+    handleClose();
+  };
 
   return (
     <Draggable draggableId={courseId} index={index} key={courseId}>
@@ -103,7 +114,7 @@ const CourseTile: FC<ICourseTileProps> = ({
               open={Boolean(anchorEl)}
               onClose={handleClose}
             >
-              <MenuItem disabled onClick={handleClose}>
+              <MenuItem onClick={handleViewCourseDetail}>
                 Detail
               </MenuItem>
               <MenuItem onClick={() => handleRemoveCourse()}>Remove</MenuItem>
