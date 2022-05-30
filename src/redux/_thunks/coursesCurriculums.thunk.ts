@@ -6,6 +6,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 
 import { CourseType } from "src/constants/course.const";
 import {
+  loadRandomCurriculums,
   loadRandomCurriculumDetail,
   resetState as resetCurriculumsState,
 } from "src/redux/curriculums.slice";
@@ -123,6 +124,25 @@ export const initRandomCurriculumDetailPageData = createAsyncThunk(
       // #region Step 4: Start detecting curriculums and courses changes
       dispatch(setupDefaultCurriculum());
       dispatch(setupDefaultCourses());
+      // #endregion
+
+      // #region Step 5:
+      dispatch(
+        loadRandomCurriculums({
+          randomCurriculumCount: {
+            min: 1,
+            max: 9,
+          },
+          allCourses: coursesPayload.allCourses,
+          allCourseIds: coursesPayload.allCourseIds,
+          randomYearCount: { min: 1, max: 3 },
+          semesterPerYearCount: 3,
+          courseCountPerSemester: { min: 0, max: 6 },
+          randomCreditCountPerSemester: undefined,
+          electiveGroups: {},
+          electiveGroupIds: [],
+        })
+      );
       // #endregion
 
       thunkAPI.fulfillWithValue("success");

@@ -13,7 +13,7 @@ import { useElementSize } from "usehooks-ts";
 import { useAppDispatch, useAppSelector } from "src/hooks/useStore";
 import { setModalPreviewCurriculumDetail } from "src/redux/curriculums.slice";
 import { getDotDiagramString } from "src/helper/diagramGenerator/dotDiagram";
-import CurriculumSimpleDiff from "./CurriculumSimpleDiff";
+import CurriculumCompare from "./CurriculumCompare";
 import CurriculumSideBySideDiff from "./CurriculumSideBySideDiff";
 import CurriculumChangeLog from "./CurriculumChangeLog";
 import DiagramDot from "../../DiagramPane/DiagramDot";
@@ -66,11 +66,11 @@ const ModalAddCourseRelationship = () => {
           <Tabs
             value={tabIndex}
             onChange={changeTab}
-            variant="fullWidth"
+            variant="scrollable"
             scrollButtons="auto"
           >
             <Tab label="Preview Dot Diagram" />
-            <Tab label="Simple Diffs" />
+            <Tab label="Compare Curriculum" />
             <Tab label="Side-by-Side Diffs" />
             <Tab label="Preview Change Logs" />
           </Tabs>
@@ -81,7 +81,7 @@ const ModalAddCourseRelationship = () => {
           <DiagramDot width={width - 24 * 2} height={height} />
         </TabPanel>
         <TabPanel value={tabIndex} index={1}>
-          <CurriculumSimpleDiff width={width - 24 * 2} height={height} />
+          <CurriculumCompare width={width - 24 * 2} height={height} />
         </TabPanel>
         <TabPanel value={tabIndex} index={2}>
           <CurriculumSideBySideDiff width={width - 24 * 2} height={height} />

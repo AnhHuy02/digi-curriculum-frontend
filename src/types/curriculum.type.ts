@@ -13,6 +13,11 @@ export interface ICurriculumItemSimple {
   major?: string;
   subMajor?: string | null;
   englishLevel?: string | null;
+  semCountPerYear: number;
+  allYears: Record<string, ICurriculumItemYear>;
+  allYearsOrder: string[];
+  allElectiveGroups?: Record<string, IElectiveGroupItem>;
+  allElectiveGroupIds?: string[];
 }
 
 export interface ICurriculumItemYear {
@@ -119,11 +124,6 @@ export type CurriculumDetailHistoryAction =
 export interface ICurriculumItemDetail extends ICurriculumItemSimple {
   mode: Mode.CREATE | Mode.EDIT;
   loading: boolean;
-  semCountPerYear: number;
-  allYears: Record<string, ICurriculumItemYear>;
-  allYearsOrder: string[];
-  allElectiveGroups?: Record<string, IElectiveGroupItem>;
-  allElectiveGroupIds?: string[];
 }
 
 interface IElectiveGroup {

@@ -159,7 +159,7 @@ export const getDndNodesAndEdges = (): { nodes: Node[]; edges: Edge[] } => {
   }
   // #endregion
 
-  console.log(mergedTwoCurriculums);
+  // console.log(mergedTwoCurriculums);
 
   // #region Step 2: Create nodes and edges
   let courseCount = 0;
