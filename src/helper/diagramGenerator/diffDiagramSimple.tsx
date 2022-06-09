@@ -62,7 +62,7 @@ export const getDndNodesAndEdges = (
 ): { nodes: Node[]; edges: Edge[] } => {
   let nodesTemp: Node[] = [];
   let edgesTemp: Edge[] = [];
-  
+
   const allCourses = store.getState().courses.courses;
   const curriculumBefore = curriculumA;
   const curriculumAfter = curriculumB;
@@ -306,7 +306,13 @@ export const getDndNodesAndEdges = (
       };
 
       combinedCourseIds.forEach((courseId, courseIndex) => {
-        const { id, credit, name, relationship, type } = allCourses[courseId];
+        const {
+          id,
+          credit,
+          name,
+          relationships: relationship,
+          type,
+        } = allCourses[courseId];
 
         courseOrders.push(courseId);
         nodesTemp.push({

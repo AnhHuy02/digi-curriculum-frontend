@@ -42,6 +42,7 @@ import AddCourseNode from "./CustomNodes/AddCourseNode";
 import CourseNode from "./CustomNodes/CourseNode";
 import CourseRelationshipEdge from "./CustomEdges/CourseRelationshipEdge";
 import ModalAddCourseRelationship from "../../CustomModals/ModalAddCourseRelationship";
+import ModalManageYears from "../../CustomModals/ModalManageYears";
 
 const nodeTypes = {
   textNode: TextNode,
@@ -159,6 +160,7 @@ const DndByCourseRelationship = () => {
       </ReactFlowProvider>
       {/* </SmartEdgeProvider> */}
       <ModalAddCourseRelationship />
+      <ModalManageYears />
     </Box>
   );
 };

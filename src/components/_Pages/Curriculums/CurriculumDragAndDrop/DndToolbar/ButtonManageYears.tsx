@@ -1,16 +1,20 @@
+import { useState } from "react";
 import { grey } from "@mui/material/colors";
 import Button from "@mui/material/Button";
-import ShuffleIcon from "@mui/icons-material/Shuffle";
 
 import { useAppDispatch } from "src/hooks/useStore";
+import { setModalManageYears } from "src/redux/curriculums.slice";
 
-import { initRandomCurriculumDetailPageData } from "src/redux/_thunks/coursesCurriculums.thunk";
-
-const RandomButton = () => {
+const ManageYearsButton = () => {
   const dispatch = useAppDispatch();
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
-  const handleClick = () => {
-    dispatch(initRandomCurriculumDetailPageData());
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+    dispatch(setModalManageYears({ isOpen: true }));
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
   };
 
   return (
@@ -25,18 +29,15 @@ const RandomButton = () => {
           ":hover": {
             borderColor: grey["A400"],
             bgcolor: grey["A400"],
-            // color: "white",
           },
         })}
-        disabled
         aria-haspopup="true"
-        startIcon={<ShuffleIcon />}
         onClick={handleClick}
       >
-        Random Data
+        Manage Years
       </Button>
     </>
   );
 };
 
-export default RandomButton;
+export default ManageYearsButton;

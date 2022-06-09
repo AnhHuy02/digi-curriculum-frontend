@@ -3,9 +3,11 @@ import type { NextPage } from "next";
 
 import Head from "next/head";
 import { AppProps } from "next/app";
+import Grow from "@mui/material/Grow";
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { CacheProvider, EmotionCache } from "@emotion/react";
+import { SnackbarProvider } from "notistack";
 import { Provider as StoreProvider } from "react-redux";
 
 import DashboardLayout from "src/components/_Layout/DashboardLayout";
@@ -48,9 +50,17 @@ const MyApp = (props: MyAppProps) => {
           <meta name="viewport" content="initial-scale=1, width=device-width" />
         </Head>
         <ThemeProvider theme={theme}>
-          {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-          <CssBaseline />
-          <Component {...pageProps} />
+          <SnackbarProvider
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: "right",
+            }}
+            TransitionComponent={Grow}
+          >
+            {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+            <CssBaseline />
+            <Component {...pageProps} />
+          </SnackbarProvider>
         </ThemeProvider>
       </CacheProvider>
     </StoreProvider>

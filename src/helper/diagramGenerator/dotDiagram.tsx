@@ -1,16 +1,10 @@
 import type { INode } from "ts-graphviz";
-import type {
-  ICourseItemSimple,
-} from "src/types/Course.type";
+import type { ICourseItemSimple } from "src/types/Course.type";
 import type { IRandomCurriculumDetailItemReturn } from "src/types/Curriculum.type";
 
 import { Digraph, Node, Subgraph, toDot, attribute } from "ts-graphviz";
 
-import {
-  CourseType,
-  CourseTypesWithName,
-  CourseRelationship,
-} from "src/constants/course.const";
+import { CourseType } from "src/constants/course.const";
 
 class CustomDigraph extends Digraph {
   constructor(name: string) {
@@ -19,7 +13,7 @@ class CustomDigraph extends Digraph {
       labelloc: "t",
       fontsize: 80,
       rankdir: "LR",
-      bgcolor: "transparent",
+      bgcolor: "white",
     });
   }
 }
@@ -173,7 +167,13 @@ export const getDotDiagramString = ({
         const { courseIds } = semesters[semesterId];
 
         courseIds.forEach((courseId, courseIndex) => {
-          const { id, credit, name, relationship, type } = allCourses[courseId];
+          const {
+            id,
+            credit,
+            name,
+            relationships: relationship,
+            type,
+          } = allCourses[courseId];
 
           let sourceId: string = "";
           let targetId: string = "";

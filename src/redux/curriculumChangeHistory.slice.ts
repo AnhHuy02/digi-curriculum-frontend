@@ -40,6 +40,7 @@ interface ICoursesState {
   byId: Record<
     string,
     {
+      id: string;
       name: string;
       relationships: {
         preRequisites: string[];
@@ -131,9 +132,7 @@ export const curriculumChangeHistorySlice = createSlice({
     redo: (state) => {
       ++state.changeHistory.currentIndex;
     },
-    resetState: (state) => {
-      state = initialState;
-    },
+    resetState: () => initialState,
   },
   extraReducers: {},
 });
@@ -197,6 +196,7 @@ const executeCommand = createAsyncThunk(
       }
       case CurriculumCommandType.REMOVE_YEAR: {
         const { yearId, yearDetail } = payload.patch;
+
         const { semesters, semestersOrder } = yearDetail;
         let courseIds: string[] = [];
 
@@ -394,12 +394,13 @@ export const setupDefaultCourses = createAsyncThunk(
       filteredCourseIds.map((courseId) => [
         courseId,
         {
+          id: courseId,
           name: courses[courseId].name,
           relationships: {
-            preRequisites: courses[courseId].relationship.preRequisites,
-            coRequisites: courses[courseId].relationship.coRequisites,
-            previous: courses[courseId].relationship.previous,
-            placeholders: courses[courseId].relationship.placeholders,
+            preRequisites: courses[courseId].relationships.preRequisites,
+            coRequisites: courses[courseId].relationships.coRequisites,
+            previous: courses[courseId].relationships.previous,
+            placeholders: courses[courseId].relationships.placeholders,
           },
         },
       ])

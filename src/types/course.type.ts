@@ -22,7 +22,7 @@ export interface ICourseItemSimple {
   selected: boolean;
   selectedTemp: boolean;
   highlighted?: boolean;
-  relationship: ICourseRelationship;
+  relationships: ICourseRelationship;
   difficulty: number;
   rating: number;
 }
@@ -42,7 +42,7 @@ export interface IRandomCoursesParam {
     theory?: IRange;
     practice?: IRange;
   };
-  courseRelationship?: {
+  relationships?: {
     preRequisite?: IRange;
     previous?: IRange;
     coRequisite?: IRange;

@@ -165,7 +165,13 @@ export const getDndNodesAndEdges = (): { nodes: Node[]; edges: Edge[] } => {
       // #region Step 1.2: Render course nodes inside a semester node
       const { courseIds } = semesters[semId];
       courseIds.forEach((courseId, courseIndex) => {
-        const { id, credit, name, relationship, type } = allCourses[courseId];
+        const {
+          id,
+          credit,
+          name,
+          relationships: relationship,
+          type,
+        } = allCourses[courseId];
 
         courseOrders.push(courseId);
         nodesTemp.push({
@@ -230,7 +236,13 @@ export const getDndNodesAndEdges = (): { nodes: Node[]; edges: Edge[] } => {
       const { courseIds } = semesters[semesterId];
 
       courseIds.forEach((courseId, courseIndex) => {
-        const { id, credit, name, relationship, type } = allCourses[courseId];
+        const {
+          id,
+          credit,
+          name,
+          relationships: relationship,
+          type,
+        } = allCourses[courseId];
 
         // #region Step 2.1: Render PRE_REQUISITE relationships
         if (relationship.preRequisites.length > 0) {
