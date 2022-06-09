@@ -16,12 +16,12 @@ const CurriculumDndLayout: FC<ICurriculumDndLayout> = (props) => {
     <Box display={"flex"} flexDirection={"column"} height={"100vh"}>
       <Header />
       <Box component="main" className={"page-layout__content"} flexGrow={1}>
-        <Particles
+        {/* <Particles
           id="tsparticles"
           // init={particlesInit}
           // loaded={particlesLoaded}
           options={animatedBackgroundSet1}
-        />
+        /> */}
         {props.children}
       </Box>
     </Box>

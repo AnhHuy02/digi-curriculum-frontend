@@ -33,9 +33,9 @@ const DndToolbar = () => {
       <Box mr={0.5}>
         <RandomButton />
       </Box>
-      <Box>
+      {/* <Box>
         <ViewButton />
-      </Box>
+      </Box> */}
 
       {dndViewMode === CurriculumDndType.DND_BY_COURSE_RELATIONSHIP && (
         <>

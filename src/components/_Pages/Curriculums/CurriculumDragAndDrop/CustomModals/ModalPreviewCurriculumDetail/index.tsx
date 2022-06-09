@@ -116,7 +116,7 @@ const ModalAddCourseRelationship = () => {
           >
             <Tab label="Preview Dot Diagram" />
             <Tab label="Compare Curriculum" />
-            <Tab label="Side-by-Side Diffs" />
+            {/* <Tab label="Side-by-Side Diffs" /> */}
             <Tab label="Preview Change Logs" />
           </Tabs>
         </Box>
@@ -128,10 +128,10 @@ const ModalAddCourseRelationship = () => {
         <TabPanel value={tabIndex} index={1}>
           <CurriculumCompare width={width - 24 * 2} height={height} />
         </TabPanel>
-        <TabPanel value={tabIndex} index={2}>
+        {/* <TabPanel value={tabIndex} index={2}>
           <CurriculumSideBySideDiff width={width - 24 * 2} height={height} />
-        </TabPanel>
-        <TabPanel value={tabIndex} index={3}>
+        </TabPanel> */}
+        <TabPanel value={tabIndex} index={2}>
           <CurriculumChangeLog />
         </TabPanel>
       </DialogContent>
