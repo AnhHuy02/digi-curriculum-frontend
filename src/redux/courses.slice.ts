@@ -173,25 +173,25 @@ export const coursesSlice = createSlice({
       const { courseSourceId, courseTargetId, relationship } = action.payload;
       switch (relationship) {
         case CourseRelationship.PREREQUISITE: {
-          state.courses[courseTargetId].relationship.preRequisites.push(
+          state.courses[courseTargetId].relationships.preRequisites.push(
             courseSourceId
           );
           break;
         }
         case CourseRelationship.COREQUISITE: {
-          state.courses[courseSourceId].relationship.coRequisites.push(
+          state.courses[courseSourceId].relationships.coRequisites.push(
             courseTargetId
           );
           break;
         }
         case CourseRelationship.PREVIOUS: {
-          state.courses[courseTargetId].relationship.previous.push(
+          state.courses[courseTargetId].relationships.previous.push(
             courseSourceId
           );
           break;
         }
         case CourseRelationship.PLACEHOLDER: {
-          state.courses[courseSourceId].relationship.placeholders.push(
+          state.courses[courseSourceId].relationships.placeholders.push(
             courseTargetId
           );
           break;
@@ -207,8 +207,8 @@ export const coursesSlice = createSlice({
       const { courses } = current(state);
       const { courseSourceId, courseTargetId } = action.payload;
 
-      const sourceRelationship = courses[courseSourceId].relationship;
-      const targetRelationship = courses[courseTargetId].relationship;
+      const sourceRelationship = courses[courseSourceId].relationships;
+      const targetRelationship = courses[courseTargetId].relationships;
 
       // Delete an element from array by using filter
       let courseIndex = -1;
@@ -217,7 +217,7 @@ export const coursesSlice = createSlice({
         (courseId) => courseId === courseTargetId
       );
       if (courseIndex > -1) {
-        state.courses[courseSourceId].relationship.preRequisites.splice(
+        state.courses[courseSourceId].relationships.preRequisites.splice(
           courseIndex,
           1
         );
@@ -227,7 +227,7 @@ export const coursesSlice = createSlice({
         (courseId) => courseId === courseTargetId
       );
       if (courseIndex > -1) {
-        state.courses[courseSourceId].relationship.coRequisites.splice(
+        state.courses[courseSourceId].relationships.coRequisites.splice(
           courseIndex,
           1
         );
@@ -237,7 +237,7 @@ export const coursesSlice = createSlice({
         (courseId) => courseId === courseTargetId
       );
       if (courseIndex > -1) {
-        state.courses[courseSourceId].relationship.previous.splice(
+        state.courses[courseSourceId].relationships.previous.splice(
           courseIndex,
           1
         );
@@ -247,7 +247,7 @@ export const coursesSlice = createSlice({
         (courseId) => courseId === courseTargetId
       );
       if (courseIndex > -1) {
-        state.courses[courseSourceId].relationship.placeholders.splice(
+        state.courses[courseSourceId].relationships.placeholders.splice(
           courseIndex,
           1
         );
@@ -257,7 +257,7 @@ export const coursesSlice = createSlice({
         (courseId) => courseId === courseSourceId
       );
       if (courseIndex > -1) {
-        state.courses[courseTargetId].relationship.preRequisites.splice(
+        state.courses[courseTargetId].relationships.preRequisites.splice(
           courseIndex,
           1
         );
@@ -267,7 +267,7 @@ export const coursesSlice = createSlice({
         (courseId) => courseId === courseSourceId
       );
       if (courseIndex > -1) {
-        state.courses[courseTargetId].relationship.coRequisites.splice(
+        state.courses[courseTargetId].relationships.coRequisites.splice(
           courseIndex,
           1
         );
@@ -277,7 +277,7 @@ export const coursesSlice = createSlice({
         (courseId) => courseId === courseSourceId
       );
       if (courseIndex > -1) {
-        state.courses[courseTargetId].relationship.previous.splice(
+        state.courses[courseTargetId].relationships.previous.splice(
           courseIndex,
           1
         );
@@ -287,7 +287,7 @@ export const coursesSlice = createSlice({
         (courseId) => courseId === courseSourceId
       );
       if (courseIndex > -1) {
-        state.courses[courseTargetId].relationship.placeholders.splice(
+        state.courses[courseTargetId].relationships.placeholders.splice(
           courseIndex,
           1
         );
@@ -333,9 +333,7 @@ export const coursesSlice = createSlice({
       //     (courseId) => courseId !== courseSourceId
       //   );
     },
-    resetState: (state) => {
-      state = initialState;
-    },
+    resetState: () => initialState,
   },
   extraReducers: (builder) => {
     builder.addCase(loadAllRandomMajors.fulfilled, (state, action) => {

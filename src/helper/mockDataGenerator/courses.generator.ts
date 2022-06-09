@@ -60,7 +60,7 @@ export const generateRandomCourses = ({
     theory: { min: 0, max: 10 },
     practice: { min: 0, max: 10 },
   },
-  courseRelationship = {
+  relationships: courseRelationship = {
     preRequisite: { min: 0, max: 4 },
     previous: { min: 0, max: 4 },
     coRequisite: { min: 0, max: 4 },
@@ -121,7 +121,7 @@ export const generateRandomCourses = ({
       disabled: false,
       selected: false,
       selectedTemp: false,
-      relationship: {
+      relationships: {
         preRequisites: [],
         coRequisites: [],
         previous: [],
@@ -185,7 +185,7 @@ export const generateRandomCourses = ({
     );
     //#endregion
 
-    allCourses[courseId].relationship = {
+    allCourses[courseId].relationships = {
       preRequisites: randomPreRequisiteIds,
       coRequisites: randomCoRequisiteIds,
       previous: randomPreviousIds,
@@ -197,11 +197,11 @@ export const generateRandomCourses = ({
   allCourseIds.forEach((courseId) => {
     // Prevent duplicate relationship when selecting a course randomly
     const { preRequisites, coRequisites, previous, placeholders } =
-      allCourses[courseId].relationship;
+      allCourses[courseId].relationships;
 
     //#region Remove duplicated PreRequisite relationship
     preRequisites.forEach((preRequisiteId) => {
-      const oppositeRelationships = allCourses[preRequisiteId].relationship;
+      const oppositeRelationships = allCourses[preRequisiteId].relationships;
 
       if (
         oppositeRelationships.preRequisites.some(
@@ -215,7 +215,7 @@ export const generateRandomCourses = ({
 
     //#region Remove duplicated CoRequisite relationship
     coRequisites.forEach((coRequisiteId) => {
-      const oppositeRelationships = allCourses[coRequisiteId].relationship;
+      const oppositeRelationships = allCourses[coRequisiteId].relationships;
 
       if (
         oppositeRelationships.coRequisites.some(
@@ -229,7 +229,7 @@ export const generateRandomCourses = ({
 
     //#region Remove duplicated Previous relationship
     previous.forEach((previousId) => {
-      const oppositeRelationships = allCourses[previousId].relationship;
+      const oppositeRelationships = allCourses[previousId].relationships;
 
       if (
         oppositeRelationships.previous.some(
@@ -243,7 +243,7 @@ export const generateRandomCourses = ({
 
     //#region Remove duplicated Placeholder relationship
     placeholders.forEach((placeholderId) => {
-      const oppositeRelationships = allCourses[placeholderId].relationship;
+      const oppositeRelationships = allCourses[placeholderId].relationships;
 
       if (
         oppositeRelationships.previous.some(
@@ -255,7 +255,7 @@ export const generateRandomCourses = ({
     });
     //#endregion
 
-    allCourses[courseId].relationship = {
+    allCourses[courseId].relationships = {
       preRequisites: preRequisites,
       coRequisites: coRequisites,
       previous: previous,

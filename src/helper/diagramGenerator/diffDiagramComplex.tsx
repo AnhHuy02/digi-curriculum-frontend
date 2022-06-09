@@ -3,6 +3,8 @@ import type { IRandomCurriculumDetailItemReturn } from "src/types/Curriculum.typ
 import type { ICourseItemSimple } from "src/types/Course.type";
 import type { RootState } from "src/redux/_store";
 
+import _intersection from "lodash/intersection";
+import _difference from "lodash/difference";
 import { Position, MarkerType } from "react-flow-renderer";
 // import Box from "@mui/material/Box";
 // import Typography from "@mui/material/Typography";
@@ -29,6 +31,7 @@ import {
   addCurriculumDetailCourse,
 } from "src/redux/curriculums.slice";
 import { addChangeToHistory } from "src/redux/curriculumChangeHistory.slice";
+import { CSSProperties } from "react";
 
 const courseNodeStyle = {
   width: 120,
@@ -43,6 +46,11 @@ const courseCellContainerStyle = {
 
 const distanceBetweenTwoCourses = 160;
 
+const basePosistion = {
+  x: 0,
+  y: -40,
+};
+
 const courseBeforeSourceX = courseCellContainerStyle.paddingX;
 const courseBeforeTargetX =
   courseBeforeSourceX + courseNodeStyle.width + distanceBetweenTwoCourses;
@@ -53,10 +61,29 @@ const courseAfterSourceX =
 const courseAfterTargetX =
   courseAfterSourceX + courseNodeStyle.width + distanceBetweenTwoCourses;
 
+const courseCellStyle = {
+  width:
+    courseCellContainerStyle.paddingX * 2 +
+    courseNodeStyle.width * 2 +
+    distanceBetweenTwoCourses,
+  height: courseNodeStyle.height + courseCellContainerStyle.paddingY * 2,
+};
+
 const semesterStyle = {
   width: courseNodeStyle.width + 20,
   paddingX: 13,
   offsetX: 125,
+};
+
+const BG_BEFORE_STATUS_COLOR = {
+  UNCHANGED: "rgb(255, 255, 255)",
+  ADDED: "rgb(245, 245, 245)",
+  REMOVED: "rgb(248, 206, 204)",
+};
+const BG_AFTER_STATUS_COLOR = {
+  UNCHANGED: "rgb(255, 255, 255)",
+  ADDED: "rgb(213, 232, 212)",
+  REMOVED: "rgb(245, 245, 245)",
 };
 
 // interface IGetDndNodesAndEdges extends IRandomCurriculumDetailItemReturn {
@@ -89,6 +116,7 @@ export const getDndNodesAndEdges = (): { nodes: Node[]; edges: Edge[] } => {
   // #region Step 1: Merge before and after curriculums
   // (because of multiple levels of nested object)
   // No need for merging courses (1 level of nested object)
+  let mergedCourseIds: string[] = [];
   let mergedTwoCurriculums: IMergedTwoCurriculums = {
     byYearId: {},
     allYearIds: [],
@@ -151,6 +179,8 @@ export const getDndNodesAndEdges = (): { nodes: Node[]; edges: Edge[] } => {
         currentYear.semesters[semIndex] = {
           courseIds: Array.from(combineCourseIds),
         };
+
+        mergedCourseIds.push(...Array.from(combineCourseIds));
         // #endregion
       });
       // #endregion
@@ -159,156 +189,338 @@ export const getDndNodesAndEdges = (): { nodes: Node[]; edges: Edge[] } => {
   }
   // #endregion
 
-  // console.log(mergedTwoCurriculums);
+  console.log(mergedTwoCurriculums);
 
   // #region Step 2: Create nodes and edges
   let courseCount = 0;
+  let beforePositionSource = {
+    x: 0,
+    y: 0,
+  };
+  let beforePositionTarget = {
+    x: courseAfterSourceX,
+    y: 0,
+  };
+  let afterPositionSource = {
+    x: 0,
+    y: 0,
+  };
+  let afterPositionTarget = {
+    x: 0,
+    y: 0,
+  };
   mergedTwoCurriculums.allYearIds.forEach((yearId, yearIndex) => {
-    // #region Step 2.1: Render year nodes for text
     const { semesters, semestersOrder } = mergedTwoCurriculums.byYearId[yearId];
 
     semestersOrder.forEach((semId, semIndex) => {
-      const { courseIds } = semesters[semId];
+      const { courseIds: combinedCourseIds } = semesters[semId];
 
-      courseIds.forEach((courseId) => {
+      const yearIdBefore = curriculumBefore?.allYearsOrder[yearIndex];
+      const yearBefore = curriculumBefore?.allYears[yearIdBefore];
+      const semIdBefore = yearBefore?.semestersOrder[semIndex];
+      const semBefore = yearBefore?.semesters[semIdBefore];
+      const courseIdsBefore = semBefore?.courseIds || [];
+
+      const yearIdAfter = curriculumAfter?.allYearsOrder[yearIndex];
+      const yearAfter = curriculumAfter?.allYears[yearIdAfter];
+      const semIdAfter = yearAfter?.semestersOrder[semIndex];
+      const semAfter = yearAfter?.semesters[semIdAfter];
+      const courseIdsAfter = semAfter?.courseIds || [];
+
+      const similarCourseIds = _intersection(courseIdsBefore, courseIdsAfter);
+      const filteredCourseIdsBefore = _intersection(
+        courseIdsBefore,
+        combinedCourseIds
+      );
+      const filteredCourseIdsAfter = _intersection(
+        courseIdsAfter,
+        combinedCourseIds
+      );
+
+      console.table("similarCourseIds", similarCourseIds);
+      console.table("filteredCourseIdsBefore", filteredCourseIdsBefore);
+      console.table("filteredCourseIdsAfter", filteredCourseIdsAfter);
+      console.log("................................................");
+
+      // #region Step 2.1: Render year + semester text for seperation
+
+      // #endregion
+
+      // #region Step 2.2: Render all before + after courses
+      combinedCourseIds.forEach((courseId, courseIndex) => {
+        const foundSourceIdBefore = filteredCourseIdsBefore.includes(courseId);
+        const foundSourceIdAfter = filteredCourseIdsAfter.includes(courseId);
+
         const courseBefore = coursesBefore.byId[courseId];
         const courseAfter = coursesAfter.courses[courseId];
 
-        const courseTargetIdsBefore = courseBefore
-          ? new Set([
-              ...courseBefore.relationships.preRequisites,
-              ...courseBefore.relationships.coRequisites,
-              ...courseBefore.relationships.previous,
-              ...courseBefore.relationships.placeholders,
-            ])
-          : [];
+        const parentCellBeforeId = `bg-before-${courseCount}`;
+        const parentCellAfterId = `bg-after-${courseCount}`;
+        const sourceBeforeId = `before-source-${courseCount}`;
+        const sourceAfterId = `after-source-${courseCount}`;
+
+        // Get only courses ids inside a merged curriculum, not outside
+        const courseTargetIdsBefore = new Set(
+          courseBefore
+            ? [
+                ...courseBefore.relationships.preRequisites,
+                ...courseBefore.relationships.coRequisites,
+                ...courseBefore.relationships.previous,
+                ...courseBefore.relationships.placeholders,
+              ].filter((courseId) => mergedCourseIds.includes(courseId))
+            : []
+        );
+        const courseTargetIdsAfter = new Set(
+          courseAfter
+            ? [
+                ...courseAfter.relationships.preRequisites,
+                ...courseAfter.relationships.coRequisites,
+                ...courseAfter.relationships.previous,
+                ...courseAfter.relationships.placeholders,
+              ].filter((courseId) => mergedCourseIds.includes(courseId))
+            : []
+        );
+        const courseTargetIdsBoth = new Set(
+          ...[courseTargetIdsBefore, courseTargetIdsAfter]
+        );
+
         let mergedTargetCourseIdsBefore = Array.from(courseTargetIdsBefore);
+        let mergedTargetCourseIdsAfter = Array.from(courseTargetIdsAfter);
+        let mergedTargetBoth = Array.from(courseTargetIdsBoth);
 
-        if (courseBefore) {
-          const relationshipsBefore = courseBefore.relationships;
-          const relationshipsAfter = courseAfter.relationship;
+        const courseCellY =
+          (courseNodeStyle.height + courseCellContainerStyle.paddingY * 2) *
+          courseCount;
 
-          mergedTargetCourseIdsBefore.forEach((targetId, targetIndex) => {
-            const parentCellId = `bg-before-${courseCount}`;
+        let courseCellBefore: Node = {
+          id: parentCellBeforeId,
+          type: "group",
+          data: {},
+          draggable: false,
+          position: {
+            x: 0,
+            y: courseCellY,
+          },
+          style: {
+            zIndex: -1,
+            backgroundColor: BG_BEFORE_STATUS_COLOR.UNCHANGED,
+            width: courseCellStyle.width,
+            height: courseCellStyle.height,
+          },
+        };
+        let courseCellAfter: Node = {
+          id: parentCellAfterId,
+          type: "group",
+          data: {},
+          draggable: false,
+          position: {
+            x: courseAfterTargetX,
+            y: courseCellY,
+          },
+          style: {
+            zIndex: -1,
+            backgroundColor: BG_AFTER_STATUS_COLOR.UNCHANGED,
+            width: courseCellStyle.width,
+            height: courseCellStyle.height,
+          },
+        };
+        let courseSourceBefore: Node = {
+          id: sourceBeforeId,
+          type: "input",
+          data: {
+            label: courseBefore.name,
+          },
+          draggable: false,
+          position: {
+            x: 0,
+            y: courseCellY,
+          },
+          style: {
+            zIndex: 1,
+            width: courseNodeStyle.width,
+            height: courseNodeStyle.height,
+          },
+          parentNode: parentCellBeforeId,
+          extent: "parent",
+          sourcePosition: Position.Right,
+          targetPosition: Position.Left,
+        };
+        let courseSourceAfter: Node = {
+          id: sourceAfterId,
+          type: "input",
+          data: {
+            label: courseBefore.name,
+          },
+          draggable: false,
+          position: {
+            x: 0,
+            y: courseCellY,
+          },
+          style: {
+            zIndex: 1,
+            width: courseNodeStyle.width,
+            height: courseNodeStyle.height,
+          },
+          parentNode: parentCellBeforeId,
+          extent: "parent",
+          sourcePosition: Position.Right,
+          targetPosition: Position.Left,
+        };
+        let courseTargetsBefore: Node[] = [];
+        let courseTargetsAfter: Node[] = [];
+        let edgesBefore: Node[] = [];
+        let edgesAfter: Node[] = [];
 
-            // push one background behind for each target
-            nodesTemp.push({
-              id: parentCellId,
-              type: "group",
-              data: {},
-              draggable: false,
-              position: {
-                x: 0,
-                y:
-                  (courseNodeStyle.height + courseCellContainerStyle.paddingY) *
-                  courseCount,
-              },
-              style: {
-                zIndex: -1,
-              },
-            });
-
-            // push one source
-            if (targetIndex === 0) {
-              nodesTemp.push({
-                id: `source-before-${courseCount}`,
-                type: "node",
-                parentNode: parentCellId,
-                data: {
-                  label: courseBefore.name,
-                },
-                draggable: false,
-                position: {
-                  x: courseBeforeSourceX,
-                  y:
-                    courseCellContainerStyle.paddingY +
-                    (courseNodeStyle.height +
-                      courseCellContainerStyle.paddingY) *
-                      courseCount,
-                },
-                style: {
-                  zIndex: 0,
-                },
-                sourcePosition: Position.Right,
-                targetPosition: Position.Left,
-              });
-            }
-
-            // push one target
-            // case 1: add relationship (no id match on before, but match on after)
-            let courseTargetNode: Node = {
-              id: `target-before-${courseCount}-${targetIndex}`,
-              type: "node",
-              parentNode: parentCellId,
+        // #region Render cell color based on course
+        if (foundSourceIdBefore || foundSourceIdAfter) {
+          mergedTargetBoth.forEach((bothTargetId, bothTargetIndex) => {
+            let courseTargetBefore: Node = {
+              id: `before-target-${courseCount}-${bothTargetIndex}`,
+              type: "output",
               data: {
                 label: courseBefore.name,
               },
               draggable: false,
               position: {
-                x: courseAfterSourceX,
-                y:
-                  courseCellContainerStyle.paddingY +
-                  (courseNodeStyle.height + courseCellContainerStyle.paddingY) *
-                    courseCount,
+                x: 0,
+                y: courseCellY,
               },
               style: {
-                zIndex: 0,
+                zIndex: 1,
+                width: courseNodeStyle.width,
+                height: courseNodeStyle.height,
               },
+              parentNode: parentCellBeforeId,
+              extent: "parent",
               sourcePosition: Position.Right,
               targetPosition: Position.Left,
             };
+            let courseTargetAfter: Node = {
+              id: `after-target-${courseCount}-${bothTargetIndex}`,
+              type: "output",
+              data: {
+                label: courseBefore.name,
+              },
+              draggable: false,
+              position: {
+                x: 0,
+                y: courseCellY,
+              },
+              style: {
+                zIndex: 1,
+                width: courseNodeStyle.width,
+                height: courseNodeStyle.height,
+              },
+              parentNode: parentCellBeforeId,
+              extent: "parent",
+              sourcePosition: Position.Right,
+              targetPosition: Position.Left,
+            };
+            let relationshipEdgeBefore: Edge = {
+              id: `before-relationship-${courseCount}-${bothTargetIndex}`,
+              label: "",
+              source: sourceBeforeId,
+              target: bothTargetId,
+              markerEnd: { type: MarkerType.ArrowClosed, color: "#000000" },
+              labelBgStyle: {
+                backgroundColor: "none",
+              },
+            };
+            let relationshipEdgeAfter: Edge = {
+              id: `before-relationship-${courseCount}-${bothTargetIndex}`,
+              label: "",
+              source: sourceAfterId,
+              target: bothTargetId,
+              markerEnd: { type: MarkerType.ArrowClosed, color: "#000000" },
+              labelBgStyle: {
+                backgroundColor: "none",
+              },
+            };
+
+            // const foundTargetIdBefore =
+            //   mergedTargetCourseIdsBefore.includes(bothTargetId);
+            // const foundTargetIdAfter =
+            //   mergedTargetCourseIdsAfter.includes(bothTargetId);
+
             if (
-              [
-                ...relationshipsBefore.preRequisites,
-                ...relationshipsBefore.coRequisites,
-                ...relationshipsBefore.previous,
-                ...relationshipsBefore.placeholders,
-              ].includes(targetId)
+              courseBefore.relationships.preRequisites.includes(bothTargetId)
             ) {
-              courseTargetNode.style = {
-                fill: "rgba(213, 232, 212, 1.0)",
-              };
-              nodesTemp.push(courseTargetNode);
-            } 
-            // else if (
-            //   [
-            //     ...relationshipsAfter.preRequisites,
-            //     ...relationshipsAfter.coRequisites,
-            //     ...relationshipsAfter.previous,
-            //     ...relationshipsAfter.placeholders,
-            //   ].includes(courseId)
-            // ) {
-            //   courseTargetNode.style = {
-            //     fill: "#ec827e",
-            //   };
-            //   nodesTemp.push(courseTargetNode);
-            // }
+              relationshipEdgeBefore.label = "prerequisite";
+            } else if (
+              courseBefore.relationships.coRequisites.includes(bothTargetId)
+            ) {
+              relationshipEdgeBefore.label = "corequisite";
+            } else if (
+              courseBefore.relationships.previous.includes(bothTargetId)
+            ) {
+              relationshipEdgeBefore.label = "previous";
+            } else if (
+              courseBefore.relationships.placeholders.includes(bothTargetId)
+            ) {
+              relationshipEdgeBefore.label = "placeholder";
+            }
 
-            // push one edge
-            // if (courseBefore.relationships.preRequisites)
+            if (
+              courseAfter.relationships.preRequisites.includes(bothTargetId)
+            ) {
+              relationshipEdgeAfter.label = "prerequisite";
+            } else if (
+              courseAfter.relationships.coRequisites.includes(bothTargetId)
+            ) {
+              relationshipEdgeAfter.label = "corequisite";
+            } else if (
+              courseAfter.relationships.previous.includes(bothTargetId)
+            ) {
+              relationshipEdgeAfter.label = "previous";
+            } else if (
+              courseAfter.relationships.placeholders.includes(bothTargetId)
+            ) {
+              relationshipEdgeAfter.label = "placeholder";
+            }
+            
+            if (relationshipEdgeBefore.label === relationshipEdgeAfter.label) {
+              // UNCHANGED
+              
+            }
           });
-        }
-        if (courseAfter) {
-          nodesTemp.push({
-            id: `after-source-${courseId}`,
-            type: "node",
-            data: {
-              label: courseBefore.name,
-            },
-            draggable: false,
-            position: {
-              x: courseAfterSourceX,
-              y: -40,
-            },
-          });
-        }
 
+          if (!foundSourceIdBefore && foundSourceIdAfter) {
+            // ADD COURSE
+            (courseCellBefore.style as CSSProperties).backgroundColor = "red";
+            (courseCellAfter.style as CSSProperties).backgroundColor =
+              BG_AFTER_STATUS_COLOR.ADDED;
+          } else if (foundSourceIdBefore && !foundSourceIdAfter) {
+            // REMOVE COURSE
+            (courseCellBefore.style as CSSProperties).backgroundColor =
+              BG_BEFORE_STATUS_COLOR.REMOVED;
+            (courseCellAfter.style as CSSProperties).backgroundColor =
+              BG_AFTER_STATUS_COLOR.REMOVED;
+          }
+        }
+        // #endregion
+
+        nodesTemp.push(
+          courseCellBefore,
+          courseCellAfter,
+          ...(foundSourceIdBefore ? [courseSourceBefore] : []),
+          ...(foundSourceIdAfter ? [courseSourceAfter] : [])
+        );
         ++courseCount;
       });
+      //#endregion
     });
-    // #endregion
   });
   // #endregion
+
+  console.table(
+    nodesTemp.map((node) => ({
+      ...node,
+      data: node.data.label,
+      position: `${node.position.x}, ${node.position.y}`,
+      style: node.style?.backgroundColor,
+    })),
+    ["id", "posistion", "style"]
+  );
 
   return {
     nodes: nodesTemp,

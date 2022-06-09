@@ -2,18 +2,19 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Divider from "@mui/material/Divider";
 
-import ViewButton from "./ViewButton";
-import ExportButton from "./ExportButton";
-import SaveButton from "./SaveButton";
-import RandomButton from "./RandomButton";
-import ResetButton from "./ResetButton";
-import AddYearButton from "./AddYearButton";
-import PreviewButton from "./PreviewButton";
+import ViewButton from "./ButtonView";
+import ExportButton from "./ButtonExport";
+import SaveButton from "./ButtonSave";
+import RandomButton from "./ButtonRandom";
+import ResetButton from "./ButtonReset";
+import AddYearButton from "./ButtonAddYear";
+import PreviewButton from "./ButtonPreview";
+import ButtonManageYears from "./ButtonManageYears";
 import SwitchShowCourseRelationship from "./SwitchShowCourseRelationship";
 import { useAppSelector } from "src/hooks/useStore";
 import { CurriculumDndType } from "src/constants/curriculum.const";
-import UndoButton from "./UndoButton";
-import RedoButton from "./RedoButton";
+import UndoButton from "./ButtonUndo";
+import RedoButton from "./ButtonRedo";
 
 const DndToolbar = () => {
   const dndViewMode = useAppSelector((store) => store.curriculums.dndViewMode);
@@ -35,13 +36,17 @@ const DndToolbar = () => {
       <Box>
         <ViewButton />
       </Box>
+
       {dndViewMode === CurriculumDndType.DND_BY_COURSE_RELATIONSHIP && (
         <>
           <Divider orientation="vertical" variant="middle" flexItem />
-          <Box>
+          <Box mr={0.5}>
             <AddYearButton />
           </Box>
-          <Box>
+          <Box mr={0.5}>
+            <ButtonManageYears />
+          </Box>
+          <Box mr={0.5}>
             <SwitchShowCourseRelationship />
           </Box>
         </>

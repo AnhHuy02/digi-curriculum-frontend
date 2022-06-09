@@ -38,7 +38,7 @@ export const getReactFlowElements = ({
       // console.log(courseIds);
 
       courseIds.forEach((courseId, courseIndex) => {
-        const { id, credit, name, relationship, type } = allCourses[courseId];
+        const { id, credit, name, relationships: relationship, type } = allCourses[courseId];
 
         courseOrders.push(courseId);
         // console.log(courseOrders.length);
@@ -84,7 +84,7 @@ export const getReactFlowElements = ({
 
       if (courseIds.length > 0) {
         courseIds.forEach((courseId, courseIndex) => {
-          const { id, credit, name, relationship, type } = allCourses[courseId];
+          const { id, credit, name, relationships: relationship, type } = allCourses[courseId];
 
           // console.log("render prerequisite edge");
           if (relationship.preRequisites.length > 0) {

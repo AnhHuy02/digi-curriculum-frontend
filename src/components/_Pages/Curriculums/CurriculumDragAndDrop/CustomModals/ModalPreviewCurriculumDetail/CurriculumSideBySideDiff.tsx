@@ -1,9 +1,15 @@
 import type { FC } from "react";
 
 import { useEffect } from "react";
-import ReactFlow, { ReactFlowProvider, Background } from "react-flow-renderer";
+import ReactFlow, {
+  ReactFlowProvider,
+  Background,
+  useNodesState,
+  useEdgesState,
+} from "react-flow-renderer";
 import Box from "@mui/material/Box";
 
+import { useAppSelector } from "src/hooks/useStore";
 import { getDndNodesAndEdges } from "src/helper/diagramGenerator/diffDiagramComplex";
 
 const initialNodes = [
@@ -42,9 +48,18 @@ const CurriculumPreviewChange: FC<CurriculumSideBySideDiffProps> = ({
   width,
   height,
 }) => {
+  const [nodes, setNodes] = useNodesState([]);
+  const [edges, setEdges] = useEdgesState([]);
+
+  const currentIndex = useAppSelector(
+    (store) => store.curriculumChangeHistory.changeHistory.currentIndex
+  );
+
   useEffect(() => {
-    // getDndNodesAndEdges();
-  }, []);
+    const { nodes, edges } = getDndNodesAndEdges();
+    setNodes(nodes);
+    setEdges(edges);
+  }, [currentIndex]);
 
   return (
     <Box
@@ -59,10 +74,11 @@ const CurriculumPreviewChange: FC<CurriculumSideBySideDiffProps> = ({
       <ReactFlowProvider>
         <ReactFlow
           className="flow-curriculum-preview-change"
-          nodes={initialNodes}
-          edges={initialEdges}
+          nodes={nodes}
+          edges={edges}
           draggable={false}
-          panOnDrag={false}
+          // panOnDrag={false}
+          panOnScroll={true}
           zoomOnScroll={false}
           // nodeTypes={nodeTypes}
           // edgeTypes={edgeTypes}

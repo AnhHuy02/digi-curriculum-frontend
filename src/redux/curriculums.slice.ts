@@ -42,6 +42,9 @@ interface ICurriculumState {
   modalPreviewCurriculumDetail: {
     isOpen: boolean;
   };
+  modalManageYears: {
+    isOpen: boolean;
+  };
   showCourseRelationship: boolean;
 }
 
@@ -71,6 +74,9 @@ const initialState: ICurriculumState = {
     courseId: null,
   },
   modalPreviewCurriculumDetail: {
+    isOpen: false,
+  },
+  modalManageYears: {
     isOpen: false,
   },
   showCourseRelationship: false,
@@ -141,6 +147,17 @@ export const curriculumSlice = createSlice({
     ) => {
       state.modalPreviewCurriculumDetail = {
         ...state.modalPreviewCurriculumDetail,
+        ...action.payload,
+      };
+    },
+    setModalManageYears: (
+      state,
+      action: PayloadAction<{
+        isOpen?: boolean;
+      }>
+    ) => {
+      state.modalManageYears = {
+        ...state.modalManageYears,
         ...action.payload,
       };
     },
@@ -319,9 +336,7 @@ export const curriculumSlice = createSlice({
       delete allYears[yearId];
       state.curriculumDetail.allYearsOrder = _pull(allYearsOrder, yearId);
     },
-    resetState: (state) => {
-      state = initialState;
-    },
+    resetState: () => initialState,
   },
   extraReducers: (builder) => {
     builder.addCase(loadRandomCurriculumDetail.fulfilled, (state, action) => {
@@ -417,6 +432,7 @@ export const {
   setModalAddCourse,
   setModalCourseDetail,
   setModalPreviewCurriculumDetail,
+  setModalManageYears,
   setShowCourseRelationship,
   addCurriculumDetailYear,
   addCurriculumDetailCourse,

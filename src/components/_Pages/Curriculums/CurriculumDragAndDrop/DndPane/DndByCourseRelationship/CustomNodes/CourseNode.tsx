@@ -53,17 +53,18 @@ const CourseNode: FC<CourseNodeProps> = ({
   const courseDetail = useAppSelector(
     (store) => store.courses.courses[courseId]
   );
-  const coursesPerSemesterLength = useAppSelector(
-    (store) =>
-      store.curriculums.curriculumDetail.allYears[yearId].semesters[semId]
-        .courseIds.length
+
+  const allYears = useAppSelector(
+    (store) => store.curriculums.curriculumDetail.allYears
   );
+
+  const coursesPerSemesterLength =
+    allYears[yearId]?.semesters[semId]?.courseIds?.length;
+
   const modeEditCourseRelationship = useAppSelector(
     (store) => store.courses.mode.editCourseRelationship
   );
   const [anchorEl, setAnchorEl] = useState(null);
-
-  const { id, name, credit } = courseDetail;
 
   const handleClick = (event: any) => {
     setAnchorEl(event.currentTarget);
@@ -203,6 +204,16 @@ const CourseNode: FC<CourseNodeProps> = ({
       );
     }
   };
+
+  if (!courseDetail) {
+    return null;
+  }
+
+  const { id, name, credit } = courseDetail;
+
+  if (typeof coursesPerSemesterLength !== "number") {
+    return null;
+  }
 
   return (
     <ClickAwayListener

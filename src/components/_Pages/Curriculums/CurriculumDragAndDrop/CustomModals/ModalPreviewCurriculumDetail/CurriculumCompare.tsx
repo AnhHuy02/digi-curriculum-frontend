@@ -1,6 +1,6 @@
 import type { FC } from "react";
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useMemo } from "react";
 import ReactFlow, {
   Background,
   useNodesState,
@@ -71,11 +71,6 @@ const CurriculumCompare: FC<CurriculumCompareProps> = ({ width, height }) => {
     >;
     allYearsOrder: string[];
   } | null>(null);
-
-  // useEffect(() => {
-  //   const { nodes: initialNodes } = getDndNodesAndEdges();
-  //   setNodes(initialNodes);
-  // }, [allYears, allYearIdsOrder]);
 
   useMemo(() => {
     if (curriculumInputA) {

@@ -50,7 +50,7 @@ export const initRandomCurriculumDetailPageData = createAsyncThunk(
             theory: { min: 0, max: 5 },
             practice: { min: 0, max: 5 },
           },
-          courseRelationship: {
+          relationships: {
             preRequisite: { min: 0, max: 1 },
             previous: { min: 0, max: 1 },
             coRequisite: { min: 0, max: 1 },
@@ -91,7 +91,7 @@ export const initRandomCurriculumDetailPageData = createAsyncThunk(
         loadRandomCurriculumDetail({
           allCourses: coursesPayload.allCourses,
           allCourseIds: coursesPayload.allCourseIds,
-          randomYearCount: { min: 1, max: 3 },
+          randomYearCount: { min: 2, max: 2 },
           semesterPerYearCount: 3,
           courseCountPerSemester: { min: 0, max: 6 },
           randomCreditCountPerSemester: undefined,
