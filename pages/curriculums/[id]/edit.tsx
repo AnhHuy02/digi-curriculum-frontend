@@ -3,7 +3,7 @@ import type { NextPage } from "next";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 
-export const SyllabusItemEditPage: NextPage = () => {
+export const CurriculumItemEditPage: NextPage = () => {
   return (
     <Box>
       <Typography paragraph>
@@ -13,4 +13,4 @@ export const SyllabusItemEditPage: NextPage = () => {
   );
 };
 
-export default SyllabusItemEditPage;
+export default CurriculumItemEditPage;

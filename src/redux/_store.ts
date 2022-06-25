@@ -1,12 +1,14 @@
 import { combineReducers } from "redux";
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
 
-// import searchForm from './SearchForm/slice';
-// import transactionSearchQuery from './TransactionSearchQuery/slice';
+import curriculums from "./curriculums.slice";
+import courses from "./courses.slice";
+import curriculumChangeHistory from "./curriculumChangeHistory.slice";
 
 const rootReducer = combineReducers({
-  // searchForm,
-  // transactionSearchQuery,
+  courses,
+  curriculums,
+  curriculumChangeHistory,
 });
 
 const createStore = () => {
