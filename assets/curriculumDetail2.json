@@ -1,0 +1,80 @@
+{
+  "allYears": {
+    "year-1": {
+      "id": "year-1",
+      "semesters": {
+        "year-1-sem-1": {
+          "id": "year-1-sem-1",
+          "creditCount": 21,
+          "creditLimit": 24,
+          "courseIds": [
+            "course21-29481c39-7864-425c-8fd6-25bc6d8ee6fe",
+            "course43-6925e7d7-7e34-4574-b164-afbed375c6ce",
+            "course38-b8d084f1-d3c6-452d-bb0e-b223875623b1",
+            "course3-133fc25f-d830-4b3f-af2a-05fb563f012b"
+          ]
+        },
+        "year-1-sem-2": {
+          "id": "year-1-sem-2",
+          "creditCount": 20,
+          "creditLimit": 24,
+          "courseIds": [
+            "course8-5451cd26-2068-4de9-98d4-6c0b1fcf733f",
+            "course0-4d1a80f5-bd64-4848-90c0-c36e64ce1cc1",
+            "course25-83c1d6c2-59a0-47c5-a8e4-57d1acb8cf90",
+            "course35-b6ab0445-ff46-464e-9e4e-cec6a23097e0"
+          ]
+        },
+        "year-1-sem-3": {
+          "id": "year-1-sem-3",
+          "creditCount": 12,
+          "creditLimit": 12,
+          "courseIds": [
+            "course41-b27af400-9c52-47ea-be69-462af9b63419",
+            "course20-1b592b1c-fa66-46c4-9240-c328c4770c90",
+            "course15-af2b544b-5aa8-465e-b1cd-87108d0b7eda",
+            "course28-28f8e933-8b9c-4ea1-8959-7648115e03a8"
+          ]
+        }
+      },
+      "semestersOrder": ["year-1-sem-1", "year-1-sem-2", "year-1-sem-3"]
+    },
+    "year-2": {
+      "id": "year-2",
+      "semesters": {
+        "year-2-sem-1": {
+          "id": "year-2-sem-1",
+          "creditCount": 19,
+          "creditLimit": 24,
+          "courseIds": [
+            "course14-0f8cf581-a4a3-4098-ad1e-f54d2a95b6dd",
+            "course39-d9179646-a6d4-40b5-ad6c-fe574faa165e",
+            "course37-2a3574a4-568b-4bc7-9fae-f6c1043a003b"
+          ]
+        },
+        "year-2-sem-2": {
+          "id": "year-2-sem-2",
+          "creditCount": 24,
+          "creditLimit": 24,
+          "courseIds": [
+            "course42-ff096fe5-83e4-4979-b0d0-5eb6e7a60043",
+            "course34-cf6826c5-4a2b-408a-bdeb-624d3949accb",
+            "course22-c673568f-4421-408d-bf1a-4fa79591d9f9",
+            "course23-b9bf74f3-21c8-48b3-a9ed-ec1788589440"
+          ]
+        },
+        "year-2-sem-3": {
+          "id": "year-2-sem-3",
+          "creditCount": 12,
+          "creditLimit": 12,
+          "courseIds": [
+            "course17-77743ec3-d655-4a40-91c4-8e54177e8917",
+            "course30-5940c1ba-6f6b-4fe9-aac7-e553445fa264"
+          ]
+        }
+      },
+      "semestersOrder": ["year-2-sem-1", "year-2-sem-2", "year-2-sem-3"]
+    }
+  },
+  "allYearIdsOrder": ["year-1", "year-2"]
+}

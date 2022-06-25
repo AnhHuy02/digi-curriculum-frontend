@@ -1,0 +1,2030 @@
+{
+  "allCourses": {
+    "course0-9ca09714-296d-493a-bcc1-e98fe3bf2f59": {
+      "id": "course0-9ca09714-296d-493a-bcc1-e98fe3bf2f59",
+      "name": "Bulgarian transition",
+      "credit": {
+        "theory": 4,
+        "practice": 0
+      },
+      "majorId": "major0-,X6z#Tj2uG",
+      "type": "Specialization (required)",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": ["course25-111743de-fe38-4ff8-bfb8-d32f11b2d30a"],
+        "placeholders": []
+      },
+      "difficulty": 3,
+      "rating": 0.8
+    },
+    "course1-af78466b-2d14-4e8e-8c87-23015f0d905b": {
+      "id": "course1-af78466b-2d14-4e8e-8c87-23015f0d905b",
+      "name": "Freeway visualize matrix",
+      "credit": {
+        "theory": 5,
+        "practice": 3
+      },
+      "majorId": "major3-PTHSD!(-2B",
+      "type": "Specialization (required)",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": ["course11-1539a8c1-cbd4-4cf0-aabf-262992f8c8ac"],
+        "placeholders": []
+      },
+      "difficulty": 5,
+      "rating": 3.1
+    },
+    "course2-74362b7f-afdd-412c-83e0-254cdf8122e0": {
+      "id": "course2-74362b7f-afdd-412c-83e0-254cdf8122e0",
+      "name": "Shirt Auto initiative",
+      "credit": {
+        "theory": 5,
+        "practice": 0
+      },
+      "majorId": "major5-4[TltQRYPm",
+      "type": "Fundamental",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 2,
+      "rating": 2.5
+    },
+    "course3-5e977a2c-2622-4f2c-b603-f82c31e2f5ee": {
+      "id": "course3-5e977a2c-2622-4f2c-b603-f82c31e2f5ee",
+      "name": "bandwidth Grocery Ranch",
+      "credit": {
+        "theory": 1,
+        "practice": 4
+      },
+      "majorId": "major1-r-q?CC,nW5",
+      "type": "Specialization (required)",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": ["course74-670e83bd-5f6c-4e88-bdba-0eda4376ea11"],
+        "previous": ["course55-4c20bc87-0754-4a93-848b-538a1f6939b3"],
+        "placeholders": ["course79-47f23792-e481-400d-af8f-cc92c68b8dcb"]
+      },
+      "difficulty": 2,
+      "rating": 3.9
+    },
+    "course4-efced40d-123b-4541-9597-9ded0c18b800": {
+      "id": "course4-efced40d-123b-4541-9597-9ded0c18b800",
+      "name": "Norway Orchestrator",
+      "credit": {
+        "theory": 1,
+        "practice": 1
+      },
+      "majorId": "major2-|J$'Bn\")V8",
+      "type": "Fundamental",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": ["course20-cb5a7048-5bda-4f55-8e65-e7cb70630df7"],
+        "placeholders": ["course38-2c8995cb-65bd-4193-b15b-4c619da7047f"]
+      },
+      "difficulty": 2,
+      "rating": 0.6
+    },
+    "course5-b81863ae-edce-406a-9f1b-67a8c8538966": {
+      "id": "course5-b81863ae-edce-406a-9f1b-67a8c8538966",
+      "name": "transmitting Loan Borders",
+      "credit": {
+        "theory": 5,
+        "practice": 3
+      },
+      "majorId": "major4-X.eK9Lm*y0",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": ["course68-9447ebfd-5810-4199-921f-c14b2b23c3d6"],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 2,
+      "rating": 3.9
+    },
+    "course6-f4077cf0-7903-4d76-bd6c-c51382eef598": {
+      "id": "course6-f4077cf0-7903-4d76-bd6c-c51382eef598",
+      "name": "Republic CSS",
+      "credit": {
+        "theory": 2,
+        "practice": 2
+      },
+      "majorId": "major1-r-q?CC,nW5",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": ["course9-e9b3334b-9bec-4088-ad4f-102c56b858d5"],
+        "previous": ["course19-19200b39-263a-4542-9c68-f0b11729d1d0"],
+        "placeholders": ["course14-95d11b3a-8dbe-440c-9414-ba43e4a7faa7"]
+      },
+      "difficulty": 2,
+      "rating": 5
+    },
+    "course7-061b163b-cc9e-499f-9722-705ffc962bd3": {
+      "id": "course7-061b163b-cc9e-499f-9722-705ffc962bd3",
+      "name": "Money Lebanon User-centric",
+      "credit": {
+        "theory": 2,
+        "practice": 3
+      },
+      "majorId": "major5-4[TltQRYPm",
+      "type": "General",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": ["course46-dead0864-e5dc-46aa-851f-85e4e5406a72"],
+        "coRequisites": [],
+        "previous": ["course83-7a4995c0-d46b-48d3-99e9-adfef4e44fda"],
+        "placeholders": ["course68-9447ebfd-5810-4199-921f-c14b2b23c3d6"]
+      },
+      "difficulty": 1,
+      "rating": 2.9
+    },
+    "course8-d160fffe-2287-4368-80e4-9a16e17713b1": {
+      "id": "course8-d160fffe-2287-4368-80e4-9a16e17713b1",
+      "name": "Shirt seize",
+      "credit": {
+        "theory": 3,
+        "practice": 2
+      },
+      "majorId": "major5-4[TltQRYPm",
+      "type": "Specialization (elective)",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": ["course63-8cda2852-736c-49f9-b413-5e38b2f41a04"],
+        "previous": ["course12-df1d1fba-331d-4230-9289-cd20e2551a62"],
+        "placeholders": []
+      },
+      "difficulty": 3,
+      "rating": 3.9
+    },
+    "course9-e9b3334b-9bec-4088-ad4f-102c56b858d5": {
+      "id": "course9-e9b3334b-9bec-4088-ad4f-102c56b858d5",
+      "name": "application Soft Alabama",
+      "credit": {
+        "theory": 1,
+        "practice": 3
+      },
+      "majorId": "major2-|J$'Bn\")V8",
+      "type": "General",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 2,
+      "rating": 1.6
+    },
+    "course10-4e45bcf9-efae-41fd-b768-0ac3ec099e85": {
+      "id": "course10-4e45bcf9-efae-41fd-b768-0ac3ec099e85",
+      "name": "bluetooth Functionality Agent",
+      "credit": {
+        "theory": 4,
+        "practice": 3
+      },
+      "majorId": "major5-4[TltQRYPm",
+      "type": "Fundamental",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": ["course50-1ebb7634-3589-48f3-9668-4ca6f0e052f2"],
+        "previous": ["course17-5632f029-f066-464d-bcf4-c74ad429329a"],
+        "placeholders": ["course8-d160fffe-2287-4368-80e4-9a16e17713b1"]
+      },
+      "difficulty": 5,
+      "rating": 1.1
+    },
+    "course11-1539a8c1-cbd4-4cf0-aabf-262992f8c8ac": {
+      "id": "course11-1539a8c1-cbd4-4cf0-aabf-262992f8c8ac",
+      "name": "Generic",
+      "credit": {
+        "theory": 4,
+        "practice": 2
+      },
+      "majorId": "major4-X.eK9Lm*y0",
+      "type": "Specialization (required)",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": ["course65-4fed928e-4c90-4547-b8de-30f644a9bcdf"],
+        "previous": ["course64-9d4456a5-385a-4968-a1fc-a253dbcffd76"],
+        "placeholders": []
+      },
+      "difficulty": 3,
+      "rating": 1.9
+    },
+    "course12-df1d1fba-331d-4230-9289-cd20e2551a62": {
+      "id": "course12-df1d1fba-331d-4230-9289-cd20e2551a62",
+      "name": "Table payment",
+      "credit": {
+        "theory": 1,
+        "practice": 5
+      },
+      "majorId": "major5-4[TltQRYPm",
+      "type": "Specialization (elective)",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": ["course0-9ca09714-296d-493a-bcc1-e98fe3bf2f59"],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": ["course18-393a392a-8661-44a8-9744-15f0fb77021c"]
+      },
+      "difficulty": 5,
+      "rating": 3.6
+    },
+    "course13-0eee00b5-bf41-49dc-ba7a-8d02641d671b": {
+      "id": "course13-0eee00b5-bf41-49dc-ba7a-8d02641d671b",
+      "name": "Nepal Practical",
+      "credit": {
+        "theory": 0,
+        "practice": 2
+      },
+      "majorId": "major0-,X6z#Tj2uG",
+      "type": "Specialization (elective)",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": ["course67-4046208f-1f99-409c-a7b3-9185c0d6876c"],
+        "coRequisites": ["course2-74362b7f-afdd-412c-83e0-254cdf8122e0"],
+        "previous": ["course61-a798efc4-7ec7-4ee0-8e20-b27ec0b46046"],
+        "placeholders": []
+      },
+      "difficulty": 5,
+      "rating": 3.4
+    },
+    "course14-95d11b3a-8dbe-440c-9414-ba43e4a7faa7": {
+      "id": "course14-95d11b3a-8dbe-440c-9414-ba43e4a7faa7",
+      "name": "bus",
+      "credit": {
+        "theory": 0,
+        "practice": 5
+      },
+      "majorId": "major5-4[TltQRYPm",
+      "type": "General",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": ["course77-203b23d6-bca1-441d-a4d9-7d606add8916"],
+        "placeholders": ["course68-9447ebfd-5810-4199-921f-c14b2b23c3d6"]
+      },
+      "difficulty": 4,
+      "rating": 0.9
+    },
+    "course15-82c0ff7e-c84e-4690-bc24-f6ffc0005600": {
+      "id": "course15-82c0ff7e-c84e-4690-bc24-f6ffc0005600",
+      "name": "redefine",
+      "credit": {
+        "theory": 1,
+        "practice": 2
+      },
+      "majorId": "major2-|J$'Bn\")V8",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": ["course68-9447ebfd-5810-4199-921f-c14b2b23c3d6"],
+        "placeholders": ["course67-4046208f-1f99-409c-a7b3-9185c0d6876c"]
+      },
+      "difficulty": 1,
+      "rating": 4.1
+    },
+    "course16-e3851670-5ca3-42a0-9e40-43bc730660e9": {
+      "id": "course16-e3851670-5ca3-42a0-9e40-43bc730660e9",
+      "name": "Borders Handcrafted",
+      "credit": {
+        "theory": 1,
+        "practice": 3
+      },
+      "majorId": "major1-r-q?CC,nW5",
+      "type": "Specialization (elective)",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 5,
+      "rating": 4.7
+    },
+    "course17-5632f029-f066-464d-bcf4-c74ad429329a": {
+      "id": "course17-5632f029-f066-464d-bcf4-c74ad429329a",
+      "name": "Manat index sky",
+      "credit": {
+        "theory": 5,
+        "practice": 4
+      },
+      "majorId": "major0-,X6z#Tj2uG",
+      "type": "Specialization (required)",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": ["course38-2c8995cb-65bd-4193-b15b-4c619da7047f"],
+        "coRequisites": [],
+        "previous": ["course69-7fd129ca-5cb7-4e9a-bec1-195b936e3257"],
+        "placeholders": ["course49-fcbbf945-9103-40f3-9cb2-7d1f8819874e"]
+      },
+      "difficulty": 1,
+      "rating": 2
+    },
+    "course18-393a392a-8661-44a8-9744-15f0fb77021c": {
+      "id": "course18-393a392a-8661-44a8-9744-15f0fb77021c",
+      "name": "Unbranded",
+      "credit": {
+        "theory": 2,
+        "practice": 5
+      },
+      "majorId": "major2-|J$'Bn\")V8",
+      "type": "Specialization (elective)",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": ["course30-ead2b073-a6a8-4f88-b8d0-1d7af37d67a3"],
+        "previous": [],
+        "placeholders": ["course65-4fed928e-4c90-4547-b8de-30f644a9bcdf"]
+      },
+      "difficulty": 3,
+      "rating": 0
+    },
+    "course19-19200b39-263a-4542-9c68-f0b11729d1d0": {
+      "id": "course19-19200b39-263a-4542-9c68-f0b11729d1d0",
+      "name": "payment Money Hat",
+      "credit": {
+        "theory": 3,
+        "practice": 5
+      },
+      "majorId": "major3-PTHSD!(-2B",
+      "type": "General",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": ["course72-a932985b-678b-4aa8-9b9c-6065256de584"],
+        "coRequisites": ["course25-111743de-fe38-4ff8-bfb8-d32f11b2d30a"],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 4,
+      "rating": 4.5
+    },
+    "course20-cb5a7048-5bda-4f55-8e65-e7cb70630df7": {
+      "id": "course20-cb5a7048-5bda-4f55-8e65-e7cb70630df7",
+      "name": "back Shirt",
+      "credit": {
+        "theory": 4,
+        "practice": 1
+      },
+      "majorId": "major2-|J$'Bn\")V8",
+      "type": "General",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": ["course86-b5b0f40f-5ab1-4041-b47b-5c546d1cf584"],
+        "coRequisites": ["course57-73f1beb7-ba4d-411f-a454-2fa1aa37adb4"],
+        "previous": [],
+        "placeholders": ["course76-afe8db2f-5475-4eb6-a371-979a9161e05a"]
+      },
+      "difficulty": 2,
+      "rating": 4.5
+    },
+    "course21-3ab17fce-2037-498a-b88b-8856b5df1a67": {
+      "id": "course21-3ab17fce-2037-498a-b88b-8856b5df1a67",
+      "name": "override holistic bluetooth",
+      "credit": {
+        "theory": 3,
+        "practice": 4
+      },
+      "majorId": "major5-4[TltQRYPm",
+      "type": "Specialization (required)",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 4,
+      "rating": 3.4
+    },
+    "course22-d2cf25b8-2045-4090-8848-035832be0f9e": {
+      "id": "course22-d2cf25b8-2045-4090-8848-035832be0f9e",
+      "name": "reinvent",
+      "credit": {
+        "theory": 1,
+        "practice": 0
+      },
+      "majorId": "major5-4[TltQRYPm",
+      "type": "Specialization (required)",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": ["course60-3fcbb86b-baf3-4f23-92dc-8870dc1b64a3"],
+        "placeholders": ["course18-393a392a-8661-44a8-9744-15f0fb77021c"]
+      },
+      "difficulty": 2,
+      "rating": 0.4
+    },
+    "course23-ea54e401-31c0-46bb-b350-0bd7937bb3f8": {
+      "id": "course23-ea54e401-31c0-46bb-b350-0bd7937bb3f8",
+      "name": "Ports Franc orchestration",
+      "credit": {
+        "theory": 1,
+        "practice": 4
+      },
+      "majorId": "major1-r-q?CC,nW5",
+      "type": "Fundamental",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": ["course79-47f23792-e481-400d-af8f-cc92c68b8dcb"],
+        "coRequisites": [],
+        "previous": ["course60-3fcbb86b-baf3-4f23-92dc-8870dc1b64a3"],
+        "placeholders": []
+      },
+      "difficulty": 5,
+      "rating": 1
+    },
+    "course24-7cb9bfaf-e7c7-416d-ac1d-e58bf33eae8b": {
+      "id": "course24-7cb9bfaf-e7c7-416d-ac1d-e58bf33eae8b",
+      "name": "parse Architect",
+      "credit": {
+        "theory": 4,
+        "practice": 4
+      },
+      "majorId": "major0-,X6z#Tj2uG",
+      "type": "Specialization (required)",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": ["course61-a798efc4-7ec7-4ee0-8e20-b27ec0b46046"],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": ["course14-95d11b3a-8dbe-440c-9414-ba43e4a7faa7"]
+      },
+      "difficulty": 5,
+      "rating": 0.8
+    },
+    "course25-111743de-fe38-4ff8-bfb8-d32f11b2d30a": {
+      "id": "course25-111743de-fe38-4ff8-bfb8-d32f11b2d30a",
+      "name": "programming",
+      "credit": {
+        "theory": 0,
+        "practice": 1
+      },
+      "majorId": "major4-X.eK9Lm*y0",
+      "type": "Fundamental",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": ["course61-a798efc4-7ec7-4ee0-8e20-b27ec0b46046"],
+        "coRequisites": [],
+        "previous": ["course1-af78466b-2d14-4e8e-8c87-23015f0d905b"],
+        "placeholders": ["course91-f0d54978-4c5f-422b-9986-ca137b1bc5fc"]
+      },
+      "difficulty": 2,
+      "rating": 1.3
+    },
+    "course26-59949be3-6d90-41ed-a59e-620d56082e6d": {
+      "id": "course26-59949be3-6d90-41ed-a59e-620d56082e6d",
+      "name": "Account",
+      "credit": {
+        "theory": 1,
+        "practice": 5
+      },
+      "majorId": "major5-4[TltQRYPm",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": ["course3-5e977a2c-2622-4f2c-b603-f82c31e2f5ee"],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 4,
+      "rating": 3.6
+    },
+    "course27-267cb649-c88f-4536-8355-9a3a6a992f5d": {
+      "id": "course27-267cb649-c88f-4536-8355-9a3a6a992f5d",
+      "name": "engine",
+      "credit": {
+        "theory": 1,
+        "practice": 0
+      },
+      "majorId": "major1-r-q?CC,nW5",
+      "type": "Fundamental",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": ["course17-5632f029-f066-464d-bcf4-c74ad429329a"],
+        "placeholders": []
+      },
+      "difficulty": 3,
+      "rating": 1.4
+    },
+    "course28-5b90d740-9dcb-4f8b-a655-f8523bff38e4": {
+      "id": "course28-5b90d740-9dcb-4f8b-a655-f8523bff38e4",
+      "name": "UIC-Franc Regional",
+      "credit": {
+        "theory": 4,
+        "practice": 1
+      },
+      "majorId": "major5-4[TltQRYPm",
+      "type": "Specialization (elective)",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": ["course8-d160fffe-2287-4368-80e4-9a16e17713b1"],
+        "placeholders": []
+      },
+      "difficulty": 5,
+      "rating": 4.1
+    },
+    "course29-c1db1aed-bcd2-43bb-b79a-933f7dd07d44": {
+      "id": "course29-c1db1aed-bcd2-43bb-b79a-933f7dd07d44",
+      "name": "Tuna Analyst markets",
+      "credit": {
+        "theory": 5,
+        "practice": 0
+      },
+      "majorId": "major1-r-q?CC,nW5",
+      "type": "Specialization (elective)",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 2,
+      "rating": 4.2
+    },
+    "course30-ead2b073-a6a8-4f88-b8d0-1d7af37d67a3": {
+      "id": "course30-ead2b073-a6a8-4f88-b8d0-1d7af37d67a3",
+      "name": "Belize Fish Lead",
+      "credit": {
+        "theory": 0,
+        "practice": 2
+      },
+      "majorId": "major4-X.eK9Lm*y0",
+      "type": "Specialization (elective)",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": ["course36-3585d5c9-e94f-4042-be28-2dca99ef12e0"],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 2,
+      "rating": 3.9
+    },
+    "course31-2cb161fe-f5d7-4766-8eec-3a457e4028b9": {
+      "id": "course31-2cb161fe-f5d7-4766-8eec-3a457e4028b9",
+      "name": "Yemen Iowa envisioneer",
+      "credit": {
+        "theory": 4,
+        "practice": 4
+      },
+      "majorId": "major2-|J$'Bn\")V8",
+      "type": "Specialization (elective)",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": ["course38-2c8995cb-65bd-4193-b15b-4c619da7047f"],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 1,
+      "rating": 0.6
+    },
+    "course32-42ebf552-057b-4d31-a2d2-a1b04d36d282": {
+      "id": "course32-42ebf552-057b-4d31-a2d2-a1b04d36d282",
+      "name": "payment Credit Ergonomic",
+      "credit": {
+        "theory": 3,
+        "practice": 5
+      },
+      "majorId": "major0-,X6z#Tj2uG",
+      "type": "Specialization (elective)",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": ["course7-061b163b-cc9e-499f-9722-705ffc962bd3"],
+        "previous": ["course25-111743de-fe38-4ff8-bfb8-d32f11b2d30a"],
+        "placeholders": ["course27-267cb649-c88f-4536-8355-9a3a6a992f5d"]
+      },
+      "difficulty": 5,
+      "rating": 2.7
+    },
+    "course33-7a4ca5e6-acc9-45fe-96e3-857dd103bb52": {
+      "id": "course33-7a4ca5e6-acc9-45fe-96e3-857dd103bb52",
+      "name": "Horizontal Books Salad",
+      "credit": {
+        "theory": 2,
+        "practice": 5
+      },
+      "majorId": "major0-,X6z#Tj2uG",
+      "type": "Specialization (required)",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 1,
+      "rating": 0.8
+    },
+    "course34-16d0825d-6d68-4e9f-9024-9ca32d58a47d": {
+      "id": "course34-16d0825d-6d68-4e9f-9024-9ca32d58a47d",
+      "name": "Incredible",
+      "credit": {
+        "theory": 0,
+        "practice": 4
+      },
+      "majorId": "major3-PTHSD!(-2B",
+      "type": "Specialization (required)",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": ["course46-dead0864-e5dc-46aa-851f-85e4e5406a72"],
+        "coRequisites": ["course51-c3a1f53d-beb3-4086-86ff-9ca0b4605a21"],
+        "previous": [],
+        "placeholders": ["course52-1445af1c-ba03-4bc0-b1e4-65432e3a4c72"]
+      },
+      "difficulty": 5,
+      "rating": 2.7
+    },
+    "course35-4579b04f-d138-4959-a19b-12a38507564f": {
+      "id": "course35-4579b04f-d138-4959-a19b-12a38507564f",
+      "name": "Specialist",
+      "credit": {
+        "theory": 2,
+        "practice": 5
+      },
+      "majorId": "major3-PTHSD!(-2B",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": ["course72-a932985b-678b-4aa8-9b9c-6065256de584"],
+        "placeholders": []
+      },
+      "difficulty": 2,
+      "rating": 4.7
+    },
+    "course36-3585d5c9-e94f-4042-be28-2dca99ef12e0": {
+      "id": "course36-3585d5c9-e94f-4042-be28-2dca99ef12e0",
+      "name": "yellow",
+      "credit": {
+        "theory": 1,
+        "practice": 4
+      },
+      "majorId": "major0-,X6z#Tj2uG",
+      "type": "Fundamental",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": ["course46-dead0864-e5dc-46aa-851f-85e4e5406a72"],
+        "coRequisites": ["course12-df1d1fba-331d-4230-9289-cd20e2551a62"],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 5,
+      "rating": 0.8
+    },
+    "course37-045cd1fd-c0cc-4046-97c3-d3b50de15572": {
+      "id": "course37-045cd1fd-c0cc-4046-97c3-d3b50de15572",
+      "name": "Customer Jewelery",
+      "credit": {
+        "theory": 1,
+        "practice": 4
+      },
+      "majorId": "major3-PTHSD!(-2B",
+      "type": "General",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": ["course77-203b23d6-bca1-441d-a4d9-7d606add8916"],
+        "previous": ["course15-82c0ff7e-c84e-4690-bc24-f6ffc0005600"],
+        "placeholders": []
+      },
+      "difficulty": 4,
+      "rating": 2.3
+    },
+    "course38-2c8995cb-65bd-4193-b15b-4c619da7047f": {
+      "id": "course38-2c8995cb-65bd-4193-b15b-4c619da7047f",
+      "name": "maroon solutions",
+      "credit": {
+        "theory": 0,
+        "practice": 4
+      },
+      "majorId": "major3-PTHSD!(-2B",
+      "type": "General",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 1,
+      "rating": 3.9
+    },
+    "course39-7491011b-da23-4d4b-8467-cc5ed8e07079": {
+      "id": "course39-7491011b-da23-4d4b-8467-cc5ed8e07079",
+      "name": "Plastic",
+      "credit": {
+        "theory": 4,
+        "practice": 3
+      },
+      "majorId": "major2-|J$'Bn\")V8",
+      "type": "General",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": ["course86-b5b0f40f-5ab1-4041-b47b-5c546d1cf584"],
+        "previous": ["course53-15a83b99-6ee8-4579-8f63-1f657ba4ce09"],
+        "placeholders": ["course71-a7093b5b-f321-4f46-bf5c-9a6fee3a4883"]
+      },
+      "difficulty": 2,
+      "rating": 1.6
+    },
+    "course40-0edd0f11-2cf4-4f46-9ed4-5be447e3b1a5": {
+      "id": "course40-0edd0f11-2cf4-4f46-9ed4-5be447e3b1a5",
+      "name": "Borders Buckinghamshire",
+      "credit": {
+        "theory": 2,
+        "practice": 5
+      },
+      "majorId": "major0-,X6z#Tj2uG",
+      "type": "Specialization (required)",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": ["course38-2c8995cb-65bd-4193-b15b-4c619da7047f"],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 4,
+      "rating": 1.2
+    },
+    "course41-20ea09de-1a7e-452c-8187-a65b33ac69bd": {
+      "id": "course41-20ea09de-1a7e-452c-8187-a65b33ac69bd",
+      "name": "benchmark application",
+      "credit": {
+        "theory": 3,
+        "practice": 1
+      },
+      "majorId": "major1-r-q?CC,nW5",
+      "type": "Fundamental",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": ["course2-74362b7f-afdd-412c-83e0-254cdf8122e0"],
+        "previous": [],
+        "placeholders": ["course85-7706ed4b-495b-412b-90c2-446c080b8a67"]
+      },
+      "difficulty": 2,
+      "rating": 0.2
+    },
+    "course42-a5da4658-8424-4177-9ba7-57bdc5b836b8": {
+      "id": "course42-a5da4658-8424-4177-9ba7-57bdc5b836b8",
+      "name": "Serbia",
+      "credit": {
+        "theory": 3,
+        "practice": 1
+      },
+      "majorId": "major1-r-q?CC,nW5",
+      "type": "Specialization (required)",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 4,
+      "rating": 4.6
+    },
+    "course43-93d10831-ddd6-40da-aed2-42e0cc2f6ad7": {
+      "id": "course43-93d10831-ddd6-40da-aed2-42e0cc2f6ad7",
+      "name": "Auto cyan PCI",
+      "credit": {
+        "theory": 5,
+        "practice": 2
+      },
+      "majorId": "major4-X.eK9Lm*y0",
+      "type": "Specialization (required)",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": ["course15-82c0ff7e-c84e-4690-bc24-f6ffc0005600"],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 5,
+      "rating": 0.5
+    },
+    "course44-11b11e85-add9-4ff4-ab4e-176be7a4d776": {
+      "id": "course44-11b11e85-add9-4ff4-ab4e-176be7a4d776",
+      "name": "Loan",
+      "credit": {
+        "theory": 3,
+        "practice": 2
+      },
+      "majorId": "major0-,X6z#Tj2uG",
+      "type": "General",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": ["course29-c1db1aed-bcd2-43bb-b79a-933f7dd07d44"],
+        "coRequisites": ["course83-7a4995c0-d46b-48d3-99e9-adfef4e44fda"],
+        "previous": ["course51-c3a1f53d-beb3-4086-86ff-9ca0b4605a21"],
+        "placeholders": ["course48-fa3ec991-57e2-4977-be3d-1fbc4cc9d26a"]
+      },
+      "difficulty": 2,
+      "rating": 1.8
+    },
+    "course45-6da4839c-fe4e-46c7-bde3-4e96d44950d9": {
+      "id": "course45-6da4839c-fe4e-46c7-bde3-4e96d44950d9",
+      "name": "architectures virtual Programmable",
+      "credit": {
+        "theory": 0,
+        "practice": 5
+      },
+      "majorId": "major4-X.eK9Lm*y0",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": ["course22-d2cf25b8-2045-4090-8848-035832be0f9e"],
+        "coRequisites": ["course28-5b90d740-9dcb-4f8b-a655-f8523bff38e4"],
+        "previous": ["course66-e4b3b307-e975-4f72-834e-4eaffa9d5128"],
+        "placeholders": []
+      },
+      "difficulty": 5,
+      "rating": 1.1
+    },
+    "course46-dead0864-e5dc-46aa-851f-85e4e5406a72": {
+      "id": "course46-dead0864-e5dc-46aa-851f-85e4e5406a72",
+      "name": "Sleek Ways",
+      "credit": {
+        "theory": 5,
+        "practice": 0
+      },
+      "majorId": "major4-X.eK9Lm*y0",
+      "type": "Specialization (required)",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": ["course10-4e45bcf9-efae-41fd-b768-0ac3ec099e85"],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": ["course81-4c65ee32-5284-4c31-8058-587e8187e47d"]
+      },
+      "difficulty": 5,
+      "rating": 1.4
+    },
+    "course47-f5358bd1-9b09-45fa-b857-37da4243b935": {
+      "id": "course47-f5358bd1-9b09-45fa-b857-37da4243b935",
+      "name": "payment Hollow",
+      "credit": {
+        "theory": 3,
+        "practice": 5
+      },
+      "majorId": "major3-PTHSD!(-2B",
+      "type": "General",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": ["course84-5ba9300e-70c5-42a7-817a-df1c608d86b8"],
+        "coRequisites": ["course91-f0d54978-4c5f-422b-9986-ca137b1bc5fc"],
+        "previous": [],
+        "placeholders": ["course44-11b11e85-add9-4ff4-ab4e-176be7a4d776"]
+      },
+      "difficulty": 4,
+      "rating": 0.6
+    },
+    "course48-fa3ec991-57e2-4977-be3d-1fbc4cc9d26a": {
+      "id": "course48-fa3ec991-57e2-4977-be3d-1fbc4cc9d26a",
+      "name": "hybrid",
+      "credit": {
+        "theory": 0,
+        "practice": 2
+      },
+      "majorId": "major5-4[TltQRYPm",
+      "type": "Project/Intership/Thesis",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": ["course12-df1d1fba-331d-4230-9289-cd20e2551a62"],
+        "previous": ["course53-15a83b99-6ee8-4579-8f63-1f657ba4ce09"],
+        "placeholders": ["course35-4579b04f-d138-4959-a19b-12a38507564f"]
+      },
+      "difficulty": 3,
+      "rating": 5
+    },
+    "course49-fcbbf945-9103-40f3-9cb2-7d1f8819874e": {
+      "id": "course49-fcbbf945-9103-40f3-9cb2-7d1f8819874e",
+      "name": "bluetooth",
+      "credit": {
+        "theory": 0,
+        "practice": 4
+      },
+      "majorId": "major1-r-q?CC,nW5",
+      "type": "Specialization (elective)",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": ["course87-ffb9288a-a624-43ba-85c6-2e67d34570be"],
+        "placeholders": []
+      },
+      "difficulty": 2,
+      "rating": 0.2
+    },
+    "course50-1ebb7634-3589-48f3-9668-4ca6f0e052f2": {
+      "id": "course50-1ebb7634-3589-48f3-9668-4ca6f0e052f2",
+      "name": "granular Health unleash",
+      "credit": {
+        "theory": 1,
+        "practice": 1
+      },
+      "majorId": "major5-4[TltQRYPm",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": ["course31-2cb161fe-f5d7-4766-8eec-3a457e4028b9"],
+        "coRequisites": ["course30-ead2b073-a6a8-4f88-b8d0-1d7af37d67a3"],
+        "previous": [],
+        "placeholders": ["course69-7fd129ca-5cb7-4e9a-bec1-195b936e3257"]
+      },
+      "difficulty": 1,
+      "rating": 3
+    },
+    "course51-c3a1f53d-beb3-4086-86ff-9ca0b4605a21": {
+      "id": "course51-c3a1f53d-beb3-4086-86ff-9ca0b4605a21",
+      "name": "initiative Profound iterate",
+      "credit": {
+        "theory": 4,
+        "practice": 0
+      },
+      "majorId": "major3-PTHSD!(-2B",
+      "type": "Specialization (elective)",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": ["course91-f0d54978-4c5f-422b-9986-ca137b1bc5fc"],
+        "previous": ["course41-20ea09de-1a7e-452c-8187-a65b33ac69bd"],
+        "placeholders": ["course79-47f23792-e481-400d-af8f-cc92c68b8dcb"]
+      },
+      "difficulty": 1,
+      "rating": 0.2
+    },
+    "course52-1445af1c-ba03-4bc0-b1e4-65432e3a4c72": {
+      "id": "course52-1445af1c-ba03-4bc0-b1e4-65432e3a4c72",
+      "name": "Cotton withdrawal system",
+      "credit": {
+        "theory": 4,
+        "practice": 0
+      },
+      "majorId": "major5-4[TltQRYPm",
+      "type": "Specialization (elective)",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": ["course63-8cda2852-736c-49f9-b413-5e38b2f41a04"],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": ["course60-3fcbb86b-baf3-4f23-92dc-8870dc1b64a3"]
+      },
+      "difficulty": 3,
+      "rating": 3
+    },
+    "course53-15a83b99-6ee8-4579-8f63-1f657ba4ce09": {
+      "id": "course53-15a83b99-6ee8-4579-8f63-1f657ba4ce09",
+      "name": "withdrawal Norfolk Gloves",
+      "credit": {
+        "theory": 1,
+        "practice": 5
+      },
+      "majorId": "major1-r-q?CC,nW5",
+      "type": "General",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": ["course54-2fb5cff9-73f8-4bda-8e74-845b46d85f0e"],
+        "coRequisites": [],
+        "previous": ["course0-9ca09714-296d-493a-bcc1-e98fe3bf2f59"],
+        "placeholders": []
+      },
+      "difficulty": 3,
+      "rating": 1.8
+    },
+    "course54-2fb5cff9-73f8-4bda-8e74-845b46d85f0e": {
+      "id": "course54-2fb5cff9-73f8-4bda-8e74-845b46d85f0e",
+      "name": "Avon synergies",
+      "credit": {
+        "theory": 4,
+        "practice": 0
+      },
+      "majorId": "major5-4[TltQRYPm",
+      "type": "Fundamental",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": ["course35-4579b04f-d138-4959-a19b-12a38507564f"],
+        "coRequisites": ["course50-1ebb7634-3589-48f3-9668-4ca6f0e052f2"],
+        "previous": [],
+        "placeholders": ["course30-ead2b073-a6a8-4f88-b8d0-1d7af37d67a3"]
+      },
+      "difficulty": 4,
+      "rating": 4.8
+    },
+    "course55-4c20bc87-0754-4a93-848b-538a1f6939b3": {
+      "id": "course55-4c20bc87-0754-4a93-848b-538a1f6939b3",
+      "name": "port Frozen",
+      "credit": {
+        "theory": 0,
+        "practice": 1
+      },
+      "majorId": "major1-r-q?CC,nW5",
+      "type": "General",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": ["course28-5b90d740-9dcb-4f8b-a655-f8523bff38e4"],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 5,
+      "rating": 4.6
+    },
+    "course56-77faab60-461d-4b5b-ac47-6963880d7493": {
+      "id": "course56-77faab60-461d-4b5b-ac47-6963880d7493",
+      "name": "Consultant",
+      "credit": {
+        "theory": 0,
+        "practice": 5
+      },
+      "majorId": "major2-|J$'Bn\")V8",
+      "type": "Specialization (required)",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": ["course55-4c20bc87-0754-4a93-848b-538a1f6939b3"],
+        "previous": ["course77-203b23d6-bca1-441d-a4d9-7d606add8916"],
+        "placeholders": ["course39-7491011b-da23-4d4b-8467-cc5ed8e07079"]
+      },
+      "difficulty": 2,
+      "rating": 4.7
+    },
+    "course57-73f1beb7-ba4d-411f-a454-2fa1aa37adb4": {
+      "id": "course57-73f1beb7-ba4d-411f-a454-2fa1aa37adb4",
+      "name": "Sleek Music Supervisor",
+      "credit": {
+        "theory": 3,
+        "practice": 2
+      },
+      "majorId": "major3-PTHSD!(-2B",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": ["course49-fcbbf945-9103-40f3-9cb2-7d1f8819874e"],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 5,
+      "rating": 0.3
+    },
+    "course58-9606d819-748e-4182-922d-cae42cdbf467": {
+      "id": "course58-9606d819-748e-4182-922d-cae42cdbf467",
+      "name": "digital purple Tasty",
+      "credit": {
+        "theory": 1,
+        "practice": 2
+      },
+      "majorId": "major5-4[TltQRYPm",
+      "type": "Specialization (elective)",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": ["course29-c1db1aed-bcd2-43bb-b79a-933f7dd07d44"],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 5,
+      "rating": 4.7
+    },
+    "course59-8eecac23-52e6-4fb1-ac06-99c4df4d5547": {
+      "id": "course59-8eecac23-52e6-4fb1-ac06-99c4df4d5547",
+      "name": "Regional",
+      "credit": {
+        "theory": 0,
+        "practice": 2
+      },
+      "majorId": "major5-4[TltQRYPm",
+      "type": "General",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": ["course30-ead2b073-a6a8-4f88-b8d0-1d7af37d67a3"],
+        "previous": ["course80-8f78912f-855f-4d45-9fd5-13d1254b3d2e"],
+        "placeholders": []
+      },
+      "difficulty": 2,
+      "rating": 4.2
+    },
+    "course60-3fcbb86b-baf3-4f23-92dc-8870dc1b64a3": {
+      "id": "course60-3fcbb86b-baf3-4f23-92dc-8870dc1b64a3",
+      "name": "withdrawal Small",
+      "credit": {
+        "theory": 2,
+        "practice": 0
+      },
+      "majorId": "major2-|J$'Bn\")V8",
+      "type": "Specialization (required)",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": ["course58-9606d819-748e-4182-922d-cae42cdbf467"],
+        "coRequisites": ["course72-a932985b-678b-4aa8-9b9c-6065256de584"],
+        "previous": [],
+        "placeholders": ["course28-5b90d740-9dcb-4f8b-a655-f8523bff38e4"]
+      },
+      "difficulty": 4,
+      "rating": 2.6
+    },
+    "course61-a798efc4-7ec7-4ee0-8e20-b27ec0b46046": {
+      "id": "course61-a798efc4-7ec7-4ee0-8e20-b27ec0b46046",
+      "name": "Practical COM bypassing",
+      "credit": {
+        "theory": 1,
+        "practice": 4
+      },
+      "majorId": "major5-4[TltQRYPm",
+      "type": "Fundamental",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": ["course43-93d10831-ddd6-40da-aed2-42e0cc2f6ad7"],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 2,
+      "rating": 0.5
+    },
+    "course62-7307e4e2-8922-4cc2-a403-ba25eaed3cd9": {
+      "id": "course62-7307e4e2-8922-4cc2-a403-ba25eaed3cd9",
+      "name": "deploy holistic",
+      "credit": {
+        "theory": 2,
+        "practice": 0
+      },
+      "majorId": "major1-r-q?CC,nW5",
+      "type": "Specialization (required)",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": ["course28-5b90d740-9dcb-4f8b-a655-f8523bff38e4"],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 4,
+      "rating": 2.4
+    },
+    "course63-8cda2852-736c-49f9-b413-5e38b2f41a04": {
+      "id": "course63-8cda2852-736c-49f9-b413-5e38b2f41a04",
+      "name": "heuristic",
+      "credit": {
+        "theory": 1,
+        "practice": 4
+      },
+      "majorId": "major4-X.eK9Lm*y0",
+      "type": "Fundamental",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": ["course4-efced40d-123b-4541-9597-9ded0c18b800"],
+        "previous": ["course38-2c8995cb-65bd-4193-b15b-4c619da7047f"],
+        "placeholders": ["course53-15a83b99-6ee8-4579-8f63-1f657ba4ce09"]
+      },
+      "difficulty": 2,
+      "rating": 0.9
+    },
+    "course64-9d4456a5-385a-4968-a1fc-a253dbcffd76": {
+      "id": "course64-9d4456a5-385a-4968-a1fc-a253dbcffd76",
+      "name": "copying",
+      "credit": {
+        "theory": 0,
+        "practice": 2
+      },
+      "majorId": "major2-|J$'Bn\")V8",
+      "type": "Project/Intership/Thesis",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": ["course11-1539a8c1-cbd4-4cf0-aabf-262992f8c8ac"],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 5,
+      "rating": 4.6
+    },
+    "course65-4fed928e-4c90-4547-b8de-30f644a9bcdf": {
+      "id": "course65-4fed928e-4c90-4547-b8de-30f644a9bcdf",
+      "name": "markets",
+      "credit": {
+        "theory": 0,
+        "practice": 1
+      },
+      "majorId": "major3-PTHSD!(-2B",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": ["course15-82c0ff7e-c84e-4690-bc24-f6ffc0005600"],
+        "coRequisites": ["course11-1539a8c1-cbd4-4cf0-aabf-262992f8c8ac"],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 3,
+      "rating": 1.9
+    },
+    "course66-e4b3b307-e975-4f72-834e-4eaffa9d5128": {
+      "id": "course66-e4b3b307-e975-4f72-834e-4eaffa9d5128",
+      "name": "Market alarm",
+      "credit": {
+        "theory": 4,
+        "practice": 2
+      },
+      "majorId": "major0-,X6z#Tj2uG",
+      "type": "Fundamental",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 4,
+      "rating": 4.9
+    },
+    "course67-4046208f-1f99-409c-a7b3-9185c0d6876c": {
+      "id": "course67-4046208f-1f99-409c-a7b3-9185c0d6876c",
+      "name": "override",
+      "credit": {
+        "theory": 3,
+        "practice": 1
+      },
+      "majorId": "major2-|J$'Bn\")V8",
+      "type": "General",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": ["course79-47f23792-e481-400d-af8f-cc92c68b8dcb"],
+        "coRequisites": ["course71-a7093b5b-f321-4f46-bf5c-9a6fee3a4883"],
+        "previous": ["course60-3fcbb86b-baf3-4f23-92dc-8870dc1b64a3"],
+        "placeholders": []
+      },
+      "difficulty": 1,
+      "rating": 3.3
+    },
+    "course68-9447ebfd-5810-4199-921f-c14b2b23c3d6": {
+      "id": "course68-9447ebfd-5810-4199-921f-c14b2b23c3d6",
+      "name": "Pine",
+      "credit": {
+        "theory": 5,
+        "practice": 4
+      },
+      "majorId": "major5-4[TltQRYPm",
+      "type": "General",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": ["course38-2c8995cb-65bd-4193-b15b-4c619da7047f"],
+        "previous": ["course52-1445af1c-ba03-4bc0-b1e4-65432e3a4c72"],
+        "placeholders": []
+      },
+      "difficulty": 5,
+      "rating": 3.9
+    },
+    "course69-7fd129ca-5cb7-4e9a-bec1-195b936e3257": {
+      "id": "course69-7fd129ca-5cb7-4e9a-bec1-195b936e3257",
+      "name": "array",
+      "credit": {
+        "theory": 2,
+        "practice": 4
+      },
+      "majorId": "major3-PTHSD!(-2B",
+      "type": "General",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": ["course26-59949be3-6d90-41ed-a59e-620d56082e6d"],
+        "coRequisites": ["course54-2fb5cff9-73f8-4bda-8e74-845b46d85f0e"],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 3,
+      "rating": 1.5
+    },
+    "course70-d88ff646-5fbc-417b-a897-ba877eaa274e": {
+      "id": "course70-d88ff646-5fbc-417b-a897-ba877eaa274e",
+      "name": "yellow pink",
+      "credit": {
+        "theory": 3,
+        "practice": 1
+      },
+      "majorId": "major0-,X6z#Tj2uG",
+      "type": "Specialization (required)",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": ["course5-b81863ae-edce-406a-9f1b-67a8c8538966"],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 2,
+      "rating": 3.8
+    },
+    "course71-a7093b5b-f321-4f46-bf5c-9a6fee3a4883": {
+      "id": "course71-a7093b5b-f321-4f46-bf5c-9a6fee3a4883",
+      "name": "Customer bypass Lilangeni",
+      "credit": {
+        "theory": 3,
+        "practice": 2
+      },
+      "majorId": "major5-4[TltQRYPm",
+      "type": "Specialization (required)",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": ["course23-ea54e401-31c0-46bb-b350-0bd7937bb3f8"],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 5,
+      "rating": 4.7
+    },
+    "course72-a932985b-678b-4aa8-9b9c-6065256de584": {
+      "id": "course72-a932985b-678b-4aa8-9b9c-6065256de584",
+      "name": "Investment open-source synergize",
+      "credit": {
+        "theory": 0,
+        "practice": 1
+      },
+      "majorId": "major5-4[TltQRYPm",
+      "type": "Specialization (required)",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": ["course16-e3851670-5ca3-42a0-9e40-43bc730660e9"]
+      },
+      "difficulty": 1,
+      "rating": 2.2
+    },
+    "course73-a5238b28-aa87-45d0-ac5c-67e5111bcf33": {
+      "id": "course73-a5238b28-aa87-45d0-ac5c-67e5111bcf33",
+      "name": "hack compress Avon",
+      "credit": {
+        "theory": 3,
+        "practice": 1
+      },
+      "majorId": "major1-r-q?CC,nW5",
+      "type": "Specialization (required)",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": ["course14-95d11b3a-8dbe-440c-9414-ba43e4a7faa7"],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": ["course4-efced40d-123b-4541-9597-9ded0c18b800"]
+      },
+      "difficulty": 4,
+      "rating": 4
+    },
+    "course74-670e83bd-5f6c-4e88-bdba-0eda4376ea11": {
+      "id": "course74-670e83bd-5f6c-4e88-bdba-0eda4376ea11",
+      "name": "withdrawal",
+      "credit": {
+        "theory": 5,
+        "practice": 0
+      },
+      "majorId": "major2-|J$'Bn\")V8",
+      "type": "Project/Intership/Thesis",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": ["course23-ea54e401-31c0-46bb-b350-0bd7937bb3f8"],
+        "previous": ["course81-4c65ee32-5284-4c31-8058-587e8187e47d"],
+        "placeholders": []
+      },
+      "difficulty": 1,
+      "rating": 0.7
+    },
+    "course75-66b02f0b-df77-4c9c-ab25-02604a7c8763": {
+      "id": "course75-66b02f0b-df77-4c9c-ab25-02604a7c8763",
+      "name": "JSON",
+      "credit": {
+        "theory": 0,
+        "practice": 5
+      },
+      "majorId": "major4-X.eK9Lm*y0",
+      "type": "General",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": ["course41-20ea09de-1a7e-452c-8187-a65b33ac69bd"],
+        "coRequisites": ["course11-1539a8c1-cbd4-4cf0-aabf-262992f8c8ac"],
+        "previous": [],
+        "placeholders": ["course90-5235c79e-3c35-4603-bdb3-91609a4862b7"]
+      },
+      "difficulty": 1,
+      "rating": 3.4
+    },
+    "course76-afe8db2f-5475-4eb6-a371-979a9161e05a": {
+      "id": "course76-afe8db2f-5475-4eb6-a371-979a9161e05a",
+      "name": "Soap Solomon Tactics",
+      "credit": {
+        "theory": 1,
+        "practice": 4
+      },
+      "majorId": "major2-|J$'Bn\")V8",
+      "type": "Specialization (elective)",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": ["course43-93d10831-ddd6-40da-aed2-42e0cc2f6ad7"],
+        "placeholders": ["course65-4fed928e-4c90-4547-b8de-30f644a9bcdf"]
+      },
+      "difficulty": 4,
+      "rating": 1.3
+    },
+    "course77-203b23d6-bca1-441d-a4d9-7d606add8916": {
+      "id": "course77-203b23d6-bca1-441d-a4d9-7d606add8916",
+      "name": "Islands",
+      "credit": {
+        "theory": 3,
+        "practice": 0
+      },
+      "majorId": "major3-PTHSD!(-2B",
+      "type": "Specialization (required)",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": ["course54-2fb5cff9-73f8-4bda-8e74-845b46d85f0e"],
+        "placeholders": ["course84-5ba9300e-70c5-42a7-817a-df1c608d86b8"]
+      },
+      "difficulty": 4,
+      "rating": 4.3
+    },
+    "course78-9d3d317c-4a9c-4a0e-8c18-81113c421eb3": {
+      "id": "course78-9d3d317c-4a9c-4a0e-8c18-81113c421eb3",
+      "name": "Rand static solid",
+      "credit": {
+        "theory": 3,
+        "practice": 2
+      },
+      "majorId": "major4-X.eK9Lm*y0",
+      "type": "General",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": ["course17-5632f029-f066-464d-bcf4-c74ad429329a"],
+        "coRequisites": ["course7-061b163b-cc9e-499f-9722-705ffc962bd3"],
+        "previous": ["course2-74362b7f-afdd-412c-83e0-254cdf8122e0"],
+        "placeholders": []
+      },
+      "difficulty": 3,
+      "rating": 2.3
+    },
+    "course79-47f23792-e481-400d-af8f-cc92c68b8dcb": {
+      "id": "course79-47f23792-e481-400d-af8f-cc92c68b8dcb",
+      "name": "reboot",
+      "credit": {
+        "theory": 5,
+        "practice": 0
+      },
+      "majorId": "major1-r-q?CC,nW5",
+      "type": "Project/Intership/Thesis",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": ["course80-8f78912f-855f-4d45-9fd5-13d1254b3d2e"],
+        "coRequisites": ["course88-5ffd3dfc-b7e3-474c-bef7-6193261a07d1"],
+        "previous": ["course36-3585d5c9-e94f-4042-be28-2dca99ef12e0"],
+        "placeholders": []
+      },
+      "difficulty": 4,
+      "rating": 2.6
+    },
+    "course80-8f78912f-855f-4d45-9fd5-13d1254b3d2e": {
+      "id": "course80-8f78912f-855f-4d45-9fd5-13d1254b3d2e",
+      "name": "networks",
+      "credit": {
+        "theory": 0,
+        "practice": 5
+      },
+      "majorId": "major1-r-q?CC,nW5",
+      "type": "Fundamental",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": ["course41-20ea09de-1a7e-452c-8187-a65b33ac69bd"],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 3,
+      "rating": 0.3
+    },
+    "course81-4c65ee32-5284-4c31-8058-587e8187e47d": {
+      "id": "course81-4c65ee32-5284-4c31-8058-587e8187e47d",
+      "name": "core Cloned IB",
+      "credit": {
+        "theory": 0,
+        "practice": 1
+      },
+      "majorId": "major1-r-q?CC,nW5",
+      "type": "General",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": ["course35-4579b04f-d138-4959-a19b-12a38507564f"],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": ["course64-9d4456a5-385a-4968-a1fc-a253dbcffd76"]
+      },
+      "difficulty": 5,
+      "rating": 0.1
+    },
+    "course82-eea29bef-b121-42e0-b2e1-04b99e7e8d59": {
+      "id": "course82-eea29bef-b121-42e0-b2e1-04b99e7e8d59",
+      "name": "neural Savings",
+      "credit": {
+        "theory": 5,
+        "practice": 2
+      },
+      "majorId": "major2-|J$'Bn\")V8",
+      "type": "General",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": ["course9-e9b3334b-9bec-4088-ad4f-102c56b858d5"],
+        "previous": ["course58-9606d819-748e-4182-922d-cae42cdbf467"],
+        "placeholders": []
+      },
+      "difficulty": 5,
+      "rating": 1.4
+    },
+    "course83-7a4995c0-d46b-48d3-99e9-adfef4e44fda": {
+      "id": "course83-7a4995c0-d46b-48d3-99e9-adfef4e44fda",
+      "name": "Associate",
+      "credit": {
+        "theory": 4,
+        "practice": 2
+      },
+      "majorId": "major0-,X6z#Tj2uG",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": ["course82-eea29bef-b121-42e0-b2e1-04b99e7e8d59"]
+      },
+      "difficulty": 3,
+      "rating": 3.9
+    },
+    "course84-5ba9300e-70c5-42a7-817a-df1c608d86b8": {
+      "id": "course84-5ba9300e-70c5-42a7-817a-df1c608d86b8",
+      "name": "hour 1080p",
+      "credit": {
+        "theory": 2,
+        "practice": 0
+      },
+      "majorId": "major4-X.eK9Lm*y0",
+      "type": "Fundamental",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": ["course1-af78466b-2d14-4e8e-8c87-23015f0d905b"],
+        "coRequisites": [],
+        "previous": ["course77-203b23d6-bca1-441d-a4d9-7d606add8916"],
+        "placeholders": ["course47-f5358bd1-9b09-45fa-b857-37da4243b935"]
+      },
+      "difficulty": 2,
+      "rating": 0.8
+    },
+    "course85-7706ed4b-495b-412b-90c2-446c080b8a67": {
+      "id": "course85-7706ed4b-495b-412b-90c2-446c080b8a67",
+      "name": "up",
+      "credit": {
+        "theory": 3,
+        "practice": 5
+      },
+      "majorId": "major1-r-q?CC,nW5",
+      "type": "Specialization (elective)",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 1,
+      "rating": 3
+    },
+    "course86-b5b0f40f-5ab1-4041-b47b-5c546d1cf584": {
+      "id": "course86-b5b0f40f-5ab1-4041-b47b-5c546d1cf584",
+      "name": "exploit transmit Rubber",
+      "credit": {
+        "theory": 2,
+        "practice": 2
+      },
+      "majorId": "major3-PTHSD!(-2B",
+      "type": "Specialization (elective)",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": ["course13-0eee00b5-bf41-49dc-ba7a-8d02641d671b"],
+        "coRequisites": [],
+        "previous": ["course38-2c8995cb-65bd-4193-b15b-4c619da7047f"],
+        "placeholders": []
+      },
+      "difficulty": 2,
+      "rating": 3.2
+    },
+    "course87-ffb9288a-a624-43ba-85c6-2e67d34570be": {
+      "id": "course87-ffb9288a-a624-43ba-85c6-2e67d34570be",
+      "name": "Dynamic",
+      "credit": {
+        "theory": 0,
+        "practice": 5
+      },
+      "majorId": "major4-X.eK9Lm*y0",
+      "type": "Specialization (required)",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": ["course3-5e977a2c-2622-4f2c-b603-f82c31e2f5ee"],
+        "coRequisites": ["course90-5235c79e-3c35-4603-bdb3-91609a4862b7"],
+        "previous": [],
+        "placeholders": ["course88-5ffd3dfc-b7e3-474c-bef7-6193261a07d1"]
+      },
+      "difficulty": 2,
+      "rating": 3.8
+    },
+    "course88-5ffd3dfc-b7e3-474c-bef7-6193261a07d1": {
+      "id": "course88-5ffd3dfc-b7e3-474c-bef7-6193261a07d1",
+      "name": "Soft Indiana",
+      "credit": {
+        "theory": 5,
+        "practice": 1
+      },
+      "majorId": "major3-PTHSD!(-2B",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": ["course80-8f78912f-855f-4d45-9fd5-13d1254b3d2e"],
+        "previous": ["course72-a932985b-678b-4aa8-9b9c-6065256de584"],
+        "placeholders": []
+      },
+      "difficulty": 3,
+      "rating": 2
+    },
+    "course89-63a473b6-74f1-4a19-9d24-9678b4e7184e": {
+      "id": "course89-63a473b6-74f1-4a19-9d24-9678b4e7184e",
+      "name": "Handcrafted",
+      "credit": {
+        "theory": 3,
+        "practice": 2
+      },
+      "majorId": "major2-|J$'Bn\")V8",
+      "type": "Specialization (required)",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": ["course8-d160fffe-2287-4368-80e4-9a16e17713b1"],
+        "previous": ["course58-9606d819-748e-4182-922d-cae42cdbf467"],
+        "placeholders": ["course60-3fcbb86b-baf3-4f23-92dc-8870dc1b64a3"]
+      },
+      "difficulty": 5,
+      "rating": 0.1
+    },
+    "course90-5235c79e-3c35-4603-bdb3-91609a4862b7": {
+      "id": "course90-5235c79e-3c35-4603-bdb3-91609a4862b7",
+      "name": "protocol deliver Legacy",
+      "credit": {
+        "theory": 2,
+        "practice": 0
+      },
+      "majorId": "major4-X.eK9Lm*y0",
+      "type": "Fundamental",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": ["course4-efced40d-123b-4541-9597-9ded0c18b800"],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 5,
+      "rating": 3.5
+    },
+    "course91-f0d54978-4c5f-422b-9986-ca137b1bc5fc": {
+      "id": "course91-f0d54978-4c5f-422b-9986-ca137b1bc5fc",
+      "name": "Guinea THX",
+      "credit": {
+        "theory": 1,
+        "practice": 4
+      },
+      "majorId": "major1-r-q?CC,nW5",
+      "type": "Fundamental",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "relationships": {
+        "preRequisites": ["course22-d2cf25b8-2045-4090-8848-035832be0f9e"],
+        "coRequisites": ["course19-19200b39-263a-4542-9c68-f0b11729d1d0"],
+        "previous": ["course6-f4077cf0-7903-4d76-bd6c-c51382eef598"],
+        "placeholders": ["course83-7a4995c0-d46b-48d3-99e9-adfef4e44fda"]
+      },
+      "difficulty": 1,
+      "rating": 0.3
+    }
+  },
+  "allCourseIds": [
+    "course0-9ca09714-296d-493a-bcc1-e98fe3bf2f59",
+    "course1-af78466b-2d14-4e8e-8c87-23015f0d905b",
+    "course2-74362b7f-afdd-412c-83e0-254cdf8122e0",
+    "course3-5e977a2c-2622-4f2c-b603-f82c31e2f5ee",
+    "course4-efced40d-123b-4541-9597-9ded0c18b800",
+    "course5-b81863ae-edce-406a-9f1b-67a8c8538966",
+    "course6-f4077cf0-7903-4d76-bd6c-c51382eef598",
+    "course7-061b163b-cc9e-499f-9722-705ffc962bd3",
+    "course8-d160fffe-2287-4368-80e4-9a16e17713b1",
+    "course9-e9b3334b-9bec-4088-ad4f-102c56b858d5",
+    "course10-4e45bcf9-efae-41fd-b768-0ac3ec099e85",
+    "course11-1539a8c1-cbd4-4cf0-aabf-262992f8c8ac",
+    "course12-df1d1fba-331d-4230-9289-cd20e2551a62",
+    "course13-0eee00b5-bf41-49dc-ba7a-8d02641d671b",
+    "course14-95d11b3a-8dbe-440c-9414-ba43e4a7faa7",
+    "course15-82c0ff7e-c84e-4690-bc24-f6ffc0005600",
+    "course16-e3851670-5ca3-42a0-9e40-43bc730660e9",
+    "course17-5632f029-f066-464d-bcf4-c74ad429329a",
+    "course18-393a392a-8661-44a8-9744-15f0fb77021c",
+    "course19-19200b39-263a-4542-9c68-f0b11729d1d0",
+    "course20-cb5a7048-5bda-4f55-8e65-e7cb70630df7",
+    "course21-3ab17fce-2037-498a-b88b-8856b5df1a67",
+    "course22-d2cf25b8-2045-4090-8848-035832be0f9e",
+    "course23-ea54e401-31c0-46bb-b350-0bd7937bb3f8",
+    "course24-7cb9bfaf-e7c7-416d-ac1d-e58bf33eae8b",
+    "course25-111743de-fe38-4ff8-bfb8-d32f11b2d30a",
+    "course26-59949be3-6d90-41ed-a59e-620d56082e6d",
+    "course27-267cb649-c88f-4536-8355-9a3a6a992f5d",
+    "course28-5b90d740-9dcb-4f8b-a655-f8523bff38e4",
+    "course29-c1db1aed-bcd2-43bb-b79a-933f7dd07d44",
+    "course30-ead2b073-a6a8-4f88-b8d0-1d7af37d67a3",
+    "course31-2cb161fe-f5d7-4766-8eec-3a457e4028b9",
+    "course32-42ebf552-057b-4d31-a2d2-a1b04d36d282",
+    "course33-7a4ca5e6-acc9-45fe-96e3-857dd103bb52",
+    "course34-16d0825d-6d68-4e9f-9024-9ca32d58a47d",
+    "course35-4579b04f-d138-4959-a19b-12a38507564f",
+    "course36-3585d5c9-e94f-4042-be28-2dca99ef12e0",
+    "course37-045cd1fd-c0cc-4046-97c3-d3b50de15572",
+    "course38-2c8995cb-65bd-4193-b15b-4c619da7047f",
+    "course39-7491011b-da23-4d4b-8467-cc5ed8e07079",
+    "course40-0edd0f11-2cf4-4f46-9ed4-5be447e3b1a5",
+    "course41-20ea09de-1a7e-452c-8187-a65b33ac69bd",
+    "course42-a5da4658-8424-4177-9ba7-57bdc5b836b8",
+    "course43-93d10831-ddd6-40da-aed2-42e0cc2f6ad7",
+    "course44-11b11e85-add9-4ff4-ab4e-176be7a4d776",
+    "course45-6da4839c-fe4e-46c7-bde3-4e96d44950d9",
+    "course46-dead0864-e5dc-46aa-851f-85e4e5406a72",
+    "course47-f5358bd1-9b09-45fa-b857-37da4243b935",
+    "course48-fa3ec991-57e2-4977-be3d-1fbc4cc9d26a",
+    "course49-fcbbf945-9103-40f3-9cb2-7d1f8819874e",
+    "course50-1ebb7634-3589-48f3-9668-4ca6f0e052f2",
+    "course51-c3a1f53d-beb3-4086-86ff-9ca0b4605a21",
+    "course52-1445af1c-ba03-4bc0-b1e4-65432e3a4c72",
+    "course53-15a83b99-6ee8-4579-8f63-1f657ba4ce09",
+    "course54-2fb5cff9-73f8-4bda-8e74-845b46d85f0e",
+    "course55-4c20bc87-0754-4a93-848b-538a1f6939b3",
+    "course56-77faab60-461d-4b5b-ac47-6963880d7493",
+    "course57-73f1beb7-ba4d-411f-a454-2fa1aa37adb4",
+    "course58-9606d819-748e-4182-922d-cae42cdbf467",
+    "course59-8eecac23-52e6-4fb1-ac06-99c4df4d5547",
+    "course60-3fcbb86b-baf3-4f23-92dc-8870dc1b64a3",
+    "course61-a798efc4-7ec7-4ee0-8e20-b27ec0b46046",
+    "course62-7307e4e2-8922-4cc2-a403-ba25eaed3cd9",
+    "course63-8cda2852-736c-49f9-b413-5e38b2f41a04",
+    "course64-9d4456a5-385a-4968-a1fc-a253dbcffd76",
+    "course65-4fed928e-4c90-4547-b8de-30f644a9bcdf",
+    "course66-e4b3b307-e975-4f72-834e-4eaffa9d5128",
+    "course67-4046208f-1f99-409c-a7b3-9185c0d6876c",
+    "course68-9447ebfd-5810-4199-921f-c14b2b23c3d6",
+    "course69-7fd129ca-5cb7-4e9a-bec1-195b936e3257",
+    "course70-d88ff646-5fbc-417b-a897-ba877eaa274e",
+    "course71-a7093b5b-f321-4f46-bf5c-9a6fee3a4883",
+    "course72-a932985b-678b-4aa8-9b9c-6065256de584",
+    "course73-a5238b28-aa87-45d0-ac5c-67e5111bcf33",
+    "course74-670e83bd-5f6c-4e88-bdba-0eda4376ea11",
+    "course75-66b02f0b-df77-4c9c-ab25-02604a7c8763",
+    "course76-afe8db2f-5475-4eb6-a371-979a9161e05a",
+    "course77-203b23d6-bca1-441d-a4d9-7d606add8916",
+    "course78-9d3d317c-4a9c-4a0e-8c18-81113c421eb3",
+    "course79-47f23792-e481-400d-af8f-cc92c68b8dcb",
+    "course80-8f78912f-855f-4d45-9fd5-13d1254b3d2e",
+    "course81-4c65ee32-5284-4c31-8058-587e8187e47d",
+    "course82-eea29bef-b121-42e0-b2e1-04b99e7e8d59",
+    "course83-7a4995c0-d46b-48d3-99e9-adfef4e44fda",
+    "course84-5ba9300e-70c5-42a7-817a-df1c608d86b8",
+    "course85-7706ed4b-495b-412b-90c2-446c080b8a67",
+    "course86-b5b0f40f-5ab1-4041-b47b-5c546d1cf584",
+    "course87-ffb9288a-a624-43ba-85c6-2e67d34570be",
+    "course88-5ffd3dfc-b7e3-474c-bef7-6193261a07d1",
+    "course89-63a473b6-74f1-4a19-9d24-9678b4e7184e",
+    "course90-5235c79e-3c35-4603-bdb3-91609a4862b7",
+    "course91-f0d54978-4c5f-422b-9986-ca137b1bc5fc"
+  ]
+}

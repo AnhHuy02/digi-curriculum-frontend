@@ -5,6 +5,7 @@ import { Position } from "react-flow-renderer";
 import _intersection from "lodash/intersection";
 
 import { store } from "src/redux/_store";
+import { ICourseItemSimple } from "src/types/Course.type";
 
 const courseNodeStyle = {
   width: 120,
@@ -58,12 +59,13 @@ export const getDndNodesAndEdges = (
       }
     >;
     allYearsOrder: string[];
-  }
+  },
+  allCourses: Record<string, ICourseItemSimple> = store.getState().courses
+    .courses
 ): { nodes: Node[]; edges: Edge[] } => {
   let nodesTemp: Node[] = [];
   let edgesTemp: Edge[] = [];
 
-  const allCourses = store.getState().courses.courses;
   const curriculumBefore = curriculumA;
   const curriculumAfter = curriculumB;
 

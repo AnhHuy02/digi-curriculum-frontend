@@ -1,0 +1,437 @@
+digraph "G" {
+  label = "Curriculum for IT";
+  labelloc = "t";
+  fontsize = 80;
+  rankdir = "LR";
+  bgcolor = "white";
+  "year-1-sem-1" [
+    id = "sem1",
+    label = "Semester 1",
+    shape = "plaintext",
+    fontsize = 40,
+    fontname = "Times-Bold",
+  ];
+  "year-1-sem-2" [
+    id = "sem2",
+    label = "Semester 2",
+    shape = "plaintext",
+    fontsize = 40,
+    fontname = "Times-Bold",
+  ];
+  "year-1-sem-3" [
+    id = "summer1",
+    label = "Summer 1",
+    shape = "plaintext",
+    fontsize = 40,
+    fontname = "Times-Bold",
+  ];
+  "year-2-sem-1" [
+    id = "sem3",
+    label = "Semester 3",
+    shape = "plaintext",
+    fontsize = 40,
+    fontname = "Times-Bold",
+  ];
+  "year-2-sem-2" [
+    id = "sem4",
+    label = "Semester 4",
+    shape = "plaintext",
+    fontsize = 40,
+    fontname = "Times-Bold",
+  ];
+  "year-2-sem-3" [
+    id = "summer2",
+    label = "Summer 2",
+    shape = "plaintext",
+    fontsize = 40,
+    fontname = "Times-Bold",
+  ];
+  subgraph {
+    rank = "same";
+    "year-1-sem-1";
+    "course62-7307e4e2-8922-4cc2-a403-ba25eaed3cd9" [
+      id = "course62-7307e4e2-8922-4cc2-a403-ba25eaed3cd9",
+      label = "deploy holistic\n(2, 0)",
+      shape = "rectangle",
+      width = 4,
+      fontsize = 30,
+      margin = 0.2,
+      style = "filled",
+      fillcolor = "#DAE8FC",
+      color = "#6C8EBF",
+    ];
+    "course48-fa3ec991-57e2-4977-be3d-1fbc4cc9d26a" [
+      id = "course48-fa3ec991-57e2-4977-be3d-1fbc4cc9d26a",
+      label = "hybrid\n(0, 2)",
+      shape = "rectangle",
+      width = 4,
+      fontsize = 30,
+      margin = 0.2,
+      style = "filled",
+      fillcolor = "#DAE8FC",
+      color = "#6C8EBF",
+    ];
+    "course22-d2cf25b8-2045-4090-8848-035832be0f9e" [
+      id = "course22-d2cf25b8-2045-4090-8848-035832be0f9e",
+      label = "reinvent\n(1, 0)",
+      shape = "rectangle",
+      width = 4,
+      fontsize = 30,
+      margin = 0.2,
+      style = "filled",
+      fillcolor = "#DAE8FC",
+      color = "#6C8EBF",
+    ];
+    "course67-4046208f-1f99-409c-a7b3-9185c0d6876c" [
+      id = "course67-4046208f-1f99-409c-a7b3-9185c0d6876c",
+      label = "override\n(3, 1)",
+      shape = "rectangle",
+      width = 4,
+      fontsize = 30,
+      margin = 0.2,
+      style = "filled",
+      fillcolor = "#FFFFFF",
+      color = "#000000",
+    ];
+    "course83-7a4995c0-d46b-48d3-99e9-adfef4e44fda" [
+      id = "course83-7a4995c0-d46b-48d3-99e9-adfef4e44fda",
+      label = "Associate\n(4, 2)",
+      shape = "rectangle",
+      width = 4,
+      fontsize = 30,
+      margin = 0.2,
+      style = "filled",
+      fillcolor = "#FFFFFF",
+      color = "#000000",
+    ];
+    "course85-7706ed4b-495b-412b-90c2-446c080b8a67" [
+      id = "course85-7706ed4b-495b-412b-90c2-446c080b8a67",
+      label = "up\n(3, 5)",
+      shape = "rectangle",
+      width = 4,
+      fontsize = 30,
+      margin = 0.2,
+      style = "filled",
+      fillcolor = "#DAE8FC",
+      color = "#6C8EBF",
+    ];
+  }
+  subgraph {
+    rank = "same";
+    "year-1-sem-2";
+    "course91-f0d54978-4c5f-422b-9986-ca137b1bc5fc" [
+      id = "course91-f0d54978-4c5f-422b-9986-ca137b1bc5fc",
+      label = "Guinea THX\n(1, 4)",
+      shape = "rectangle",
+      width = 4,
+      fontsize = 30,
+      margin = 0.2,
+      style = "filled",
+      fillcolor = "#FFFFFF",
+      color = "#000000",
+    ];
+    "course81-4c65ee32-5284-4c31-8058-587e8187e47d" [
+      id = "course81-4c65ee32-5284-4c31-8058-587e8187e47d",
+      label = "core Cloned IB\n(0, 1)",
+      shape = "rectangle",
+      width = 4,
+      fontsize = 30,
+      margin = 0.2,
+      style = "filled",
+      fillcolor = "#FFFFFF",
+      color = "#000000",
+    ];
+    "course47-f5358bd1-9b09-45fa-b857-37da4243b935" [
+      id = "course47-f5358bd1-9b09-45fa-b857-37da4243b935",
+      label = "payment Hollow\n(3, 5)",
+      shape = "rectangle",
+      width = 4,
+      fontsize = 30,
+      margin = 0.2,
+      style = "filled",
+      fillcolor = "#FFFFFF",
+      color = "#000000",
+    ];
+    "course15-82c0ff7e-c84e-4690-bc24-f6ffc0005600" [
+      id = "course15-82c0ff7e-c84e-4690-bc24-f6ffc0005600",
+      label = "redefine\n(1, 2)",
+      shape = "rectangle",
+      width = 4,
+      fontsize = 30,
+      margin = 0.2,
+      style = "filled",
+      fillcolor = "#FFFFFF",
+      color = "#000000",
+    ];
+    "course50-1ebb7634-3589-48f3-9668-4ca6f0e052f2" [
+      id = "course50-1ebb7634-3589-48f3-9668-4ca6f0e052f2",
+      label = "granular Health unleash\n(1, 1)",
+      shape = "rectangle",
+      width = 4,
+      fontsize = 30,
+      margin = 0.2,
+      style = "filled",
+      fillcolor = "#FFFFFF",
+      color = "#000000",
+    ];
+    "course14-95d11b3a-8dbe-440c-9414-ba43e4a7faa7" [
+      id = "course14-95d11b3a-8dbe-440c-9414-ba43e4a7faa7",
+      label = "bus\n(0, 5)",
+      shape = "rectangle",
+      width = 4,
+      fontsize = 30,
+      margin = 0.2,
+      style = "filled",
+      fillcolor = "#FFFFFF",
+      color = "#000000",
+    ];
+  }
+  subgraph {
+    rank = "same";
+    "year-1-sem-3";
+    "course33-7a4ca5e6-acc9-45fe-96e3-857dd103bb52" [
+      id = "course33-7a4ca5e6-acc9-45fe-96e3-857dd103bb52",
+      label = "Horizontal Books Salad\n(2, 5)",
+      shape = "rectangle",
+      width = 4,
+      fontsize = 30,
+      margin = 0.2,
+      style = "filled",
+      fillcolor = "#DAE8FC",
+      color = "#6C8EBF",
+    ];
+    "course56-77faab60-461d-4b5b-ac47-6963880d7493" [
+      id = "course56-77faab60-461d-4b5b-ac47-6963880d7493",
+      label = "Consultant\n(0, 5)",
+      shape = "rectangle",
+      width = 4,
+      fontsize = 30,
+      margin = 0.2,
+      style = "filled",
+      fillcolor = "#DAE8FC",
+      color = "#6C8EBF",
+    ];
+  }
+  subgraph {
+    rank = "same";
+    "year-2-sem-1";
+    "course35-4579b04f-d138-4959-a19b-12a38507564f" [
+      id = "course35-4579b04f-d138-4959-a19b-12a38507564f",
+      label = "Specialist\n(2, 5)",
+      shape = "rectangle",
+      width = 4,
+      fontsize = 30,
+      margin = 0.2,
+      style = "filled",
+      fillcolor = "#FFFFFF",
+      color = "#000000",
+    ];
+    "course63-8cda2852-736c-49f9-b413-5e38b2f41a04" [
+      id = "course63-8cda2852-736c-49f9-b413-5e38b2f41a04",
+      label = "heuristic\n(1, 4)",
+      shape = "rectangle",
+      width = 4,
+      fontsize = 30,
+      margin = 0.2,
+      style = "filled",
+      fillcolor = "#FFFFFF",
+      color = "#000000",
+    ];
+    "course89-63a473b6-74f1-4a19-9d24-9678b4e7184e" [
+      id = "course89-63a473b6-74f1-4a19-9d24-9678b4e7184e",
+      label = "Handcrafted\n(3, 2)",
+      shape = "rectangle",
+      width = 4,
+      fontsize = 30,
+      margin = 0.2,
+      style = "filled",
+      fillcolor = "#DAE8FC",
+      color = "#6C8EBF",
+    ];
+    "course34-16d0825d-6d68-4e9f-9024-9ca32d58a47d" [
+      id = "course34-16d0825d-6d68-4e9f-9024-9ca32d58a47d",
+      label = "Incredible\n(0, 4)",
+      shape = "rectangle",
+      width = 4,
+      fontsize = 30,
+      margin = 0.2,
+      style = "filled",
+      fillcolor = "#DAE8FC",
+      color = "#6C8EBF",
+    ];
+  }
+  subgraph {
+    rank = "same";
+    "year-2-sem-2";
+    "course75-66b02f0b-df77-4c9c-ab25-02604a7c8763" [
+      id = "course75-66b02f0b-df77-4c9c-ab25-02604a7c8763",
+      label = "JSON\n(0, 5)",
+      shape = "rectangle",
+      width = 4,
+      fontsize = 30,
+      margin = 0.2,
+      style = "filled",
+      fillcolor = "#FFFFFF",
+      color = "#000000",
+    ];
+    "course58-9606d819-748e-4182-922d-cae42cdbf467" [
+      id = "course58-9606d819-748e-4182-922d-cae42cdbf467",
+      label = "digital purple Tasty\n(1, 2)",
+      shape = "rectangle",
+      width = 4,
+      fontsize = 30,
+      margin = 0.2,
+      style = "filled",
+      fillcolor = "#DAE8FC",
+      color = "#6C8EBF",
+    ];
+    "course6-f4077cf0-7903-4d76-bd6c-c51382eef598" [
+      id = "course6-f4077cf0-7903-4d76-bd6c-c51382eef598",
+      label = "Republic CSS\n(2, 2)",
+      shape = "rectangle",
+      width = 4,
+      fontsize = 30,
+      margin = 0.2,
+      style = "filled",
+      fillcolor = "#FFFFFF",
+      color = "#000000",
+    ];
+    "course87-ffb9288a-a624-43ba-85c6-2e67d34570be" [
+      id = "course87-ffb9288a-a624-43ba-85c6-2e67d34570be",
+      label = "Dynamic\n(0, 5)",
+      shape = "rectangle",
+      width = 4,
+      fontsize = 30,
+      margin = 0.2,
+      style = "filled",
+      fillcolor = "#DAE8FC",
+      color = "#6C8EBF",
+    ];
+    "course27-267cb649-c88f-4536-8355-9a3a6a992f5d" [
+      id = "course27-267cb649-c88f-4536-8355-9a3a6a992f5d",
+      label = "engine\n(1, 0)",
+      shape = "rectangle",
+      width = 4,
+      fontsize = 30,
+      margin = 0.2,
+      style = "filled",
+      fillcolor = "#FFFFFF",
+      color = "#000000",
+    ];
+    "course71-a7093b5b-f321-4f46-bf5c-9a6fee3a4883" [
+      id = "course71-a7093b5b-f321-4f46-bf5c-9a6fee3a4883",
+      label = "Customer bypass Lilangeni\n(3, 2)",
+      shape = "rectangle",
+      width = 4,
+      fontsize = 30,
+      margin = 0.2,
+      style = "filled",
+      fillcolor = "#DAE8FC",
+      color = "#6C8EBF",
+    ];
+  }
+  subgraph {
+    rank = "same";
+    "year-2-sem-3";
+    "course16-e3851670-5ca3-42a0-9e40-43bc730660e9" [
+      id = "course16-e3851670-5ca3-42a0-9e40-43bc730660e9",
+      label = "Borders Handcrafted\n(1, 3)",
+      shape = "rectangle",
+      width = 4,
+      fontsize = 30,
+      margin = 0.2,
+      style = "filled",
+      fillcolor = "#DAE8FC",
+      color = "#6C8EBF",
+    ];
+    "course66-e4b3b307-e975-4f72-834e-4eaffa9d5128" [
+      id = "course66-e4b3b307-e975-4f72-834e-4eaffa9d5128",
+      label = "Market alarm\n(4, 2)",
+      shape = "rectangle",
+      width = 4,
+      fontsize = 30,
+      margin = 0.2,
+      style = "filled",
+      fillcolor = "#FFFFFF",
+      color = "#000000",
+    ];
+  }
+  subgraph "legend" {
+    id = "legend";
+    labeljust = "l";
+    color = "black";
+    fontsize = 30;
+    "year-1-sem-1b" [
+      id = "sem1",
+      label = "Semester 1",
+      shape = "plaintext",
+      fontsize = 40,
+      fontname = "Times-Bold",
+    ];
+    "year-1-sem-2b" [
+      id = "sem2",
+      label = "Semester 2",
+      shape = "plaintext",
+      fontsize = 40,
+      fontname = "Times-Bold",
+    ];
+    "year-1-sem-3b" [
+      id = "summer1",
+      label = "Summer 1",
+      shape = "plaintext",
+      fontsize = 40,
+      fontname = "Times-Bold",
+    ];
+    "year-2-sem-1b" [
+      id = "sem3",
+      label = "Semester 3",
+      shape = "plaintext",
+      fontsize = 40,
+      fontname = "Times-Bold",
+    ];
+    "year-2-sem-2b" [
+      id = "sem4",
+      label = "Semester 4",
+      shape = "plaintext",
+      fontsize = 40,
+      fontname = "Times-Bold",
+    ];
+    "year-2-sem-3b" [
+      id = "summer2",
+      label = "Summer 2",
+      shape = "plaintext",
+      fontsize = 40,
+      fontname = "Times-Bold",
+    ];
+    "year-1-sem-1b" -> "year-1-sem-2b" -> "year-1-sem-3b" -> "year-2-sem-1b" -> "year-2-sem-2b" -> "year-2-sem-3b" [
+      style = "invis",
+    ];
+  }
+  "year-1-sem-1" -> "year-1-sem-2" -> "year-1-sem-3" -> "year-2-sem-1" -> "year-2-sem-2" -> "year-2-sem-3" [
+    style = "invis",
+  ];
+  "course67-4046208f-1f99-409c-a7b3-9185c0d6876c" -> "course71-a7093b5b-f321-4f46-bf5c-9a6fee3a4883" [
+    label = "corequisite",
+    constraint = false,
+    arrowhead = "none",
+  ];
+  "course22-d2cf25b8-2045-4090-8848-035832be0f9e" -> "course91-f0d54978-4c5f-422b-9986-ca137b1bc5fc" [
+    label = "prerequisites",
+  ];
+  "course6-f4077cf0-7903-4d76-bd6c-c51382eef598" -> "course91-f0d54978-4c5f-422b-9986-ca137b1bc5fc" [
+    label = "previous",
+    style = "dashed",
+  ];
+  "course35-4579b04f-d138-4959-a19b-12a38507564f" -> "course81-4c65ee32-5284-4c31-8058-587e8187e47d" [
+    label = "prerequisites",
+  ];
+  "course47-f5358bd1-9b09-45fa-b857-37da4243b935" -> "course91-f0d54978-4c5f-422b-9986-ca137b1bc5fc" [
+    label = "corequisite",
+    constraint = false,
+    arrowhead = "none",
+  ];
+  "course58-9606d819-748e-4182-922d-cae42cdbf467" -> "course89-63a473b6-74f1-4a19-9d24-9678b4e7184e" [
+    label = "previous",
+    style = "dashed",
+  ];
+}

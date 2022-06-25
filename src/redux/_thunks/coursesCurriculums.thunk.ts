@@ -85,7 +85,8 @@ export const initRandomCurriculumDetailPageData = createAsyncThunk(
         })
       );
       const coursesPayload = coursesResponse.payload as IRandomCoursesReturn;
-      // console.log(coursesPayload);
+      // console.log("GENERATE COURSES");
+      // console.log(coursesResponse.payload);
 
       const curriculumItemDetailResponse = await dispatch(
         loadRandomCurriculumDetail({
@@ -99,6 +100,8 @@ export const initRandomCurriculumDetailPageData = createAsyncThunk(
           electiveGroupIds: [],
         })
       );
+      // console.log("GENERATE A CURRICULUM");
+      // console.log(curriculumItemDetailResponse.payload);
       // #endregion
 
       // #region Step 3: For Add Course feature, handle checkbox based on

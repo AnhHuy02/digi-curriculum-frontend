@@ -1,4 +1,5 @@
 import type { FC } from "react";
+import type { ICourseItemSimple } from "src/types/Course.type";
 
 import { useState, useMemo } from "react";
 import ReactFlow, {
@@ -12,8 +13,10 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
+import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import CompareArrowsIcon from "@mui/icons-material/CompareArrows";
+import UploadFileIcon from "@mui/icons-material/UploadFile";
 import SwapHorizIcon from "@mui/icons-material/SwapHoriz";
 
 import { useAppSelector } from "src/hooks/useStore";
@@ -21,12 +24,28 @@ import { getDndNodesAndEdges } from "src/helper/diagramGenerator/diffDiagramSimp
 import TextNode from "../../DndPane/DndByCourseRelationship/CustomNodes/TextNode";
 import SemesterNodePreview from "../../DndPane/DndByCourseRelationship/CustomNodes/SemesterNodePreview";
 import CourseNodePreview from "../../DndPane/DndByCourseRelationship/CustomNodes/CourseNodePreview";
-import Button from "@mui/material/Button";
+import CurriculumCompareUploadModal from "./CurriculumCompareUploadModal";
 
 const nodeTypes = {
   textNode: TextNode,
   semesterNode: SemesterNodePreview,
   courseNode: CourseNodePreview,
+};
+
+type CurriculumItem = {
+  allYears: Record<
+    string,
+    {
+      semesters: Record<string, { courseIds: string[] }>;
+      semestersOrder: string[];
+    }
+  >;
+  allYearsOrder: string[];
+};
+
+type Courses = {
+  allCourseIds: string[];
+  allCourses: Record<string, ICourseItemSimple>;
 };
 
 interface CurriculumCompareProps {
@@ -47,6 +66,7 @@ const CurriculumCompare: FC<CurriculumCompareProps> = ({ width, height }) => {
 
   const [nodes, setNodes] = useNodesState([]);
 
+  const [modalUploadOpen, setModalUploadOpen] = useState<boolean>(false);
   const [curriculumInputA, setCurriculumInputA] =
     useState<string>("Curriculum Before");
   const [curriculumA, setCurriculumA] = useState<{
@@ -104,6 +124,24 @@ const CurriculumCompare: FC<CurriculumCompareProps> = ({ width, height }) => {
   const handleCurriculumBChange = (event: SelectChangeEvent) => {
     const newValue = event.target.value;
     setCurriculumInputB(newValue);
+  };
+
+  const handleGetJsonFile = (
+    newData: Courses & {
+      curriculumA: CurriculumItem;
+      curriculumB: CurriculumItem;
+    }
+  ) => {
+    setModalUploadOpen(false);
+
+    const { allCourses, allCourseIds, curriculumA, curriculumB } = newData;
+    const { nodes: initialNodes } = getDndNodesAndEdges(
+      curriculumA,
+      curriculumB,
+      allCourses
+    );
+    
+    setNodes(initialNodes);
   };
 
   const swapTwoInputs = () => {
@@ -197,6 +235,20 @@ const CurriculumCompare: FC<CurriculumCompareProps> = ({ width, height }) => {
             fullWidth
             variant="contained"
             size="large"
+            endIcon={<UploadFileIcon />}
+            onClick={() => setModalUploadOpen(true)}
+            sx={{
+              height: "100%",
+            }}
+          >
+            Import
+          </Button>
+        </Box>
+        <Box display="flex" alignItems="center" justifyContent="center">
+          <Button
+            fullWidth
+            variant="contained"
+            size="large"
             endIcon={<CompareArrowsIcon />}
             onClick={() => compareTwoCurriculums()}
             disabled={getDisabledInputCondition()}
@@ -226,6 +278,11 @@ const CurriculumCompare: FC<CurriculumCompareProps> = ({ width, height }) => {
           </ReactFlow>
         </ReactFlowProvider>
       </Box>
+      <CurriculumCompareUploadModal
+        isOpen={modalUploadOpen}
+        onConfirm={handleGetJsonFile}
+        onClose={() => setModalUploadOpen(false)}
+      />
     </Box>
   );
 };
