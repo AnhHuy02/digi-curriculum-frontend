@@ -1,14 +1,7 @@
-import type {
-  IMajorSimple,
-  IRandomMajorsReturn,
-} from "src/types/Department.type";
-import type {
-  ICourseItemSimple,
-  ICourseTypeDistribution,
-  IRandomCoursesParam,
-  IRandomCoursesReturn,
-} from "src/types/Course.type";
+import type { IMajor } from "src/types/Department.type";
+import type { ICourse, IRandomCoursesParam } from "src/types/Course.type";
 import type { IRange } from "src/types/Others.type";
+import type { ArrayNormalizer } from "src/types/Normalizer.type";
 
 import faker from "@faker-js/faker";
 import _sample from "lodash/sample";
@@ -26,14 +19,14 @@ import { CourseType } from "src/constants/course.const";
 export const generateRandomMajors = ({
   min,
   max,
-}: IRange): IRandomMajorsReturn => {
+}: IRange): ArrayNormalizer<IMajor> => {
   const majorCount = faker.datatype.number({ min, max });
 
-  let allMajors: Record<string, IMajorSimple> = {};
-  let allMajorIds = Array.from({ length: majorCount }, (item, i) => {
+  let byId: Record<string, IMajor> = {};
+  let allIds = Array.from({ length: majorCount }, (item, i) => {
     const majorId = "major" + i.toString() + "-" + faker.datatype.string();
 
-    allMajors[majorId] = {
+    byId[majorId] = {
       id: majorId,
       name: faker.name.title(),
     };
@@ -42,8 +35,8 @@ export const generateRandomMajors = ({
   });
 
   return {
-    allMajors,
-    allMajorIds,
+    byId,
+    allIds,
   };
 };
 
@@ -92,21 +85,21 @@ export const generateRandomCourses = ({
       frequency: 10,
     },
   ],
-}: IRandomCoursesParam): IRandomCoursesReturn => {
+}: IRandomCoursesParam): ArrayNormalizer<ICourse> => {
   const courseCount = faker.datatype.number(randomCourseCount);
 
   // Step 1: Initialize random courses
-  let allCourses: Record<string, ICourseItemSimple> = {};
+  let byId: Record<string, ICourse> = {};
   const courseTypesByCumulativeFrequencies = getCumulativeFrequencies(
     courseTypeDistribution
   );
 
-  let allCourseIds = Array.from({ length: courseCount }, (item, i) => {
-    const courseId = "course" + i.toString() + "-" + faker.datatype.uuid();
+  let allIds = Array.from({ length: courseCount }, (item, i) => {
+    const courseId = `course${i}-${faker.datatype.uuid()}`;
     const randomNameLength = faker.datatype.number(nameLength);
     const randomMajorId = _sample(allMajorIds) as string;
 
-    allCourses[courseId] = {
+    byId[courseId] = {
       id: courseId,
       name: faker.random.words(randomNameLength),
       credit: {
@@ -136,9 +129,9 @@ export const generateRandomCourses = ({
   });
 
   // Step 2: Add courses relationship
-  allCourseIds.forEach((courseId) => {
+  allIds.forEach((courseId) => {
     // Prevent duplicate relationship when selecting a course randomly
-    let tempAllCourseIds = [...allCourseIds];
+    let tempAllCourseIds = [...allIds];
 
     //#region Random PreRequisite relationship
     const randomPreRequisiteCount = faker.datatype.number(
@@ -185,7 +178,7 @@ export const generateRandomCourses = ({
     );
     //#endregion
 
-    allCourses[courseId].relationships = {
+    byId[courseId].relationships = {
       preRequisites: randomPreRequisiteIds,
       coRequisites: randomCoRequisiteIds,
       previous: randomPreviousIds,
@@ -194,14 +187,14 @@ export const generateRandomCourses = ({
   });
 
   // Step 2.5: Remove duplicated relationship
-  allCourseIds.forEach((courseId) => {
+  allIds.forEach((courseId) => {
     // Prevent duplicate relationship when selecting a course randomly
     const { preRequisites, coRequisites, previous, placeholders } =
-      allCourses[courseId].relationships;
+      byId[courseId].relationships;
 
     //#region Remove duplicated PreRequisite relationship
     preRequisites.forEach((preRequisiteId) => {
-      const oppositeRelationships = allCourses[preRequisiteId].relationships;
+      const oppositeRelationships = byId[preRequisiteId].relationships;
 
       if (
         oppositeRelationships.preRequisites.some(
@@ -215,7 +208,7 @@ export const generateRandomCourses = ({
 
     //#region Remove duplicated CoRequisite relationship
     coRequisites.forEach((coRequisiteId) => {
-      const oppositeRelationships = allCourses[coRequisiteId].relationships;
+      const oppositeRelationships = byId[coRequisiteId].relationships;
 
       if (
         oppositeRelationships.coRequisites.some(
@@ -229,7 +222,7 @@ export const generateRandomCourses = ({
 
     //#region Remove duplicated Previous relationship
     previous.forEach((previousId) => {
-      const oppositeRelationships = allCourses[previousId].relationships;
+      const oppositeRelationships = byId[previousId].relationships;
 
       if (
         oppositeRelationships.previous.some(
@@ -243,7 +236,7 @@ export const generateRandomCourses = ({
 
     //#region Remove duplicated Placeholder relationship
     placeholders.forEach((placeholderId) => {
-      const oppositeRelationships = allCourses[placeholderId].relationships;
+      const oppositeRelationships = byId[placeholderId].relationships;
 
       if (
         oppositeRelationships.previous.some(
@@ -255,7 +248,7 @@ export const generateRandomCourses = ({
     });
     //#endregion
 
-    allCourses[courseId].relationships = {
+    byId[courseId].relationships = {
       preRequisites: preRequisites,
       coRequisites: coRequisites,
       previous: previous,
@@ -264,22 +257,28 @@ export const generateRandomCourses = ({
   });
 
   return {
-    allCourses,
-    allCourseIds,
+    byId,
+    allIds,
   };
 };
 
 export const getRandomMajors = (config: IRange) => {
-  let promise = new Promise<IRandomMajorsReturn>(function (resolve, reject) {
+  let promise = new Promise<ArrayNormalizer<IMajor>>(function (
+    resolve,
+    reject
+  ) {
     setTimeout(function () {
-      resolve(generateRandomMajors(config));
+      return resolve(generateRandomMajors(config));
     }, 2000);
   });
   return promise;
 };
 
 export const getRandomCourses = (config: IRandomCoursesParam) => {
-  let promise = new Promise<IRandomCoursesReturn>(function (resolve, reject) {
+  let promise = new Promise<ArrayNormalizer<ICourse>>(function (
+    resolve,
+    reject
+  ) {
     setTimeout(function () {
       resolve(generateRandomCourses(config));
     }, 2000);

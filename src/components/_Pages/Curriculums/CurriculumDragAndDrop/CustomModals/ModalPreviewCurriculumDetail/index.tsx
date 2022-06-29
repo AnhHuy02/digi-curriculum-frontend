@@ -23,13 +23,12 @@ import DiagramDot from "../../DiagramPane/DiagramDot";
 import TabPanel from "src/components/_Shared/TabPanel";
 
 const ModalAddCourseRelationship = () => {
-  const dispatch = useAppDispatch();
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
-  const curriculumDetail = useAppSelector(
-    (store) => store.curriculums.curriculumDetail
-  );
+  const dispatch = useAppDispatch();
   const courses = useAppSelector((store) => store.courses.courses);
-  const { allYears, allYearsOrder } = curriculumDetail;
+  const years = useAppSelector(
+    (store) => store.curriculums.curriculumDetail.years
+  );
 
   const isOpen = useAppSelector(
     (store) => store.curriculums.modalPreviewCurriculumDetail.isOpen
@@ -50,9 +49,8 @@ const ModalAddCourseRelationship = () => {
 
   const exportToDot = async () => {
     const dotString = await getDotDiagramString({
-      allCourses: courses,
-      allYears,
-      allYearIdsOrder: allYearsOrder,
+      courses,
+      years,
     });
 
     const blob = new Blob([dotString], {
@@ -66,11 +64,9 @@ const ModalAddCourseRelationship = () => {
       variant: "default",
     });
 
-    const { allYears, allYearsOrder } = curriculumDetail;
     const dotString = await getDotDiagramString({
-      allCourses: courses,
-      allYears,
-      allYearIdsOrder: allYearsOrder,
+      courses,
+      years,
     });
 
     const viz = new Viz({ Module, render });
@@ -116,7 +112,7 @@ const ModalAddCourseRelationship = () => {
           >
             <Tab label="Preview Dot Diagram" />
             <Tab label="Compare Curriculum" />
-            <Tab label="Side-by-Side Diffs" />
+            {/* <Tab label="Side-by-Side Diffs" /> */}
             <Tab label="Preview Change Logs" />
           </Tabs>
         </Box>
@@ -128,10 +124,10 @@ const ModalAddCourseRelationship = () => {
         <TabPanel value={tabIndex} index={1}>
           <CurriculumCompare width={width - 24 * 2} height={height} />
         </TabPanel>
-        <TabPanel value={tabIndex} index={2}>
+        {/* <TabPanel value={tabIndex} index={2}>
           <CurriculumSideBySideDiff width={width - 24 * 2} height={height} />
-        </TabPanel>
-        <TabPanel value={tabIndex} index={3}>
+        </TabPanel> */}
+        <TabPanel value={tabIndex} index={2}>
           <CurriculumChangeLog />
         </TabPanel>
       </DialogContent>

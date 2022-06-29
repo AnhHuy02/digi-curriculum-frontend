@@ -26,12 +26,10 @@ export const getDndNodesAndEdges = (): { nodes: Node[]; edges: Edge[] } => {
   let nodesTemp: Node[] = [];
   let edgesTemp: Edge[] = [];
 
-  const allYears = store.getState().curriculums.curriculumDetail.allYears;
-  const allYearIdsOrder =
-    store.getState().curriculums.curriculumDetail.allYearsOrder;
-  const allCourses = store.getState().courses.courses;
+  const years = store.getState().curriculums.curriculumDetail.years;
+  const courses = store.getState().courses.courses;
 
-  if (allYearIdsOrder.length === 0) {
+  if (years.allIds.length === 0) {
     return {
       nodes: nodesTemp,
       edges: edgesTemp,
@@ -43,27 +41,27 @@ export const getDndNodesAndEdges = (): { nodes: Node[]; edges: Edge[] } => {
   let courseOrders: string[] = [];
 
   // #region Step 1: Render semester and course nodes
-  allYearIdsOrder.forEach((yearId, yearIndex) => {
-    const { semesters, semestersOrder } = allYears[yearId];
+  years.allIds.forEach((yearId, yearIndex) => {
+    const { semesters } = years.byId[yearId];
     const customYearId = `year-${yearIndex + 1}`;
 
-    semestersOrder.forEach((semId, semIndex) => {
+    semesters.allIds.forEach((semId, semIndex) => {
       // console.log("generate", semesterId);
       // #region Step 1.1: Render semester nodes
-      const courseCount = semesters[semId].courseIds.length;
-      const creditPerSemesterCount = semesters[semId].courseIds.reduce(
+      const courseCount = semesters.byId[semId].courseIds.length;
+      const creditPerSemesterCount = semesters.byId[semId].courseIds.reduce(
         (sum, currentId) => {
           return (
             sum +
-            allCourses[currentId].credit.theory +
-            allCourses[currentId].credit.practice
+            courses.byId[currentId].credit.theory +
+            courses.byId[currentId].credit.practice
           );
         },
         0 as number
       );
-      const creditLimit = semesters[semId].creditLimit;
+      const creditLimit = semesters.byId[semId].creditLimit;
 
-      if (semIndex !== semestersOrder.length - 1) {
+      if (semIndex !== semesters.allIds.length - 1) {
         ++semCount;
 
         // Semester Label
@@ -90,7 +88,7 @@ export const getDndNodesAndEdges = (): { nodes: Node[]; edges: Edge[] } => {
 
         // Semester Course Container
         nodesTemp.push({
-          id: semId,
+          id: `${semId}`,
           type: "semesterNode",
           data: {
             // label: `Semester ${semCount}`,
@@ -138,7 +136,7 @@ export const getDndNodesAndEdges = (): { nodes: Node[]; edges: Edge[] } => {
 
         // Semester Course Container
         nodesTemp.push({
-          id: semId,
+          id: `${semId}`,
           type: "semesterNode",
           data: {
             // label: `Summer ${summerCount}`,
@@ -163,7 +161,7 @@ export const getDndNodesAndEdges = (): { nodes: Node[]; edges: Edge[] } => {
       // #endregion
 
       // #region Step 1.2: Render course nodes inside a semester node
-      const { courseIds } = semesters[semId];
+      const { courseIds } = semesters.byId[semId];
       courseIds.forEach((courseId, courseIndex) => {
         const {
           id,
@@ -171,7 +169,7 @@ export const getDndNodesAndEdges = (): { nodes: Node[]; edges: Edge[] } => {
           name,
           relationships: relationship,
           type,
-        } = allCourses[courseId];
+        } = courses.byId[courseId];
 
         courseOrders.push(courseId);
         nodesTemp.push({
@@ -193,7 +191,7 @@ export const getDndNodesAndEdges = (): { nodes: Node[]; edges: Edge[] } => {
           },
           sourcePosition: Position.Right,
           targetPosition: Position.Left,
-          parentNode: semId,
+          parentNode: String(semId),
           extent: "parent",
           draggable: false,
         });
@@ -218,7 +216,7 @@ export const getDndNodesAndEdges = (): { nodes: Node[]; edges: Edge[] } => {
         },
         sourcePosition: Position.Right,
         targetPosition: Position.Left,
-        parentNode: semId,
+        parentNode: String(semId),
         extent: "parent",
         draggable: false,
       });
@@ -229,11 +227,11 @@ export const getDndNodesAndEdges = (): { nodes: Node[]; edges: Edge[] } => {
 
   // #region Step 2: Render course relationship edges
   let edgeIndex = 0;
-  allYearIdsOrder.forEach((yearId, yearIndex) => {
-    const { semesters, semestersOrder } = allYears[yearId];
+  years.allIds.forEach((yearId, yearIndex) => {
+    const { semesters } = years.byId[yearId];
 
-    semestersOrder.forEach((semesterId, semesterIndex) => {
-      const { courseIds } = semesters[semesterId];
+    semesters.allIds.forEach((semesterId, semesterIndex) => {
+      const { courseIds } = semesters.byId[semesterId];
 
       courseIds.forEach((courseId, courseIndex) => {
         const {
@@ -242,7 +240,7 @@ export const getDndNodesAndEdges = (): { nodes: Node[]; edges: Edge[] } => {
           name,
           relationships: relationship,
           type,
-        } = allCourses[courseId];
+        } = courses.byId[courseId];
 
         // #region Step 2.1: Render PRE_REQUISITE relationships
         if (relationship.preRequisites.length > 0) {

@@ -23,19 +23,17 @@ const ModalManageYears = () => {
   const isOpen = useAppSelector(
     (store) => store.curriculums.modalManageYears.isOpen
   );
-  const allYears = useAppSelector(
-    (state) => state.curriculums.curriculumDetail.allYears
+  const years = useAppSelector(
+    (state) => state.curriculums.curriculumDetail.years
   );
-  const allYearsOrder = useAppSelector(
-    (store) => store.curriculums.curriculumDetail.allYearsOrder
-  );
+
   const dispatch = useAppDispatch();
 
   const [yearsOrderTemp, setYearsOrderTemp] = useState<number[]>([]);
 
   useMemo(() => {
-    setYearsOrderTemp(allYearsOrder.map((yearId, yearIndex) => yearIndex));
-  }, [allYearsOrder.length, isOpen]);
+    setYearsOrderTemp(years.allIds.map((yearId, yearIndex) => yearIndex));
+  }, [years.allIds.length, isOpen]);
 
   const closeModal = () => {
     dispatch(setModalManageYears({ isOpen: false }));
@@ -86,7 +84,7 @@ const ModalManageYears = () => {
         patch: {
           yearId,
           yearIndex,
-          yearDetail: allYears[yearId],
+          yearDetail: years.byId[yearId],
         },
       })
     );
@@ -121,16 +119,22 @@ const ModalManageYears = () => {
                     aria-label="move-up"
                     disabled={yearIndex === 0}
                     onClick={() =>
-                      handleMoveUpYear(allYearsOrder[yearIndex], yearIndex)
+                      handleMoveUpYear(
+                        (years.allIds as string[])[yearIndex],
+                        yearIndex
+                      )
                     }
                   >
                     <KeyboardArrowUpIcon />
                   </IconButton>
                   <IconButton
                     aria-label="move-down"
-                    disabled={yearIndex === allYearsOrder.length - 1}
+                    disabled={yearIndex === years.allIds.length - 1}
                     onClick={() =>
-                      handleMoveDownYear(allYearsOrder[yearIndex], yearIndex)
+                      handleMoveDownYear(
+                        (years.allIds as string[])[yearIndex],
+                        yearIndex
+                      )
                     }
                   >
                     <KeyboardArrowDownIcon />
@@ -138,7 +142,10 @@ const ModalManageYears = () => {
                   <IconButton
                     aria-label="delete"
                     onClick={() =>
-                      handleRemoveYear(allYearsOrder[yearIndex], yearIndex)
+                      handleRemoveYear(
+                        (years.allIds as string[])[yearIndex],
+                        yearIndex
+                      )
                     }
                   >
                     <DeleteIcon />

@@ -28,8 +28,7 @@ const ModalAddCourse = () => {
   const semIndex = useAppSelector(
     (store) => store.curriculums.modalAddCourse.semIndex
   );
-  const allCourses = useAppSelector((store) => store.courses.courses);
-  const allCourseIds = useAppSelector((store) => store.courses.courseIds);
+  const courses = useAppSelector((store) => store.courses.courses);
 
   const closeModal = () => {
     dispatch(setModalAddCourse({ isOpen: false }));
@@ -37,8 +36,8 @@ const ModalAddCourse = () => {
 
   const handleConfirm = () => {
     if (yearId && yearIndex !== null && semId && semIndex !== null) {
-      const courseIdsTemp = allCourseIds.filter(
-        (courseId) => allCourses[courseId].selectedTemp === true
+      const courseIdsTemp = (courses.allIds as string[]).filter(
+        (courseId) => courses.byId[courseId].selectedTemp === true
       );
       closeModal();
       dispatch(

@@ -1,4 +1,5 @@
 import type { IRange } from "./Others.type";
+import type { ArrayNormalizer } from "./Normalizer.type";
 
 import { CourseType } from "src/constants/course.const";
 
@@ -9,7 +10,7 @@ export interface ICourseRelationship {
   placeholders: string[];
 }
 
-export interface ICourseItemSimple {
+export interface ICourse {
   id: string;
   name: string;
   credit: {
@@ -49,11 +50,6 @@ export interface IRandomCoursesParam {
     placeholder?: IRange;
   };
   courseTypeDistribution?: ICourseTypeDistribution[];
-}
-
-export interface IRandomCoursesReturn {
-  allCourses: Record<string, ICourseItemSimple>;
-  allCourseIds: string[];
 }
 
 export interface ICourseTypeDistribution {

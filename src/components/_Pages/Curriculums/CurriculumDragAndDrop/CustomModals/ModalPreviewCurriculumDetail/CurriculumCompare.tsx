@@ -1,4 +1,7 @@
 import type { FC } from "react";
+import type { ArrayNormalizer } from "src/types/Normalizer.type";
+import type { ICourse } from "src/types/Course.type";
+import type { ICurriculumItemYear } from "src/types/Curriculum.type";
 
 import { useState, useMemo } from "react";
 import ReactFlow, {
@@ -12,8 +15,10 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
+import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import CompareArrowsIcon from "@mui/icons-material/CompareArrows";
+import UploadFileIcon from "@mui/icons-material/UploadFile";
 import SwapHorizIcon from "@mui/icons-material/SwapHoriz";
 
 import { useAppSelector } from "src/hooks/useStore";
@@ -21,7 +26,7 @@ import { getDndNodesAndEdges } from "src/helper/diagramGenerator/diffDiagramSimp
 import TextNode from "../../DndPane/DndByCourseRelationship/CustomNodes/TextNode";
 import SemesterNodePreview from "../../DndPane/DndByCourseRelationship/CustomNodes/SemesterNodePreview";
 import CourseNodePreview from "../../DndPane/DndByCourseRelationship/CustomNodes/CourseNodePreview";
-import Button from "@mui/material/Button";
+import CurriculumCompareUploadModal from "./CurriculumCompareUploadModal";
 
 const nodeTypes = {
   textNode: TextNode,
@@ -35,10 +40,9 @@ interface CurriculumCompareProps {
 }
 
 const CurriculumCompare: FC<CurriculumCompareProps> = ({ width, height }) => {
-  const [allYears, allYearIdsOrder] = useAppSelector((store) => {
-    const { allYears, allYearsOrder } = store.curriculums.curriculumDetail;
-    return [allYears, allYearsOrder];
-  });
+  const years = useAppSelector(
+    (store) => store.curriculums.curriculumDetail.years
+  );
 
   const curriculums = useAppSelector((store) => store.curriculums.curriculums);
   const curriculumBefore = useAppSelector(
@@ -47,39 +51,25 @@ const CurriculumCompare: FC<CurriculumCompareProps> = ({ width, height }) => {
 
   const [nodes, setNodes] = useNodesState([]);
 
+  const [modalUploadOpen, setModalUploadOpen] = useState<boolean>(false);
   const [curriculumInputA, setCurriculumInputA] =
     useState<string>("Curriculum Before");
-  const [curriculumA, setCurriculumA] = useState<{
-    allYears: Record<
-      string,
-      {
-        semesters: Record<string, { courseIds: string[] }>;
-        semestersOrder: string[];
-      }
-    >;
-    allYearsOrder: string[];
-  } | null>(null);
+  const [curriculumA, setCurriculumA] =
+    useState<ArrayNormalizer<ICurriculumItemYear> | null>(null);
+
   const [curriculumInputB, setCurriculumInputB] =
     useState<string>("Curriculum After");
-  const [curriculumB, setCurriculumB] = useState<{
-    allYears: Record<
-      string,
-      {
-        semesters: Record<string, { courseIds: string[] }>;
-        semestersOrder: string[];
-      }
-    >;
-    allYearsOrder: string[];
-  } | null>(null);
+  const [curriculumB, setCurriculumB] =
+    useState<ArrayNormalizer<ICurriculumItemYear> | null>(null);
 
   useMemo(() => {
     if (curriculumInputA) {
       if (curriculumInputA === "Curriculum Before") {
         setCurriculumA(curriculumBefore);
       } else if (curriculumInputA === "Curriculum After") {
-        setCurriculumA({ allYears, allYearsOrder: allYearIdsOrder });
+        setCurriculumA(years);
       } else {
-        setCurriculumA(curriculums[Number(curriculumInputA)]);
+        setCurriculumA(curriculums[Number(curriculumInputA)].years);
       }
     }
   }, [curriculumInputA]);
@@ -89,9 +79,9 @@ const CurriculumCompare: FC<CurriculumCompareProps> = ({ width, height }) => {
       if (curriculumInputB === "Curriculum Before") {
         setCurriculumB(curriculumBefore);
       } else if (curriculumInputB === "Curriculum After") {
-        setCurriculumB({ allYears, allYearsOrder: allYearIdsOrder });
+        setCurriculumB(years);
       } else {
-        setCurriculumB(curriculums[Number(curriculumInputB)]);
+        setCurriculumB(curriculums[Number(curriculumInputB)].years);
       }
     }
   }, [curriculumInputB]);
@@ -104,6 +94,23 @@ const CurriculumCompare: FC<CurriculumCompareProps> = ({ width, height }) => {
   const handleCurriculumBChange = (event: SelectChangeEvent) => {
     const newValue = event.target.value;
     setCurriculumInputB(newValue);
+  };
+
+  const handleGetJsonFile = (newData: {
+    courses: ArrayNormalizer<ICourse>;
+    curriculumA: ArrayNormalizer<ICurriculumItemYear>;
+    curriculumB: ArrayNormalizer<ICurriculumItemYear>;
+  }) => {
+    setModalUploadOpen(false);
+
+    const { courses, curriculumA, curriculumB } = newData;
+    const { nodes: initialNodes } = getDndNodesAndEdges(
+      curriculumA,
+      curriculumB,
+      courses
+    );
+
+    setNodes(initialNodes);
   };
 
   const swapTwoInputs = () => {
@@ -197,6 +204,20 @@ const CurriculumCompare: FC<CurriculumCompareProps> = ({ width, height }) => {
             fullWidth
             variant="contained"
             size="large"
+            endIcon={<UploadFileIcon />}
+            onClick={() => setModalUploadOpen(true)}
+            sx={{
+              height: "100%",
+            }}
+          >
+            Import
+          </Button>
+        </Box>
+        <Box display="flex" alignItems="center" justifyContent="center">
+          <Button
+            fullWidth
+            variant="contained"
+            size="large"
             endIcon={<CompareArrowsIcon />}
             onClick={() => compareTwoCurriculums()}
             disabled={getDisabledInputCondition()}
@@ -226,6 +247,11 @@ const CurriculumCompare: FC<CurriculumCompareProps> = ({ width, height }) => {
           </ReactFlow>
         </ReactFlowProvider>
       </Box>
+      <CurriculumCompareUploadModal
+        isOpen={modalUploadOpen}
+        onConfirm={handleGetJsonFile}
+        onClose={() => setModalUploadOpen(false)}
+      />
     </Box>
   );
 };

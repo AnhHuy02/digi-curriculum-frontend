@@ -57,11 +57,8 @@ const edgeTypes = {
 
 const DndByCourseRelationship = () => {
   const dispatch = useAppDispatch();
-  const allYears = useAppSelector(
-    (store) => store.curriculums.curriculumDetail.allYears
-  );
-  const allYearIdsOrder = useAppSelector(
-    (store) => store.curriculums.curriculumDetail.allYearsOrder
+  const years = useAppSelector(
+    (store) => store.curriculums.curriculumDetail.years
   );
   const allCourses = useAppSelector((store) => store.courses.courses);
   const showCourseRelationship = useAppSelector(
@@ -80,7 +77,7 @@ const DndByCourseRelationship = () => {
     setNodes(initialNodes);
     setEdgesTemp(initialEdges);
     setEdges(showCourseRelationship ? initialEdges : []);
-  }, [allYears, allYearIdsOrder, allCourses]);
+  }, [years, allCourses]);
 
   useMemo(() => {
     setEdges(showCourseRelationship ? edgesTemp : []);
