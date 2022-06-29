@@ -1,6 +1,7 @@
-import type { IRandomMajorsReturn } from "src/types/Department.type";
-import type { IRandomCoursesReturn } from "src/types/Course.type";
 import type { RootState } from "src/redux/_store";
+import type { ArrayNormalizer } from "src/types/Normalizer.type";
+import type { IMajor } from "src/types/Department.type";
+import type { ICourse } from "src/types/Course.type";
 
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
@@ -39,11 +40,11 @@ export const initRandomCurriculumDetailPageData = createAsyncThunk(
       const majorsResponse = await dispatch(
         loadAllRandomMajors({ min: 1, max: 15 })
       );
-      const majorsPayload = majorsResponse.payload as IRandomMajorsReturn;
+      const majorsPayload = majorsResponse.payload as ArrayNormalizer<IMajor>;
 
       const coursesResponse = await dispatch(
         loadAllRandomCourses({
-          allMajorIds: majorsPayload.allMajorIds,
+          allMajorIds: majorsPayload.allIds as string[],
           randomCourseCount: { min: 15, max: 100 },
           nameLength: { min: 1, max: 3 },
           creditCount: {
@@ -84,14 +85,15 @@ export const initRandomCurriculumDetailPageData = createAsyncThunk(
           ],
         })
       );
-      const coursesPayload = coursesResponse.payload as IRandomCoursesReturn;
+      const coursesPayload =
+        coursesResponse.payload as ArrayNormalizer<ICourse>;
       // console.log("GENERATE COURSES");
       // console.log(coursesResponse.payload);
 
       const curriculumItemDetailResponse = await dispatch(
         loadRandomCurriculumDetail({
-          allCourses: coursesPayload.allCourses,
-          allCourseIds: coursesPayload.allCourseIds,
+          allCourses: coursesPayload.byId,
+          allCourseIds: coursesPayload.allIds as string[],
           randomYearCount: { min: 2, max: 2 },
           semesterPerYearCount: 3,
           courseCountPerSemester: { min: 0, max: 6 },
@@ -106,16 +108,15 @@ export const initRandomCurriculumDetailPageData = createAsyncThunk(
 
       // #region Step 3: For Add Course feature, handle checkbox based on
       // courses from curriculum
-      const { allYears, allYearsOrder } = (getState() as RootState).curriculums
-        .curriculumDetail;
+      const { years } = (getState() as RootState).curriculums.curriculumDetail;
       let courseIdsPlaceholder: string[] = [];
 
-      allYearsOrder.forEach((yearId) => {
-        const year = allYears[yearId];
-        const { semesters, semestersOrder } = year;
+      years.allIds.forEach((yearId) => {
+        const year = years.byId[yearId];
+        const { semesters } = year;
 
-        semestersOrder.forEach((semId) => {
-          const semester = semesters[semId];
+        semesters.allIds.forEach((semId) => {
+          const semester = semesters.byId[semId];
           courseIdsPlaceholder.push(...semester.courseIds);
         });
       });
@@ -136,8 +137,8 @@ export const initRandomCurriculumDetailPageData = createAsyncThunk(
             min: 1,
             max: 9,
           },
-          allCourses: coursesPayload.allCourses,
-          allCourseIds: coursesPayload.allCourseIds,
+          allCourses: coursesPayload.byId,
+          allCourseIds: coursesPayload.allIds as string[],
           randomYearCount: { min: 1, max: 3 },
           semesterPerYearCount: 3,
           courseCountPerSemester: { min: 0, max: 6 },

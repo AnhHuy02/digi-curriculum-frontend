@@ -38,7 +38,7 @@ const CourseTile: FC<ICourseTileProps> = ({
 }) => {
   const dispatch = useAppDispatch();
   const courseDetail = useAppSelector(
-    (store) => store.courses.courses[courseId]
+    (store) => store.courses.courses.byId[courseId]
   );
 
   const { id, name, credit } = courseDetail;
@@ -66,7 +66,7 @@ const CourseTile: FC<ICourseTileProps> = ({
       })
     );
   };
-  
+
   const handleViewCourseDetail = () => {
     dispatch(
       setModalCourseDetail({
@@ -114,9 +114,7 @@ const CourseTile: FC<ICourseTileProps> = ({
               open={Boolean(anchorEl)}
               onClose={handleClose}
             >
-              <MenuItem onClick={handleViewCourseDetail}>
-                Detail
-              </MenuItem>
+              <MenuItem onClick={handleViewCourseDetail}>Detail</MenuItem>
               <MenuItem onClick={() => handleRemoveCourse()}>Remove</MenuItem>
             </Menu>
           </Box>

@@ -1,29 +1,31 @@
 import type { IRange } from "./Others.type";
 import type { PayloadHistoryAction } from "./ChangeHistory.type";
-import type { ICourseItemSimple } from "./Course.type";
+import type { ICourse } from "./Course.type";
+import type { ArrayNormalizer } from "./Normalizer.type";
 
 import { Mode } from "src/constants/mode.const";
 import { CourseRelationship } from "src/constants/course.const";
 import { CurriculumCommandType } from "src/constants/curriculum.const";
 
-export interface ICurriculumItemSimple {
+export interface ICurriculumItem {
   id: string;
   year: number;
+  name?: string;
   programType?: string;
   major?: string;
   subMajor?: string | null;
   englishLevel?: string | null;
   semCountPerYear: number;
-  allYears: Record<string, ICurriculumItemYear>;
-  allYearsOrder: string[];
+
+  years: ArrayNormalizer<ICurriculumItemYear>;
+
   allElectiveGroups?: Record<string, IElectiveGroupItem>;
   allElectiveGroupIds?: string[];
 }
 
 export interface ICurriculumItemYear {
   id: string;
-  semesters: Record<string, ICurriculumItemSemester>;
-  semestersOrder: string[];
+  semesters: ArrayNormalizer<ICurriculumItemSemester>;
 }
 
 export interface ICurriculumItemSemester {
@@ -114,14 +116,11 @@ export type CurriculumDetailHistoryAction =
       {
         yearId: string;
         yearIndex: number;
-        yearDetail: {
-          semesters: Record<string, ICurriculumItemSemester>;
-          semestersOrder: string[];
-        };
+        yearDetail: ICurriculumItemYear;
       }
     >;
 
-export interface ICurriculumItemDetail extends ICurriculumItemSimple {
+export interface ICurriculumItemDetail extends ICurriculumItem {
   mode: Mode.CREATE | Mode.EDIT;
   loading: boolean;
 }
@@ -132,22 +131,12 @@ interface IElectiveGroup {
 }
 
 export interface IRandomCurriculumDetailParam {
-  allCourses: Record<string, ICourseItemSimple>;
+  allCourses: Record<string, ICourse>;
   allCourseIds: string[];
-  // year?: number | string;
   randomYearCount?: IRange;
   semesterPerYearCount?: number;
   courseCountPerSemester?: IRange;
-  // creditLimit?: {
-  //   normalSemester?: IRandomRange;
-  //   summerSemester?: IRandomRange;
-  // };
   randomCreditCountPerSemester?: IRange;
   electiveGroups?: Record<string, IElectiveGroup>;
   electiveGroupIds?: string[];
-}
-
-export interface IRandomCurriculumDetailItemReturn {
-  allYears: Record<string, ICurriculumItemYear>;
-  allYearIdsOrder: string[];
 }

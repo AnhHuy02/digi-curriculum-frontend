@@ -52,18 +52,18 @@ const Semester: FC<ISemesterProps> = ({
   index: semIndex,
 }) => {
   const dispatch = useAppDispatch();
-  const allYears = useAppSelector(
-    (state) => state.curriculums.curriculumDetail.allYears
+  const years = useAppSelector(
+    (state) => state.curriculums.curriculumDetail.years
   );
   const courses = useAppSelector((state) => state.courses.courses);
 
-  const { courseIds, creditLimit } = allYears[yearId].semesters[semId];
+  const { courseIds, creditLimit } = years.byId[yearId].semesters.byId[semId];
 
   const getCreditCount = (): number => {
     let creditCount: number = 0;
     courseIds.forEach((courseId) => {
-      creditCount += courses[courseId].credit.theory;
-      creditCount += courses[courseId].credit.practice;
+      creditCount += courses.byId[courseId].credit.theory;
+      creditCount += courses.byId[courseId].credit.practice;
     });
     return creditCount;
   };

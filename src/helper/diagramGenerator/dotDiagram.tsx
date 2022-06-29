@@ -1,6 +1,7 @@
 import type { INode } from "ts-graphviz";
-import type { ICourseItemSimple } from "src/types/Course.type";
-import type { IRandomCurriculumDetailItemReturn } from "src/types/Curriculum.type";
+import type { ArrayNormalizer } from "src/types/Normalizer.type";
+import type { ICourse } from "src/types/Course.type";
+import type { ICurriculumItemYear } from "src/types/Curriculum.type";
 
 import { Digraph, Node, Subgraph, toDot, attribute } from "ts-graphviz";
 
@@ -18,15 +19,12 @@ class CustomDigraph extends Digraph {
   }
 }
 
-interface IDotDiagramParams extends IRandomCurriculumDetailItemReturn {
-  allCourses: Record<string, ICourseItemSimple>;
+interface IDotDiagramParams {
+  courses: ArrayNormalizer<ICourse>;
+  years: ArrayNormalizer<ICurriculumItemYear>;
 }
 
-export const getDotDiagramString = ({
-  allCourses,
-  allYears,
-  allYearIdsOrder,
-}: IDotDiagramParams) => {
+export const getDotDiagramString = ({ courses, years }: IDotDiagramParams) => {
   const g = new CustomDigraph("Curriculum for IT");
 
   // #region Step 1: Add header label
@@ -36,12 +34,12 @@ export const getDotDiagramString = ({
   const semesterHeaderNodesTemp: INode[] = [];
 
   {
-    allYearIdsOrder.forEach((yearId, yearIndex) => {
-      const { semesters, semestersOrder } = allYears[yearId];
-      semestersOrder.forEach((semesterId, semesterIndex) => {
+    years.allIds.forEach((yearId, yearIndex) => {
+      const { semesters } = years.byId[yearId];
+      (semesters.allIds as string[]).forEach((semesterId, semesterIndex) => {
         let semHeaderNode: INode | null = null;
 
-        if (semesterIndex !== semestersOrder.length - 1) {
+        if (semesterIndex !== semesters.allIds.length - 1) {
           ++semCount;
 
           semHeaderNode = new Node(semesterId, {
@@ -89,10 +87,10 @@ export const getDotDiagramString = ({
   let courseOrders: string[] = [];
   {
     let semNodeCountTemp = 0;
-    allYearIdsOrder.forEach((yearId, yearIndex) => {
-      const { semesters, semestersOrder } = allYears[yearId];
-      semestersOrder.forEach((semesterId, semesterIndex) => {
-        const { courseIds } = semesters[semesterId];
+    years.allIds.forEach((yearId, yearIndex) => {
+      const { semesters } = years.byId[yearId];
+      semesters.allIds.forEach((semesterId, semesterIndex) => {
+        const { courseIds } = semesters.byId[semesterId];
         const semSubGraph = new Subgraph({
           rank: "same",
         });
@@ -101,7 +99,7 @@ export const getDotDiagramString = ({
         semSubGraph.createNode(semesterHeaderNodesTemp[semNodeCountTemp].id);
 
         courseIds.forEach((courseId) => {
-          const course = allCourses[courseId];
+          const course = courses.byId[courseId];
           const { credit } = course;
 
           courseOrders.push(courseId);
@@ -161,10 +159,10 @@ export const getDotDiagramString = ({
 
   //#region Step 3: Add course relationship
   {
-    allYearIdsOrder.forEach((yearId, yearIndex) => {
-      const { semesters, semestersOrder } = allYears[yearId];
-      semestersOrder.forEach((semesterId, semesterIndex) => {
-        const { courseIds } = semesters[semesterId];
+    years.allIds.forEach((yearId, yearIndex) => {
+      const { semesters } = years.byId[yearId];
+      semesters.allIds.forEach((semesterId, semesterIndex) => {
+        const { courseIds } = semesters.byId[semesterId];
 
         courseIds.forEach((courseId, courseIndex) => {
           const {
@@ -173,7 +171,7 @@ export const getDotDiagramString = ({
             name,
             relationships: relationship,
             type,
-          } = allCourses[courseId];
+          } = courses.byId[courseId];
 
           let sourceId: string = "";
           let targetId: string = "";

@@ -24,7 +24,7 @@ const CurriculumChangeLog = () => {
   const currentIndex = useAppSelector(
     (store) => store.curriculumChangeHistory.changeHistory.currentIndex
   );
-  const allCourses = useAppSelector((store) => store.courses.courses);
+  const courses = useAppSelector((store) => store.courses.courses);
 
   const filteredCommandLogs = commandLogs.slice(0, currentIndex + 1);
 
@@ -58,8 +58,8 @@ const CurriculumChangeLog = () => {
               <Box>
                 <Typography>
                   Added <b>{relationship}</b> relationship for{" "}
-                  <b>{allCourses[courseSourceId].name}</b> {"-> "}
-                  <b>{allCourses[courseTargetId].name}</b>.
+                  <b>{courses.byId[courseSourceId].name}</b> {"-> "}
+                  <b>{courses.byId[courseTargetId].name}</b>.
                 </Typography>
               </Box>
             </TimelineContent>
@@ -88,8 +88,8 @@ const CurriculumChangeLog = () => {
               <Box>
                 <Typography>
                   Removed <b>{relationship}</b> relationship between{" "}
-                  <b>{allCourses[courseSourceId].name}</b> and{" "}
-                  <b>{allCourses[courseTargetId].name}</b>.
+                  <b>{courses.byId[courseSourceId].name}</b> and{" "}
+                  <b>{courses.byId[courseTargetId].name}</b>.
                 </Typography>
               </Box>
             </TimelineContent>
@@ -121,8 +121,8 @@ const CurriculumChangeLog = () => {
               <Box>
                 <Typography>
                   Changed <b>{oldRelationship}</b> to <b>{newRelationship}</b>{" "}
-                  relationship for <b>{allCourses[courseSourceId].name}</b> with{" "}
-                  <b>{allCourses[courseTargetId].name}</b>.
+                  relationship for <b>{courses.byId[courseSourceId].name}</b>{" "}
+                  with <b>{courses.byId[courseTargetId].name}</b>.
                 </Typography>
               </Box>
             </TimelineContent>
@@ -154,7 +154,7 @@ const CurriculumChangeLog = () => {
                   {semIndex + 1}:
                   <ul>
                     {courseIds.map((courseId) => (
-                      <li>{<b>{allCourses[courseId].name}</b>}</li>
+                      <li>{<b>{courses.byId[courseId].name}</b>}</li>
                     ))}
                   </ul>
                 </Typography>
@@ -184,7 +184,7 @@ const CurriculumChangeLog = () => {
               </Typography>
               <Box>
                 <Typography>
-                  Removed <b>{allCourses[courseId].name}</b> from Year{" "}
+                  Removed <b>{courses.byId[courseId].name}</b> from Year{" "}
                   {yearIndex + 1} Semester {semIndex + 1}.
                 </Typography>
               </Box>
@@ -224,7 +224,7 @@ const CurriculumChangeLog = () => {
               </Typography>
               <Box>
                 <Typography>
-                  Moved <b>{allCourses[courseId].name}</b> from{" "}
+                  Moved <b>{courses.byId[courseId].name}</b> from{" "}
                   <b>
                     Year {sourceYearIndex + 1} Semester {sourceSemIndex + 1}
                   </b>

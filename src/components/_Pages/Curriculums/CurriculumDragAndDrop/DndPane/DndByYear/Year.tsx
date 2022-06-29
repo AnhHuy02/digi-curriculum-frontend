@@ -23,10 +23,10 @@ interface YearProps {
 }
 const Year: FC<YearProps> = ({ index: yearIndex, yearId }) => {
   const dispatch = useAppDispatch();
-  const allYears = useAppSelector(
-    (state) => state.curriculums.curriculumDetail.allYears
+  const years = useAppSelector(
+    (state) => state.curriculums.curriculumDetail.years
   );
-  const { semestersOrder } = allYears[yearId];
+  const { semesters } = years.byId[yearId];
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
@@ -45,7 +45,7 @@ const Year: FC<YearProps> = ({ index: yearIndex, yearId }) => {
         patch: {
           yearId,
           yearIndex: yearIndex,
-          yearDetail: allYears[yearId],
+          yearDetail: years.byId[yearId],
         },
       })
     );
@@ -90,7 +90,7 @@ const Year: FC<YearProps> = ({ index: yearIndex, yearId }) => {
             <SemesterList
               yearId={yearId}
               yearIndex={yearIndex}
-              allSemIdsOrder={semestersOrder}
+              allSemIdsOrder={semesters.allIds as string[]}
             />
           </Paper>
         );

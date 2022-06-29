@@ -1,7 +1,9 @@
 import { ChangeEvent, FC, useEffect } from "react";
-import type { ICourseItemSimple } from "src/types/Course.type";
+import type { ArrayNormalizer } from "src/types/Normalizer.type";
+import type { ICourse } from "src/types/Course.type";
+import type { ICurriculumItemYear } from "src/types/Curriculum.type";
 
-import {  useState } from "react";
+import { useState } from "react";
 import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Dialog from "@mui/material/Dialog";
@@ -11,31 +13,17 @@ import DialogActions from "@mui/material/DialogActions";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import InputLabel from "@mui/material/InputLabel";
+import * as d3 from "d3";
 
-type Courses = {
-  allCourseIds: string[];
-  allCourses: Record<string, ICourseItemSimple>;
-} | null;
-
-type CurriculumItem = {
-  allYears: Record<
-    string,
-    {
-      semesters: Record<string, { courseIds: string[] }>;
-      semestersOrder: string[];
-    }
-  >;
-  allYearsOrder: string[];
-};
+// import curriculumCsvFile from "../../../../../../../assets/curriculumn-v3.csv";
 
 interface CurriculumCompareProps {
   isOpen: boolean;
-  onConfirm?(
-    newData: Courses & {
-      curriculumA: CurriculumItem;
-      curriculumB: CurriculumItem;
-    }
-  ): void;
+  onConfirm?(newData: {
+    courses: ArrayNormalizer<ICourse>;
+    curriculumA: ArrayNormalizer<ICurriculumItemYear>;
+    curriculumB: ArrayNormalizer<ICurriculumItemYear>;
+  }): void;
   onClose?(): void;
 }
 
@@ -48,23 +36,26 @@ const CurriculumCompare: FC<CurriculumCompareProps> = ({
   onConfirm,
   onClose,
 }) => {
-  const [coursesJsonA, setCoursesJsonA] = useState<Courses>(null);
-  const [coursesJsonB, setCoursesJsonB] = useState<Courses>(null);
-  const [curriculumJsonA, setCurriculumJsonA] = useState<CurriculumItem | null>(
-    null
-  );
-  const [curriculumJsonB, setCurriculumJsonB] = useState<CurriculumItem | null>(
-    null
-  );
-
-  useEffect(() => {
-    return () => {
-      setCoursesJsonA(null);
-      setCoursesJsonB(null);
-      setCurriculumJsonA(null);
-      setCurriculumJsonB(null);
-    };
-  }, []);
+  const [coursesJsonA, setCoursesJsonA] = useState<ArrayNormalizer<ICourse>>({
+    allIds: [],
+    byId: {},
+  });
+  const [coursesJsonB, setCoursesJsonB] = useState<ArrayNormalizer<ICourse>>({
+    allIds: [],
+    byId: {},
+  });
+  const [curriculumJsonA, setCurriculumJsonA] = useState<
+    ArrayNormalizer<ICurriculumItemYear>
+  >({
+    allIds: [],
+    byId: {},
+  });
+  const [curriculumJsonB, setCurriculumJsonB] = useState<
+    ArrayNormalizer<ICurriculumItemYear>
+  >({
+    allIds: [],
+    byId: {},
+  });
 
   const handleConfirm = () => {
     console.log("curriculumJsonA", curriculumJsonA);
@@ -77,16 +68,20 @@ const CurriculumCompare: FC<CurriculumCompareProps> = ({
     ) {
       const combinedCourseIds = Array.from(
         new Set([
-          ...coursesJsonA.allCourseIds.concat(coursesJsonB.allCourseIds),
+          ...(coursesJsonA.allIds as string[]).concat(
+            coursesJsonB.allIds as string[]
+          ),
         ])
       );
       const combinedAllCourses = {
-        ...coursesJsonA.allCourses,
-        ...coursesJsonB.allCourses,
+        ...coursesJsonA.byId,
+        ...coursesJsonB.byId,
       };
       onConfirm({
-        allCourseIds: combinedCourseIds,
-        allCourses: combinedAllCourses,
+        courses: {
+          allIds: combinedCourseIds,
+          byId: combinedAllCourses,
+        },
         curriculumA: curriculumJsonA,
         curriculumB: curriculumJsonB,
       });
@@ -104,6 +99,7 @@ const CurriculumCompare: FC<CurriculumCompareProps> = ({
       | "coursesJsonB"
       | "curriculumJsonA"
       | "curriculumJsonB"
+      | "curriculumTest"
   ) => {
     const fileReader = new FileReader();
     const files = event.target.files as FileList;
@@ -114,27 +110,30 @@ const CurriculumCompare: FC<CurriculumCompareProps> = ({
 
       switch (stateType) {
         case "coursesJsonA": {
-          setCoursesJsonA(JSON.parse(content) as Courses);
+          setCoursesJsonA(JSON.parse(content) as ArrayNormalizer<ICourse>);
           break;
         }
         case "coursesJsonB": {
-          setCoursesJsonB(JSON.parse(content) as Courses);
+          setCoursesJsonB(JSON.parse(content) as ArrayNormalizer<ICourse>);
           break;
         }
         case "curriculumJsonA": {
           const newData = JSON.parse(content);
           setCurriculumJsonA({
-            allYears: newData.allYears,
-            allYearsOrder: newData["allYearIdsOrder"],
+            allIds: newData["allYearIdsOrder"],
+            byId: newData.allYears,
           });
           break;
         }
         case "curriculumJsonB": {
           const newData = JSON.parse(content);
           setCurriculumJsonB({
-            allYears: newData.allYears,
-            allYearsOrder: newData["allYearIdsOrder"],
+            allIds: newData["allYearIdsOrder"],
+            byId: newData.allYears,
           });
+          break;
+        }
+        case "curriculumTest": {
           break;
         }
         default: {
@@ -142,6 +141,148 @@ const CurriculumCompare: FC<CurriculumCompareProps> = ({
         }
       }
     };
+  };
+
+  const handleUploadCsvFile = async (event: ChangeEvent<HTMLInputElement>) => {
+    const fileReader = new FileReader();
+    const files = event.target.files as FileList;
+
+    fileReader.readAsText(files[0], "UTF-8");
+    fileReader.onload = (e) => {
+      const content = e.target?.result as string;
+
+      const data = d3.csvParse(content, function (d: any) {
+        return d;
+      });
+
+      const columns = data.columns;
+      const dataSource = data.map((item) => item);
+
+      // #region map data to courses
+      const courses = {
+        byId: {},
+        allIds: [],
+      };
+
+      const uniqueCourseIds = Array.from(
+        new Set([...dataSource.map((item) => item["id"])])
+      );
+
+      const coursesTemp = dataSource.map((item) => {
+        const {
+          year: year,
+          semester: semester,
+          program: program,
+          english_level: englishLevel,
+          version: version,
+          Program_fullname: programFullname,
+          ...courseItem
+        } = item;
+        return courseItem;
+      });
+
+      uniqueCourseIds.forEach((uniqueId) => {
+        const result = coursesTemp.find((item) => item["id"] === uniqueId);
+
+        if (result) {
+          (courses as any).byId[uniqueId] = result;
+          (courses as any).allIds.push(uniqueId);
+        }
+      });
+      console.log(courses);
+      // #endregion
+
+      // #region map data to curriculums
+      const curriculums: any = [];
+
+      const uniqueProgramFullnames = Array.from(
+        new Set([...dataSource.map((item) => item["Program_fullname"])])
+      );
+
+      // const curriculumsTemp = dataSource.map((item) => {
+      //   const {
+      //     id: id,
+      //     "Course Name": courseName,
+      //     credit: credit,
+      //     Credit_full: creditFull,
+      //     ...curriculumItem
+      //   } = item;
+      //   return curriculumItem;
+      // });
+
+      uniqueProgramFullnames.forEach((programName, programIndex) => {
+        const result = dataSource.filter(
+          (item) => item["Program_fullname"] === programName
+        );
+
+        if (result) {
+          const curriculumItem = {
+            id: `curriculum-${programIndex + 1}`,
+            name: String(programName),
+            allYears: {},
+            allYearIdsOrder: [],
+          };
+
+          const uniqueYearIds = Array.from(
+            new Set([...result.map((item) => item["year"])])
+          );
+
+          uniqueYearIds.forEach((yearId, yearIndex) => {
+            const semesterRows = result.filter(
+              (item) => item["year"] === yearId
+            );
+            const uniqueSemesterIds = Array.from(
+              new Set([...semesterRows.map((item) => item.semester)])
+            ).map(String);
+
+            const newYearId = `year-${yearIndex + 1}`;
+
+            (curriculumItem as any).allYearIdsOrder.push(newYearId);
+            (curriculumItem as any).allYears[newYearId] = {
+              id: newYearId,
+              semesters: {},
+              semestersOrder: [],
+            };
+
+            uniqueSemesterIds.forEach((semId, semIndex) => {
+              const newSemId = `${newYearId}-sem-${semIndex + 1}`;
+              const semCourses = semesterRows.filter(
+                (item) => item["year"] === yearId && item["semester"] === semId
+              );
+
+              (curriculumItem as any).allYears[newYearId].semestersOrder.push(
+                newSemId
+              );
+              (curriculumItem as any).allYears[newYearId].semesters[newSemId] =
+                {
+                  id: newSemId,
+                  courseIds: [],
+                };
+
+              if (semCourses) {
+                const courseIdsTemp: string[] = [];
+
+                semCourses.forEach((course) => {
+                  courseIdsTemp.push(course["id"]);
+                });
+
+                (curriculumItem as any).allYears[newYearId].semesters[
+                  newSemId
+                ].courseIds = [...courseIdsTemp];
+              }
+            });
+          });
+          // console.log(curriculumItem);
+          curriculums.push(curriculumItem);
+        }
+      });
+      // #endregion
+
+      console.log("CSV FILE", curriculums);
+    };
+
+    // const fuck = await d3.csv(await import("../../../../../../../assets/curriculumn-v3.csv"));
+    // console.log("fuck", fuck);
   };
 
   return (
@@ -228,6 +369,22 @@ const CurriculumCompare: FC<CurriculumCompareProps> = ({
                 </Box>
               </InputLabel>
             </Stack>
+            <Box>
+              <InputLabel>
+                <Input
+                  accept=".csv"
+                  type="file"
+                  onChange={(event) => handleUploadCsvFile(event)}
+                />
+                <Button
+                  variant="contained"
+                  component="span"
+                  // color={curriculumJsonB ? "success" : "primary"}
+                >
+                  Test Import
+                </Button>
+              </InputLabel>
+            </Box>
           </Stack>
         </Box>
       </DialogContent>

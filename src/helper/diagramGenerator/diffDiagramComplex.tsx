@@ -1,6 +1,6 @@
 import type { Node, Edge } from "react-flow-renderer";
 import type { IRandomCurriculumDetailItemReturn } from "src/types/Curriculum.type";
-import type { ICourseItemSimple } from "src/types/Course.type";
+import type { ICourse } from "src/types/Course.type";
 import type { RootState } from "src/redux/_store";
 
 import _intersection from "lodash/intersection";

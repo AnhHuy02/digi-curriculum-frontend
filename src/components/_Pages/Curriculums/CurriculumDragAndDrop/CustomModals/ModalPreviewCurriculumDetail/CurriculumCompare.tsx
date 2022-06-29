@@ -1,5 +1,7 @@
 import type { FC } from "react";
-import type { ICourseItemSimple } from "src/types/Course.type";
+import type { ArrayNormalizer } from "src/types/Normalizer.type";
+import type { ICourse } from "src/types/Course.type";
+import type { ICurriculumItemYear } from "src/types/Curriculum.type";
 
 import { useState, useMemo } from "react";
 import ReactFlow, {
@@ -32,32 +34,15 @@ const nodeTypes = {
   courseNode: CourseNodePreview,
 };
 
-type CurriculumItem = {
-  allYears: Record<
-    string,
-    {
-      semesters: Record<string, { courseIds: string[] }>;
-      semestersOrder: string[];
-    }
-  >;
-  allYearsOrder: string[];
-};
-
-type Courses = {
-  allCourseIds: string[];
-  allCourses: Record<string, ICourseItemSimple>;
-};
-
 interface CurriculumCompareProps {
   width?: number;
   height?: number;
 }
 
 const CurriculumCompare: FC<CurriculumCompareProps> = ({ width, height }) => {
-  const [allYears, allYearIdsOrder] = useAppSelector((store) => {
-    const { allYears, allYearsOrder } = store.curriculums.curriculumDetail;
-    return [allYears, allYearsOrder];
-  });
+  const years = useAppSelector(
+    (store) => store.curriculums.curriculumDetail.years
+  );
 
   const curriculums = useAppSelector((store) => store.curriculums.curriculums);
   const curriculumBefore = useAppSelector(
@@ -69,37 +54,22 @@ const CurriculumCompare: FC<CurriculumCompareProps> = ({ width, height }) => {
   const [modalUploadOpen, setModalUploadOpen] = useState<boolean>(false);
   const [curriculumInputA, setCurriculumInputA] =
     useState<string>("Curriculum Before");
-  const [curriculumA, setCurriculumA] = useState<{
-    allYears: Record<
-      string,
-      {
-        semesters: Record<string, { courseIds: string[] }>;
-        semestersOrder: string[];
-      }
-    >;
-    allYearsOrder: string[];
-  } | null>(null);
+  const [curriculumA, setCurriculumA] =
+    useState<ArrayNormalizer<ICurriculumItemYear> | null>(null);
+
   const [curriculumInputB, setCurriculumInputB] =
     useState<string>("Curriculum After");
-  const [curriculumB, setCurriculumB] = useState<{
-    allYears: Record<
-      string,
-      {
-        semesters: Record<string, { courseIds: string[] }>;
-        semestersOrder: string[];
-      }
-    >;
-    allYearsOrder: string[];
-  } | null>(null);
+  const [curriculumB, setCurriculumB] =
+    useState<ArrayNormalizer<ICurriculumItemYear> | null>(null);
 
   useMemo(() => {
     if (curriculumInputA) {
       if (curriculumInputA === "Curriculum Before") {
         setCurriculumA(curriculumBefore);
       } else if (curriculumInputA === "Curriculum After") {
-        setCurriculumA({ allYears, allYearsOrder: allYearIdsOrder });
+        setCurriculumA(years);
       } else {
-        setCurriculumA(curriculums[Number(curriculumInputA)]);
+        setCurriculumA(curriculums[Number(curriculumInputA)].years);
       }
     }
   }, [curriculumInputA]);
@@ -109,9 +79,9 @@ const CurriculumCompare: FC<CurriculumCompareProps> = ({ width, height }) => {
       if (curriculumInputB === "Curriculum Before") {
         setCurriculumB(curriculumBefore);
       } else if (curriculumInputB === "Curriculum After") {
-        setCurriculumB({ allYears, allYearsOrder: allYearIdsOrder });
+        setCurriculumB(years);
       } else {
-        setCurriculumB(curriculums[Number(curriculumInputB)]);
+        setCurriculumB(curriculums[Number(curriculumInputB)].years);
       }
     }
   }, [curriculumInputB]);
@@ -126,21 +96,20 @@ const CurriculumCompare: FC<CurriculumCompareProps> = ({ width, height }) => {
     setCurriculumInputB(newValue);
   };
 
-  const handleGetJsonFile = (
-    newData: Courses & {
-      curriculumA: CurriculumItem;
-      curriculumB: CurriculumItem;
-    }
-  ) => {
+  const handleGetJsonFile = (newData: {
+    courses: ArrayNormalizer<ICourse>;
+    curriculumA: ArrayNormalizer<ICurriculumItemYear>;
+    curriculumB: ArrayNormalizer<ICurriculumItemYear>;
+  }) => {
     setModalUploadOpen(false);
 
-    const { allCourses, allCourseIds, curriculumA, curriculumB } = newData;
+    const { courses, curriculumA, curriculumB } = newData;
     const { nodes: initialNodes } = getDndNodesAndEdges(
       curriculumA,
       curriculumB,
-      allCourses
+      courses
     );
-    
+
     setNodes(initialNodes);
   };
 

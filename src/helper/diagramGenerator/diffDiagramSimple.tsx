@@ -1,21 +1,17 @@
 import type { Node, Edge } from "react-flow-renderer";
-import type { RootState } from "src/redux/_store";
+import type { ArrayNormalizer } from "src/types/Normalizer.type";
+import type { ICourse } from "src/types/Course.type";
+import type { ICurriculumItemYear } from "src/types/Curriculum.type";
 
 import { Position } from "react-flow-renderer";
 import _intersection from "lodash/intersection";
 
 import { store } from "src/redux/_store";
-import { ICourseItemSimple } from "src/types/Course.type";
 
 const courseNodeStyle = {
   width: 120,
   height: 80,
   offsetY: 20,
-};
-
-const addCourseBtnStyle = {
-  width: courseNodeStyle.width,
-  height: 40,
 };
 
 const semesterStyle = {
@@ -40,28 +36,9 @@ interface IMergedTwoCurriculums {
 }
 
 export const getDndNodesAndEdges = (
-  curriculumA: {
-    allYears: Record<
-      string,
-      {
-        semesters: Record<string, { courseIds: string[] }>;
-        semestersOrder: string[];
-      }
-    >;
-    allYearsOrder: string[];
-  },
-  curriculumB: {
-    allYears: Record<
-      string,
-      {
-        semesters: Record<string, { courseIds: string[] }>;
-        semestersOrder: string[];
-      }
-    >;
-    allYearsOrder: string[];
-  },
-  allCourses: Record<string, ICourseItemSimple> = store.getState().courses
-    .courses
+  curriculumA: ArrayNormalizer<ICurriculumItemYear>,
+  curriculumB: ArrayNormalizer<ICurriculumItemYear>,
+  courses: ArrayNormalizer<ICourse> = store.getState().courses.courses
 ): { nodes: Node[]; edges: Edge[] } => {
   let nodesTemp: Node[] = [];
   let edgesTemp: Edge[] = [];
@@ -69,20 +46,12 @@ export const getDndNodesAndEdges = (
   const curriculumBefore = curriculumA;
   const curriculumAfter = curriculumB;
 
-  // const allYearIdsOrder =
-  //   store.getState().curriculums.curriculumDetail.allYearsOrder;
-
-  // const { curriculumBefore } = (store.getState() as RootState)
-  //   .curriculumChangeHistory;
-  // const { curriculumDetail: curriculumAfter } = (store.getState() as RootState)
-  //   .curriculums;
-
-  // if (allYearIdsOrder.length === 0) {
-  //   return {
-  //     nodes: nodesTemp,
-  //     edges: edgesTemp,
-  //   };
-  // }
+  if (courses.allIds.length === 0) {
+    return {
+      nodes: nodesTemp,
+      edges: edgesTemp,
+    };
+  }
 
   let semCount = 0;
   let summerCount = 0;
@@ -98,27 +67,27 @@ export const getDndNodesAndEdges = (
   {
     // #region Step 1.1: Combine year ids by index
     let { byYearId, allYearIds } = mergedTwoCurriculums;
-    const mapYearIdsBefore = curriculumBefore.allYearsOrder.map(
-      (yearId, yearIndex) => yearIndex
+    const mapYearIdsBefore = curriculumBefore.allIds.map(
+      (_yearId, yearIndex) => yearIndex
     );
-    const mapYearIdsAfter = curriculumAfter.allYearsOrder.map(
-      (yearId, yearIndex) => yearIndex
+    const mapYearIdsAfter = curriculumAfter.allIds.map(
+      (_yearId, yearIndex) => yearIndex
     );
     const combineYearIds = new Set([...mapYearIdsBefore, ...mapYearIdsAfter]);
 
     allYearIds.push(...Array.from(combineYearIds));
-    allYearIds.forEach((yearId, yearIndex) => {
+    allYearIds.forEach((_yearId, yearIndex) => {
       // #region Step 1.2: Combine semester ids by index
-      const yearIdBefore = curriculumBefore.allYearsOrder[yearIndex];
-      const mapSemIdsBefore =
-        curriculumBefore.allYears[yearIdBefore]?.semestersOrder.map(
-          (semId, semIndex) => semIndex
-        ) || [];
+      const yearIdBefore = curriculumBefore.allIds[yearIndex] as number;
+      const yearIdAfter = curriculumAfter.allIds[yearIndex] as number;
 
-      const yearIdAfter = curriculumAfter.allYearsOrder[yearIndex];
+      const mapSemIdsBefore =
+        curriculumBefore.byId[yearIdBefore]?.semesters.allIds.map(
+          (_semId, semIndex) => semIndex
+        ) || [];
       const mapSemIdsAfter =
-        curriculumAfter.allYears[yearIdAfter]?.semestersOrder.map(
-          (semId, semIndex) => semIndex
+        curriculumAfter.byId[yearIdAfter]?.semesters.allIds.map(
+          (_semId, semIndex) => semIndex
         ) || [];
 
       const combineSemIds = new Set([...mapSemIdsBefore, ...mapSemIdsAfter]);
@@ -132,18 +101,16 @@ export const getDndNodesAndEdges = (
       currentYear.semestersOrder.push(...Array.from(combineSemIds));
       currentYear.semestersOrder.forEach((semId, semIndex) => {
         // #region Step 1.3: Combine course ids
-        const semIdBefore =
-          curriculumBefore.allYears[yearIdBefore]?.semestersOrder[semIndex] ||
-          -1;
-        const mapCourseIdsBefore =
-          curriculumBefore.allYears[yearIdBefore]?.semesters[semIdBefore]
-            ?.courseIds || [];
+        const semesterBefore = curriculumBefore.byId[yearIdBefore]?.semesters;
+        const semesterAfter = curriculumAfter.byId[yearIdAfter]?.semesters;
 
-        const semIdAfter =
-          curriculumAfter.allYears[yearIdAfter]?.semestersOrder[semIndex] || -1;
+        const semIdBefore = semesterBefore?.allIds[semIndex] || -1;
+        const semIdAfter = semesterAfter?.allIds[semIndex] || -1;
+
+        const mapCourseIdsBefore =
+          semesterBefore?.byId[semIdBefore]?.courseIds || [];
         const mapCourseIdsAfter =
-          curriculumAfter.allYears[yearIdAfter]?.semesters[semIdAfter]
-            ?.courseIds || [];
+          semesterAfter?.byId[semIdAfter]?.courseIds || [];
 
         const combineCourseIds = new Set([
           ...mapCourseIdsBefore,
@@ -272,16 +239,16 @@ export const getDndNodesAndEdges = (
       // #region Step 2.2: Render course nodes inside a semester node
       const { courseIds: combinedCourseIds } = semesters[semesterId];
 
-      const yearIdBefore = curriculumBefore?.allYearsOrder[yearIndex];
-      const yearBefore = curriculumBefore?.allYears[yearIdBefore];
-      const semIdBefore = yearBefore?.semestersOrder[semesterIndex];
-      const semBefore = yearBefore?.semesters[semIdBefore];
+      const yearIdBefore = curriculumBefore?.allIds[yearIndex];
+      const yearBefore = curriculumBefore?.byId[yearIdBefore];
+      const semIdBefore = yearBefore?.semesters.allIds[semesterIndex];
+      const semBefore = yearBefore?.semesters.byId[semIdBefore];
       const courseIdsBefore = semBefore?.courseIds || [];
 
-      const yearIdAfter = curriculumAfter?.allYearsOrder[yearIndex];
-      const yearAfter = curriculumAfter?.allYears[yearIdAfter];
-      const semIdAfter = yearAfter?.semestersOrder[semesterIndex];
-      const semAfter = yearAfter?.semesters[semIdAfter];
+      const yearIdAfter = curriculumAfter?.allIds[yearIndex];
+      const yearAfter = curriculumAfter?.byId[yearIdAfter];
+      const semIdAfter = yearAfter?.semesters.allIds[semesterIndex];
+      const semAfter = yearAfter?.semesters.byId[semIdAfter];
       const courseIdsAfter = semAfter?.courseIds || [];
 
       const unchangedCourseIds = _intersection(courseIdsBefore, courseIdsAfter);
@@ -314,7 +281,7 @@ export const getDndNodesAndEdges = (
           name,
           relationships: relationship,
           type,
-        } = allCourses[courseId];
+        } = courses.byId[courseId];
 
         courseOrders.push(courseId);
         nodesTemp.push({

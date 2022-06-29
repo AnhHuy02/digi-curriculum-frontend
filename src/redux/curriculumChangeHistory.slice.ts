@@ -1,7 +1,12 @@
 import type { PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "./_store";
-import type { CurriculumDetailHistoryAction } from "src/types/Curriculum.type";
+import type { ICourse } from "src/types/Course.type";
+import type {
+  CurriculumDetailHistoryAction,
+  ICurriculumItemYear,
+} from "src/types/Curriculum.type";
 import type { ChangeHistory } from "src/types/ChangeHistory.type";
+import type { ArrayNormalizer } from "src/types/Normalizer.type";
 
 import _pull from "lodash/pull";
 import moment from "moment";
@@ -36,37 +41,10 @@ const getCurrentDateTime = () => {
 };
 
 //#region STATE
-interface ICoursesState {
-  byId: Record<
-    string,
-    {
-      id: string;
-      name: string;
-      relationships: {
-        preRequisites: string[];
-        coRequisites: string[];
-        previous: string[];
-        placeholders: string[];
-      };
-    }
-  >;
-  allIds: string[];
-}
-
-interface ICurriculumState {
-  allYears: Record<
-    string,
-    {
-      semesters: Record<string, { courseIds: string[] }>;
-      semestersOrder: string[];
-    }
-  >;
-  allYearsOrder: string[];
-}
 
 interface ICurriculumChangeTracker {
-  coursesBefore: ICoursesState;
-  curriculumBefore: ICurriculumState;
+  coursesBefore: ArrayNormalizer<ICourse>;
+  curriculumBefore: ArrayNormalizer<ICurriculumItemYear>;
   changeHistory: ChangeHistory<CurriculumDetailHistoryAction>;
 }
 
@@ -76,8 +54,8 @@ const initialState: ICurriculumChangeTracker = {
     allIds: [],
   },
   curriculumBefore: {
-    allYears: {},
-    allYearsOrder: [],
+    byId: {},
+    allIds: [],
   },
   changeHistory: {
     commandLogs: [],
@@ -91,10 +69,16 @@ export const curriculumChangeHistorySlice = createSlice({
   name: "curriculumChangeHistory",
   initialState: initialState,
   reducers: {
-    setCoursesBefore: (state, action: PayloadAction<ICoursesState>) => {
+    setCoursesBefore: (
+      state,
+      action: PayloadAction<ArrayNormalizer<ICourse>>
+    ) => {
       state.coursesBefore = action.payload;
     },
-    setCurriculumBefore: (state, action: PayloadAction<ICurriculumState>) => {
+    setCurriculumBefore: (
+      state,
+      action: PayloadAction<ArrayNormalizer<ICurriculumItemYear>>
+    ) => {
       state.curriculumBefore = action.payload;
     },
     // setCommandDescription: (
@@ -197,11 +181,11 @@ const executeCommand = createAsyncThunk(
       case CurriculumCommandType.REMOVE_YEAR: {
         const { yearId, yearDetail } = payload.patch;
 
-        const { semesters, semestersOrder } = yearDetail;
+        const { semesters } = yearDetail;
         let courseIds: string[] = [];
 
-        semestersOrder.forEach((semId) => {
-          courseIds.push(...semesters[semId].courseIds);
+        semesters.allIds.forEach((semId) => {
+          courseIds.push(...semesters.byId[semId].courseIds);
         });
 
         dispatch(removeSelectedCourses(courseIds));
@@ -315,20 +299,21 @@ export const undoChange = createAsyncThunk(
           break;
         }
         case CurriculumCommandType.ADD_YEAR: {
-          const { allYearsOrder } = (getState() as RootState).curriculums
+          const { years } = (getState() as RootState).curriculums
             .curriculumDetail;
-          const yearId = allYearsOrder[allYearsOrder.length - 1];
+          const yearIds = years.allIds;
+          const lastYearId = yearIds[yearIds.length - 1] as string;
 
-          dispatch(removeCurriculumDetailYear(yearId));
+          dispatch(removeCurriculumDetailYear(lastYearId));
           break;
         }
         case CurriculumCommandType.REMOVE_YEAR: {
           const { yearId, yearIndex, yearDetail } = undoCommand.patch;
-          const { semesters, semestersOrder } = yearDetail;
+          const { semesters } = yearDetail;
           let courseIds: string[] = [];
 
-          semestersOrder.forEach((semId) => {
-            courseIds.push(...semesters[semId].courseIds);
+          semesters.allIds.forEach((semId) => {
+            courseIds.push(...semesters.byId[semId].courseIds);
           });
 
           dispatch(selectCourses(courseIds));
@@ -339,7 +324,6 @@ export const undoChange = createAsyncThunk(
               yearDetail: {
                 id: yearId,
                 semesters,
-                semestersOrder,
               },
             })
           );
@@ -376,40 +360,28 @@ export const setupDefaultCourses = createAsyncThunk(
   (_payload: undefined, thunkAPI) => {
     const { dispatch, getState } = thunkAPI;
 
-    const { courses, courseIds } = (getState() as RootState).courses;
-    const { allYears, allYearsOrder } = (getState() as RootState).curriculums
-      .curriculumDetail;
+    const { courses } = (getState() as RootState).courses;
+    const { years } = (getState() as RootState).curriculums.curriculumDetail;
 
     // Get all course ids from curriculum to reduce memory size
-    const filteredCourseIds = allYearsOrder
+    const filteredCourseIds = years.allIds
       .map((yearId) => {
-        const { semestersOrder, semesters } = allYears[yearId];
-        return semestersOrder
-          .map((semId) => semesters[semId].courseIds.flat())
+        const { semesters } = years.byId[yearId];
+        return semesters.allIds
+          .map((semId) => semesters.byId[semId].courseIds.flat())
           .flat();
       })
       .flat();
 
     const coursesByIdTemp = Object.fromEntries(
-      filteredCourseIds.map((courseId) => [
-        courseId,
-        {
-          id: courseId,
-          name: courses[courseId].name,
-          relationships: {
-            preRequisites: courses[courseId].relationships.preRequisites,
-            coRequisites: courses[courseId].relationships.coRequisites,
-            previous: courses[courseId].relationships.previous,
-            placeholders: courses[courseId].relationships.placeholders,
-          },
-        },
-      ])
+      // Return object with [key]: value
+      filteredCourseIds.map((courseId) => [courseId, courses.byId[courseId]])
     );
 
     dispatch(
       setCoursesBefore({
         byId: coursesByIdTemp,
-        allIds: courseIds,
+        allIds: courses.allIds,
       })
     );
   }
@@ -420,25 +392,14 @@ export const setupDefaultCurriculum = createAsyncThunk(
   (_payload: undefined, thunkAPI) => {
     const { dispatch, getState } = thunkAPI;
 
-    const { allYears, allYearsOrder } = (getState() as RootState).curriculums
-      .curriculumDetail;
+    const { years } = (getState() as RootState).curriculums.curriculumDetail;
 
-    const allYearsTemp = Object.fromEntries(
-      allYearsOrder.map((yearId) => [
-        yearId,
-        {
-          semesters: allYears[yearId].semesters,
-          semestersOrder: allYears[yearId].semestersOrder,
-        },
-      ])
-    );
+    // const yearsByIdTemp = Object.fromEntries(
+    //   // Return object with [key]: value
+    //   years.allIds.map((yearId) => [yearId, years.byId[yearId]])
+    // );
 
-    dispatch(
-      setCurriculumBefore({
-        allYears: allYearsTemp,
-        allYearsOrder,
-      })
-    );
+    dispatch(setCurriculumBefore(years));
   }
 );
 //#endregion

@@ -11,7 +11,7 @@ const configCourseTile = style.courseTile;
 
 const YearHeaderList = () => {
   const yearCount = useAppSelector(
-    (state) => state.curriculums.curriculumDetail.allYearsOrder.length
+    (state) => state.curriculums.curriculumDetail.years.allIds.length
   );
   const allYears = Array.from({ length: yearCount });
 

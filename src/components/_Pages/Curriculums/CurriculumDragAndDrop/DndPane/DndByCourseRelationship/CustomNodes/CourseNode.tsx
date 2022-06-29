@@ -51,15 +51,15 @@ const CourseNode: FC<CourseNodeProps> = ({
 
   const dispatch = useAppDispatch();
   const courseDetail = useAppSelector(
-    (store) => store.courses.courses[courseId]
+    (store) => store.courses.courses.byId[courseId]
   );
 
-  const allYears = useAppSelector(
-    (store) => store.curriculums.curriculumDetail.allYears
+  const years = useAppSelector(
+    (store) => store.curriculums.curriculumDetail.years
   );
 
   const coursesPerSemesterLength =
-    allYears[yearId]?.semesters[semId]?.courseIds?.length;
+    years.byId[yearId]?.semesters.byId[semId]?.courseIds?.length;
 
   const modeEditCourseRelationship = useAppSelector(
     (store) => store.courses.mode.editCourseRelationship
