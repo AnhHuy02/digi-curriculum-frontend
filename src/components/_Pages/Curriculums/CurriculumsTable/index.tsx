@@ -20,6 +20,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 
 import Link from "src/components/_Shared/Link";
 import ButtonLoadSampleData from "../CurriculumDragAndDrop/DndToolbar/ButtonLoadSampleData";
+import ButtonRandom from "../CurriculumDragAndDrop/DndToolbar/ButtonRandom";
 import { useAppSelector } from "src/hooks/useStore";
 
 const CurriculumTable = () => {
@@ -83,11 +84,7 @@ const CurriculumTable = () => {
                   }}
                 >
                   <MenuList dense>
-                    <MenuItem
-                      onClick={() =>
-                        router.push(`/curriculums/${params.row.id}/edit`)
-                      }
-                    >
+                    <MenuItem onClick={() => handleClickEdit(params.row.id)}>
                       <ListItemIcon>
                         <EditIcon />
                       </ListItemIcon>
@@ -118,6 +115,10 @@ const CurriculumTable = () => {
     return newDataSource;
   };
 
+  const handleClickEdit = (curriculumId: string) => {
+    router.push(`/curriculums/${curriculumId}/edit`);
+  };
+
   return (
     <Box>
       <Toolbar
@@ -131,9 +132,9 @@ const CurriculumTable = () => {
           },
         }}
       >
-        <Box className="toolbar--left" flexGrow={0}>
-          <ButtonLoadSampleData size="large" />
-        </Box>
+        <Box className="toolbar--left" flexGrow={0}></Box>
+        <ButtonLoadSampleData size="large" />
+        <ButtonRandom size="large" />
 
         <Box className="toolbar--right" flexGrow={1}></Box>
         <Link href="/curriculums/new" type="button">
@@ -146,28 +147,14 @@ const CurriculumTable = () => {
             New
           </Button>
         </Link>
-        {/* <Link href="/curriculums/:id/edit" type="button">
-          <Button
-            variant="contained"
-            endIcon={<EditIcon />}
-            color="info"
-            size="large"
-          >
-            Edit
-          </Button>
-        </Link> */}
       </Toolbar>
-
-      {/* <Box>
-        <Typography paragraph>Curriculum page content</Typography>
-      </Box> */}
 
       <Box height="630px">
         <DataGrid
           rows={mapCurriculumsDataToArray()}
           columns={columns}
           pageSize={10}
-          rowsPerPageOptions={[25, 50, 100]}
+          rowsPerPageOptions={[10, 25, 50, 100]}
           checkboxSelection={false}
         />
       </Box>

@@ -18,10 +18,10 @@ const courseTileFullSize =
   configCourseTile.padding * 2 +
   configCourseTile.margin;
 
-const StyledButton = styled((props: ButtonProps & { semCount: number }) => (
+const StyledButton = styled((props: ButtonProps & { semcount: number }) => (
   <Button variant="contained" endIcon={<AddIcon />} {...props} />
 ))((props) => {
-  const { theme, semCount } = props;
+  const { theme, semcount: semCount } = props;
   const btnWidth = courseTileFullSize * semCount + configYear.padding * 2;
 
   return {
@@ -56,7 +56,7 @@ const YearAddButton = () => {
   };
 
   return (
-    <StyledButton semCount={semCountPerYear} onClick={handleClickAddYear}>
+    <StyledButton semcount={semCountPerYear} onClick={handleClickAddYear}>
       Add year
     </StyledButton>
   );

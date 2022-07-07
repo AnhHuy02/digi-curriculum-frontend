@@ -13,87 +13,95 @@ import _pull from "lodash/pull";
 import _pullAll from "lodash/pullAll";
 import _includes from "lodash/includes";
 
-export const generateRandomCurriculumDetail = ({
-  allCourses,
-  allCourseIds,
+export const generateRandomCurriculumItem = ({
+  courses,
+  majors,
   randomYearCount = { min: 1, max: 4 },
   semesterPerYearCount = 3,
-  courseCountPerSemester = { min: 0, max: 10 },
   randomCreditCountPerSemester = undefined,
-  electiveGroups = {},
-  electiveGroupIds = [],
-}: IRandomCurriculumDetailParam): ArrayNormalizer<ICurriculumItemYear> => {
-  const yearCount = faker.datatype.number(randomYearCount);
-  let courseIdsCopy = [...allCourseIds];
+}: IRandomCurriculumDetailParam): ICurriculum => {
+  const randomCurriculumId = faker.datatype.uuid();
+
+  const curriculumTemp: ICurriculum = {
+    id: randomCurriculumId,
+    year: 2020,
+    name: faker.name.title(),
+    programType: faker.name.title(),
+    englishLevel: faker.name.title(),
+    semCountPerYear: semesterPerYearCount,
+    years: {
+      allIds: [],
+      byId: {},
+    },
+  };
+
+  let courseIdsCopy = [...courses.allIds];
 
   // #region Step 1: Initialize random years with empty semester
-  let byId: Record<string, ICurriculumItemYear> = {};
-  let allIds: string[] = Array.from({ length: yearCount }, (item, i) => {
-    // #region Step 1.1: Initiallize semesters
-    const yearId = `year-${i + 1}`;
+  const yearCount = faker.datatype.number(randomYearCount);
 
-    let allSemesters: Record<string, ICurriculumItemSemester> = {};
-    let allSemestersOrder = Array.from(
+  curriculumTemp.years.allIds = Array.from(
+    { length: yearCount },
+    (_, yearIndex) => {
+      const yearId = `year-${yearIndex + 1}`;
+      return yearId;
+    }
+  );
+  // #endregion
+
+  // #region Step 2: Initialize years and semesters inside a curriculum
+  curriculumTemp.years.allIds.forEach((yearId, yearIndex) => {
+    // #region Step 2.1: Initiallize years
+    const yearTemp: ICurriculumItemYear = {
+      id: yearId as string,
+      semesters: {
+        allIds: [],
+        byId: {},
+      },
+    };
+
+    yearTemp.semesters.allIds = Array.from(
       { length: semesterPerYearCount },
-      (semItem, semIndex) => {
-        // #region Step 1.2: Add credit limit for each semester (including summer semestger)
+      (_, semIndex) => {
         const semId = `${yearId}-sem-${semIndex + 1}`;
-        const creditLimit = Boolean(randomCreditCountPerSemester)
-          ? faker.datatype.number(randomCreditCountPerSemester)
-          : semIndex !== semesterPerYearCount - 1
-          ? 24
-          : 12;
-
-        allSemesters[semId] = {
-          id: semId,
-          creditCount: 0,
-          creditLimit: creditLimit,
-          courseIds: [],
-        };
-
         return semId;
-        // #endregion
       }
     );
     // #endregion
 
-    byId[yearId] = {
-      id: yearId,
-      semesters: {
-        allIds: allSemestersOrder,
-        byId: allSemesters,
-      },
-    };
-
-    return yearId;
-  });
-  // #endregion
-
-  // #region Step 2: Add courses to each semester, also check if credit count <= credit limit
-  allIds.forEach((yearId) => {
-    let { semesters } = byId[yearId];
-    semesters.allIds.forEach((semId, semIndex) => {
-      let { courseIds } = semesters.byId[semId];
+    // #region Step 2.2: Initialize semesters
+    yearTemp.semesters.allIds.forEach((semesterId, semesterIndex) => {
       const creditLimit = Boolean(randomCreditCountPerSemester)
         ? faker.datatype.number(randomCreditCountPerSemester)
-        : semIndex !== semesterPerYearCount - 1
+        : semesterIndex !== yearTemp.semesters.allIds.length - 1
         ? 24
         : 12;
-      let creditCount = 0;
 
-      if (allCourseIds.length > 0) {
-        while (creditCount <= creditLimit) {
-          // #region Step 2.1: Fill semester with random course ids and check if credit count <= credit limit
+      const semestersTemp: ICurriculumItemSemester = {
+        id: semesterId as string,
+        courseIds: [],
+        creditCount: 0,
+        creditLimit: creditLimit,
+      };
+
+      // #region Step 2.2.1: Add courses to each semester,
+      // also check if credit count <= credit limit
+      if (courses.allIds.length > 0) {
+        while (semestersTemp.creditCount <= creditLimit) {
           // Pick a random course id from the list
           const randomCourseId = _sample(courseIdsCopy) as string;
 
           if (randomCourseId) {
-            const { credit } = allCourses[randomCourseId];
-            if (creditCount + credit.theory + credit.practice <= creditLimit) {
-              // Step 2.5: If true, remove a course id from the list
-              creditCount += credit.theory + credit.practice;
-              courseIds.push(randomCourseId);
-              semesters.byId[semId].creditCount = creditCount;
+            const { credit } = courses.byId[randomCourseId];
+
+            if (
+              semestersTemp.creditCount + credit.theory + credit.practice <=
+              creditLimit
+            ) {
+              semestersTemp.creditCount += credit.theory + credit.practice;
+              semestersTemp.courseIds.push(randomCourseId);
+
+              // Step 2.2.1.1: If true, remove a course id from the list
               _pull(courseIdsCopy, randomCourseId);
             } else {
               // Stop the loop if greater than limit
@@ -103,32 +111,18 @@ export const generateRandomCurriculumDetail = ({
             break;
           }
         }
-        // #endregion
       }
+      // #endregion
+
+      yearTemp.semesters.byId[semesterId] = { ...semestersTemp };
     });
+    // #endregion
+
+    curriculumTemp.years.byId[yearId] = yearTemp;
   });
   // #endregion
 
-  // Step 3: Add elective group (optional)
-
-  // Test duplicate courseIds
-  // let asd: any[] = [];
-  // allYearIdsOrder.forEach((yearId, yearIndex) => {
-  //   const { semesters, semestersOrder } = allYears[yearId];
-  //   semestersOrder.forEach((semesterId, semesterIndex) => {
-  //     const { courseIds } = semesters[semesterId];
-
-  //     courseIds.forEach((courseId, courseIndex) => {
-  //       asd.push(courseId);
-  //     });
-  //   });
-  // });
-
-  // console.log(asd);
-  return {
-    byId,
-    allIds,
-  };
+  return curriculumTemp;
 };
 
 export const getRandomCurriculums = (
@@ -147,27 +141,24 @@ export const getRandomCurriculums = (
     });
 
     setTimeout(function () {
-      const curriculumsYears = Array.from({ length: curriculumCount }, () => {
-        return generateRandomCurriculumDetail(config);
+      const curriculums = Array.from({ length: curriculumCount }, () => {
+        return generateRandomCurriculumItem(config);
       });
 
-      console.log("CURRICULUM YEARS", curriculumsYears);
+      // console.log("CURRICULUM YEARS", curriculumsYears);
 
       let curriculumsTemp: ArrayNormalizer<ICurriculum> = {
         allIds: [],
         byId: {},
       };
 
-      curriculumsYears.forEach((curriculumYear, curriculumIndex) => {
-        // curriculumsById[curriculumYear.]
+      curriculums.forEach((curriculum, curriculumIndex) => {
         const newCurriculumId = `curriculum${curriculumIndex + 1}`;
 
         curriculumsTemp.allIds.push(newCurriculumId);
         curriculumsTemp.byId[newCurriculumId] = {
+          ...curriculum,
           id: newCurriculumId,
-          year: 2020,
-          semCountPerYear: 3,
-          years: curriculumYear,
         };
       });
 
@@ -181,12 +172,9 @@ export const getRandomCurriculums = (
 export const getRandomCurriculumItem = (
   config: IRandomCurriculumDetailParam
 ) => {
-  const promise = new Promise<ArrayNormalizer<ICurriculumItemYear>>(function (
-    resolve,
-    reject
-  ) {
+  const promise = new Promise<ICurriculum>(function (resolve, reject) {
     setTimeout(function () {
-      resolve(generateRandomCurriculumDetail(config));
+      resolve(generateRandomCurriculumItem(config));
     }, 1);
   });
   return promise;

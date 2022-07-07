@@ -29,6 +29,7 @@ interface ICurriculumState {
   dndViewMode: CurriculumDndType;
   diagramViewMode: CurriculumDiagramType;
   pageLoading: boolean;
+  mockDataMode: "SAMPLE" | "RANDOM";
   modalRandomCurriculums: {
     isOpen: boolean;
   };
@@ -71,6 +72,7 @@ const initialState: ICurriculumState = {
   dndViewMode: CurriculumDndType.DND_BY_COURSE_RELATIONSHIP,
   diagramViewMode: CurriculumDiagramType.NONE,
   pageLoading: false,
+  mockDataMode: "SAMPLE",
   modalRandomCurriculums: {
     isOpen: false,
   },
@@ -126,6 +128,9 @@ export const CurriculumSlice = createSlice({
     },
     setPageLoading: (state, action: PayloadAction<boolean>) => {
       state.pageLoading = action.payload;
+    },
+    setMockDataMode: (state, action: PayloadAction<"SAMPLE" | "RANDOM">) => {
+      state.mockDataMode = action.payload;
     },
     setCurriculumDetailLoading: (state, action: PayloadAction<boolean>) => {
       state.curriculumDetail.loading = action.payload;
@@ -244,7 +249,7 @@ export const CurriculumSlice = createSlice({
             id: newSemId,
             courseIds: [],
             creditCount: 0,
-            creditLimit: 24,
+            creditLimit: index < semCountPerYear - 1 ? 24 : 12,
           };
         });
         return;
@@ -371,7 +376,11 @@ export const CurriculumSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(loadRandomCurriculumDetail.fulfilled, (state, action) => {
-      state.curriculumDetail.years = action.payload;
+      state.curriculumDetail = {
+        ...action.payload,
+        loading: false,
+        mode: state.curriculumDetail.mode,
+      };
     });
 
     builder.addCase(loadRandomCurriculums.fulfilled, (state, action) => {
@@ -431,6 +440,7 @@ export const {
   setDragAndDropViewMode,
   setDiagramViewMode,
   setPageLoading,
+  setMockDataMode,
   setCurriculumDetailLoading,
 
   setModalRandomCurriculums,

@@ -1,3 +1,6 @@
+import type { FC } from "react";
+import type { ButtonProps } from "@mui/material/Button";
+
 import { grey } from "@mui/material/colors";
 import Button from "@mui/material/Button";
 import ShuffleIcon from "@mui/icons-material/Shuffle";
@@ -5,21 +8,22 @@ import ShuffleIcon from "@mui/icons-material/Shuffle";
 import { useAppDispatch } from "src/hooks/useStore";
 
 import { loadRandomCoursesAndCurriculums } from "src/redux/_thunks/coursesCurriculums.thunk";
-import { setModalRandomCurriculums } from "src/redux/curriculums.slice";
+// import { setModalRandomCurriculums } from "src/redux/curriculums.slice";
 
-const RandomButton = () => {
+const ButtonRandom: FC<ButtonProps> = (props) => {
   const dispatch = useAppDispatch();
 
   const handleClick = () => {
-    // dispatch(loadRandomCoursesAndCurriculums());
-    dispatch(setModalRandomCurriculums({ isOpen: true }));
+    dispatch(loadRandomCoursesAndCurriculums());
+    // dispatch(setModalRandomCurriculums({ isOpen: true }));
   };
 
   return (
     <>
       <Button
-        size="small"
-        variant="outlined"
+        {...props}
+        size={props.size || "small"}
+        variant={props.variant || "outlined"}
         sx={(theme) => ({
           borderColor: grey["A200"],
           bgcolor: grey["A200"],
@@ -40,4 +44,4 @@ const RandomButton = () => {
   );
 };
 
-export default RandomButton;
+export default ButtonRandom;
