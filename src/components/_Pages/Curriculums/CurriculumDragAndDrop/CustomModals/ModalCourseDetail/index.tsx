@@ -21,7 +21,7 @@ const ModalCourseDetail = () => {
     (store) => store.curriculums.modalCourseDetail.courseId
   );
   const courseDetail = useAppSelector((store) =>
-    courseId ? store.courses.courses[courseId as string] : null
+    courseId ? store.courses.courses.byId[courseId as string] : null
   );
   const majors = useAppSelector((store) => store.courses.majors);
   const dispatch = useAppDispatch();
@@ -53,7 +53,7 @@ const ModalCourseDetail = () => {
             </Box>
             <Box>
               <Typography variant="body1">
-                Major: <b>{majors[courseDetail.majorId].name}</b>
+                Major: <b>{majors.byId[courseDetail.majorId].name}</b>
               </Typography>
             </Box>
             <Box>

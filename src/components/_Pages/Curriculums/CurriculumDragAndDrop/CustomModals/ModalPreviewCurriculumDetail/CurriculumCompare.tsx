@@ -1,4 +1,6 @@
 import type { FC } from "react";
+import type { ArrayNormalizer } from "src/types/Normalizer.type";
+import type { ICurriculumItemYear } from "src/types/Curriculum.type";
 
 import { useState, useMemo } from "react";
 import ReactFlow, {
@@ -12,6 +14,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
+import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import CompareArrowsIcon from "@mui/icons-material/CompareArrows";
 import SwapHorizIcon from "@mui/icons-material/SwapHoriz";
@@ -21,7 +24,6 @@ import { getDndNodesAndEdges } from "src/helper/diagramGenerator/diffDiagramSimp
 import TextNode from "../../DndPane/DndByCourseRelationship/CustomNodes/TextNode";
 import SemesterNodePreview from "../../DndPane/DndByCourseRelationship/CustomNodes/SemesterNodePreview";
 import CourseNodePreview from "../../DndPane/DndByCourseRelationship/CustomNodes/CourseNodePreview";
-import Button from "@mui/material/Button";
 
 const nodeTypes = {
   textNode: TextNode,
@@ -35,10 +37,9 @@ interface CurriculumCompareProps {
 }
 
 const CurriculumCompare: FC<CurriculumCompareProps> = ({ width, height }) => {
-  const [allYears, allYearIdsOrder] = useAppSelector((store) => {
-    const { allYears, allYearsOrder } = store.curriculums.curriculumDetail;
-    return [allYears, allYearsOrder];
-  });
+  const years = useAppSelector(
+    (store) => store.curriculums.curriculumDetail.years
+  );
 
   const curriculums = useAppSelector((store) => store.curriculums.curriculums);
   const curriculumBefore = useAppSelector(
@@ -49,37 +50,22 @@ const CurriculumCompare: FC<CurriculumCompareProps> = ({ width, height }) => {
 
   const [curriculumInputA, setCurriculumInputA] =
     useState<string>("Curriculum Before");
-  const [curriculumA, setCurriculumA] = useState<{
-    allYears: Record<
-      string,
-      {
-        semesters: Record<string, { courseIds: string[] }>;
-        semestersOrder: string[];
-      }
-    >;
-    allYearsOrder: string[];
-  } | null>(null);
+  const [curriculumA, setCurriculumA] =
+    useState<ArrayNormalizer<ICurriculumItemYear> | null>(null);
+
   const [curriculumInputB, setCurriculumInputB] =
     useState<string>("Curriculum After");
-  const [curriculumB, setCurriculumB] = useState<{
-    allYears: Record<
-      string,
-      {
-        semesters: Record<string, { courseIds: string[] }>;
-        semestersOrder: string[];
-      }
-    >;
-    allYearsOrder: string[];
-  } | null>(null);
+  const [curriculumB, setCurriculumB] =
+    useState<ArrayNormalizer<ICurriculumItemYear> | null>(null);
 
   useMemo(() => {
     if (curriculumInputA) {
       if (curriculumInputA === "Curriculum Before") {
         setCurriculumA(curriculumBefore);
       } else if (curriculumInputA === "Curriculum After") {
-        setCurriculumA({ allYears, allYearsOrder: allYearIdsOrder });
+        setCurriculumA(years);
       } else {
-        setCurriculumA(curriculums[Number(curriculumInputA)]);
+        setCurriculumA(curriculums.byId[String(curriculumInputA)].years);
       }
     }
   }, [curriculumInputA]);
@@ -89,9 +75,9 @@ const CurriculumCompare: FC<CurriculumCompareProps> = ({ width, height }) => {
       if (curriculumInputB === "Curriculum Before") {
         setCurriculumB(curriculumBefore);
       } else if (curriculumInputB === "Curriculum After") {
-        setCurriculumB({ allYears, allYearsOrder: allYearIdsOrder });
+        setCurriculumB(years);
       } else {
-        setCurriculumB(curriculums[Number(curriculumInputB)]);
+        setCurriculumB(curriculums.byId[String(curriculumInputB)].years);
       }
     }
   }, [curriculumInputB]);
@@ -155,9 +141,13 @@ const CurriculumCompare: FC<CurriculumCompareProps> = ({ width, height }) => {
             <MenuItem key="curriculum-a-after" value={"Curriculum After"}>
               After Change
             </MenuItem>
-            {curriculums.map((curriculum, index) => (
-              <MenuItem key={`curriculum-a-${index + 1}`} value={String(index)}>
-                Curriculum {index + 1}
+            {curriculums.allIds.map((curriculumId, index) => (
+              <MenuItem
+                key={`curriculum-a-${index + 1}`}
+                value={String(curriculumId)}
+              >
+                {curriculums.byId[curriculumId].name ||
+                  `Curriculum ${index + 1}`}
               </MenuItem>
             ))}
           </Select>
@@ -185,9 +175,13 @@ const CurriculumCompare: FC<CurriculumCompareProps> = ({ width, height }) => {
             <MenuItem key="curriculum-b-after" value={"Curriculum After"}>
               After Change
             </MenuItem>
-            {curriculums.map((curriculum, index) => (
-              <MenuItem key={`curriculum-b-${index + 1}`} value={String(index)}>
-                Curriculum {index + 1}
+            {curriculums.allIds.map((curriculumId, index) => (
+              <MenuItem
+                key={`curriculum-a-${index + 1}`}
+                value={String(curriculumId)}
+              >
+                {curriculums.byId[curriculumId].name ||
+                  `Curriculum ${index + 1}`}
               </MenuItem>
             ))}
           </Select>

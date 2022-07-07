@@ -7,8 +7,8 @@ import YearAddButton from "./YearAddButton";
 import { useAppSelector } from "src/hooks/useStore";
 
 const YearList = () => {
-  const allYearsOrder = useAppSelector(
-    (state) => state.curriculums.curriculumDetail.allYearsOrder
+  const years = useAppSelector(
+    (state) => state.curriculums.curriculumDetail.years
   );
 
   return (
@@ -26,8 +26,10 @@ const YearList = () => {
             flexDirection={`row`}
             alignItems={`flex-start`}
           >
-            {allYearsOrder.map((yearId, index) => {
-              return <Year key={yearId} yearId={yearId} index={index} />;
+            {years.allIds.map((yearId, index) => {
+              return (
+                <Year key={yearId} yearId={yearId as string} index={index} />
+              );
             })}
             {provided.placeholder}
             <YearAddButton />

@@ -1,14 +1,7 @@
-import type {
-  IMajorSimple,
-  IRandomMajorsReturn,
-} from "src/types/Department.type";
-import type {
-  ICourseItemSimple,
-  ICourseTypeDistribution,
-  IRandomCoursesParam,
-  IRandomCoursesReturn,
-} from "src/types/Course.type";
+import type { IMajor } from "src/types/Department.type";
+import type { ICourse, IRandomCoursesParam } from "src/types/Course.type";
 import type { IRange } from "src/types/Others.type";
+import type { ArrayNormalizer } from "src/types/Normalizer.type";
 
 import faker from "@faker-js/faker";
 import _sample from "lodash/sample";
@@ -26,25 +19,26 @@ import { CourseType } from "src/constants/course.const";
 export const generateRandomMajors = ({
   min,
   max,
-}: IRange): IRandomMajorsReturn => {
+}: IRange): ArrayNormalizer<IMajor> => {
   const majorCount = faker.datatype.number({ min, max });
+  const majorsTemp: ArrayNormalizer<IMajor> = {
+    allIds: [],
+    byId: {},
+  };
 
-  let allMajors: Record<string, IMajorSimple> = {};
-  let allMajorIds = Array.from({ length: majorCount }, (item, i) => {
+  majorsTemp.allIds = Array.from({ length: majorCount }, (item, i) => {
     const majorId = "major" + i.toString() + "-" + faker.datatype.string();
-
-    allMajors[majorId] = {
-      id: majorId,
-      name: faker.name.title(),
-    };
-
     return majorId;
   });
 
-  return {
-    allMajors,
-    allMajorIds,
-  };
+  majorsTemp.allIds.forEach((majorId, majorIndex) => {
+    majorsTemp.byId[majorId] = {
+      id: majorId as string,
+      name: faker.name.title(),
+    };
+  });
+
+  return majorsTemp;
 };
 
 /**
@@ -53,7 +47,7 @@ export const generateRandomMajors = ({
  * @returns
  */
 export const generateRandomCourses = ({
-  allMajorIds,
+  majors,
   randomCourseCount = { min: 0, max: 150 },
   nameLength = { min: 1, max: 7 },
   creditCount = {
@@ -92,22 +86,28 @@ export const generateRandomCourses = ({
       frequency: 10,
     },
   ],
-}: IRandomCoursesParam): IRandomCoursesReturn => {
+}: IRandomCoursesParam): ArrayNormalizer<ICourse> => {
   const courseCount = faker.datatype.number(randomCourseCount);
-
+  const coursesTemp: ArrayNormalizer<ICourse> = {
+    allIds: [],
+    byId: {},
+  };
   // Step 1: Initialize random courses
-  let allCourses: Record<string, ICourseItemSimple> = {};
   const courseTypesByCumulativeFrequencies = getCumulativeFrequencies(
     courseTypeDistribution
   );
 
-  let allCourseIds = Array.from({ length: courseCount }, (item, i) => {
-    const courseId = "course" + i.toString() + "-" + faker.datatype.uuid();
-    const randomNameLength = faker.datatype.number(nameLength);
-    const randomMajorId = _sample(allMajorIds) as string;
+  coursesTemp.allIds = Array.from({ length: courseCount }, (_, courseIndex) => {
+    const courseId = `course${courseIndex}-${faker.datatype.uuid()}`;
+    return courseId;
+  });
 
-    allCourses[courseId] = {
-      id: courseId,
+  coursesTemp.allIds.forEach((courseId, courseIndex) => {
+    const randomNameLength = faker.datatype.number(nameLength);
+    const randomMajorId = _sample(majors.allIds) as string;
+
+    coursesTemp.byId[courseId] = {
+      id: courseId as string,
       name: faker.random.words(randomNameLength),
       credit: {
         theory: faker.datatype.number(creditCount.theory),
@@ -136,9 +136,9 @@ export const generateRandomCourses = ({
   });
 
   // Step 2: Add courses relationship
-  allCourseIds.forEach((courseId) => {
+  coursesTemp.allIds.forEach((courseId) => {
     // Prevent duplicate relationship when selecting a course randomly
-    let tempAllCourseIds = [...allCourseIds];
+    let tempAllCourseIds = [...coursesTemp.allIds];
 
     //#region Random PreRequisite relationship
     const randomPreRequisiteCount = faker.datatype.number(
@@ -185,23 +185,24 @@ export const generateRandomCourses = ({
     );
     //#endregion
 
-    allCourses[courseId].relationships = {
-      preRequisites: randomPreRequisiteIds,
-      coRequisites: randomCoRequisiteIds,
-      previous: randomPreviousIds,
-      placeholders: randomPlaceHolderIds,
+    coursesTemp.byId[courseId].relationships = {
+      preRequisites: randomPreRequisiteIds as string[],
+      coRequisites: randomCoRequisiteIds as string[],
+      previous: randomPreviousIds as string[],
+      placeholders: randomPlaceHolderIds as string[],
     };
   });
 
   // Step 2.5: Remove duplicated relationship
-  allCourseIds.forEach((courseId) => {
+  coursesTemp.allIds.forEach((courseId) => {
     // Prevent duplicate relationship when selecting a course randomly
     const { preRequisites, coRequisites, previous, placeholders } =
-      allCourses[courseId].relationships;
+      coursesTemp.byId[courseId].relationships;
 
     //#region Remove duplicated PreRequisite relationship
     preRequisites.forEach((preRequisiteId) => {
-      const oppositeRelationships = allCourses[preRequisiteId].relationships;
+      const oppositeRelationships =
+        coursesTemp.byId[preRequisiteId].relationships;
 
       if (
         oppositeRelationships.preRequisites.some(
@@ -215,7 +216,8 @@ export const generateRandomCourses = ({
 
     //#region Remove duplicated CoRequisite relationship
     coRequisites.forEach((coRequisiteId) => {
-      const oppositeRelationships = allCourses[coRequisiteId].relationships;
+      const oppositeRelationships =
+        coursesTemp.byId[coRequisiteId].relationships;
 
       if (
         oppositeRelationships.coRequisites.some(
@@ -229,7 +231,7 @@ export const generateRandomCourses = ({
 
     //#region Remove duplicated Previous relationship
     previous.forEach((previousId) => {
-      const oppositeRelationships = allCourses[previousId].relationships;
+      const oppositeRelationships = coursesTemp.byId[previousId].relationships;
 
       if (
         oppositeRelationships.previous.some(
@@ -243,7 +245,8 @@ export const generateRandomCourses = ({
 
     //#region Remove duplicated Placeholder relationship
     placeholders.forEach((placeholderId) => {
-      const oppositeRelationships = allCourses[placeholderId].relationships;
+      const oppositeRelationships =
+        coursesTemp.byId[placeholderId].relationships;
 
       if (
         oppositeRelationships.previous.some(
@@ -255,7 +258,7 @@ export const generateRandomCourses = ({
     });
     //#endregion
 
-    allCourses[courseId].relationships = {
+    coursesTemp.byId[courseId].relationships = {
       preRequisites: preRequisites,
       coRequisites: coRequisites,
       previous: previous,
@@ -263,23 +266,26 @@ export const generateRandomCourses = ({
     };
   });
 
-  return {
-    allCourses,
-    allCourseIds,
-  };
+  return coursesTemp;
 };
 
 export const getRandomMajors = (config: IRange) => {
-  let promise = new Promise<IRandomMajorsReturn>(function (resolve, reject) {
+  let promise = new Promise<ArrayNormalizer<IMajor>>(function (
+    resolve,
+    reject
+  ) {
     setTimeout(function () {
-      resolve(generateRandomMajors(config));
+      return resolve(generateRandomMajors(config));
     }, 2000);
   });
   return promise;
 };
 
 export const getRandomCourses = (config: IRandomCoursesParam) => {
-  let promise = new Promise<IRandomCoursesReturn>(function (resolve, reject) {
+  let promise = new Promise<ArrayNormalizer<ICourse>>(function (
+    resolve,
+    reject
+  ) {
     setTimeout(function () {
       resolve(generateRandomCourses(config));
     }, 2000);

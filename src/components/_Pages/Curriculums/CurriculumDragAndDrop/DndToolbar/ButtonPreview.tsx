@@ -6,7 +6,7 @@ import Button from "@mui/material/Button";
 import { useAppDispatch } from "src/hooks/useStore";
 import { setModalPreviewCurriculumDetail } from "src/redux/curriculums.slice";
 
-const PreviewButton = () => {
+const ButtonPreview = () => {
   const dispatch = useAppDispatch();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -35,4 +35,4 @@ const PreviewButton = () => {
   );
 };
 
-export default PreviewButton;
+export default ButtonPreview;

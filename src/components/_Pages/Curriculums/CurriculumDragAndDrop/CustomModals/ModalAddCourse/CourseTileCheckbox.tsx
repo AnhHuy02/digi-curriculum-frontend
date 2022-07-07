@@ -19,7 +19,9 @@ interface CourseTileCheckboxProps {
 
 const CourseTileCheckbox: FC<CourseTileCheckboxProps> = ({ courseId }) => {
   const dispatch = useAppDispatch();
-  const course = useAppSelector((store) => store.courses.courses[courseId]);
+  const course = useAppSelector(
+    (store) => store.courses.courses.byId[courseId]
+  );
   const { name, credit, selected, selectedTemp } = course;
 
   const handleSelect = () => {

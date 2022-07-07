@@ -1,5 +1,5 @@
 import type { Node, Edge } from "react-flow-renderer";
-import type { ICourseItemSimple } from "src/types/Course.type";
+import type { ICourse } from "src/types/Course.type";
 import type { IRandomCurriculumDetailItemReturn } from "src/types/Curriculum.type";
 
 import { Position, MarkerType } from "react-flow-renderer";
@@ -7,7 +7,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 
 interface IGetReactFlowElements extends IRandomCurriculumDetailItemReturn {
-  allCourses: Record<string, ICourseItemSimple>;
+  allCourses: Record<string, ICourse>;
 }
 
 export const getReactFlowElements = ({

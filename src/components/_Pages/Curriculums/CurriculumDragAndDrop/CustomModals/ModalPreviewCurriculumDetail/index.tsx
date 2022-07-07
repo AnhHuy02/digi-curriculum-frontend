@@ -17,19 +17,17 @@ import { useAppDispatch, useAppSelector } from "src/hooks/useStore";
 import { setModalPreviewCurriculumDetail } from "src/redux/curriculums.slice";
 import { getDotDiagramString } from "src/helper/diagramGenerator/dotDiagram";
 import CurriculumCompare from "./CurriculumCompare";
-import CurriculumSideBySideDiff from "./CurriculumSideBySideDiff";
 import CurriculumChangeLog from "./CurriculumChangeLog";
-import DiagramDot from "../../DiagramPane/DiagramDot";
+import DotDiagramPreview from "src/components/_Shared/DotDiagramPreview";
 import TabPanel from "src/components/_Shared/TabPanel";
 
 const ModalAddCourseRelationship = () => {
-  const dispatch = useAppDispatch();
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
-  const curriculumDetail = useAppSelector(
-    (store) => store.curriculums.curriculumDetail
-  );
+  const dispatch = useAppDispatch();
   const courses = useAppSelector((store) => store.courses.courses);
-  const { allYears, allYearsOrder } = curriculumDetail;
+  const years = useAppSelector(
+    (store) => store.curriculums.curriculumDetail.years
+  );
 
   const isOpen = useAppSelector(
     (store) => store.curriculums.modalPreviewCurriculumDetail.isOpen
@@ -50,9 +48,8 @@ const ModalAddCourseRelationship = () => {
 
   const exportToDot = async () => {
     const dotString = await getDotDiagramString({
-      allCourses: courses,
-      allYears,
-      allYearIdsOrder: allYearsOrder,
+      courses,
+      years,
     });
 
     const blob = new Blob([dotString], {
@@ -66,11 +63,9 @@ const ModalAddCourseRelationship = () => {
       variant: "default",
     });
 
-    const { allYears, allYearsOrder } = curriculumDetail;
     const dotString = await getDotDiagramString({
-      allCourses: courses,
-      allYears,
-      allYearIdsOrder: allYearsOrder,
+      courses,
+      years,
     });
 
     const viz = new Viz({ Module, render });
@@ -78,9 +73,6 @@ const ModalAddCourseRelationship = () => {
     viz
       .renderImageElement(dotString)
       .then(function (element) {
-        console.log(element);
-        console.log("YEEET");
-
         const link = element.src;
 
         var a = document.createElement("a");
@@ -123,14 +115,11 @@ const ModalAddCourseRelationship = () => {
       </DialogTitle>
       <DialogContent ref={squareRef} sx={{ py: 0 }}>
         <TabPanel value={tabIndex} index={0}>
-          <DiagramDot width={width - 24 * 2} height={height} />
+          <DotDiagramPreview width={width - 24 * 2} height={height} />
         </TabPanel>
         <TabPanel value={tabIndex} index={1}>
           <CurriculumCompare width={width - 24 * 2} height={height} />
         </TabPanel>
-        {/* <TabPanel value={tabIndex} index={2}>
-          <CurriculumSideBySideDiff width={width - 24 * 2} height={height} />
-        </TabPanel> */}
         <TabPanel value={tabIndex} index={2}>
           <CurriculumChangeLog />
         </TabPanel>

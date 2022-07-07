@@ -5,20 +5,18 @@ import CourseTileCheckbox from "./CourseTileCheckbox";
 import { useAppSelector } from "src/hooks/useStore";
 
 const CourseList = () => {
-  const allMajorIds = useAppSelector((store) => store.courses.majorIds);
-  const allMajors = useAppSelector((store) => store.courses.majors);
-  const allCourseIds = useAppSelector((store) => store.courses.courseIds);
-  const allCourses = useAppSelector((store) => store.courses.courses);
+  const majors = useAppSelector((store) => store.courses.majors);
+  const courses = useAppSelector((store) => store.courses.courses);
 
   return (
     <Box>
-      {allMajorIds.map((majorId) => {
-        const filteredCourseIds = allCourseIds.filter(
-          (courseId) => allCourses[courseId].majorId === majorId
+      {majors.allIds.map((majorId) => {
+        const filteredCourseIds = (courses.allIds as string[]).filter(
+          (courseId) => courses.byId[courseId].majorId === majorId
         );
         return (
           <Box key={majorId} marginBottom={3}>
-            <Typography variant="h5">{allMajors[majorId].name}</Typography>
+            <Typography variant="h5">{majors.byId[majorId].name}</Typography>
             <Box display={`flex`} flexWrap={`wrap`}>
               {filteredCourseIds.map((courseId) => (
                 <CourseTileCheckbox key={courseId} courseId={courseId} />

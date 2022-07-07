@@ -1,29 +1,29 @@
 import type { IRange } from "./Others.type";
 import type { PayloadHistoryAction } from "./ChangeHistory.type";
-import type { ICourseItemSimple } from "./Course.type";
+import type { IMajor } from "./Department.type";
+import type { ICourse } from "./Course.type";
+import type { ArrayNormalizer } from "./Normalizer.type";
 
 import { Mode } from "src/constants/mode.const";
 import { CourseRelationship } from "src/constants/course.const";
 import { CurriculumCommandType } from "src/constants/curriculum.const";
 
-export interface ICurriculumItemSimple {
+export interface ICurriculum {
   id: string;
   year: number;
+  name?: string;
   programType?: string;
   major?: string;
   subMajor?: string | null;
   englishLevel?: string | null;
   semCountPerYear: number;
-  allYears: Record<string, ICurriculumItemYear>;
-  allYearsOrder: string[];
-  allElectiveGroups?: Record<string, IElectiveGroupItem>;
-  allElectiveGroupIds?: string[];
+
+  years: ArrayNormalizer<ICurriculumItemYear>;
 }
 
 export interface ICurriculumItemYear {
   id: string;
-  semesters: Record<string, ICurriculumItemSemester>;
-  semestersOrder: string[];
+  semesters: ArrayNormalizer<ICurriculumItemSemester>;
 }
 
 export interface ICurriculumItemSemester {
@@ -31,11 +31,6 @@ export interface ICurriculumItemSemester {
   courseIds: string[];
   creditCount: number;
   creditLimit: number;
-}
-
-export interface IElectiveGroupItem {
-  electiveGroupIds: string[];
-  courseIds: string[];
 }
 
 export type CurriculumDetailHistoryAction =
@@ -114,40 +109,19 @@ export type CurriculumDetailHistoryAction =
       {
         yearId: string;
         yearIndex: number;
-        yearDetail: {
-          semesters: Record<string, ICurriculumItemSemester>;
-          semestersOrder: string[];
-        };
+        yearDetail: ICurriculumItemYear;
       }
     >;
 
-export interface ICurriculumItemDetail extends ICurriculumItemSimple {
+export interface ICurriculumItemDetail extends ICurriculum {
   mode: Mode.CREATE | Mode.EDIT;
   loading: boolean;
 }
 
-interface IElectiveGroup {
-  electiveId: string[];
-  courseIds: string[];
-}
-
 export interface IRandomCurriculumDetailParam {
-  allCourses: Record<string, ICourseItemSimple>;
-  allCourseIds: string[];
-  // year?: number | string;
+  majors: ArrayNormalizer<IMajor>;
+  courses: ArrayNormalizer<ICourse>;
   randomYearCount?: IRange;
   semesterPerYearCount?: number;
-  courseCountPerSemester?: IRange;
-  // creditLimit?: {
-  //   normalSemester?: IRandomRange;
-  //   summerSemester?: IRandomRange;
-  // };
   randomCreditCountPerSemester?: IRange;
-  electiveGroups?: Record<string, IElectiveGroup>;
-  electiveGroupIds?: string[];
-}
-
-export interface IRandomCurriculumDetailItemReturn {
-  allYears: Record<string, ICurriculumItemYear>;
-  allYearIdsOrder: string[];
 }

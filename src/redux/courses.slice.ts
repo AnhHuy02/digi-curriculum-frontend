@@ -1,8 +1,9 @@
 import type { PayloadAction } from "@reduxjs/toolkit";
-import type { IMajorSimple } from "src/types/Department.type";
+import type { ArrayNormalizer } from "src/types/Normalizer.type";
+import type { IMajor } from "src/types/Department.type";
 import type {
   IRandomCoursesParam,
-  ICourseItemSimple,
+  ICourse,
   ICourseItemDetail,
 } from "src/types/Course.type";
 // import type { IRandomRange } from "src/types/others.type";
@@ -25,10 +26,8 @@ interface ICoursesState {
 
   // Don't be confused with DEPARTMENT store which also has many majors
   // This is only used for add courses feature in Curriculum Dnd
-  majors: Record<string, IMajorSimple>;
-  majorIds: string[];
-  courses: Record<string, ICourseItemSimple>;
-  courseIds: string[];
+  majors: ArrayNormalizer<IMajor>;
+  courses: ArrayNormalizer<ICourse>;
   courseDetail: ICourseItemDetail | null;
   pageLoading: boolean;
   selectedCourseIdsPlaceholder: string[];
@@ -46,10 +45,14 @@ interface ICoursesState {
 }
 
 const initialState: ICoursesState = {
-  majors: {},
-  majorIds: [],
-  courses: {},
-  courseIds: [],
+  majors: {
+    allIds: [],
+    byId: {},
+  },
+  courses: {
+    allIds: [],
+    byId: {},
+  },
   courseDetail: null,
   pageLoading: false,
   selectedCourseIdsPlaceholder: [],
@@ -68,15 +71,15 @@ const initialState: ICoursesState = {
 //#endregion
 
 //#region SLICE
-export const coursesSlice = createSlice({
+export const CoursesSlice = createSlice({
   name: "curriculums",
   initialState: initialState,
   reducers: {
-    setCourses: (
-      state,
-      action: PayloadAction<Record<string, ICourseItemSimple>>
-    ) => {
+    setCourses: (state, action: PayloadAction<ArrayNormalizer<ICourse>>) => {
       state.courses = action.payload;
+    },
+    setMajors: (state, action: PayloadAction<ArrayNormalizer<IMajor>>) => {
+      state.majors = action.payload;
     },
     setPageLoading: (state, action: PayloadAction<boolean>) => {
       state.pageLoading = action.payload;
@@ -112,8 +115,8 @@ export const coursesSlice = createSlice({
       state.selectedCourseIdsPlaceholder = [];
 
       selectedCourseIdsPlaceholder.forEach((courseId) => {
-        state.courses[courseId].selected = true;
-        state.courses[courseId].selectedTemp = false;
+        state.courses.byId[courseId].selected = true;
+        state.courses.byId[courseId].selectedTemp = false;
       });
     },
     selectCourse: (state, action: PayloadAction<string>) => {
@@ -126,17 +129,17 @@ export const coursesSlice = createSlice({
 
       if (courseIndex === -1) {
         state.selectedCourseIdsPlaceholder.push(courseId);
-        state.courses[courseId].selectedTemp = true;
+        state.courses.byId[courseId].selectedTemp = true;
       } else {
         state.selectedCourseIdsPlaceholder.splice(courseIndex, 1);
-        state.courses[courseId].selectedTemp = false;
+        state.courses.byId[courseId].selectedTemp = false;
       }
     },
     removeSelectedCourse: (state, action: PayloadAction<string>) => {
       const courseId = action.payload;
 
-      state.courses[courseId].selected = false;
-      state.courses[courseId].selectedTemp = false;
+      state.courses.byId[courseId].selected = false;
+      state.courses.byId[courseId].selectedTemp = false;
     },
     selectCourses: (state, action: PayloadAction<string[]>) => {
       const courseIds = action.payload;
@@ -144,22 +147,22 @@ export const coursesSlice = createSlice({
       state.selectedCourseIdsPlaceholder.push(...courseIds);
 
       courseIds.forEach((courseId) => {
-        state.courses[courseId].selectedTemp = true;
+        state.courses.byId[courseId].selectedTemp = true;
       });
     },
     removeSelectedCourses: (state, action: PayloadAction<string[]>) => {
       const { courses } = state;
       const courseIds = action.payload;
-      const filteredCourses = _pick(courses, courseIds);
+      const getFilteredCoursesById = _pick(courses.byId, courseIds);
 
       courseIds.forEach((courseId, courseIndex) => {
-        filteredCourses[courseId].selected = false;
-        filteredCourses[courseId].selectedTemp = false;
+        getFilteredCoursesById[courseId].selected = false;
+        getFilteredCoursesById[courseId].selectedTemp = false;
       });
 
       state.courses = {
         ...courses,
-        ...filteredCourses,
+        ...getFilteredCoursesById,
       };
     },
     addCourseRelationship: (
@@ -173,25 +176,25 @@ export const coursesSlice = createSlice({
       const { courseSourceId, courseTargetId, relationship } = action.payload;
       switch (relationship) {
         case CourseRelationship.PREREQUISITE: {
-          state.courses[courseTargetId].relationships.preRequisites.push(
+          state.courses.byId[courseTargetId].relationships.preRequisites.push(
             courseSourceId
           );
           break;
         }
         case CourseRelationship.COREQUISITE: {
-          state.courses[courseSourceId].relationships.coRequisites.push(
+          state.courses.byId[courseSourceId].relationships.coRequisites.push(
             courseTargetId
           );
           break;
         }
         case CourseRelationship.PREVIOUS: {
-          state.courses[courseTargetId].relationships.previous.push(
+          state.courses.byId[courseTargetId].relationships.previous.push(
             courseSourceId
           );
           break;
         }
         case CourseRelationship.PLACEHOLDER: {
-          state.courses[courseSourceId].relationships.placeholders.push(
+          state.courses.byId[courseSourceId].relationships.placeholders.push(
             courseTargetId
           );
           break;
@@ -207,8 +210,8 @@ export const coursesSlice = createSlice({
       const { courses } = current(state);
       const { courseSourceId, courseTargetId } = action.payload;
 
-      const sourceRelationship = courses[courseSourceId].relationships;
-      const targetRelationship = courses[courseTargetId].relationships;
+      const sourceRelationship = courses.byId[courseSourceId].relationships;
+      const targetRelationship = courses.byId[courseTargetId].relationships;
 
       // Delete an element from array by using filter
       let courseIndex = -1;
@@ -217,7 +220,7 @@ export const coursesSlice = createSlice({
         (courseId) => courseId === courseTargetId
       );
       if (courseIndex > -1) {
-        state.courses[courseSourceId].relationships.preRequisites.splice(
+        state.courses.byId[courseSourceId].relationships.preRequisites.splice(
           courseIndex,
           1
         );
@@ -227,7 +230,7 @@ export const coursesSlice = createSlice({
         (courseId) => courseId === courseTargetId
       );
       if (courseIndex > -1) {
-        state.courses[courseSourceId].relationships.coRequisites.splice(
+        state.courses.byId[courseSourceId].relationships.coRequisites.splice(
           courseIndex,
           1
         );
@@ -237,7 +240,7 @@ export const coursesSlice = createSlice({
         (courseId) => courseId === courseTargetId
       );
       if (courseIndex > -1) {
-        state.courses[courseSourceId].relationships.previous.splice(
+        state.courses.byId[courseSourceId].relationships.previous.splice(
           courseIndex,
           1
         );
@@ -247,7 +250,7 @@ export const coursesSlice = createSlice({
         (courseId) => courseId === courseTargetId
       );
       if (courseIndex > -1) {
-        state.courses[courseSourceId].relationships.placeholders.splice(
+        state.courses.byId[courseSourceId].relationships.placeholders.splice(
           courseIndex,
           1
         );
@@ -257,7 +260,7 @@ export const coursesSlice = createSlice({
         (courseId) => courseId === courseSourceId
       );
       if (courseIndex > -1) {
-        state.courses[courseTargetId].relationships.preRequisites.splice(
+        state.courses.byId[courseTargetId].relationships.preRequisites.splice(
           courseIndex,
           1
         );
@@ -267,7 +270,7 @@ export const coursesSlice = createSlice({
         (courseId) => courseId === courseSourceId
       );
       if (courseIndex > -1) {
-        state.courses[courseTargetId].relationships.coRequisites.splice(
+        state.courses.byId[courseTargetId].relationships.coRequisites.splice(
           courseIndex,
           1
         );
@@ -277,7 +280,7 @@ export const coursesSlice = createSlice({
         (courseId) => courseId === courseSourceId
       );
       if (courseIndex > -1) {
-        state.courses[courseTargetId].relationships.previous.splice(
+        state.courses.byId[courseTargetId].relationships.previous.splice(
           courseIndex,
           1
         );
@@ -287,7 +290,7 @@ export const coursesSlice = createSlice({
         (courseId) => courseId === courseSourceId
       );
       if (courseIndex > -1) {
-        state.courses[courseTargetId].relationships.placeholders.splice(
+        state.courses.byId[courseTargetId].relationships.placeholders.splice(
           courseIndex,
           1
         );
@@ -337,14 +340,22 @@ export const coursesSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(loadAllRandomMajors.fulfilled, (state, action) => {
-      const { allMajors, allMajorIds } = action.payload;
-      state.majorIds = allMajorIds;
-      state.majors = allMajors;
+      const majors = action.payload;
+      const { allIds, byId } = majors;
+
+      state.majors = {
+        allIds,
+        byId,
+      };
     });
     builder.addCase(loadAllRandomCourses.fulfilled, (state, action) => {
-      const { allCourses, allCourseIds } = action.payload;
-      state.courses = allCourses;
-      state.courseIds = allCourseIds;
+      const courses = action.payload;
+      const { allIds, byId } = courses;
+
+      state.courses = {
+        allIds,
+        byId,
+      };
     });
   },
 });
@@ -391,59 +402,30 @@ export const loadAllRandomCourses = createAsyncThunk(
     }
   }
 );
-
-// export const requestGetBuildingsByProject = createAsyncThunk(
-//   "transactionSearchQuery/requestGetBuildingsByProject",
-//   async (
-//     payload: {
-//       searchValue: string;
-//       advancedSearchMode?: boolean;
-//       dateFrom?: Moment | string | null | undefined;
-//       dateTo?: Moment | string | null | undefined;
-//     },
-//     thunkAPI
-//   ) => {
-//     const { searchValue, advancedSearchMode, dateFrom, dateTo } = payload;
-//     const { dispatch } = thunkAPI;
-//     dispatch(setLoading(true));
-//     try {
-//       if (advancedSearchMode) {
-//         const res = await getBuildingsByProject({
-//           searchValue,
-//           dateFrom,
-//           dateTo,
-//         });
-//         return thunkAPI.fulfillWithValue(res.data);
-//       } else {
-//         const res = await getBuildingsByProject({ searchValue });
-//         return thunkAPI.fulfillWithValue(res.data);
-//       }
-//     } catch (err) {
-//       return thunkAPI.rejectWithValue(err);
-//     } finally {
-//       dispatch(setLoading(false));
-//     }
-//   }
-// );
-
 //#endregion
 
 export const {
   setPageLoading,
+  setMajors,
   setCourses,
+
   setModalAddCourseRelationship,
   setModeEditCourseRelationship,
+
   addCourses,
-  selectCourse,
-  removeSelectedCourse,
-  selectCourses,
-  removeSelectedCourses,
   addCourseRelationship,
+  selectCourse,
+  selectCourses,
+
+  removeSelectedCourse,
+  removeSelectedCourses,
+
   removeCourseRelationship,
+
   resetState,
-} = coursesSlice.actions;
+} = CoursesSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type
 // export const selectCount = (state: RootState) => state.counter.value;
 
-export default coursesSlice.reducer;
+export default CoursesSlice.reducer;

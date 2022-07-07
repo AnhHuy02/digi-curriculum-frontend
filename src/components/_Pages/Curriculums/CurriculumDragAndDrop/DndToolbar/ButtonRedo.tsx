@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from "src/hooks/useStore";
 
 import { redoChange } from "src/redux/curriculumChangeHistory.slice";
 
-const RedoButton = () => {
+const ButtonRedo = () => {
   const dispatch = useAppDispatch();
 
   const commandLogsLength = useAppSelector(
@@ -34,4 +34,4 @@ const RedoButton = () => {
   );
 };
 
-export default RedoButton;
+export default ButtonRedo;

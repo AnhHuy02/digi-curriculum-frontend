@@ -9,15 +9,18 @@ const Graphviz = dynamic(() => import("graphviz-react"), { ssr: false });
 import { getDotDiagramString } from "src/helper/diagramGenerator/dotDiagram";
 import { useAppSelector } from "src/hooks/useStore";
 
-interface DiagramDotProps {
+interface DotDiagramPreviewProps {
   width?: number;
   height?: number;
 }
-const DiagramDot: FC<DiagramDotProps> = ({ width, height }) => {
+const DotDiagramPreview: FC<DotDiagramPreviewProps> = ({ width, height }) => {
   const curriculumDetail = useAppSelector(
     (store) => store.curriculums.curriculumDetail
   );
   const courses = useAppSelector((store) => store.courses.courses);
+  const years = useAppSelector(
+    (store) => store.curriculums.curriculumDetail.years
+  );
   const [dot, setDot] = useState<string | undefined>(undefined);
 
   useEffect(() => {
@@ -25,11 +28,9 @@ const DiagramDot: FC<DiagramDotProps> = ({ width, height }) => {
   }, [curriculumDetail, courses]);
 
   const loadData = async () => {
-    const { allYears, allYearsOrder } = curriculumDetail;
     const dotString = getDotDiagramString({
-      allCourses: courses,
-      allYears,
-      allYearIdsOrder: allYearsOrder,
+      courses,
+      years,
     });
     setDot(dotString);
   };
@@ -62,6 +63,4 @@ const DiagramDot: FC<DiagramDotProps> = ({ width, height }) => {
   );
 };
 
-// DiagramDot.
-
-export default DiagramDot;
+export default DotDiagramPreview;

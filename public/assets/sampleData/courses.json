@@ -1,0 +1,3433 @@
+{
+  "allIds": [
+    "IT561_1",
+    "PT001",
+    "ENTP01",
+    "ENTP02",
+    "ENTP03",
+    "CH011",
+    "CH012",
+    "EN007",
+    "EN008",
+    "IT064",
+    "MA001",
+    "PH013",
+    "PH014",
+    "ENTP00",
+    "PE015",
+    "PE016",
+    "IT116",
+    "IT501",
+    "IT502",
+    "IT503",
+    "PE501",
+    "PE502",
+    "PE505",
+    "IT135",
+    "EN072",
+    "EN073",
+    "EN074",
+    "EN075",
+    "MA001UN",
+    "PE008",
+    "EN011",
+    "EN012",
+    "IT013",
+    "IT017",
+    "IT058",
+    "EE093",
+    "MA001RG",
+    "PT002",
+    "MA003",
+    "PH015",
+    "PH016",
+    "IT069",
+    "IT067",
+    "IT079",
+    "IT082",
+    "IT083",
+    "IT089",
+    "IT091",
+    "MITM_IM_1",
+    "MITM_IM_2",
+    "MITM_IM_3",
+    "MITM_IM_4",
+    "MITM_IM_5",
+    "MITM_NM_1",
+    "MITM_NM_2",
+    "MITM_NM_3",
+    "MITM_NM_4",
+    "MITM_NM_5",
+    "PE017",
+    "IT136",
+    "IT149",
+    "IT151",
+    "IT153",
+    "MA003UN",
+    "PH015UN",
+    "PH016UN",
+    "IT068",
+    "IT098",
+    "IT074",
+    "IT076",
+    "IT099",
+    "IT131",
+    "MA",
+    "PH012",
+    "MA023",
+    "IT561_2",
+    "MITM_IM_6",
+    "MITM_IM_7",
+    "MITM_IM_8",
+    "MITM_NM_6",
+    "MITM_NM_7",
+    "MITM_NM_8",
+    "PE014",
+    "IT137",
+    "IT154",
+    "PE011",
+    "IT007UN",
+    "IT011UN",
+    "IT093",
+    "IT155",
+    "IT101",
+    "IT103",
+    "IT105",
+    "IT094",
+    "IT096",
+    "IT117",
+    "IT120",
+    "IT125",
+    "IT090",
+    "PE018",
+    "IT139",
+    "ITCS1",
+    "ITCS2",
+    "EE050",
+    "IT070",
+    "IT102",
+    "MA024",
+    "IT128",
+    "IT129",
+    "MA026",
+    "IT106",
+    "IT110",
+    "IT115",
+    "IT126",
+    "IT127",
+    "IT138",
+    "PE012",
+    "IT097",
+    "IT011WE",
+    "PE019",
+    "IT140",
+    "PE020",
+    "IT075",
+    "IT100",
+    "PE013",
+    "ITCS3",
+    "ITNE1",
+    "IT092",
+    "ITCE1",
+    "IT132",
+    "IT142",
+    "ITDS1",
+    "IT081",
+    "IT123",
+    "ITWE",
+    "IT024",
+    "UFCF7H-15-3",
+    "UFCFJP-15-3",
+    "UFCFRB-15-3",
+    "UFCFX3-15-3",
+    "ITNE2",
+    "ITNE3",
+    "IT143",
+    "ITDS2",
+    "ITDS3",
+    "ITCE2",
+    "UFCFB5-15-3",
+    "UFCFEL-15-3",
+    "UFCFFC-30-3"
+  ],
+  "byId": {
+    "IT561_1": {
+      "id": "IT561_1",
+      "name": "Thesis (Research)",
+      "credit": {
+        "theory": 0,
+        "practice": 32
+      },
+      "majorId": "ISM",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "PT001": {
+      "id": "PT001",
+      "name": "Physical Training 1",
+      "credit": {
+        "theory": 3,
+        "practice": 0
+      },
+      "majorId": "CS",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "ENTP01": {
+      "id": "ENTP01",
+      "name": "Intensive English 1",
+      "credit": {
+        "theory": 17,
+        "practice": 0
+      },
+      "majorId": "CS",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "ENTP02": {
+      "id": "ENTP02",
+      "name": "Intensive English 2",
+      "credit": {
+        "theory": 13,
+        "practice": 0
+      },
+      "majorId": "CS",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "ENTP03": {
+      "id": "ENTP03",
+      "name": "Intensive English 3",
+      "credit": {
+        "theory": 10,
+        "practice": 0
+      },
+      "majorId": "CS",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "CH011": {
+      "id": "CH011",
+      "name": "Chemistry for Engineer",
+      "credit": {
+        "theory": 3,
+        "practice": 0
+      },
+      "majorId": "CS",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "CH012": {
+      "id": "CH012",
+      "name": "Chemistry Laboratory",
+      "credit": {
+        "theory": 0,
+        "practice": 1
+      },
+      "majorId": "CS",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "EN007": {
+      "id": "EN007",
+      "name": "Writing AE1",
+      "credit": {
+        "theory": 2,
+        "practice": 0
+      },
+      "majorId": "CS",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "EN008": {
+      "id": "EN008",
+      "name": "Listening AE1",
+      "credit": {
+        "theory": 2,
+        "practice": 0
+      },
+      "majorId": "CS",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "IT064": {
+      "id": "IT064",
+      "name": "Introduction to Computing",
+      "credit": {
+        "theory": 3,
+        "practice": 0
+      },
+      "majorId": "CS",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "MA001": {
+      "id": "MA001",
+      "name": "Calculus 1",
+      "credit": {
+        "theory": 4,
+        "practice": 0
+      },
+      "majorId": "CS",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "PH013": {
+      "id": "PH013",
+      "name": "Physics 1 (general mechanics",
+      "credit": {
+        "theory": 2,
+        "practice": 0
+      },
+      "majorId": "CS",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "PH014": {
+      "id": "PH014",
+      "name": "Physics 2 (Fluid Mechanics and Thermal Physics)",
+      "credit": {
+        "theory": 2,
+        "practice": 0
+      },
+      "majorId": "CS",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "ENTP00": {
+      "id": "ENTP00",
+      "name": "Intensive English 0",
+      "credit": {
+        "theory": 17,
+        "practice": 0
+      },
+      "majorId": "CS",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "PE015": {
+      "id": "PE015",
+      "name": " Philosophy Marx - Lenin",
+      "credit": {
+        "theory": 3,
+        "practice": 0
+      },
+      "majorId": "CS",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "PE016": {
+      "id": "PE016",
+      "name": "Marxist – Leninist Political Economy",
+      "credit": {
+        "theory": 2,
+        "practice": 0
+      },
+      "majorId": "CS",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "IT116": {
+      "id": "IT116",
+      "name": "C Programming",
+      "credit": {
+        "theory": 3,
+        "practice": 1
+      },
+      "majorId": "CS",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "IT501": {
+      "id": "IT501",
+      "name": "Advanced Networking",
+      "credit": {
+        "theory": 3,
+        "practice": 1
+      },
+      "majorId": "ISM",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "IT502": {
+      "id": "IT502",
+      "name": "Advanced Database",
+      "credit": {
+        "theory": 3,
+        "practice": 1
+      },
+      "majorId": "ISM",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "IT503": {
+      "id": "IT503",
+      "name": "Programming Methodology",
+      "credit": {
+        "theory": 2,
+        "practice": 0
+      },
+      "majorId": "ISM",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "PE501": {
+      "id": "PE501",
+      "name": "Research Methodology",
+      "credit": {
+        "theory": 2,
+        "practice": 0
+      },
+      "majorId": "ISM",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "PE502": {
+      "id": "PE502",
+      "name": "Professional Ethics",
+      "credit": {
+        "theory": 2,
+        "practice": 0
+      },
+      "majorId": "ISM",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "PE505": {
+      "id": "PE505",
+      "name": "Philosophy",
+      "credit": {
+        "theory": 3,
+        "practice": 0
+      },
+      "majorId": "ISM",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "IT135": {
+      "id": "IT135",
+      "name": "Introduction to Data Science",
+      "credit": {
+        "theory": 3,
+        "practice": 0
+      },
+      "majorId": "DS",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "EN072": {
+      "id": "EN072",
+      "name": "Reading & Writing IE1",
+      "credit": {
+        "theory": 11,
+        "practice": 0
+      },
+      "majorId": "CS",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "EN073": {
+      "id": "EN073",
+      "name": "Listening & Speaking IE1",
+      "credit": {
+        "theory": 11,
+        "practice": 0
+      },
+      "majorId": "CS",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "EN074": {
+      "id": "EN074",
+      "name": "Reading & Writing IE2",
+      "credit": {
+        "theory": 11,
+        "practice": 0
+      },
+      "majorId": "CS",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "EN075": {
+      "id": "EN075",
+      "name": "Listening & Speaking IE2",
+      "credit": {
+        "theory": 11,
+        "practice": 0
+      },
+      "majorId": "CS",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "MA001UN": {
+      "id": "MA001UN",
+      "name": "Foundation Mathematics 1",
+      "credit": {
+        "theory": 4,
+        "practice": 0
+      },
+      "majorId": "CS",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "PE008": {
+      "id": "PE008",
+      "name": "Critical Thinking",
+      "credit": {
+        "theory": 3,
+        "practice": 0
+      },
+      "majorId": "CS",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "EN011": {
+      "id": "EN011",
+      "name": "Writing AE2",
+      "credit": {
+        "theory": 2,
+        "practice": 0
+      },
+      "majorId": "NE",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "EN012": {
+      "id": "EN012",
+      "name": "Speaking AE2",
+      "credit": {
+        "theory": 2,
+        "practice": 0
+      },
+      "majorId": "NE",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "IT013": {
+      "id": "IT013",
+      "name": "Algorithms and Data Structure",
+      "credit": {
+        "theory": 3,
+        "practice": 1
+      },
+      "majorId": "NE",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "IT017": {
+      "id": "IT017",
+      "name": "Operating Systems",
+      "credit": {
+        "theory": 3,
+        "practice": 1
+      },
+      "majorId": "NE",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "IT058": {
+      "id": "IT058",
+      "name": "Thesis",
+      "credit": {
+        "theory": 0,
+        "practice": 10
+      },
+      "majorId": "NE",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "EE093": {
+      "id": "EE093",
+      "name": "Digital Signal Processing Laboratory",
+      "credit": {
+        "theory": 0,
+        "practice": 1
+      },
+      "majorId": "CE",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "MA001RG": {
+      "id": "MA001RG",
+      "name": "Calculus Math Physics Science",
+      "credit": {
+        "theory": 4,
+        "practice": 0
+      },
+      "majorId": "CE",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "PT002": {
+      "id": "PT002",
+      "name": "Physical Training 2",
+      "credit": {
+        "theory": 0,
+        "practice": 3
+      },
+      "majorId": "CE",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "MA003": {
+      "id": "MA003",
+      "name": "Calculus 2",
+      "credit": {
+        "theory": 4,
+        "practice": 0
+      },
+      "majorId": "CE",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "PH015": {
+      "id": "PH015",
+      "name": "Physics 3 (Electricity and Magnetism)",
+      "credit": {
+        "theory": 3,
+        "practice": 0
+      },
+      "majorId": "CE",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "PH016": {
+      "id": "PH016",
+      "name": "Physics 3 Laboratory",
+      "credit": {
+        "theory": 0,
+        "practice": 1
+      },
+      "majorId": "CE",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "IT069": {
+      "id": "IT069",
+      "name": "Object-Oriented Programming",
+      "credit": {
+        "theory": 3,
+        "practice": 1
+      },
+      "majorId": "CE",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "IT067": {
+      "id": "IT067",
+      "name": "Digital Logic Design",
+      "credit": {
+        "theory": 3,
+        "practice": 0
+      },
+      "majorId": "NE",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "IT079": {
+      "id": "IT079",
+      "name": "Principles of Database Management",
+      "credit": {
+        "theory": 3,
+        "practice": 1
+      },
+      "majorId": "NE",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "IT082": {
+      "id": "IT082",
+      "name": "Internship",
+      "credit": {
+        "theory": 0,
+        "practice": 3
+      },
+      "majorId": "NE",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "IT083": {
+      "id": "IT083",
+      "name": "Special Study of the Field",
+      "credit": {
+        "theory": 0,
+        "practice": 3
+      },
+      "majorId": "NE",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "IT089": {
+      "id": "IT089",
+      "name": "Computer Architecture",
+      "credit": {
+        "theory": 3,
+        "practice": 1
+      },
+      "majorId": "NE",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "IT091": {
+      "id": "IT091",
+      "name": "Computer Networks",
+      "credit": {
+        "theory": 3,
+        "practice": 1
+      },
+      "majorId": "NE",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "MITM_IM_1": {
+      "id": "MITM_IM_1",
+      "name": "Elective 1 (Information Management Major)",
+      "credit": {
+        "theory": 3,
+        "practice": 1
+      },
+      "majorId": "ISM",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "MITM_IM_2": {
+      "id": "MITM_IM_2",
+      "name": "Elective 2 (Information Management Major)",
+      "credit": {
+        "theory": 3,
+        "practice": 1
+      },
+      "majorId": "ISM",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "MITM_IM_3": {
+      "id": "MITM_IM_3",
+      "name": "Elective 3 (Information Management Major)",
+      "credit": {
+        "theory": 3,
+        "practice": 1
+      },
+      "majorId": "ISM",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "MITM_IM_4": {
+      "id": "MITM_IM_4",
+      "name": "Elective 4 (Information Management Major)",
+      "credit": {
+        "theory": 3,
+        "practice": 1
+      },
+      "majorId": "ISM",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "MITM_IM_5": {
+      "id": "MITM_IM_5",
+      "name": "Elective 5 (Information Management Major)",
+      "credit": {
+        "theory": 3,
+        "practice": 1
+      },
+      "majorId": "ISM",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "MITM_NM_1": {
+      "id": "MITM_NM_1",
+      "name": "Elective 1 (Network Management Major)",
+      "credit": {
+        "theory": 3,
+        "practice": 1
+      },
+      "majorId": "NES",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "MITM_NM_2": {
+      "id": "MITM_NM_2",
+      "name": "Elective 2 (Network Management Major)",
+      "credit": {
+        "theory": 3,
+        "practice": 1
+      },
+      "majorId": "NES",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "MITM_NM_3": {
+      "id": "MITM_NM_3",
+      "name": "Elective 3 (Network Management Major)",
+      "credit": {
+        "theory": 3,
+        "practice": 1
+      },
+      "majorId": "NES",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "MITM_NM_4": {
+      "id": "MITM_NM_4",
+      "name": "Elective 4 (Network Management Major)",
+      "credit": {
+        "theory": 3,
+        "practice": 1
+      },
+      "majorId": "NES",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "MITM_NM_5": {
+      "id": "MITM_NM_5",
+      "name": "Elective 5 (Network Management Major)",
+      "credit": {
+        "theory": 3,
+        "practice": 1
+      },
+      "majorId": "NES",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "PE017": {
+      "id": "PE017",
+      "name": "Scientific Socialism",
+      "credit": {
+        "theory": 2,
+        "practice": 0
+      },
+      "majorId": "DS",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "IT136": {
+      "id": "IT136",
+      "name": "Regression Analysis",
+      "credit": {
+        "theory": 3,
+        "practice": 1
+      },
+      "majorId": "DS",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "IT149": {
+      "id": "IT149",
+      "name": "Fundamentals of Programming",
+      "credit": {
+        "theory": 3,
+        "practice": 1
+      },
+      "majorId": "DS",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "IT151": {
+      "id": "IT151",
+      "name": "Statistical Method",
+      "credit": {
+        "theory": 3,
+        "practice": 0
+      },
+      "majorId": "DS",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "IT153": {
+      "id": "IT153",
+      "name": "Discrete Mathematics",
+      "credit": {
+        "theory": 3,
+        "practice": 0
+      },
+      "majorId": "CS",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "MA003UN": {
+      "id": "MA003UN",
+      "name": "Foundation Mathematics 2",
+      "credit": {
+        "theory": 4,
+        "practice": 0
+      },
+      "majorId": "CS",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "PH015UN": {
+      "id": "PH015UN",
+      "name": "Electricity & Magnetism",
+      "credit": {
+        "theory": 3,
+        "practice": 0
+      },
+      "majorId": "CS",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "PH016UN": {
+      "id": "PH016UN",
+      "name": "Electricity & Magnetism Laboratory",
+      "credit": {
+        "theory": 0,
+        "practice": 1
+      },
+      "majorId": "CS",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "IT068": {
+      "id": "IT068",
+      "name": "Principles of Electrical Engineering I",
+      "credit": {
+        "theory": 3,
+        "practice": 0
+      },
+      "majorId": "CE",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "IT098": {
+      "id": "IT098",
+      "name": "Principles of Electrical Engineering I Laboratory",
+      "credit": {
+        "theory": 0,
+        "practice": 1
+      },
+      "majorId": "CE",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "IT074": {
+      "id": "IT074",
+      "name": "Electronics Devices",
+      "credit": {
+        "theory": 3,
+        "practice": 0
+      },
+      "majorId": "CE",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "IT076": {
+      "id": "IT076",
+      "name": "Software Engineering",
+      "credit": {
+        "theory": 3,
+        "practice": 1
+      },
+      "majorId": "CE",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "IT099": {
+      "id": "IT099",
+      "name": "Digital Logic Design Lab",
+      "credit": {
+        "theory": 0,
+        "practice": 1
+      },
+      "majorId": "CS",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "IT131": {
+      "id": "IT131",
+      "name": "Theoretical Models in Computing",
+      "credit": {
+        "theory": 3,
+        "practice": 1
+      },
+      "majorId": "CS",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "MA": {
+      "id": "MA",
+      "name": "Calculus (elective)",
+      "credit": {
+        "theory": 4,
+        "practice": 0
+      },
+      "majorId": "CS",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "PH012": {
+      "id": "PH012",
+      "name": "Physics 4 (Wave and Modern Physics)",
+      "credit": {
+        "theory": 2,
+        "practice": 0
+      },
+      "majorId": "CS",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "MA023": {
+      "id": "MA023",
+      "name": "Calculus 3",
+      "credit": {
+        "theory": 4,
+        "practice": 0
+      },
+      "majorId": "CS",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "IT561_2": {
+      "id": "IT561_2",
+      "name": "Thesis (Course Work)",
+      "credit": {
+        "theory": 0,
+        "practice": 12
+      },
+      "majorId": "ISM",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "MITM_IM_6": {
+      "id": "MITM_IM_6",
+      "name": "Elective 6 (Information Management Major)",
+      "credit": {
+        "theory": 3,
+        "practice": 1
+      },
+      "majorId": "ISM",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "MITM_IM_7": {
+      "id": "MITM_IM_7",
+      "name": "Elective 7 (Information Management Major)",
+      "credit": {
+        "theory": 3,
+        "practice": 1
+      },
+      "majorId": "ISM",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "MITM_IM_8": {
+      "id": "MITM_IM_8",
+      "name": "Elective 8 (Information Management Major)",
+      "credit": {
+        "theory": 3,
+        "practice": 1
+      },
+      "majorId": "ISM",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "MITM_NM_6": {
+      "id": "MITM_NM_6",
+      "name": "Elective 6 (Network Management Major)",
+      "credit": {
+        "theory": 3,
+        "practice": 1
+      },
+      "majorId": "NES",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "MITM_NM_7": {
+      "id": "MITM_NM_7",
+      "name": "Elective 7 (Network Management Major)",
+      "credit": {
+        "theory": 3,
+        "practice": 1
+      },
+      "majorId": "NES",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "MITM_NM_8": {
+      "id": "MITM_NM_8",
+      "name": "Elective 8 (Network Management Major)",
+      "credit": {
+        "theory": 3,
+        "practice": 1
+      },
+      "majorId": "NES",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "PE014": {
+      "id": "PE014",
+      "name": "Environmental Science",
+      "credit": {
+        "theory": 3,
+        "practice": 0
+      },
+      "majorId": "DS",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "IT137": {
+      "id": "IT137",
+      "name": "Data Analysis",
+      "credit": {
+        "theory": 3,
+        "practice": 1
+      },
+      "majorId": "DS",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "IT154": {
+      "id": "IT154",
+      "name": "Linear Algebra",
+      "credit": {
+        "theory": 3,
+        "practice": 0
+      },
+      "majorId": "DS",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "PE011": {
+      "id": "PE011",
+      "name": "Principle of Marxism",
+      "credit": {
+        "theory": 5,
+        "practice": 0
+      },
+      "majorId": "CS",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "IT007UN": {
+      "id": "IT007UN",
+      "name": "Skills for Communicating Information",
+      "credit": {
+        "theory": 3,
+        "practice": 0
+      },
+      "majorId": "CS",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "IT011UN": {
+      "id": "IT011UN",
+      "name": "Functional Programming",
+      "credit": {
+        "theory": 3,
+        "practice": 0
+      },
+      "majorId": "CS",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "IT093": {
+      "id": "IT093",
+      "name": "Web Application Development",
+      "credit": {
+        "theory": 3,
+        "practice": 1
+      },
+      "majorId": "CS",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "IT155": {
+      "id": "IT155",
+      "name": "Optimization",
+      "credit": {
+        "theory": 3,
+        "practice": 0
+      },
+      "majorId": "CE",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "IT101": {
+      "id": "IT101",
+      "name": "Electronics Devices Laboratory",
+      "credit": {
+        "theory": 0,
+        "practice": 1
+      },
+      "majorId": "CE",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "IT103": {
+      "id": "IT103",
+      "name": "Digital Signal Processing",
+      "credit": {
+        "theory": 3,
+        "practice": 0
+      },
+      "majorId": "CE",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "IT105": {
+      "id": "IT105",
+      "name": "Digital System Design",
+      "credit": {
+        "theory": 3,
+        "practice": 0
+      },
+      "majorId": "CE",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "IT094": {
+      "id": "IT094",
+      "name": "Information System Management",
+      "credit": {
+        "theory": 3,
+        "practice": 1
+      },
+      "majorId": "NE",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "IT096": {
+      "id": "IT096",
+      "name": "Net-centric Programming",
+      "credit": {
+        "theory": 3,
+        "practice": 1
+      },
+      "majorId": "NE",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "IT117": {
+      "id": "IT117",
+      "name": "System and Network Security",
+      "credit": {
+        "theory": 3,
+        "practice": 1
+      },
+      "majorId": "NE",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "IT120": {
+      "id": "IT120",
+      "name": "Entrepreneurship",
+      "credit": {
+        "theory": 3,
+        "practice": 0
+      },
+      "majorId": "NE",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "IT125": {
+      "id": "IT125",
+      "name": "System and Network Administration",
+      "credit": {
+        "theory": 3,
+        "practice": 1
+      },
+      "majorId": "NE",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "IT090": {
+      "id": "IT090",
+      "name": "Object-oriented analysis and design",
+      "credit": {
+        "theory": 3,
+        "practice": 1
+      },
+      "majorId": "NE",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "PE018": {
+      "id": "PE018",
+      "name": "History of Vietnamese Communist Party",
+      "credit": {
+        "theory": 2,
+        "practice": 0
+      },
+      "majorId": "NE",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "IT139": {
+      "id": "IT139",
+      "name": "Scalable and Distributed Computing",
+      "credit": {
+        "theory": 3,
+        "practice": 1
+      },
+      "majorId": "NE",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "ITCS1": {
+      "id": "ITCS1",
+      "name": "Elective CS1",
+      "credit": {
+        "theory": 3,
+        "practice": 1
+      },
+      "majorId": "NE",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "ITCS2": {
+      "id": "ITCS2",
+      "name": "Elective CS2",
+      "credit": {
+        "theory": 3,
+        "practice": 1
+      },
+      "majorId": "NE",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "EE050": {
+      "id": "EE050",
+      "name": "Introduction to Computer for Engineers",
+      "credit": {
+        "theory": 3,
+        "practice": 0
+      },
+      "majorId": "CE",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "IT070": {
+      "id": "IT070",
+      "name": "Principles of Electrical Engineering II",
+      "credit": {
+        "theory": 3,
+        "practice": 0
+      },
+      "majorId": "CE",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "IT102": {
+      "id": "IT102",
+      "name": "Principles of Electrical Engineering II Laboratory",
+      "credit": {
+        "theory": 0,
+        "practice": 1
+      },
+      "majorId": "CE",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "MA024": {
+      "id": "MA024",
+      "name": "Differential Equation",
+      "credit": {
+        "theory": 3,
+        "practice": 1
+      },
+      "majorId": "CE",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "IT128": {
+      "id": "IT128",
+      "name": "Micro-processing Systems",
+      "credit": {
+        "theory": 3,
+        "practice": 0
+      },
+      "majorId": "CE",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "IT129": {
+      "id": "IT129",
+      "name": "Micro-processing Systems Lab",
+      "credit": {
+        "theory": 0,
+        "practice": 1
+      },
+      "majorId": "CE",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "MA026": {
+      "id": "MA026",
+      "name": "Probability, Statistic & Random Process",
+      "credit": {
+        "theory": 3,
+        "practice": 0
+      },
+      "majorId": "CE",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "IT106": {
+      "id": "IT106",
+      "name": "Digital System Design Lab",
+      "credit": {
+        "theory": 0,
+        "practice": 1
+      },
+      "majorId": "CE",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "IT110": {
+      "id": "IT110",
+      "name": "Concepts in VLSI Design",
+      "credit": {
+        "theory": 3,
+        "practice": 0
+      },
+      "majorId": "CE",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "IT115": {
+      "id": "IT115",
+      "name": "Embedded Systems",
+      "credit": {
+        "theory": 3,
+        "practice": 0
+      },
+      "majorId": "CE",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "IT126": {
+      "id": "IT126",
+      "name": "Concepts in VLSI Design Laboratory",
+      "credit": {
+        "theory": 0,
+        "practice": 1
+      },
+      "majorId": "CE",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "IT127": {
+      "id": "IT127",
+      "name": "Embedded Systems Laboratory",
+      "credit": {
+        "theory": 0,
+        "practice": 1
+      },
+      "majorId": "CE",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "IT138": {
+      "id": "IT138",
+      "name": "Data Science and Visualization",
+      "credit": {
+        "theory": 3,
+        "practice": 1
+      },
+      "majorId": "DS",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "PE012": {
+      "id": "PE012",
+      "name": "Ho Chi Minh's thought",
+      "credit": {
+        "theory": 2,
+        "practice": 0
+      },
+      "majorId": "DS",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "IT097": {
+      "id": "IT097",
+      "name": "Introduction to Artificial Intelligence",
+      "credit": {
+        "theory": 3,
+        "practice": 1
+      },
+      "majorId": "CS",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "IT011WE": {
+      "id": "IT011WE",
+      "name": "Skills for Communicating Information",
+      "credit": {
+        "theory": 3,
+        "practice": 0
+      },
+      "majorId": "CE",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "PE019": {
+      "id": "PE019",
+      "name": "Ho Chi Minh's Thoughts",
+      "credit": {
+        "theory": 2,
+        "practice": 0
+      },
+      "majorId": "DS",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "IT140": {
+      "id": "IT140",
+      "name": "Fundamental Concepts of Data Security",
+      "credit": {
+        "theory": 3,
+        "practice": 1
+      },
+      "majorId": "DS",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "PE020": {
+      "id": "PE020",
+      "name": "Engineering Ethics and Professional Skills",
+      "credit": {
+        "theory": 3,
+        "practice": 0
+      },
+      "majorId": "CS",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "IT075": {
+      "id": "IT075",
+      "name": "Signals and Systems",
+      "credit": {
+        "theory": 3,
+        "practice": 0
+      },
+      "majorId": "CE",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "IT100": {
+      "id": "IT100",
+      "name": "Signals and Systems Laboratory",
+      "credit": {
+        "theory": 0,
+        "practice": 1
+      },
+      "majorId": "CE",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "PE013": {
+      "id": "PE013",
+      "name": "Revolutionary Lines of Vietnamese Communist Party",
+      "credit": {
+        "theory": 3,
+        "practice": 0
+      },
+      "majorId": "DS",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "ITCS3": {
+      "id": "ITCS3",
+      "name": "Elective CS3",
+      "credit": {
+        "theory": 3,
+        "practice": 1
+      },
+      "majorId": "NE",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "ITNE1": {
+      "id": "ITNE1",
+      "name": "Elective ITNE1",
+      "credit": {
+        "theory": 3,
+        "practice": 1
+      },
+      "majorId": "NE",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "IT092": {
+      "id": "IT092",
+      "name": "Principles of Programming Languages",
+      "credit": {
+        "theory": 3,
+        "practice": 1
+      },
+      "majorId": "NE",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "ITCE1": {
+      "id": "ITCE1",
+      "name": "Elective ITCE1",
+      "credit": {
+        "theory": 3,
+        "practice": 1
+      },
+      "majorId": "NE",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "IT132": {
+      "id": "IT132",
+      "name": "Introduction to data mining",
+      "credit": {
+        "theory": 3,
+        "practice": 1
+      },
+      "majorId": "DS",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "IT142": {
+      "id": "IT142",
+      "name": "Analytics for Observational Data",
+      "credit": {
+        "theory": 3,
+        "practice": 1
+      },
+      "majorId": "DS",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "ITDS1": {
+      "id": "ITDS1",
+      "name": "Elective DS1",
+      "credit": {
+        "theory": 3,
+        "practice": 1
+      },
+      "majorId": "DS",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "IT081": {
+      "id": "IT081",
+      "name": "Digital Electronics",
+      "credit": {
+        "theory": 3,
+        "practice": 0
+      },
+      "majorId": "CE",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "IT123": {
+      "id": "IT123",
+      "name": "Digital Electronic Laboratory",
+      "credit": {
+        "theory": 0,
+        "practice": 1
+      },
+      "majorId": "CE",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "ITWE": {
+      "id": "ITWE",
+      "name": "Elective course for ITWE (4+0)",
+      "credit": {
+        "theory": 3,
+        "practice": 1
+      },
+      "majorId": "CE",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "IT024": {
+      "id": "IT024",
+      "name": "Computer Graphics",
+      "credit": {
+        "theory": 3,
+        "practice": 1
+      },
+      "majorId": "CE",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "UFCF7H-15-3": {
+      "id": "UFCF7H-15-3",
+      "name": "Mobile Applications",
+      "credit": {
+        "theory": 15,
+        "practice": 0
+      },
+      "majorId": "CE",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "UFCFJP-15-3": {
+      "id": "UFCFJP-15-3",
+      "name": "Big Data Analytics",
+      "credit": {
+        "theory": 15,
+        "practice": 0
+      },
+      "majorId": "CE",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "UFCFRB-15-3": {
+      "id": "UFCFRB-15-3",
+      "name": "Security Management in Practice",
+      "credit": {
+        "theory": 15,
+        "practice": 0
+      },
+      "majorId": "CE",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "UFCFX3-15-3": {
+      "id": "UFCFX3-15-3",
+      "name": "Advanced Topics in Web Development",
+      "credit": {
+        "theory": 15,
+        "practice": 0
+      },
+      "majorId": "CE",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "ITNE2": {
+      "id": "ITNE2",
+      "name": "Elective ITNE2",
+      "credit": {
+        "theory": 3,
+        "practice": 1
+      },
+      "majorId": "NE",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "ITNE3": {
+      "id": "ITNE3",
+      "name": "Elective ITNE3",
+      "credit": {
+        "theory": 3,
+        "practice": 1
+      },
+      "majorId": "NE",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "IT143": {
+      "id": "IT143",
+      "name": "Fundamentals of Big Data Technology",
+      "credit": {
+        "theory": 3,
+        "practice": 1
+      },
+      "majorId": "DS",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "ITDS2": {
+      "id": "ITDS2",
+      "name": "Elective DS2",
+      "credit": {
+        "theory": 3,
+        "practice": 1
+      },
+      "majorId": "DS",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "ITDS3": {
+      "id": "ITDS3",
+      "name": "Elective DS3",
+      "credit": {
+        "theory": 3,
+        "practice": 0
+      },
+      "majorId": "DS",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "ITCE2": {
+      "id": "ITCE2",
+      "name": "Elective ITCE2",
+      "credit": {
+        "theory": 3,
+        "practice": 1
+      },
+      "majorId": "CE",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "UFCFB5-15-3": {
+      "id": "UFCFB5-15-3",
+      "name": "Ethical and Professional Issues in computing and digital media",
+      "credit": {
+        "theory": 15,
+        "practice": 0
+      },
+      "majorId": "CE",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "UFCFEL-15-3": {
+      "id": "UFCFEL-15-3",
+      "name": "Security Data Analytics and Visualization",
+      "credit": {
+        "theory": 15,
+        "practice": 0
+      },
+      "majorId": "CE",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    },
+    "UFCFFC-30-3": {
+      "id": "UFCFFC-30-3",
+      "name": "Information Technology Project",
+      "credit": {
+        "theory": 30,
+        "practice": 0
+      },
+      "majorId": "CE",
+      "type": "Others",
+      "disabled": false,
+      "selected": false,
+      "selectedTemp": false,
+      "highlighted": false,
+      "relationships": {
+        "preRequisites": [],
+        "coRequisites": [],
+        "previous": [],
+        "placeholders": []
+      },
+      "difficulty": 0,
+      "rating": 0
+    }
+  }
+}

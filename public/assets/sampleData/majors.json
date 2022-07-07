@@ -1,0 +1,29 @@
+{
+  "allIds": ["ISM", "NES", "CS", "DS", "NE", "CE"],
+  "byId": {
+    "ISM": {
+      "id": "ISM",
+      "name": "ISM"
+    },
+    "NES": {
+      "id": "NES",
+      "name": "NES"
+    },
+    "CS": {
+      "id": "CS",
+      "name": "CS"
+    },
+    "DS": {
+      "id": "DS",
+      "name": "DS"
+    },
+    "NE": {
+      "id": "NE",
+      "name": "NE"
+    },
+    "CE": {
+      "id": "CE",
+      "name": "CE"
+    }
+  }
+}

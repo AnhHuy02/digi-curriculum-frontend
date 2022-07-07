@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from "src/hooks/useStore";
 
 import { undoChange } from "src/redux/curriculumChangeHistory.slice";
 
-const UndoButton = () => {
+const ButtonUndo = () => {
   const dispatch = useAppDispatch();
 
   const currentIndex = useAppSelector(
@@ -30,4 +30,4 @@ const UndoButton = () => {
   );
 };
 
-export default UndoButton;
+export default ButtonUndo;
