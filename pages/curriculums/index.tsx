@@ -1,7 +1,7 @@
-import Curriculums from "src/components/_Pages/Curriculums";
+import CurriculumsTable from "src/components/_Pages/Curriculums/CurriculumsTable";
 
 const CurriculumPage = () => {
-  return <Curriculums />;
+  return <CurriculumsTable />;
 };
 
 export default CurriculumPage;

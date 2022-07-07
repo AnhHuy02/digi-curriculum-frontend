@@ -1,5 +1,6 @@
 import type { ArrayNormalizer } from "src/types/Normalizer.type";
 import type {
+  ICurriculum,
   ICurriculumItemYear,
   ICurriculumItemSemester,
   IRandomCurriculumDetailParam,
@@ -135,7 +136,7 @@ export const getRandomCurriculums = (
     randomCurriculumCount: { min: number; max: number };
   }
 ) => {
-  const promise = new Promise<ArrayNormalizer<ICurriculumItemYear>[]>(function (
+  const promise = new Promise<ArrayNormalizer<ICurriculum>>(function (
     resolve,
     reject
   ) {
@@ -146,11 +147,31 @@ export const getRandomCurriculums = (
     });
 
     setTimeout(function () {
-      const curriculums = Array.from({ length: curriculumCount }, () => {
+      const curriculumsYears = Array.from({ length: curriculumCount }, () => {
         return generateRandomCurriculumDetail(config);
       });
 
-      resolve(curriculums);
+      console.log("CURRICULUM YEARS", curriculumsYears);
+
+      let curriculumsTemp: ArrayNormalizer<ICurriculum> = {
+        allIds: [],
+        byId: {},
+      };
+
+      curriculumsYears.forEach((curriculumYear, curriculumIndex) => {
+        // curriculumsById[curriculumYear.]
+        const newCurriculumId = `curriculum${curriculumIndex + 1}`;
+
+        curriculumsTemp.allIds.push(newCurriculumId);
+        curriculumsTemp.byId[newCurriculumId] = {
+          id: newCurriculumId,
+          year: 2020,
+          semCountPerYear: 3,
+          years: curriculumYear,
+        };
+      });
+
+      resolve(curriculumsTemp);
     }, 1);
   });
 

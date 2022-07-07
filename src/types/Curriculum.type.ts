@@ -7,7 +7,7 @@ import { Mode } from "src/constants/mode.const";
 import { CourseRelationship } from "src/constants/course.const";
 import { CurriculumCommandType } from "src/constants/curriculum.const";
 
-export interface ICurriculumItem {
+export interface ICurriculum {
   id: string;
   year: number;
   name?: string;
@@ -120,7 +120,7 @@ export type CurriculumDetailHistoryAction =
       }
     >;
 
-export interface ICurriculumItemDetail extends ICurriculumItem {
+export interface ICurriculumItemDetail extends ICurriculum {
   mode: Mode.CREATE | Mode.EDIT;
   loading: boolean;
 }

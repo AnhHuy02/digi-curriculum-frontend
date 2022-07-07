@@ -17,9 +17,9 @@ import { useAppDispatch, useAppSelector } from "src/hooks/useStore";
 import { setModalPreviewCurriculumDetail } from "src/redux/curriculums.slice";
 import { getDotDiagramString } from "src/helper/diagramGenerator/dotDiagram";
 import CurriculumCompare from "./CurriculumCompare";
-import CurriculumSideBySideDiff from "./CurriculumSideBySideDiff";
+// import CurriculumSideBySideDiff from "./CurriculumSideBySideDiff";
 import CurriculumChangeLog from "./CurriculumChangeLog";
-import DiagramDot from "../../DiagramPane/DiagramDot";
+import DotDiagramPreview from "src/components/_Shared/DotDiagramPreview";
 import TabPanel from "src/components/_Shared/TabPanel";
 
 const ModalAddCourseRelationship = () => {
@@ -74,9 +74,6 @@ const ModalAddCourseRelationship = () => {
     viz
       .renderImageElement(dotString)
       .then(function (element) {
-        console.log(element);
-        console.log("YEEET");
-
         const link = element.src;
 
         var a = document.createElement("a");
@@ -119,7 +116,7 @@ const ModalAddCourseRelationship = () => {
       </DialogTitle>
       <DialogContent ref={squareRef} sx={{ py: 0 }}>
         <TabPanel value={tabIndex} index={0}>
-          <DiagramDot width={width - 24 * 2} height={height} />
+          <DotDiagramPreview width={width - 24 * 2} height={height} />
         </TabPanel>
         <TabPanel value={tabIndex} index={1}>
           <CurriculumCompare width={width - 24 * 2} height={height} />

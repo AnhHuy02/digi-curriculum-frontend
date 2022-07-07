@@ -9,11 +9,11 @@ const Graphviz = dynamic(() => import("graphviz-react"), { ssr: false });
 import { getDotDiagramString } from "src/helper/diagramGenerator/dotDiagram";
 import { useAppSelector } from "src/hooks/useStore";
 
-interface DiagramDotProps {
+interface DotDiagramPreviewProps {
   width?: number;
   height?: number;
 }
-const DiagramDot: FC<DiagramDotProps> = ({ width, height }) => {
+const DotDiagramPreview: FC<DotDiagramPreviewProps> = ({ width, height }) => {
   const curriculumDetail = useAppSelector(
     (store) => store.curriculums.curriculumDetail
   );
@@ -63,6 +63,4 @@ const DiagramDot: FC<DiagramDotProps> = ({ width, height }) => {
   );
 };
 
-// DiagramDot.
-
-export default DiagramDot;
+export default DotDiagramPreview;

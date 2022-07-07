@@ -69,7 +69,7 @@ const CurriculumCompare: FC<CurriculumCompareProps> = ({ width, height }) => {
       } else if (curriculumInputA === "Curriculum After") {
         setCurriculumA(years);
       } else {
-        setCurriculumA(curriculums[Number(curriculumInputA)].years);
+        setCurriculumA(curriculums.byId[Number(curriculumInputA)].years);
       }
     }
   }, [curriculumInputA]);
@@ -81,7 +81,7 @@ const CurriculumCompare: FC<CurriculumCompareProps> = ({ width, height }) => {
       } else if (curriculumInputB === "Curriculum After") {
         setCurriculumB(years);
       } else {
-        setCurriculumB(curriculums[Number(curriculumInputB)].years);
+        setCurriculumB(curriculums.byId[Number(curriculumInputB)].years);
       }
     }
   }, [curriculumInputB]);
@@ -96,22 +96,22 @@ const CurriculumCompare: FC<CurriculumCompareProps> = ({ width, height }) => {
     setCurriculumInputB(newValue);
   };
 
-  const handleGetJsonFile = (newData: {
-    courses: ArrayNormalizer<ICourse>;
-    curriculumA: ArrayNormalizer<ICurriculumItemYear>;
-    curriculumB: ArrayNormalizer<ICurriculumItemYear>;
-  }) => {
-    setModalUploadOpen(false);
+  // const handleGetJsonFile = (newData: {
+  //   courses: ArrayNormalizer<ICourse>;
+  //   curriculumA: ArrayNormalizer<ICurriculumItemYear>;
+  //   curriculumB: ArrayNormalizer<ICurriculumItemYear>;
+  // }) => {
+  //   setModalUploadOpen(false);
 
-    const { courses, curriculumA, curriculumB } = newData;
-    const { nodes: initialNodes } = getDndNodesAndEdges(
-      curriculumA,
-      curriculumB,
-      courses
-    );
+  //   const { courses, curriculumA, curriculumB } = newData;
+  //   const { nodes: initialNodes } = getDndNodesAndEdges(
+  //     curriculumA,
+  //     curriculumB,
+  //     courses
+  //   );
 
-    setNodes(initialNodes);
-  };
+  //   setNodes(initialNodes);
+  // };
 
   const swapTwoInputs = () => {
     const temp = curriculumInputB;
@@ -162,7 +162,7 @@ const CurriculumCompare: FC<CurriculumCompareProps> = ({ width, height }) => {
             <MenuItem key="curriculum-a-after" value={"Curriculum After"}>
               After Change
             </MenuItem>
-            {curriculums.map((curriculum, index) => (
+            {curriculums.allIds.map((curriculum, index) => (
               <MenuItem key={`curriculum-a-${index + 1}`} value={String(index)}>
                 Curriculum {index + 1}
               </MenuItem>
@@ -192,7 +192,7 @@ const CurriculumCompare: FC<CurriculumCompareProps> = ({ width, height }) => {
             <MenuItem key="curriculum-b-after" value={"Curriculum After"}>
               After Change
             </MenuItem>
-            {curriculums.map((curriculum, index) => (
+            {curriculums.allIds.map((curriculum, index) => (
               <MenuItem key={`curriculum-b-${index + 1}`} value={String(index)}>
                 Curriculum {index + 1}
               </MenuItem>
@@ -247,11 +247,11 @@ const CurriculumCompare: FC<CurriculumCompareProps> = ({ width, height }) => {
           </ReactFlow>
         </ReactFlowProvider>
       </Box>
-      <CurriculumCompareUploadModal
+      {/* <CurriculumCompareUploadModal
         isOpen={modalUploadOpen}
         onConfirm={handleGetJsonFile}
         onClose={() => setModalUploadOpen(false)}
-      />
+      /> */}
     </Box>
   );
 };

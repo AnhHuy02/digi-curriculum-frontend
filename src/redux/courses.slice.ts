@@ -27,11 +27,7 @@ interface ICoursesState {
   // Don't be confused with DEPARTMENT store which also has many majors
   // This is only used for add courses feature in Curriculum Dnd
   majors: ArrayNormalizer<IMajor>;
-  // majors: Record<string, IMajor>;
-  // majorIds: string[];
   courses: ArrayNormalizer<ICourse>;
-  // courses: Record<string, ICourse>;
-  // courseIds: string[];
   courseDetail: ICourseItemDetail | null;
   pageLoading: boolean;
   selectedCourseIdsPlaceholder: string[];
@@ -53,14 +49,10 @@ const initialState: ICoursesState = {
     allIds: [],
     byId: {},
   },
-  // majors: {},
-  // majorIds: [],
   courses: {
     allIds: [],
     byId: {},
   },
-  // courses: {},
-  // courseIds: [],
   courseDetail: null,
   pageLoading: false,
   selectedCourseIdsPlaceholder: [],
@@ -79,12 +71,15 @@ const initialState: ICoursesState = {
 //#endregion
 
 //#region SLICE
-export const coursesSlice = createSlice({
+export const CoursesSlice = createSlice({
   name: "curriculums",
   initialState: initialState,
   reducers: {
     setCourses: (state, action: PayloadAction<ArrayNormalizer<ICourse>>) => {
       state.courses = action.payload;
+    },
+    setMajors: (state, action: PayloadAction<ArrayNormalizer<IMajor>>) => {
+      state.majors = action.payload;
     },
     setPageLoading: (state, action: PayloadAction<boolean>) => {
       state.pageLoading = action.payload;
@@ -411,20 +406,26 @@ export const loadAllRandomCourses = createAsyncThunk(
 
 export const {
   setPageLoading,
+  setMajors,
   setCourses,
+
   setModalAddCourseRelationship,
   setModeEditCourseRelationship,
+
   addCourses,
-  selectCourse,
-  removeSelectedCourse,
-  selectCourses,
-  removeSelectedCourses,
   addCourseRelationship,
+  selectCourse,
+  selectCourses,
+
+  removeSelectedCourse,
+  removeSelectedCourses,
+
   removeCourseRelationship,
+
   resetState,
-} = coursesSlice.actions;
+} = CoursesSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type
 // export const selectCount = (state: RootState) => state.counter.value;
 
-export default coursesSlice.reducer;
+export default CoursesSlice.reducer;

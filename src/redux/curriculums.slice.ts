@@ -1,7 +1,8 @@
 import type { PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "./_store";
+import type { ArrayNormalizer } from "src/types/Normalizer.type";
 import type {
-  ICurriculumItem,
+  ICurriculum,
   ICurriculumItemDetail,
   IRandomCurriculumDetailParam,
   ICurriculumItemYear,
@@ -23,11 +24,14 @@ import {
 
 //#region STATE
 interface ICurriculumState {
-  curriculums: ICurriculumItem[];
+  curriculums: ArrayNormalizer<ICurriculum>;
   curriculumDetail: ICurriculumItemDetail;
   dndViewMode: CurriculumDndType;
   diagramViewMode: CurriculumDiagramType;
   pageLoading: boolean;
+  modalRandomCurriculums: {
+    isOpen: boolean;
+  };
   modalAddCourse: {
     isOpen: boolean;
     yearId: string | null;
@@ -49,7 +53,10 @@ interface ICurriculumState {
 }
 
 const initialState: ICurriculumState = {
-  curriculums: [],
+  curriculums: {
+    allIds: [],
+    byId: {},
+  },
   curriculumDetail: {
     id: "curriculum-new-id",
     mode: Mode.CREATE,
@@ -64,6 +71,9 @@ const initialState: ICurriculumState = {
   dndViewMode: CurriculumDndType.DND_BY_COURSE_RELATIONSHIP,
   diagramViewMode: CurriculumDiagramType.NONE,
   pageLoading: false,
+  modalRandomCurriculums: {
+    isOpen: false,
+  },
   modalAddCourse: {
     isOpen: false,
     yearId: null,
@@ -86,11 +96,14 @@ const initialState: ICurriculumState = {
 //#endregion
 
 //#region SLICE
-export const curriculumSlice = createSlice({
+export const CurriculumSlice = createSlice({
   name: "curriculums",
   initialState: initialState,
   reducers: {
-    setCurriculums: (state, action: PayloadAction<ICurriculumItem[]>) => {
+    setCurriculums: (
+      state,
+      action: PayloadAction<ArrayNormalizer<ICurriculum>>
+    ) => {
       state.curriculums = action.payload;
     },
     setCurriculumDetail: (
@@ -116,6 +129,15 @@ export const curriculumSlice = createSlice({
     },
     setCurriculumDetailLoading: (state, action: PayloadAction<boolean>) => {
       state.curriculumDetail.loading = action.payload;
+    },
+    setModalRandomCurriculums: (
+      state,
+      action: PayloadAction<{ isOpen?: boolean }>
+    ) => {
+      state.modalRandomCurriculums = {
+        ...state.modalRandomCurriculums,
+        ...action.payload,
+      };
     },
     setModalAddCourse: (
       state,
@@ -354,15 +376,7 @@ export const curriculumSlice = createSlice({
 
     builder.addCase(loadRandomCurriculums.fulfilled, (state, action) => {
       const curriculums = action.payload;
-      state.curriculums = curriculums.map((curriculum, index) => ({
-        id: `curriculum-${index}`,
-        year: 2022,
-        semCountPerYear: 3,
-        years: {
-          allIds: curriculum.allIds,
-          byId: curriculum.byId,
-        },
-      }));
+      state.curriculums = curriculums;
     });
   },
 });
@@ -408,34 +422,40 @@ export const loadRandomCurriculumDetail = createAsyncThunk(
     }
   }
 );
-
 //#endregion
 
 export const {
   setCurriculums,
   setCurriculumDetail,
+
   setDragAndDropViewMode,
   setDiagramViewMode,
   setPageLoading,
   setCurriculumDetailLoading,
+
+  setModalRandomCurriculums,
   setModalAddCourse,
   setModalCourseDetail,
   setModalPreviewCurriculumDetail,
   setModalManageYears,
   setShowCourseRelationship,
+
   addCurriculumDetailYear,
   addCurriculumDetailCourse,
   addCurriculumDetailCourses,
+
   moveCurriculumDetailYearsOrder,
   moveCurriculumDetailCourse,
+
   removeCurriculumDetailYear,
   removeCurriculumDetailCourse,
   removeCurriculumDetailCourses,
+
   resetState,
-} = curriculumSlice.actions;
+} = CurriculumSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type
 export const diagramViewMode = (state: RootState) =>
   state.curriculums.diagramViewMode;
 
-export default curriculumSlice.reducer;
+export default CurriculumSlice.reducer;

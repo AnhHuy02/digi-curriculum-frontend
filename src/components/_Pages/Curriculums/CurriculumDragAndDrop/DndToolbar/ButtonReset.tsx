@@ -1,7 +1,7 @@
 import Button from "@mui/material/Button";
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 
-const ResetButton = () => {
+const ButtonReset = () => {
   return (
     <>
       <Button
@@ -16,4 +16,4 @@ const ResetButton = () => {
   );
 };
 
-export default ResetButton;
+export default ButtonReset;

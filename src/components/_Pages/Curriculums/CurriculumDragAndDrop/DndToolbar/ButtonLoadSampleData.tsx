@@ -1,25 +1,27 @@
+import type { FC } from "react";
+import type { ButtonProps } from "@mui/material/Button";
+
 import { grey } from "@mui/material/colors";
 import Button from "@mui/material/Button";
-import ShuffleIcon from "@mui/icons-material/Shuffle";
+import TaskOutlinedIcon from "@mui/icons-material/TaskOutlined";
 
 import { useAppDispatch } from "src/hooks/useStore";
 
-import { loadRandomCoursesAndCurriculums } from "src/redux/_thunks/coursesCurriculums.thunk";
-import { setModalRandomCurriculums } from "src/redux/curriculums.slice";
+import { loadSampleCoursesAndCurriculums } from "src/redux/_thunks/coursesCurriculums.thunk";
 
-const RandomButton = () => {
+const ButtonLoadSampleData: FC<ButtonProps> = (props) => {
   const dispatch = useAppDispatch();
 
   const handleClick = () => {
-    // dispatch(loadRandomCoursesAndCurriculums());
-    dispatch(setModalRandomCurriculums({ isOpen: true }));
+    dispatch(loadSampleCoursesAndCurriculums());
   };
 
   return (
     <>
       <Button
-        size="small"
-        variant="outlined"
+        {...props}
+        size={props.size || "small"}
+        variant={props.variant || "outlined"}
         sx={(theme) => ({
           borderColor: grey["A200"],
           bgcolor: grey["A200"],
@@ -31,13 +33,13 @@ const RandomButton = () => {
           },
         })}
         aria-haspopup="true"
-        startIcon={<ShuffleIcon />}
+        startIcon={<TaskOutlinedIcon />}
         onClick={handleClick}
       >
-        Random Data
+        Load Sample Data
       </Button>
     </>
   );
 };
 
-export default RandomButton;
+export default ButtonLoadSampleData;

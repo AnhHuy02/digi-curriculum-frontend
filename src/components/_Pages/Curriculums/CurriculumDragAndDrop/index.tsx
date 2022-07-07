@@ -3,6 +3,7 @@ import { ReflexContainer, ReflexElement } from "react-reflex";
 
 import DndToolbar from "./DndToolbar";
 import DndPane from "./DndPane";
+import ModalRandomCurriculums from "./CustomModals/ModalRandomCurriculums";
 import ModalAddCourse from "./CustomModals/ModalAddCourse";
 import ModalCourseDetail from "./CustomModals/ModalCourseDetail";
 import ModalPreviewCurriculumDetail from "./CustomModals/ModalPreviewCurriculumDetail";
@@ -21,6 +22,7 @@ const CurriculumDragAndDrop = () => {
       <ReflexContainer orientation="vertical">
         <ReflexElement className="left-pane" minSize={300}>
           <DndPane />
+          <ModalRandomCurriculums />
           <ModalAddCourse />
           <ModalCourseDetail />
           <ModalPreviewCurriculumDetail />

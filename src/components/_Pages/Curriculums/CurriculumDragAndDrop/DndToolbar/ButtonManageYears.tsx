@@ -5,7 +5,7 @@ import Button from "@mui/material/Button";
 import { useAppDispatch } from "src/hooks/useStore";
 import { setModalManageYears } from "src/redux/curriculums.slice";
 
-const ManageYearsButton = () => {
+const ButtonManageYears = () => {
   const dispatch = useAppDispatch();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
@@ -40,4 +40,4 @@ const ManageYearsButton = () => {
   );
 };
 
-export default ManageYearsButton;
+export default ButtonManageYears;

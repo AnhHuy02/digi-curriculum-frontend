@@ -1,7 +1,7 @@
 import Button from "@mui/material/Button";
 import SaveIcon from "@mui/icons-material/Save";
 
-const SaveButton = () => {
+const ButtonSave = () => {
   return (
     <>
       <Button
@@ -16,4 +16,4 @@ const SaveButton = () => {
   );
 };
 
-export default SaveButton;
+export default ButtonSave;
