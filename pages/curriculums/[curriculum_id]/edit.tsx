@@ -8,8 +8,11 @@ import { useEffect } from "react";
 
 import CurriculumDndLayout from "src/components/_Layout/CurriculumDndLayout";
 import CurriculumDragAndDrop from "src/components/_Pages/Curriculums/CurriculumDragAndDrop";
-import { loadSampleCoursesAndCurriculums } from "src/redux/_thunks/coursesCurriculums.thunk";
-import { useAppDispatch } from "src/hooks/useStore";
+import {
+  loadRandomCoursesAndCurriculums,
+  loadSampleCoursesAndCurriculums,
+} from "src/redux/_thunks/coursesCurriculums.thunk";
+import { useAppDispatch, useAppSelector } from "src/hooks/useStore";
 import { addCourses, selectCourses } from "src/redux/courses.slice";
 import { setCurriculumDetail } from "src/redux/curriculums.slice";
 import {
@@ -20,10 +23,96 @@ import { Mode } from "src/constants/mode.const";
 
 export const CurriculumEditPage = (props: any) => {
   const dispatch = useAppDispatch();
+  const mockDataMode = useAppSelector(
+    (store) => store.curriculums.mockDataMode
+  );
+  const curriculum_id: string = props.curriculum_id;
 
   useEffect(() => {
     initialize();
   }, []);
+
+  const loadSampleData = () => {
+    dispatch(loadSampleCoursesAndCurriculums()).then((action) => {
+      const { majors, courses, curriculums } = action.payload as {
+        majors: ArrayNormalizer<IMajor>;
+        courses: ArrayNormalizer<ICourse>;
+        curriculums: ArrayNormalizer<ICurriculum>;
+      };
+
+      setupCurriculumDetail({ majors, courses, curriculums });
+    });
+  };
+
+  const loadRandomData = () => {
+    dispatch(loadRandomCoursesAndCurriculums()).then((action) => {
+      const { majors, courses, curriculums } = action.payload as {
+        majors: ArrayNormalizer<IMajor>;
+        courses: ArrayNormalizer<ICourse>;
+        curriculums: ArrayNormalizer<ICurriculum>;
+      };
+
+      setupCurriculumDetail({ majors, courses, curriculums });
+    });
+  };
+
+  const setupCurriculumDetail = ({
+    majors,
+    courses,
+    curriculums,
+  }: {
+    majors: ArrayNormalizer<IMajor>;
+    courses: ArrayNormalizer<ICourse>;
+    curriculums: ArrayNormalizer<ICurriculum>;
+  }) => {
+    const curriculumExist = curriculums.allIds.some(
+      (curriculumId) => curriculumId === (curriculum_id as string)
+    );
+
+    if (curriculumExist) {
+      const curriculum = curriculums.byId[curriculum_id as string];
+      dispatch(
+        setCurriculumDetail({
+          id: curriculum.id,
+          loading: false,
+          mode: Mode.EDIT,
+          semCountPerYear: 3,
+          year: curriculum.year,
+          name: curriculum.name,
+          major: curriculum.major,
+          programType: curriculum.programType,
+          englishLevel: curriculum.englishLevel,
+          years: curriculum.years,
+        })
+      );
+
+      const curriculumCourseIds: string[] = curriculum.years.allIds.reduce(
+        (yearCourseIds: string[], yearId) => {
+          const year = curriculum.years.byId[yearId as string];
+
+          const semesterCourseIdsTemp = year.semesters.allIds.reduce(
+            (semesterCourseIds: string[], semesterId) => {
+              const semester = year.semesters.byId[semesterId];
+
+              return [...semesterCourseIds, ...semester.courseIds];
+            },
+            []
+          );
+
+          return [...yearCourseIds, ...semesterCourseIdsTemp];
+        },
+        []
+      );
+
+      dispatch(selectCourses([...curriculumCourseIds]));
+      dispatch(addCourses());
+      dispatch(setupDefaultCurriculum());
+      dispatch(setupDefaultCourses());
+    } else {
+      console.warn("Item not found");
+      console.error("Item not found");
+    }
+  };
 
   const initialize = async () => {
     const { curriculum_id } = props;
@@ -32,65 +121,11 @@ export const CurriculumEditPage = (props: any) => {
       console.warn("Item not found");
       console.error("Item not found");
     } else {
-      dispatch(loadSampleCoursesAndCurriculums()).then((action) => {
-        const { majors, courses, curriculums } = action.payload as {
-          majors: ArrayNormalizer<IMajor>;
-          courses: ArrayNormalizer<ICourse>;
-          curriculums: ArrayNormalizer<ICurriculum>;
-        };
-
-        // console.log(action.payload);
-        // console.log("curriculum_id", curriculum_id);
-
-        const curriculumExist = curriculums.allIds.some(
-          (curriculumId) => curriculumId === (curriculum_id as string)
-        );
-
-        if (curriculumExist) {
-          const curriculum = curriculums.byId[curriculum_id as string];
-          dispatch(
-            setCurriculumDetail({
-              id: curriculum.id,
-              loading: false,
-              mode: Mode.EDIT,
-              semCountPerYear: 3,
-              year: curriculum.year,
-              name: curriculum.name,
-              major: curriculum.major,
-              programType: curriculum.programType,
-              englishLevel: curriculum.englishLevel,
-              years: curriculum.years,
-            })
-          );
-
-          const curriculumCourseIds: string[] = curriculum.years.allIds.reduce(
-            (yearCourseIds: string[], yearId) => {
-              const year = curriculum.years.byId[yearId as string];
-
-              const semesterCourseIdsTemp = year.semesters.allIds.reduce(
-                (semesterCourseIds: string[], semesterId) => {
-                  const semester = year.semesters.byId[semesterId];
-
-                  return [...semesterCourseIds, ...semester.courseIds];
-                },
-                []
-              );
-
-              return [...yearCourseIds, ...semesterCourseIdsTemp];
-            },
-            []
-          );
-
-          dispatch(selectCourses([...curriculumCourseIds]));
-          dispatch(addCourses());
-          dispatch(setupDefaultCurriculum());
-          dispatch(setupDefaultCourses());
-        } else {
-          console.warn("Item not found");
-          console.error("Item not found");
-        }
-        // action.payload;
-      });
+      if (mockDataMode === "SAMPLE") {
+        loadSampleData();
+      } else if (mockDataMode === "RANDOM") {
+        loadRandomData();
+      }
     }
   };
 

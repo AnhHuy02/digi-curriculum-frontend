@@ -1,5 +1,6 @@
 import type { IRange } from "./Others.type";
 import type { PayloadHistoryAction } from "./ChangeHistory.type";
+import type { IMajor } from "./Department.type";
 import type { ICourse } from "./Course.type";
 import type { ArrayNormalizer } from "./Normalizer.type";
 
@@ -18,9 +19,6 @@ export interface ICurriculum {
   semCountPerYear: number;
 
   years: ArrayNormalizer<ICurriculumItemYear>;
-
-  allElectiveGroups?: Record<string, IElectiveGroupItem>;
-  allElectiveGroupIds?: string[];
 }
 
 export interface ICurriculumItemYear {
@@ -33,11 +31,6 @@ export interface ICurriculumItemSemester {
   courseIds: string[];
   creditCount: number;
   creditLimit: number;
-}
-
-export interface IElectiveGroupItem {
-  electiveGroupIds: string[];
-  courseIds: string[];
 }
 
 export type CurriculumDetailHistoryAction =
@@ -125,18 +118,10 @@ export interface ICurriculumItemDetail extends ICurriculum {
   loading: boolean;
 }
 
-interface IElectiveGroup {
-  electiveId: string[];
-  courseIds: string[];
-}
-
 export interface IRandomCurriculumDetailParam {
-  allCourses: Record<string, ICourse>;
-  allCourseIds: string[];
+  majors: ArrayNormalizer<IMajor>;
+  courses: ArrayNormalizer<ICourse>;
   randomYearCount?: IRange;
   semesterPerYearCount?: number;
-  courseCountPerSemester?: IRange;
   randomCreditCountPerSemester?: IRange;
-  electiveGroups?: Record<string, IElectiveGroup>;
-  electiveGroupIds?: string[];
 }

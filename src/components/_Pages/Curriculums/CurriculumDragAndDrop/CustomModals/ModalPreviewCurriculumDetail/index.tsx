@@ -17,7 +17,6 @@ import { useAppDispatch, useAppSelector } from "src/hooks/useStore";
 import { setModalPreviewCurriculumDetail } from "src/redux/curriculums.slice";
 import { getDotDiagramString } from "src/helper/diagramGenerator/dotDiagram";
 import CurriculumCompare from "./CurriculumCompare";
-// import CurriculumSideBySideDiff from "./CurriculumSideBySideDiff";
 import CurriculumChangeLog from "./CurriculumChangeLog";
 import DotDiagramPreview from "src/components/_Shared/DotDiagramPreview";
 import TabPanel from "src/components/_Shared/TabPanel";
@@ -121,9 +120,6 @@ const ModalAddCourseRelationship = () => {
         <TabPanel value={tabIndex} index={1}>
           <CurriculumCompare width={width - 24 * 2} height={height} />
         </TabPanel>
-        {/* <TabPanel value={tabIndex} index={2}>
-          <CurriculumSideBySideDiff width={width - 24 * 2} height={height} />
-        </TabPanel> */}
         <TabPanel value={tabIndex} index={2}>
           <CurriculumChangeLog />
         </TabPanel>

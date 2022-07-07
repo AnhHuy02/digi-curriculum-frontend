@@ -4,8 +4,6 @@ import Divider from "@mui/material/Divider";
 
 import ViewButton from "./ButtonView";
 import ButtonSave from "./ButtonSave";
-import RandomButton from "./ButtonRandom";
-import ButtonLoadSampleData from "./ButtonLoadSampleData";
 import ButtonReset from "./ButtonReset";
 import ButtonAddYear from "./ButtonAddYear";
 import ButtonPreview from "./ButtonPreview";
@@ -31,8 +29,6 @@ const DndToolbar = () => {
       }}
     >
       <Box className="toolbar--left" flexGrow={0}></Box>
-      {/* <RandomButton />
-      <ButtonLoadSampleData /> */}
       <ViewButton />
 
       {dndViewMode === CurriculumDndType.DND_BY_COURSE_RELATIONSHIP && (

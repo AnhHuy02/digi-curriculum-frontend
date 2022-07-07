@@ -1,3 +1,4 @@
+import type { IMajor } from "./Department.type";
 import type { IRange } from "./Others.type";
 import type { ArrayNormalizer } from "./Normalizer.type";
 
@@ -36,7 +37,7 @@ export interface ICourseItemDetail {
 }
 
 export interface IRandomCoursesParam {
-  allMajorIds: string[];
+  majors: ArrayNormalizer<IMajor>;
   randomCourseCount?: IRange;
   nameLength?: IRange;
   creditCount?: {
