@@ -74,7 +74,7 @@ interface IViewDiagramMenuItem {
   title: string;
 }
 
-const ExportButton = () => {
+const ButtonView = () => {
   const dispatch = useAppDispatch();
   const diagramViewMode = useAppSelector(
     (store) => store.curriculums.diagramViewMode
@@ -201,4 +201,4 @@ const ExportButton = () => {
   );
 };
 
-export default ExportButton;
+export default ButtonView;

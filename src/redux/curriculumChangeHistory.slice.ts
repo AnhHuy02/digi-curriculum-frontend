@@ -23,9 +23,6 @@ import {
   selectCourse,
 } from "./courses.slice";
 import {
-  // undo,
-  // redo,
-  // addChangeToHistory,
   addCurriculumDetailCourses,
   addCurriculumDetailYear,
   removeCurriculumDetailCourse,
@@ -65,7 +62,7 @@ const initialState: ICurriculumChangeTracker = {
 //#endregion
 
 //#region SLICE
-export const curriculumChangeHistorySlice = createSlice({
+export const CurriculumChangeHistorySlice = createSlice({
   name: "curriculumChangeHistory",
   initialState: initialState,
   reducers: {
@@ -81,16 +78,6 @@ export const curriculumChangeHistorySlice = createSlice({
     ) => {
       state.curriculumBefore = action.payload;
     },
-    // setCommandDescription: (
-    //   state,
-    //   action: PayloadAction<{ index: number; description: string }>
-    // ) => {
-    //   const { index, description } = action.payload;
-
-    //   if (state.changeHistory.commandLogs.length > 0) {
-    //     state.changeHistory.commandLogs[index].description = description;
-    //   }
-    // },
     addChangeToHistory: (
       state,
       action: PayloadAction<CurriculumDetailHistoryAction>
@@ -391,13 +378,7 @@ export const setupDefaultCurriculum = createAsyncThunk(
   "curriculumChangeHistory/setupDefaultCurriculum",
   (_payload: undefined, thunkAPI) => {
     const { dispatch, getState } = thunkAPI;
-
     const { years } = (getState() as RootState).curriculums.curriculumDetail;
-
-    // const yearsByIdTemp = Object.fromEntries(
-    //   // Return object with [key]: value
-    //   years.allIds.map((yearId) => [yearId, years.byId[yearId]])
-    // );
 
     dispatch(setCurriculumBefore(years));
   }
@@ -412,7 +393,7 @@ const {
   setCoursesBefore,
   setCurriculumBefore,
   resetState,
-} = curriculumChangeHistorySlice.actions;
+} = CurriculumChangeHistorySlice.actions;
 
 // PUBLIC ACTIONS
 export {
@@ -424,4 +405,4 @@ export {
   resetState,
 };
 
-export default curriculumChangeHistorySlice.reducer;
+export default CurriculumChangeHistorySlice.reducer;

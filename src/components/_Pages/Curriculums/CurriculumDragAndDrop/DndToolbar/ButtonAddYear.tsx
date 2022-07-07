@@ -7,7 +7,7 @@ import { useAppDispatch } from "src/hooks/useStore";
 import { CurriculumCommandType } from "src/constants/curriculum.const";
 import { commitChangeToHistory } from "src/redux/curriculumChangeHistory.slice";
 
-const AddYearButton = () => {
+const ButtonAddYear = () => {
   const dispatch = useAppDispatch();
 
   const handleClick = () => {
@@ -44,4 +44,4 @@ const AddYearButton = () => {
   );
 };
 
-export default AddYearButton;
+export default ButtonAddYear;
