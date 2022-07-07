@@ -11,7 +11,7 @@ const Header = () => {
       <Toolbar variant="dense">
         <Typography variant="h6" noWrap component="div" flexGrow={1}>
           <Link href="/" underline="none" color="white">
-            Interactive Syllabus
+            Digital Curriculum
           </Link>
         </Typography>
         <Button color="inherit">Login</Button>
