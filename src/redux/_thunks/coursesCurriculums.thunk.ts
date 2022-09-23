@@ -399,9 +399,9 @@ export const loadSampleCoursesAndCurriculums = createAsyncThunk<
     // #endregion
 
     // #region Step 6: Combine all mapped results data to dispatch
-    // console.log("CSV FILE - MARJOS", majorsTemp);
-    // console.log("CSV FILE - COURSES", coursesTemp);
-    // console.log("CSV FILE - CURRICULUMS", curriculumsTemp);
+    console.log("CSV FILE - MARJOS", majorsTemp);
+    console.log("CSV FILE - COURSES", coursesTemp);
+    console.log("CSV FILE - CURRICULUMS", curriculumsTemp);
 
     await dispatch(setMajors(majorsTemp));
     await dispatch(setCourses(coursesTemp));
